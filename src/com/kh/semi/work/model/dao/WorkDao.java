@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.kh.semi.work.model.vo.PageInfo;
 import com.kh.semi.work.model.vo.PicFile;
 import com.kh.semi.work.model.vo.Work;
+import com.kh.semi.work.model.vo.WorkPic;
 
 public class WorkDao {
 	private Properties prop = new Properties();
@@ -45,8 +46,9 @@ public class WorkDao {
 			pstmt.setString(1, work.getworkName());
 			pstmt.setString(2, work.getWorkContent());
 			pstmt.setInt(3, work.getDeliPrice());
-			pstmt.setInt(4, work.getPrice());
-			pstmt.setInt(5, work.getCid());
+			pstmt.setInt(4, work.getMemberId());
+			pstmt.setInt(5, work.getPrice());
+			pstmt.setInt(6, work.getCid());
 			
 			result = pstmt.executeUpdate();
 			
@@ -127,19 +129,24 @@ public class WorkDao {
 		return listCount;
 	}
 
-	public int insertPicFile(Connection con, ArrayList<PicFile> picFile) {
+	public int insertPicFile(Connection con, ArrayList<WorkPic> workPic) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		String query = prop.getProperty("insertPicFile");
 		
 		try {
-			for(int i = 0; i < picFile.size(); i++) {
+			for(int i = 0; i < workPic.size(); i++) {
 				pstmt = con.prepareStatement(query);
-				pstmt.setString(1, picFile.get(i).getOriginName());
-				pstmt.setString(2, picFile.get(i).getChangeName());
-				pstmt.setString(3, picFile.get(i).getFilePath());
-				pstmt.setInt(4, picFile.get(i).getBno());
+				pstmt.setString(1, workPic.get(i).getoriginName());
+				pstmt.setString(2, workPic.get(i).getchangeName());
+				pstmt.setString(3, workPic.get(i).getfilePath());
+				
+				int type = 0;
+				if(i == 0) type = 0;
+				else type = 1;
+				
+				pstmt.setInt(4, type);
 				
 				result += pstmt.executeUpdate();
 			}
@@ -172,8 +179,108 @@ public class WorkDao {
 		} finally {
 			close(pstmt);
 		}
-		System.out.println("이미지 dao : " +result);
 		return result;
+	}
+
+	public int selectCurrval(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int workId = 0;
+		
+		String query = prop.getProperty("selectCurrval");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				workId = rset.getInt("currval");
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return workId;
+	}
+
+	public ArrayList<Work> selectSalesDate(Connection con, String wrDate1, String wrDate2) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Work> list = null;
+		
+		String query = prop.getProperty("selectSalesDate");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, wrDate1);
+			pstmt.setString(2, wrDate2);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Work>();
+			
+			System.out.println(rset.next());
+			while(rset.next()) {
+				Work work = new Work();
+				
+				work.setWorkId(rset.getInt("WORK_ID"));
+				work.setworkName(rset.getString("WORK_NAME"));
+				work.setPrice(rset.getInt("PRICE"));
+				work.setWrDate(rset.getDate("WR_DATE"));
+
+				list.add(work);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<Work> selectWorkName(Connection con, String workName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Work> list = null;
+		String name = "%" + workName + "%";
+		
+		
+		String query = prop.getProperty("selectWorkName");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, name);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Work>();
+			
+			while(rset.next()) {
+				Work work = new Work();
+				
+				work.setWorkId(rset.getInt("WORK_ID"));
+				work.setworkName(rset.getString("WORK_NAME"));
+				work.setPrice(rset.getInt("PRICE"));
+				work.setWrDate(rset.getDate("WR_DATE"));
+
+				list.add(work);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 	
 
