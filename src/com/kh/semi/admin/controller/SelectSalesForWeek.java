@@ -22,9 +22,7 @@ import com.kh.semi.admin.model.service.adminService;
 public class SelectSalesForWeek extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+   
     public SelectSalesForWeek() {
         super();
         // TODO Auto-generated constructor stub
