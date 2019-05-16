@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.author.model.service.AuthorService;
 import com.kh.semi.author.model.vo.Author;
 import com.kh.semi.member.model.vo.Member;
 
@@ -33,8 +34,6 @@ public class InsertAuthorServlet extends HttpServlet {
 		//파라미터 값 가져오기
 		Member loginUser = (Member) request.getSession().getAttribute("loginUser");
 		int memberId = loginUser.getMemberId();
-		//String memberName = loginUser.getMemberName(); //작가 테이블 저장시 이름 필요 없음
-		//String email = loginUser.getEmail(); 작가 테이블 저장시 이메일 필요 없음
 		String brandName = request.getParameter("brandName");
 		String comments = request.getParameter("comments");
 		String selectPType = request.getParameter("selectPType");
@@ -48,6 +47,23 @@ public class InsertAuthorServlet extends HttpServlet {
 		author.setMemberId(memberId);
 		author.setBrandName(brandName);
 		author.setApplyContent(comments);
+		int resultAuthor = new AuthorService().insertAuthor(author);
+		if(resultAuthor > 0) { //저장에 성공 했을 때
+			//작가 유형 저장하기
+			System.out.println("작가 정보 저장 성공!");
+			int resultAuthorType = new AuthorService().insertAuthorType(memberId, selectPType);
+			if(resultAuthorType > 0) {
+				response.sendRedirect("views/application/application2.jsp");
+			} else {
+				request.setAttribute("msg", "작가 유형 정보 저장 실패!");
+				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			}
+		} else {
+			//에러 페이지로 보내기
+			request.setAttribute("msg", "작가 정보 저장 실패!");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			//System.out.println("작가 정보 저장 실패!");
+		}
 		
 		
 		

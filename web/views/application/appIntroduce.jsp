@@ -175,15 +175,16 @@
 	          </button>
 	        </div>
 	        <div class="col-sm-6 form-group">
-	        	<label class="form-control">브랜드 이미지
-	        		<input type="file" name="attachBrandFile" id="attachBrandFile" style="overflow:hidden;opacity: 0;">
-	        	</label>
+	        	<input type="text" value="브랜드 이미지 첨부" class="form-control" id="brandFileArea" readonly>
+	        	
+	        	<input type="file" name="attachBrandFile" onchange="uploadBrandImg(this);"
+	        		   id="attachBrandFile" style="overflow:hidden;opacity: 0;">
 	        </div>
 	      </div>
 	      <textarea class="form-control" id="comments" name="comments" placeholder="작가 페이지의 프로필에 사용됩니다. 소개글을 작성해 주세요." rows="5"></textarea><br>
-       	  <label class="form-control">1차 입점 서류
-       		  <input type="file" name="attachFile" id="attachFile" style="overflow:hidden;opacity: 0;">
-       	  </label>
+       	  <input type="text" value="1차 입점 서류 첨부" class="form-control" id="applyFileArea" readonly>
+       	  <input type="file" name="attachApplyFile" onchange="uploadApplyFile(this);"
+       	  	 	 id="attachApplyFile" style="overflow:hidden;opacity: 0;">
        	  <select class="form-control" id="selectPType" name="selectPType">
        	  	<option value="">공예 유형</option>
        	  	<% for(int i = 0; i < pTypeList.size(); i++) { %>
@@ -271,8 +272,37 @@
 			}
 		});
 		
+		$("#brandFileArea").click(function(){ //브랜드 이미지 파일 버튼 클릭
+   	  		console.log("브랜드 이미지 파일 버튼 클릭");
+   	  		$("#attachBrandFile").click();
+   	  	});
 		
+   	  	$("#applyFileArea").click(function(){ //1차 입점 서류 버튼 클릭
+   	  		console.log("1차 입점 서류 버튼 클릭");
+   	  		$("#attachApplyFile").click();
+   	  	});
+   	  	
 	});//end func
+	function uploadApplyFile(value){
+	  		if(value.files && value.files[0]){
+	  			var reader = new FileReader();
+	  			reader.onload = function(e) {
+	  				$("#applyFileArea").val($("#attachApplyFile").val());
+	  			}
+	  			reader.readAsDataURL(value.files[0]);
+	  		} //end if
+	  	}//end method
+	  	function uploadBrandImg(value) { //브랜드 이미지
+	  		if(value.files && value.files[0]) {
+	  			var reader = new FileReader();
+	  			reader.onload = function(e) {
+	  				$("#brandFileArea").val($("#attachBrandFile").val());
+	  				console.log(e);
+	  				console.log($("#attachBrandFile").val());
+	  			} //end func(e)
+	  			reader.readAsDataURL(value.files[0]);
+	  		} //end if
+	  	} //end func
 	</script>
 </body>
 </html>

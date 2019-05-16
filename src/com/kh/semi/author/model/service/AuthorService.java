@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.semi.author.model.dao.AuthorDao;
+import com.kh.semi.author.model.vo.Author;
 import com.kh.semi.author.model.vo.ProType;
 
 public class AuthorService {
@@ -24,6 +25,31 @@ public class AuthorService {
 		ArrayList<ProType> list = new AuthorDao().selectProTypeList(con);
 		close(con);
 		return list;
+	} //end method
+
+	//작가 정보 저장
+	public int insertAuthor(Author author) {
+		Connection con = getConnection();
+		int resultAuthor = new AuthorDao().insertAuthor(con, author);
+		if(resultAuthor > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return resultAuthor;
+	} //end method
+
+	public int insertAuthorType(int memberId, String selectPType) {
+		Connection con = getConnection();
+		int resultAuthorType = new AuthorDao().insertAuthorType(con, memberId, selectPType);
+		if(resultAuthorType > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return resultAuthorType;
 	} //end method
 
 } //end class
