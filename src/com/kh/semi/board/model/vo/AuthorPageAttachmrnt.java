@@ -8,7 +8,7 @@ public class AuthorPageAttachmrnt implements java.io.Serializable{
 	private String changeName;
 	private String filePath;
 	private String fileType; 
-	private int  apply_Code; 
+	private int  applyCode; 
 	private int  bno;
 	
 	
@@ -25,7 +25,7 @@ public class AuthorPageAttachmrnt implements java.io.Serializable{
 		this.changeName = changeName;
 		this.filePath = filePath;
 		this.fileType = fileType;
-		this.apply_Code = apply_Code;
+		this.applyCode = apply_Code;
 		this.bno = bno;
 	}
 
@@ -92,13 +92,13 @@ public class AuthorPageAttachmrnt implements java.io.Serializable{
 
 
 	public int getApply_Code() {
-		return apply_Code;
+		return applyCode;
 	}
 
 
 
 	public void setApply_Code(int apply_Code) {
-		this.apply_Code = apply_Code;
+		this.applyCode = apply_Code;
 	}
 
 
@@ -118,7 +118,7 @@ public class AuthorPageAttachmrnt implements java.io.Serializable{
 	@Override
 	public String toString() {
 		return "AuthorAttachmrnt [fileCode=" + fileCode + ", originName=" + originName + ", changeName=" + changeName
-				+ ", filePath=" + filePath + ", fileType=" + fileType + ", apply_Code=" + apply_Code + ", bno=" + bno
+				+ ", filePath=" + filePath + ", fileType=" + fileType + ", apply_Code=" + applyCode + ", bno=" + bno
 				+ "]";
 	}
 	

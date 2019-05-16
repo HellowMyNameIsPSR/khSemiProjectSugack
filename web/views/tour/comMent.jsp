@@ -49,7 +49,7 @@
 
 						<div class="row"
 							style="border: 1px solid black; width: 1100px; height: 200px;">
-
+                            
 							<div class="nick"
 								style="width: 100%; height: 50px; padding: 5px;">
 								<p>닉네임</p>
@@ -61,13 +61,13 @@
 							</div>
 							<div class="btn"
 								style="float: right; width: 120px; height: 100px; margin-left: 10px;">
-								<button style="width: 100px; height: 100px;">등록</button>
+								<button id="addReply" style="width: 100px; height: 100px;">등록</button>
 							</div>
 						</div>
 
 						<br>
 
-						<div class="row"
+						<!-- <div class="row"
 							style="border: 1px solid black; width: 1100px; height: 200px;">
 
 							<div class="nick"
@@ -83,11 +83,11 @@
 								style="float: right; width: 120px; height: 100px; margin-left: 10px;">
 
 							</div>
-						</div>
+						</div> -->
 
 
 						<br>
-						<div class="row"
+						<!-- <div class="row"
 							style="border: 1px solid black; width: 1100px; height: 200px;">
 
 							<div class="nick"
@@ -103,7 +103,7 @@
 								style="float: right; width: 120px; height: 100px; margin-left: 10px;">
 
 							</div>
-						</div>
+						</div> -->
 						<br>
 
 						<!-- <div class="order">
