@@ -1,9 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.board.model.vo.*,java.util.*,com.kh.semi.member.model.vo.*"%>
+    pageEncoding="UTF-8" import="com.kh.semi.board.model.vo.*,java.util.*,com.kh.semi.member.model.vo.*, com.kh.semi.board.model.vo.*"%>
     
 <%
 		ProQna qna =(ProQna) request.getAttribute("qna");
+		System.out.println("proQnaDetail : "+qna);
+		
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		
+		ArrayList<ProQnaComment> commentList = (ArrayList<ProQnaComment>)request.getAttribute("list");
+		System.out.println("commentList: "+commentList);
 %>
 
 <!DOCTYPE html>
@@ -98,7 +103,25 @@
 		</div>
 		
 		<div class="replySelectArea">
-			<table id="replySelectTable" border="1" align="center"></table>
+			<table id="replySelectTable" border="1" align="center">
+			
+			 <% for(int i = 0; i < commentList.size(); i++) {%> 
+				<!-- 이름 -->
+				<tr>
+					<td><%= commentList.get(i).getWriter() %></td>
+				</tr>
+				
+				<!-- 내용 -->
+				<tr>
+					<td><%=commentList.get(i).getContent() %></td>
+				</tr>
+				
+				<!-- 작성 날짜 -->
+				<tr>
+					<td><%=commentList.get(i).getWriteDate() %></td>
+				</tr>
+			<%} %> 
+			</table>
 		</div>
 		
 	</div>
@@ -118,20 +141,20 @@
 					success:function(data){
 						
 						
-						var s = "";
+						/* var s = "";
 						for(var i=1; i<500; i++){
 							s += data[i];
 						}
-						console.log(s);
+						console.log(s); */
 						//console.log("ajax까지 성공: "+data)
-						if(data == "good"){
-        					//location.reload();
+						if(data == "ok"){
+        					location.reload();
 							//self.close();
 							
 						}else if(data =="fail") {
         					alert("다시..");
         				}
-						var $replySelectTable = $("#replySelectTable");
+						/* var $replySelectTable = $("#replySelectTable");
 						$replySelectTable.html('');
 						
 						//console.log(data[key].writer);
@@ -151,7 +174,7 @@
 
 							
 							
-						}
+						} */
 					},
 					error:function(){
 						console.log("실패");

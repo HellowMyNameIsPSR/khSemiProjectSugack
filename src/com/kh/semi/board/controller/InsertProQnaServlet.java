@@ -37,12 +37,14 @@ public class InsertProQnaServlet extends HttpServlet {
 		String content = request.getParameter("content");
 		
 		int writer = ((Member)(request.getSession().getAttribute("loginUser"))).getMemberId();
+		//int bno = Integer.parseInt(request.getParameter("bno"));
 		
 		ProQna qna  = new ProQna();
 		qna.setcategory(category);
 		qna.setContent(content);
 		qna.setMid(writer);
-		System.out.println(qna);
+		//qna.setBno(bno);
+		System.out.println("InsertProQnaServlet에서" + qna);
 		
 		int result = new ProQnaService().insertProQna(qna);
 		
@@ -50,15 +52,17 @@ public class InsertProQnaServlet extends HttpServlet {
 		
 		if(result>0) {
 			
-			System.out.println("성공: "+result);
+			System.out.println("Q&A작성 성공!!!!: "+result);
+			//page = "views/product/productDetail.jsp";
+			//request.setAttribute("qna", qna);
+			response.sendRedirect("selectProQna.bo");
+			//page = "views/product/productDetail.jsp";
 			
-			response.sendRedirect("views/product/productDetail.jsp");
 			//request.getRequestDispatcher("views/product/productDetail.jsp").forward(request, response);
-			//RequestDispatcher dis = request.getRequestDispatcher("views/member/boardQna.jsp");
+			//RequestDispatcher dis = request.getRequestDispatcher("views/board/boardQna.jsp");
 			//dis.forward(request, response);
-			/*page = "views/memeber/boardQna.jsp";
-			request.setAttribute("qna", qna);
-			request.getRequestDispatcher(page).forward(request, response);*/
+			//request.setAttribute("qna", qna);
+			//request.getRequestDispatcher(page).forward(request, response);
 		}else {
 			System.out.println("실패: "+result);
 			request.setAttribute("msg", "문의 작성 실패!");
@@ -68,6 +72,8 @@ public class InsertProQnaServlet extends HttpServlet {
 			
 			
 		}
+		//request.getRequestDispatcher(page).forward(request, response);
+
 	}
 
 	/**

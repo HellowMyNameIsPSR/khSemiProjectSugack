@@ -32,6 +32,7 @@ public class InsertProQnaCommentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String content = request.getParameter("content");
 		int bno = Integer.parseInt(request.getParameter("num"));
 		System.out.println("bno: "+bno);
@@ -46,11 +47,16 @@ public class InsertProQnaCommentServlet extends HttpServlet {
 		System.out.println("InsertProQnaCommentServlet에서 객체 생성: "+comment);
 		int result = new ProQnaService().insertComment(comment);
 		
+		String page="";
+		
 		if(result>0) {
-			
-			ArrayList<ProQnaComment> list = new ProQnaService().selectCommentList(comment);
-			System.out.println("성공시: "+list);
+			response.getWriter().print("ok");
+			/*ArrayList<ProQnaComment> list = new ProQnaService().selectCommentList(bno);
+			System.out.println("InsertProQna 성공시: "+list);
 			response.getWriter().print(list);
+			
+			page = "views/board/proQnaDetail.jsp";
+			request.getRequestDispatcher(page).forward(request, response);*/
 			
 		}else {
 			response.getWriter().print("fail");

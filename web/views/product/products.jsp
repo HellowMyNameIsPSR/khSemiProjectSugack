@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="java.util.*"%>
     <%
     	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list"); 
+    	System.out.println("list : " + list);
     %>
 <!DOCTYPE html>
 <html>
@@ -99,15 +100,15 @@
    			
    			
    			<div class="mainImg" style="height:200px;">
-   				<input type="hidden" value=<%=hmap.get("bno") %>>
-   				<img src="/semi/uploadSalesImage/<%=hmap.get("changeName") %>" name="pic" style="width:100%; height:200px; align:center" >
+   				<input type="hidden" value=<%=hmap.get("workId") %>>
+   				<img src="uploadSalesImage/<%=hmap.get("changeName") %>" name="pic" style="width:100%; height:200px; align:center" class="thumbImg" >
    			</div>
    			
    			<div class="proName" style="height:40px;">
-   				<p name="name"style="text-align:center; font-size:15px; margin-top:5px;"><%=hmap.get("workName") %></p>
+   				<p name="titleName"style="text-align:center; font-size:15px; margin-top:5px;"><%=hmap.get("workName") %></p>
    			</div>
    			<div class="heart" style="padding:7px; height:50px; width:40px; float:left;" >
-   				<img src="../images/fullheart.png" name="heart" style="width:30px; height:30px;" onclick="heartyn();">
+   				<img src="views/images/fullheart.png" name="heart" style="width:30px; height:30px;" onclick="heartyn();">
    			</div>
    			<div class="heartprice" style="height:60px; margin-right:10px; margin-top:5px;">
    			<p name="price" style="float:right; font-size:20px;"><%=hmap.get("price") %></p>
@@ -172,7 +173,22 @@
 <script>
 	$(".mainImg").click(function(){
 		//해당 상세 페이지로 가기!
-		location.href="views/product/productDetail.jsp";
+	/*  location.href="views/product/productDetail.jsp";  */
+		<%-- <% HashMap<String, Object> hmap = null; %>
+		 
+		  
+		<% for(int i = 0; i < list.size(); i++){ 
+			 
+			hmap = list.get(i);
+         %>
+        
+		
+		
+		<%}%>   --%>
+		
+		 var workId = $(this).children().eq(0).val();
+		 location.href="<%=request.getContextPath()%>/selectProDetail.pro?workId="+ workId;
+		
 	});
 	
 	
