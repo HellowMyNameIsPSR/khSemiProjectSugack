@@ -3,11 +3,13 @@ package com.kh.semi.admin.model.dao;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.semi.admin.controller.QueryMake;
@@ -22,6 +24,20 @@ public class adminDao {
 	public adminDao() {
 		String fileName =  adminDao.class
 				.getResource("/sql/admin/admin-query.properties")
+				.getPath();
+		
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public adminDao(int num) {
+		String fileName =  adminDao.class
+				.getResource("/sql/admin/statistics-query.properties")
 				.getPath();
 		
 		try {
@@ -88,17 +104,253 @@ public class adminDao {
 		
 		return list;
 	}
-	public ArrayList<Integer> selectMemberForMonth(Connection con) {
-		Statement stmt = null;
+	public HashMap<String, ArrayList> selectMemberForMonth(Connection con, Date sDate, Date eDate, String choice) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Integer> list = null;
+		HashMap<String, ArrayList> hmap = null;
 		
 		String query = prop.getProperty("selectMemberForMonth");
 		
 		try {
-			stmt = con.createStatement();
+			pstmt = con.prepareStatement(query);
 			
-			rset = stmt.executeQuery(query);
+			rset = pstmt.executeQuery();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return hmap;
+	}
+
+	public ArrayList<Integer> selectForMonth(Connection con, Date sDate, Date eDate, String choice) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Integer> list = null;
+		String query = "";
+		if(choice == "sales") {
+			query = prop.getProperty("selectSalesForMonth");			
+		}else {
+			query = prop.getProperty("selectMemberForMonth");
+		}
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setDate(1, sDate);
+			pstmt.setDate(2, eDate);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Integer>();
+			while(rset.next()) {
+				list.add(rset.getInt(2));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public ArrayList<String> getMonth(Connection con, Date sDate, Date eDate, String choice) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<String> list = null;
+		String query = "";
+		if(choice == "sales") {
+			query = prop.getProperty("selectSalesForMonth");			
+		}else {
+			query = prop.getProperty("selectMemberForMonth");
+		}
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setDate(1, sDate);
+			pstmt.setDate(2, eDate);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<String>();
+			while(rset.next()) {
+				list.add(rset.getString(3));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Integer> selectSalesForWeek(Connection con, Date sDate, Date eDate) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Integer> list = null;
+		
+		String query = prop.getProperty("selectSalesForWeek");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setDate(1, sDate);
+			pstmt.setDate(2, eDate);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Integer>();
+			while(rset.next()) {
+				list.add(rset.getInt("SALES"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Integer> selectSalesForDay(Connection con, Date sDate, Date eDate) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Integer> list = null;
+		
+		String query = prop.getProperty("selectSalesForDay");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setDate(1, sDate);
+			pstmt.setDate(2, eDate);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Integer>();
+			while(rset.next()) {
+				list.add(rset.getInt("SALES"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<String> getDay(Connection con, Date sDate, Date eDate, String choice) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<String> list2 = null;
+		String query = "";
+		
+		if(choice == "sales") {
+			query = prop.getProperty("selectSalesForDay");
+		}else {
+			query = prop.getProperty("selectMaleDay");
+		}
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setDate(1, sDate);
+			pstmt.setDate(2, eDate);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			list2 = new ArrayList<String>();
+			while(rset.next()) {
+				list2.add(rset.getString("DAY"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list2;
+	}
+
+	public ArrayList<String> getWeek(Connection con, Date sDate, Date eDate, String choice) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<String> list2 = null;
+		String query = "";
+		
+		if(choice == "sales") {
+			query = prop.getProperty("selectSalesForWeek");
+		}else {
+			query = prop.getProperty("selectMaleWeek");
+		}
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setDate(1, sDate);
+			pstmt.setDate(2, eDate);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			list2 = new ArrayList<String>();
+			while(rset.next()) {
+				list2.add(rset.getString("WEEK"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list2;
+	}
+
+	public ArrayList<Integer> selectMale(Connection con, Date sDate, Date eDate, String date) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Integer> list = null;
+		String query = "";
+		
+		if(date.equals("month")) {
+			query = prop.getProperty("selectMale");
+		}else if(date.equals("week")) {
+			query = prop.getProperty("selectMaleWeek");
+		}else {
+			query = prop.getProperty("selectMaleDay");
+		}
+		
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setDate(1, sDate);
+			pstmt.setDate(2, eDate);
+			
+			
+			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<Integer>();
 			while(rset.next()) {
@@ -110,28 +362,37 @@ public class adminDao {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
-		
 		
 		return list;
 	}
 
-	public ArrayList<Integer> selectSalesForMonth(Connection con) {
-		Statement stmt = null;
+	public ArrayList<Integer> selectFemale(Connection con, Date sDate, Date eDate, String date) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Integer> list = null;
+		String query = "";
 		
-		String query = prop.getProperty("selectSalesForMonth");
+		if(date.equals("month")) {
+			query = prop.getProperty("selectFemale");
+		}else if(date.equals("week")) {
+			query = prop.getProperty("selectFemaleWeek");
+		}else {
+			query = prop.getProperty("selectFemaleDay");
+		}
 		
 		try {
-			stmt = con.createStatement();
+			pstmt = con.prepareStatement(query);
+			pstmt.setDate(1, sDate);
+			pstmt.setDate(2, eDate);
 			
-			rset = stmt.executeQuery(query);
+			
+			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<Integer>();
 			while(rset.next()) {
-				list.add(rset.getInt("SALES"));
+				list.add(rset.getInt("COUNT"));
 			}
 			
 		} catch (SQLException e) {
@@ -139,67 +400,12 @@ public class adminDao {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
-		
 		return list;
 	}
 
-	public ArrayList<Integer> selectSalesForWeek(Connection con) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		ArrayList<Integer> list = null;
-		
-		String query = prop.getProperty("selectSalesForWeek");
-		
-		try {
-			stmt = con.createStatement();
-			
-			rset = stmt.executeQuery(query);
-			
-			list = new ArrayList<Integer>();
-			while(rset.next()) {
-				list.add(rset.getInt("SALES"));
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(stmt);
-		}
-		
-		return list;
-	}
-
-	public ArrayList<Integer> selectSalesForDay(Connection con) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		ArrayList<Integer> list = null;
-		
-		String query = prop.getProperty("selectSalesForDay");
-		
-		try {
-			stmt = con.createStatement();
-			
-			rset = stmt.executeQuery(query);
-			
-			list = new ArrayList<Integer>();
-			while(rset.next()) {
-				list.add(rset.getInt("SALES"));
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(stmt);
-		}
-		
-		return list;
-	}
+	
 
 }
 

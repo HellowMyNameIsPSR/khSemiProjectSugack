@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,12 +29,19 @@
 					</a>
 				</header>
 				<section id="contents">
+				<div id="searchArea">
+					<label>검색기준</label>
 					<select id="date">
 							<option value="day">일별</option>
 							<option value="week">주별</option>
 							<option value="month">월별</option>
 					</select>
+					<br>
+					<input type="date" id="startDate" name="startDate" value="2019-01-01">
+					<input type="date" id="endDate" name="endDate" value="2019-12-31">
+					<input type="button" value="검색" id="searh">
 					
+				</div>
 					<div id="chartArea" style="height:500px;"></div>
 					<div id="tableArea"></div>
 					
@@ -46,32 +54,14 @@
 	
 	<script>
 		google.charts.load('current', {'packages':['corechart', 'table']});
-		google.charts.setOnLoadCallback(chart);
-		<%-- google.charts.setOnLoadCallback(table);
-		
-		function table(){
-			$("#date").change(function(){
-				if($(this).val() == 'month'){
-				var chartData;
-				$.ajax({
-					url:"<%=request.getContextPath()%>/selectSalesForMonth.ad",
-					async : false,
-					type:"get",
-					success:function(data){
-						console.log(data);
-						chartData = new google.visualization.DataTable(data);	
-						
-					}
-				});
-				var table = new google.visualization.Table(document.getElementById('#tableArea'));
-		        table.draw(chartData, {showRowNumber: true, width: '100%', height: '100%'});
-				}
-			});
-		} --%>
-	
+		google.charts.setOnLoadCallback(chart);		
+ 
 		function chart(){
-			$("#date").change(function(){
-				if($(this).val() == 'month'){
+			$("#searh").click(function(){
+				var startDate = $("#startDate").val();
+				var endDate = $("#endDate").val();
+				
+				if($("#date").val() == 'month'){
 				var option = {
 						title:'매출통계',
 						vAxis:{title:"원"},
@@ -81,6 +71,7 @@
 				var chartData;
 				$.ajax({
 					url:"<%=request.getContextPath()%>/selectSalesForMonth.ad",
+					data:{startDate:startDate, endDate:endDate},
 					async : false,
 					type:"get",
 					success:function(data){
@@ -91,7 +82,10 @@
 				});
 				var chart = new google.visualization.ColumnChart(document.querySelector('#chartArea'));
 				chart.draw(chartData, option);
-				}else if($(this).val() == 'week'){
+				var table = new google.visualization.Table(document.querySelector("#tableArea"));
+				table.draw(chartData, {showRowNumber: true, width: '100%', height: '100%'});
+				
+				}else if($("#date").val() == 'week'){
 					var option = {
 							title:'매출통계',
 							vAxis:{title:"원"},
@@ -102,6 +96,7 @@
 					$.ajax({
 						url:"<%=request.getContextPath()%>/selectSalesForWeek.ad",
 						async : false,
+						data:{startDate:startDate, endDate:endDate},
 						type:"get",
 						success:function(data){
 							console.log(data);
@@ -110,6 +105,8 @@
 					});
 					var chart = new google.visualization.ColumnChart(document.querySelector('#chartArea'));
 					chart.draw(chartData, option);
+					var table = new google.visualization.Table(document.querySelector("#tableArea"));
+					table.draw(chartData, {showRowNumber: true, width: '100%', height: '100%'});
 				}else {
 					var option = {
 							title:'매출통계',
@@ -121,6 +118,7 @@
 					$.ajax({
 						url:"<%=request.getContextPath()%>/selectSalesForDay.ad",
 						async : false,
+						data:{startDate:startDate, endDate:endDate},
 						type:"get",
 						success:function(data){
 							console.log(data);
@@ -129,6 +127,8 @@
 					});
 					var chart = new google.visualization.ColumnChart(document.querySelector('#chartArea'));
 					chart.draw(chartData, option);
+					var table = new google.visualization.Table(document.querySelector("#tableArea"));
+					table.draw(chartData, {showRowNumber: true, width: '100%', height: '100%'});
 				}
 			})
 			
