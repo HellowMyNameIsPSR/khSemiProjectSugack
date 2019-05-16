@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.semi.author.model.vo.Author;
 import com.kh.semi.author.model.vo.ProType;
 
 public class AuthorDao {
@@ -76,6 +77,42 @@ public class AuthorDao {
 			close(rset);
 		}
 		return list;
-	}
+	} // end method
+
+	//작가 정보 저장
+	public int insertAuthor(Connection con, Author author) {
+		int resultAuthor = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("insertAuthor");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, author.getMemberId());
+			pstmt.setString(2, author.getBrandName());
+			pstmt.setString(3, author.getApplyContent());
+			resultAuthor = pstmt.executeUpdate();			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return resultAuthor;
+	} //end method
+
+	//작가 유형 정보 저장
+	public int insertAuthorType(Connection con, int memberId, String selectPType) {
+		int resultAuthorType = 0;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("insertAuthorType");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			pstmt.setString(2, selectPType);
+			resultAuthorType = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return resultAuthorType;
+	} //end method
 
 } //end class
