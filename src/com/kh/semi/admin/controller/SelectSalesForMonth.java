@@ -1,6 +1,7 @@
 package com.kh.semi.admin.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -33,14 +34,26 @@ public class SelectSalesForMonth extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Integer> list = new adminService().selectSalesForMonth();
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		String choice = "sales";
+		
+		System.out.println(startDate);
+		System.out.println(endDate);
+		
+		Date sDate = Date.valueOf(startDate);
+		Date eDate = Date.valueOf(endDate);
+		
+		ArrayList<Integer> list = new adminService().selectForMonth(sDate, eDate, choice);
+		ArrayList<String> list2 = new adminService().getMonth(sDate, eDate, choice);
+		
 		System.out.println(list);
 		JSONObject data = new JSONObject();
 		JSONObject ajaxObjCols1 = new JSONObject();
 		JSONObject ajaxObjCols2= new JSONObject();
 		JSONArray ajaxArrayCols = new JSONArray();
 		JSONArray ajaxArrayRows = new JSONArray();
-//		JSONArray ajaxArray = new JSONArray();
+
 		ajaxObjCols1.put("id", "month");
 		ajaxObjCols1.put("label", "Month");
 		ajaxObjCols1.put("type", "string");
@@ -52,7 +65,7 @@ public class SelectSalesForMonth extends HttpServlet {
 		
 		for(int i = 0; i < list.size(); i++) {
 			JSONObject legend = new JSONObject();
-			legend.put("v", "19/" + "0" + (i + 1));
+			legend.put("v", list2.get(i));
 			legend.put("f", null);
 			
 			JSONObject value = new JSONObject();
