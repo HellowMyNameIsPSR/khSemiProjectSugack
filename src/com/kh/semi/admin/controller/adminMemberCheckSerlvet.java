@@ -1,12 +1,10 @@
 package com.kh.semi.admin.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URLEncoder;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,11 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.google.gson.Gson;
 import com.kh.semi.admin.model.service.adminService;
 import com.kh.semi.admin.model.vo.SearchMember;
-
-
-import com.google.gson.Gson;
+import com.kh.semi.common.QueryMake;
 
 
 
@@ -44,10 +41,7 @@ public class adminMemberCheckSerlvet extends HttpServlet {
 		String birthDateStart = request.getParameter("birthDateStart");
 		String birthDateLast = request.getParameter("birthDateLast");
 		String gender = request.getParameter("gender");
-		
-		System.out.println(joinStart);
-		System.out.println("생일 시작" + birthDateStart);
-		System.out.println("성별" + gender);
+	
 		
 		java.sql.Date joinStartday = null;
 		java.sql.Date joinLastday = null;
@@ -77,28 +71,14 @@ public class adminMemberCheckSerlvet extends HttpServlet {
 		}else {
 			birthDayLast = java.sql.Date.valueOf(birthDateLast);
 		}
-		
-		
+
 		
 		
 		SearchMember m = new SearchMember();
 		
 		
-		if(searchType.equals("email")) {
-			System.out.println("이메일이다!");
-			m.setEmailText(searchText);		
-		}else if(searchType.equals("name")) {
-			System.out.println("이름!");
-			m.setNameText(searchText);
-		}else {
-			System.out.println("안된다!");
-		}
-		if(memberType.equals("일반회원")) {
-			m.setMemberType("N");
-		}else {
-			m.setMemberType("W");
-		}
-		
+		m.setSearchText(searchText);
+		m.setMemberType(memberType);
 		m.setSearchType(searchType);
 		m.setJoinStart(joinStartday);
 		m.setJoinLast(joinLastday);
@@ -106,23 +86,35 @@ public class adminMemberCheckSerlvet extends HttpServlet {
 		m.setBirthDateLast(birthDayLast);
 		m.setGender(gender);
 		
-		System.out.println(m);
 		
 		QueryMake qm = new QueryMake(m);
+		
 		
 		ArrayList<SearchMember> list = new adminService().searchMember(m);
 		
 		JSONArray result = new JSONArray();
 		JSONObject searchMember = null;
-		
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		for(SearchMember sm : list) {
 			searchMember = new JSONObject();
+			
+			if(sm.getMemberType().equals("W")) {
+				searchMember.put("memberType", URLEncoder.encode("작가", "UTF-8"));
+			}else {
+				searchMember.put("memberType", URLEncoder.encode("일반회원", "UTF-8"));
+			}
+			if(sm.getGender().equals("M")) {
+				searchMember.put("memberGender", URLEncoder.encode("남자", "UTF-8"));
+			}else {
+				searchMember.put("memberGender", URLEncoder.encode("여자", "UTF-8"));
+			}
+			
 			searchMember.put("memberName", URLEncoder.encode(sm.getNameText(), "UTF-8"));
 			searchMember.put("memberEmail", sm.getEmailText());
-			searchMember.put("memberJoinDay", sm.getJoinDay());
-			searchMember.put("memberBirthDay", sm.getBirthDay());
-			searchMember.put("memberGender", sm.getGender());
-			searchMember.put("memberType", sm.getMemberType());
+			searchMember.put("memberJoinDay", sf.format(sm.getJoinDay()));
+			searchMember.put("memberBirthDay", sf.format(sm.getBirthDay()));
+			
+			
 			
 			result.add(searchMember);
 		}
