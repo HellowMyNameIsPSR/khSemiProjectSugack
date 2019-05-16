@@ -34,7 +34,6 @@ public class SelectWorkSalesServlet extends HttpServlet {
 		limit = 10;
 		
 		int listCount = new WorkService().getListCount();
-		System.out.println("listCount : " + listCount);
 		
 		maxPage = (int)((double)listCount/limit + 0.9);
 		
