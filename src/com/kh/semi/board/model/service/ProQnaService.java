@@ -91,18 +91,20 @@ public class ProQnaService {
 	
 
 	//문의글 답변 조회용 메소드
-	public ArrayList<ProQnaComment> selectCommentList(ProQnaComment comment) {
+	public ArrayList<ProQnaComment> selectCommentList(int bno) {
 		
 		Connection con = getConnection();
 		
 		
-		ArrayList<ProQnaComment> list = new ProQnaDao().selectCommentList(con,comment);
+		ArrayList<ProQnaComment> list = new ProQnaDao().selectCommentList(con,bno);
 		System.out.println("Service에서: "+list);
+		
 		if(list!=null) {
 			commit(con);
 		}else {
 			rollback(con);
 		}
+		close(con);
 		
 		return list;
 	}

@@ -50,14 +50,17 @@ public class ProQnaDao {
 			
 			pstmt.setInt(1, qna.getMid());
 			pstmt.setString(2, qna.getContent());
-			pstmt.setInt(3, qna.getWorkId());  //작품코드
+			pstmt.setInt(3, qna.getBno());  //작품코드
 			//pstmt.setInt(4, Integer.parseInt(qna.getcategory()));
 			pstmt.setString(4, qna.getcategory());
 			
 			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		
 		
@@ -151,7 +154,7 @@ public class ProQnaDao {
 			if(rset.next()) {
 				qna = new ProQna();
 				
-			
+				qna.setBno(rset.getInt("BNO"));
 				qna.setContent(rset.getString("CONTENT"));
 				qna.setcategory(rset.getString("TITLE"));
 				qna.setWriteDate(rset.getDate("WRITE_DATE"));
@@ -242,7 +245,7 @@ public class ProQnaDao {
 	}*/
 
 	//답변리스트 조회용 메소드
-	public ArrayList<ProQnaComment> selectCommentList(Connection con, ProQnaComment comment) {
+	public ArrayList<ProQnaComment> selectCommentList(Connection con, int bno) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -252,7 +255,7 @@ public class ProQnaDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, comment.getBno());
+			pstmt.setInt(1, bno);
 			
 			rset = pstmt.executeQuery();
 			
@@ -267,7 +270,8 @@ public class ProQnaDao {
 				c.setWriterId(rset.getInt("WRITER_ID"));
 				c.setWriteLevel(rset.getInt("WRITE_LEVEL"));
 				
-				System.out.println("c : " + c);
+				
+				System.out.println("ProQnaDao c : " + c);
 				list.add(c);
 			}
 		} catch (SQLException e) {

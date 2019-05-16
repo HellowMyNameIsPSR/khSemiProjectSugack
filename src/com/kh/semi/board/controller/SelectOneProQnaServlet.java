@@ -1,6 +1,7 @@
 package com.kh.semi.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.board.model.service.ProQnaService;
 import com.kh.semi.board.model.vo.ProQna;
+import com.kh.semi.board.model.vo.ProQnaComment;
 
 /**
  * Servlet implementation class SelectOneProQnaServlet
@@ -30,16 +32,23 @@ public class SelectOneProQnaServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num = Integer.parseInt(request.getParameter("num"));
+		int bno = Integer.parseInt(request.getParameter("num"));
 		
-		ProQna qna = new ProQnaService().selectOne(num);
+		ProQna qna = new ProQnaService().selectOne(bno);
 		
 		String page = "";
+		
 		if(qna !=null) {
+			ArrayList<ProQnaComment> colist = new ProQnaService().selectCommentList(bno);
+
 			page = "views/board/proQnaDetail.jsp";
-			System.out.println("서블릿에서");
-			System.out.println(qna);
+			System.out.println("문의 자세히보기 서블릿에서");
+			System.out.println("SelectOneProQnaServlet : "+qna);
+			System.out.println("CommentList: "+ colist);
+			
 			request.setAttribute("qna", qna);
+			request.setAttribute("list", colist);
+
 			request.getRequestDispatcher(page).forward(request, response);
 		}else {
 			page = "views/common/errorPage.jsp";

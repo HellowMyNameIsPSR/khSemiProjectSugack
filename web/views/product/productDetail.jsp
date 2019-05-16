@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8" import="java.util.*, com.kh.semi.board.model.vo.*"%>
+      <%
+    	
+        ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+        System.out.println("product detail에서" + list);
+        ProQna qna = (ProQna)request.getAttribute("qna"); 
+       
+    %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,12 +18,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
-	.navdiv{
+	/* .navdiv{
 		height:200px;
 		background:black;
 	}
-	
-	.container{
+	 */
+	.wln{
 		background:yellow;
 	}
 	
@@ -103,9 +110,6 @@ hr{
 	
 	margin-top:15px;
 }
-input[type:image]{
-	border:1px solid black;
-} 
 
 .information{
 	padding:30px;
@@ -113,26 +117,34 @@ input[type:image]{
 </style>
 </head>
 <body>
-<div class="navdiv">
- 
-</div> 
-  <!-- Page Content -->
-  <div class="container">
+<!-- <div class="navdiv">
 
+</div>  -->
+  <!-- Page Content -->
+ <%@ include file="../main/mainMenubar.jsp" %>
+  <div class="container wln">
+		<% for(int i=0; i<list.size(); i++){
+   				HashMap<String,Object> hmap = list.get(i);
+   		%>
     <!-- Heading Row -->
     <div class="row align-items-center my-5">
       <div class="col-lg-6 " >
-        <img class="img-fluid rounded mb-4 mb-lg-0" src="../images/tvxq.jpg" style="width:100%;">
+      
+        <img class="img-fluid rounded mb-4 mb-lg-0" src="uploadSalesImage/<%=hmap.get("changeName")%>" style="width:100%;">
       </div>
       <!-- /.col-lg-8 -->
       <div class="col-lg-6 productDiv">
         <!-- <h1 class="font-weight-light">Business Name or Tagline</h1>
         <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
         <a class="btn btn-primary" href="#">Call to Action!</a> -->
-        <h5>품명 및 모델명</h5>
-			<h5>기본가격</h5>
+        <input type="hidden" id="workId">
+        <h5><%=hmap.get("workName") %></h5>
+			<h5 id="price"><%=hmap.get("price") %></h5>
 			<hr>
-			<h5>배송비:3000원</h5>
+		
+			<p>배송비</p>
+			<p id="deliPrice"><%=hmap.get("deliPrice") %></p>
+
 			<hr>
 			<h5>옵션선택</h5>
 			<select id="sel1"style="width:350px; height:20px;">
@@ -150,7 +162,7 @@ input[type:image]{
 			</div>
 			<div class="totalPrice">
 				<p style="float:left; margin-top:10px; font-size:20px;">총가격: </p>
-				<p style="float:right; margin-top:10px; font-size:20px;">10000원</p>
+				<p style="float:right; margin-top:10px; font-size:20px;" id='sum'></p><p style="float:right"></p>
 			</div>
 			<div class="btns" style="margin-top:5px;">
 			<button style="color:white; float:left;width:70px; height:50px; border:2px solid pink; background:pink; border-radius:7px; font-size:33px;">♡</button>
@@ -162,8 +174,20 @@ input[type:image]{
 				
 			
 			</div>
+			<script>
+			<% if (("#delPrice")!=null){ %>
+				var deliPrice = parseInt($("#deliPrice").text());
+				var price = parseInt($("#price").text());
+				var sum = deliPrice + price;
+				
+				$("#sum").text(sum);
+				$("#sum").append("원");
+				
+			<% } %>
+			</script>
 	  </div>
 	 </div>
+	 <%} %>
 	 <hr>
 	<div class="row information">
 	<ul class="nav nav-tabs">
@@ -220,11 +244,11 @@ input[type:image]{
     
     <div id="menu3" class="tab-pane fade">
     
-    
     			<form id="qna" action="<%=request.getContextPath() %>/insertProQna.bo" method="post">
+    
    					 <div class="qnaArea">
 							<div class="qnaTitle">
-								<h2>문의하기!</h2>
+								<h2>문의하기</h2>
 							</div>
 							<div class="qnaContents">
 									<table class="searchBox" style="width:100%;" >
@@ -319,7 +343,7 @@ input[type:image]{
       <!-- /.col-md-4 -->
     
 </div>
-
+	
 <script>
 	$(function(){
 		
@@ -379,7 +403,7 @@ input[type:image]{
 <script>
 	$("#purchase").click(function(){
 		console.log("test");
-		location.href="../common/purchase.jsp";
+		location.href="views/common/purchase.jsp";
 	});
 </script>
 </body>
