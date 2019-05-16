@@ -14,7 +14,7 @@ public class QueryMake {
 
 	public QueryMake(SearchMember m) {
 		
-		
+		//프로퍼티스 생성
 		Properties prop = new Properties();
 		
 		String fileName = QueryMake.class

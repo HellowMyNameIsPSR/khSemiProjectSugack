@@ -20,7 +20,7 @@ public class SearchMember implements java.io.Serializable{
 	private Date withdrawalDateLast;
 	private String gender;
 	private String withdrawalType;
-	
+	//기본생성자
 	public SearchMember() {}
 
 	public String getSearchType() {
