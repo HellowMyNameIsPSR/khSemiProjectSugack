@@ -25,13 +25,13 @@
 				<h2>Menu</h2>
 			</header>
 			<ul>
-				<li><a href="authorpageEdit.jsp"><img alt="" src="../../images/artist.jpg" style="width: 200px; height: 200px;">활동명</a></li>
+				<li><a href="authorpageProEdit.jsp"><img alt="" src="../../images/artist.jpg" style="width: 200px; height: 200px;">활동명</a></li>
 				<li>
 					<span class="opener">작품갤러리</span>
 					<ul>
 						<li><a href="comingSoonproduct.jsp">출시전 작품</a>
 						<li><a href="fundingProducts.jsp">펀딩상품</a>
-						<li><a href="Product.jsp">판매 상품</a>
+						<li><a href="proDuct.jsp">판매 상품</a>
 					</ul>
 				</li>
 				<li>
@@ -40,6 +40,10 @@
 				</li>
 				<li>
 					<span ><a href="commentEdit.jsp">응원하기 수정및 삭제</a></span>
+				
+				</li>
+				<li>
+				    <span ><a href="authorPageDetail.jsp">스토리 글 작성</a></span>   
 				
 				</li>
 				
@@ -51,7 +55,7 @@
 					<span ><a href="artistStorey.jsp"> 작가스토리</a></span>
 					
 				</li>
-				<li ><a href="artistachievement.jsp">작가업적</a>
+				<li ><a href="artistachieveMent.jsp">작가업적</a>
 			</ul>
 		</nav>
 		<!-- Footer -->

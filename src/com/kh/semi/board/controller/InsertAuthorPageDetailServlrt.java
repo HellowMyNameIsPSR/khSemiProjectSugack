@@ -1,5 +1,6 @@
 package com.kh.semi.board.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -13,23 +14,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.semi.board.model.service.AuthorPageSerview;
-
 import com.kh.semi.board.model.vo.AuthorPageAttachmrnt;
+import com.kh.semi.board.model.vo.Board;
 import com.kh.semi.common.MyFileRenamePolicy;
 import com.oreilly.servlet.MultipartRequest;
 
-
 /**
- * Servlet implementation class InsertAuthorPageServlet
+ * Servlet implementation class InsertAuthorPageDetailServlrt
  */
-@WebServlet("/insert.to")
-public class InsertAuthorPageServlet extends HttpServlet {
+@WebServlet("/insertDet.tn")
+public class InsertAuthorPageDetailServlrt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertAuthorPageServlet() {
+    public InsertAuthorPageDetailServlrt() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,9 +38,7 @@ public class InsertAuthorPageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-	
-		if(ServletFileUpload.isMultipartContent(request)) {
+if(ServletFileUpload.isMultipartContent(request)) {
 			
 			
 			
@@ -84,13 +82,19 @@ public class InsertAuthorPageServlet extends HttpServlet {
 			 }
 			 
 			 
-			 String authorname  = multiRequest.getParameter("author_name");
-			 String authorabout = multiRequest.getParameter("author_about");
+			 String authorTitle  = multiRequest.getParameter("author_Title");
+			 String authorcontent = multiRequest.getParameter("author_content");
 			  
 			 
 			 
-			 System.out.println(authorname);
-			 System.out.println(authorabout);
+			 System.out.println(authorTitle);
+			 System.out.println(authorcontent);
+			 
+			 
+			Board b = new Board();
+			b.setTitle(authorTitle);
+		    b.setContent(authorcontent);
+				
 			 
 			 
 			 ArrayList<AuthorPageAttachmrnt>fileList = new ArrayList<AuthorPageAttachmrnt>();
@@ -109,10 +113,29 @@ public class InsertAuthorPageServlet extends HttpServlet {
  
 			 }
 			 
-			int result = new AuthorPageSerview().insertAuthorPage(fileList);
+			int result = new AuthorPageSerview().insertAuthorPagePro(b,fileList);
 			 
 			 
-			 
+	if(result>0) {
+				
+				//재요청이 안되게 sendRedirect를 하고  List를 보여준다.
+				response.sendRedirect(request.getContextPath() + "/selectList.tn");
+				
+			}else {
+				
+				//파일은 미리 저장되고 작동하는것이기 때문에!!
+				//실패했을때는 이클립스 사진폴더에 등록된 사진을 지워야한다! 왜그런지는 서블릿쪽에 설명 적어놓음
+				for(int i=0; i<saveFiles.size(); i++) {
+					
+					//경로와 파일이름을 가지고 객체를 만들었다
+					File failedFile = new File(filePath + saveFiles.get(i));
+					
+					System.out.println(failedFile.delete()); //사진을 지워주고, 지워지면 true가 나오고 지워지지않으면 false리턴
+					
+				}
+				
+				
+			}
 			 
 			 
 			 
@@ -126,9 +149,6 @@ public class InsertAuthorPageServlet extends HttpServlet {
 			
 			
 		}
-		
-		
-		
 		
 		
 	}

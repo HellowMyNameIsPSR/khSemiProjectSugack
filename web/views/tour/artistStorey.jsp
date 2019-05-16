@@ -40,9 +40,7 @@
 		<div id=main>
 		
 			<header id="header">
-               <a href="artistmain.jsp" class="logo">
-                 <!--  Admin<strong>HOME</strong> -->
-               </a>
+             
             </header>
 			
 			<section>

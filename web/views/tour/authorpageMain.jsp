@@ -157,7 +157,9 @@
 <script>
 $(".mainImg").click(function(){
 	//해당 상세 페이지로 가기
-	location.href="artistStorey.jsp";
+	var num = $(this).children().eq(0).val();
+       location.href="<%=request.getContextPath()%>/selectProDetail.pro?workId="+ workId;
+	location.href="<%=request.getContextPath()%>/selectOneAuthorStory.bo?=num + num";
 });
 
 	

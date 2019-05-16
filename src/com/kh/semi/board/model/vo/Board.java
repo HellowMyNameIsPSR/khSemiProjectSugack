@@ -6,6 +6,7 @@ public class Board implements java.io.Serializable{
 	
 	private int bno;
 	private int memberId;
+	private String Content;
 	private Date writeDate;
 	private int bCount;
 	private int division;
@@ -15,11 +16,13 @@ public class Board implements java.io.Serializable{
 
 	public Board() {}
 
-	public Board(int bno, int memberId, Date writeDate, int bCount, int division, int workId, Date modifyDate,
-			String title) {
+
+	public Board(int bno, int memberId, String content, Date writeDate, int bCount, int division, int workId,
+			Date modifyDate, String title) {
 		super();
 		this.bno = bno;
 		this.memberId = memberId;
+		Content = content;
 		this.writeDate = writeDate;
 		this.bCount = bCount;
 		this.division = division;
@@ -27,6 +30,17 @@ public class Board implements java.io.Serializable{
 		this.modifyDate = modifyDate;
 		this.title = title;
 	}
+
+
+	public String getContent() {
+		return Content;
+	}
+
+
+	public void setContent(String content) {
+		Content = content;
+	}
+
 
 	public int getBno() {
 		return bno;
@@ -92,12 +106,15 @@ public class Board implements java.io.Serializable{
 		this.title = title;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Board [bno=" + bno + ", memberId=" + memberId + ", writeDate=" + writeDate + ", bCount=" + bCount
-				+ ", division=" + division + ", workId=" + workId + ", modifyDate=" + modifyDate + ", title=" + title
-				+ "]";
+		return "Board [bno=" + bno + ", memberId=" + memberId + ", Content=" + Content + ", writeDate=" + writeDate
+				+ ", bCount=" + bCount + ", division=" + division + ", workId=" + workId + ", modifyDate=" + modifyDate
+				+ ", title=" + title + "]";
 	}
+
+	
 	
 	
 }
