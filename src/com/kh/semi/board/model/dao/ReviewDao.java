@@ -55,7 +55,7 @@ public class ReviewDao {
 	}
 
 	//리뷰 조회용 메소드
-	public ArrayList<Review> selectList(Connection con, int memberId) {
+	public ArrayList<Review> selectList(Connection con, int memberId, int workId) {
 		
 		ArrayList<Review> list = null;
 		PreparedStatement pstmt = null;
