@@ -2,6 +2,8 @@ package com.kh.semi.board.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import static com.kh.semi.common.JDBCTemplate.*;
 
 import com.kh.semi.board.model.dao.AuthorPageDao;
@@ -10,17 +12,6 @@ import com.kh.semi.board.model.vo.Board;
 
 public class AuthorPageSerview {
 
-	public int InsertAuthorPage(Board b) {
-
-		Connection con = getConnection();
-
-		int result = new AuthorPageDao().InsertAuthorPage(con, b);
-
-		close(con);
-
-		return result;
-
-	}
 
 	public int insertAuthorPagePro(Board b, ArrayList<AuthorPageAttachmrnt> fileList) {
 		Connection con = getConnection();
@@ -50,6 +41,21 @@ public class AuthorPageSerview {
 
 		close(con);
 		return result;
+	}
+
+	public int insertAuthorProPage(ArrayList<AuthorPageAttachmrnt> fileList) {
+	
+		return 0;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectAuthorPage() {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new AuthorPageDao().selectAuthorPage(con);
+		close(con);
+		
+		
+		
+		return list;
 	}
 
 }
