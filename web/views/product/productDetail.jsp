@@ -23,7 +23,7 @@
 		background:black;
 	}
 	 */
-	.wln{
+	.con{
 		background:yellow;
 	}
 	
@@ -122,7 +122,7 @@ hr{
 </div>  -->
   <!-- Page Content -->
  <%@ include file="../main/mainMenubar.jsp" %>
-  <div class="container wln">
+  <div class="container con">
 		<% for(int i=0; i<list.size(); i++){
    				HashMap<String,Object> hmap = list.get(i);
    		%>
@@ -167,7 +167,7 @@ hr{
 			<div class="btns" style="margin-top:5px;">
 			<button style="color:white; float:left;width:70px; height:50px; border:2px solid pink; background:pink; border-radius:7px; font-size:33px;">♡</button>
 			<!-- <input type="image" src="../images/heart.png" style="width:80px; height:50px; border:2px solid pink; background:pink; border-radius:7px;"> -->
-			<input type="image" src="../images/shopping-basket.png" style="width:70px; margin-left:5px;height:50px; border:2px solid lightblue; background:lightblue; border-radius:7px;">
+			<input type="image" onclick="location.href='<%=request.getContextPath()%>/selectCart.basket?workId=<%=hmap.get("workId")%>'" src="views/images/shopping-basket.png" id="cart" style="width:70px; margin-left:5px;height:50px; border:2px solid lightblue; background:lightblue; border-radius:7px;">
 			<!-- <input type="submit" value="구매하기" style="float:right; font-size:15px;width:170px; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"> -->
 			<button class="all-btn"style="float:right; font-size:15px;width:170px; height:50px;/*  color:white;border:2px solid gray; background:gray; */ border-radius:7px;"
 					id="purchase">구매하기</button>
@@ -187,7 +187,7 @@ hr{
 			</script>
 	  </div>
 	 </div>
-	 <%} %>
+
 	 <hr>
 	<div class="row information">
 	<ul class="nav nav-tabs">
@@ -200,12 +200,13 @@ hr{
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
       <h3>기본정보</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <p><%=hmap.get("workContent") %></p>
     </div>
     <div id="menu1" class="tab-pane fade">
       <h3>배송/판매/교환/환불</h3>
       <p>Ut enim minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     </div>
+    	 <%} %>
     <div id="menu2" class="tab-pane fade">
       <h3>별점 및 응원글</h3>
       
@@ -405,6 +406,12 @@ hr{
 		console.log("test");
 		location.href="views/common/purchase.jsp";
 	});
+</script>
+<script>
+	<%-- $("#cart").click(function(){
+		location.href="<%=request.getContextPath()%>/selectCart.basket>workId=<%=hmap.get("workId")%>"
+		//location.href="selectCart.basket";
+	}); --%>
 </script>
 </body>
 </html>

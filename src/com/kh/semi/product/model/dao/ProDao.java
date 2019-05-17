@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.semi.common.model.vo.Cart;
+import com.kh.semi.member.model.vo.Member;
+
 public class ProDao {
 	private Properties prop = new Properties();
 	
@@ -119,6 +122,72 @@ public class ProDao {
 		}
 		return list;
 		
+	}
+
+	
+	public int insertCart(Member loginUser, int wid, Connection con) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		
+		String query = prop.getProperty("insertCart");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginUser.getMemberId());
+			pstmt.setInt(2, wid);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	
+	//장바구니 조회용 메소드
+	public ArrayList<Cart> selectCart(Member loginUser, int wid, Connection con) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Cart>  cartList = null;
+		
+		String query = prop.getProperty("selectCartList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginUser.getMemberId());
+			pstmt.setInt(2, wid);
+			
+			
+			rset = pstmt.executeQuery();
+			cartList = new ArrayList<Cart>();
+			
+			while(rset.next()) {
+				
+				Cart c = new Cart();
+				c.setFilePath(rset.getString("FILE_PATH"));
+				c.setContent(rset.getString("WORK_CONTENT"));
+				c.setPrice(rset.getInt("PRICE"));
+				
+				cartList.add(c);
+				
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("dao에서 "+cartList);
+		return cartList;
 	}
 
 }

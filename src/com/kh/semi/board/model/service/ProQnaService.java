@@ -97,7 +97,7 @@ public class ProQnaService {
 		
 		
 		ArrayList<ProQnaComment> list = new ProQnaDao().selectCommentList(con,bno);
-		System.out.println("Service에서: "+list);
+		System.out.println("ProQnaService에서: "+list);
 		
 		if(list!=null) {
 			commit(con);
