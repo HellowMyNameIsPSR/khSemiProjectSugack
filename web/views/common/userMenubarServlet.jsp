@@ -32,16 +32,17 @@
 				<li>
 					<span class="opener">좋아요리스트</span>
 					<ul>
-						<li><a href="views/board/likeAuthor.jsp">관심작가</a>
-						<li><a href="views/board/likeFundingPro.jsp">관심 펀딩 상품</a>
-						<li><a href="views/board/likePro.jsp">관심 판매상품</a>
+						<li><a href="views/board/likeAuthor.jsp">관심작가</a></li>
+						<li><a href="views/board/likeFundingPro.jsp">관심 펀딩 상품</a></li>
+						<li><a href="<%=request.getContextPath()%>/selectLikeList.me?mid=<%=loginUser.getMemberId()%>">관심 판매상품</a></li>
 					</ul>
 				</li>
 				<li>
 					<span class="opener">게시글관리</span>
 					<ul>
-						<li><a href="views/board/boardReview.jsp">응원글 및 리뷰</a>
-						<li><a href="<%=request.getContextPath()%>/selectProQna.bo">문의</a>
+						 <!-- <li><a href="views/board/boardReview.jsp">응원글 및 </a>  -->
+						 <li><a href="<%=request.getContextPath()%>/selectReview.co?mid=<%=loginUser.getMemberId()%>">응원글 및 리뷰</a></li>
+						<li><a href="<%=request.getContextPath()%>/selectProQna.bo?mid=<%=loginUser.getMemberId()%>">문의</a></li>
 					</ul>
 				</li>
 				<li><a href="views/board/boardPoint.jsp">적립금 사용 내역</a></li>

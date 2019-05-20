@@ -156,7 +156,7 @@
 						console.log(s); */
 						//console.log("ajax까지 성공: "+data)
 						if(data == "ok"){
-        					location.reload();
+        					
 							//self.close();
 							
 						}else if(data =="fail") {

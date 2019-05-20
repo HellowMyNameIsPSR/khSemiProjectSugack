@@ -13,11 +13,11 @@ public class Review implements java.io.Serializable{
 	private String starPoint;
 	private String writer;
 	private int workId;
-	
+	private String workName;
 	public Review() {}
 	
 	public Review(int cid, Date writeDate, String content, int bno, int writerId, int writeLevel,  String starPoint,
-			String writer /*, int workId*/) {
+			String writer , int workId , String workName) {
 		super();
 		this.cid = cid;
 		this.writeDate = writeDate;
@@ -28,11 +28,20 @@ public class Review implements java.io.Serializable{
 		this.starPoint = starPoint;
 		this.writer = writer;
 		this.workId = workId;
+		this.workName = workName;
 	}
 	
 	
 	
 	
+	public String getWorkName() {
+		return workName;
+	}
+
+	public void setWorkName(String workName) {
+		this.workName = workName;
+	}
+
 	public int getWorkId() {
 		return workId;
 	}
@@ -90,6 +99,13 @@ public class Review implements java.io.Serializable{
 		this.writer = writer;
 	}
 
+	@Override
+	public String toString() {
+		return "Review [cid=" + cid + ", writeDate=" + writeDate + ", content=" + content + ", bno=" + bno
+				+ ", writerId=" + writerId + ", writeLevel=" + writeLevel + ", starPoint=" + starPoint + ", writer="
+				+ writer + ", workId=" + workId + ", workName=" + workName + "]";
+	}
+
 	/*@Override
 	public String toString() {
 		return "Review [cid=" + cid + ", writeDate=" + writeDate + ", content=" + content + ", bno=" + bno
@@ -100,13 +116,13 @@ public class Review implements java.io.Serializable{
 	
 	
 	
-	
+	/*
 	@Override
 	public String toString() {
 		return "Review [cid=" + cid + ", writeDate=" + writeDate + ", content=" + content + ", bno=" + bno
 				+ ", writerId=" + writerId + ", writeLevel=" + writeLevel + ", starPoint=" + starPoint + ", writer="
 				+ writer + ", workId=" + workId + "]";
-	}
+	}*/
 	
 	
 	

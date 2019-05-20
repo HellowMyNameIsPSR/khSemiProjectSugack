@@ -1,11 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8" import="java.util.*, com.kh.semi.board.model.vo.*"%>
+   pageEncoding="UTF-8" import="java.util.*, com.kh.semi.board.model.vo.*, java.text.SimpleDateFormat"%>
 <%   
     ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
     System.out.println("product detail에서" + list);
     ProQna qna = (ProQna)request.getAttribute("qna"); 
     HashMap<String, Object> work = (HashMap<String, Object>)list.get(0); 
+    System.out.println("work: "+work);
+    
+    ArrayList<Review> reviewList = (ArrayList<Review>)request.getAttribute("reviewList");
+    System.out.println("review: " + reviewList);
+    
+    
+    
+    SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 %>
+ 
+ 		             	
+ 		              	
+ 		              
+ 		             
+
+  
+ 		             
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +37,7 @@
       background:black;
    }
     */
-   .wln{
+   .proArea{
       background:yellow;
    }
    
@@ -40,14 +56,14 @@
       width:400px;
    }
    .qnaArea {
-      border:2px solid lightgray;
+      border-left:2px solid lightgray;
       margin: 20px 0px 20px 0px;
       box-shadow:2px 2px lightgray;
-      width:80%;
+      width:100%;
       height:100%;
+      /* background:#F6F476; */
       background:beige;
-      margin:0 auto;
-      margin-top:20px;
+    
    }
    .qnaTitle {
       border-bottom:1px solid lightgray;
@@ -55,10 +71,10 @@
       padding-left:20px;
    }
    .qnaContents {
-      margin: 20px 0px 20px 0px;
+      margin: 20px 15px 20px 15px;
       padding-left:20px;
       padding-right:20px;
-      
+      border:1px solid lightgray;
    }
    .qnaContents div{
       margin: 20px 0px 20px 0px;
@@ -69,16 +85,16 @@
    }
    
    #qnaBtn{
-      width:30%;
+      width:20%;
       padding:5px;
       color:white;
       border:2px solid gray; 
       background:gray;
-      
+      height:30%;
       
    }
    
-   
+  
 /* .shortInfo{
    margin-left:40px;
    width:400px;
@@ -120,7 +136,7 @@ hr{
 </div>  -->
   <!-- Page Content -->
  <%@ include file="../main/mainMenubar.jsp" %>
-  <div class="container wln">
+  <div class="container proArea">
     <!-- Heading Row -->
     <div class="align-items-center my-5">
       <div class="col-sm-6" >
@@ -212,7 +228,7 @@ hr{
             <p style="float:right; margin-top:10px; font-size:20px;" id='sum'></p><p style="float:right"></p>
          </div>
          <div class="btns" style="margin-top:5px;">
-         <button style="color:white; float:left;width:70px; height:50px; border:2px solid pink; background:pink; border-radius:7px; font-size:33px;">♡</button>
+         <button onclick="likeBtn()" style="color:white; float:left;width:70px; height:50px; border:2px solid pink; background:pink; border-radius:7px; font-size:33px;">♡</button>
          <!-- <input type="image" src="../images/heart.png" style="width:80px; height:50px; border:2px solid pink; background:pink; border-radius:7px;"> -->
          <input type="image" src="views/images/shopping-basket.png" style="width:70px; margin-left:5px;height:50px; border:2px solid lightblue; background:lightblue; border-radius:7px;">
          <!-- <input type="submit" value="구매하기" style="float:right; font-size:15px;width:170px; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"> -->
@@ -223,6 +239,7 @@ hr{
          
          </div>
          <script>
+        
          function plus(){
             document.getElementById("ea").value = (parseInt(document.getElementById("ea").value)+1);
             var deliPrice = parseInt($("#deliPrice").text());
@@ -261,68 +278,138 @@ hr{
          });
       
       
-       <%-- $("#addReview").click(function(){
-    	   var writer = <%=loginUser.getMemberId()%>;
-           var workId = <%=work.get("workId") %>;
-           var content = $("#reviewCon").val();
-           var star = $("#sel1 option:selected").text();
-          
-          
-          
-          $.ajax({
-              url:"<%=request.getContextPath()%>/insertReview.bo",
-              data:{writer:writer, workId:workId, content:content, star:star},
-              type:"post",
-              success:function(data){
-            	  var writer = <%=loginUser.getMemberId()%>;
-                  var workId = <%=work.get("workId") %>;
-                  var content = $("#reviewCon").val();
-                  var star = $("#sel1 option:selected").text();
-                 
-                 location.reload();
-                 cnsole.log("성공");
-              },
-              error:function(){
-                 console.log("실패");
-              }
-          })
-      });  --%>
-      
-      <%--  function addReview() {
-    	  
+         function likeBtn(){
+        	 var memberId = <%=loginUser.getMemberId()%>;
+        	 var workId = <%=work.get("workId")%>;
+        	 <%--  var price = <%=work.get("price")%>;
+        	 var deliPrice =<%=work.get("deliPrice")%>; --%>
+        	 
+        	 $.ajax({
+        		 url:"<%=request.getContextPath()%>/insertLike.me?<%=work.get("workId")%>",
+        		 data:{memberId:memberId, workId:workId/* , price:price, deliPrice:deliPrice */},
+        		 type:"post",
+        		 success:function(data){
+        			 alert("관심상품 추가!");
+        		 },error:function(){
+        			 alert("실패");
+        		 }
+        	 })
+         }
+      	  
+     	 
+          function addReview() {
+    	 
     	  var writer = <%=loginUser.getMemberId()%>;
           var workId = <%=work.get("workId") %>;
           var content = $("#reviewCon").val();
-          var star = $("#sel1 option:selected").text();
-         
-         
-         
+          var star = $(".star option:selected").text();
+          
+          console.log(content);
+          console.log(workId);
+        
          $.ajax({
-             url:"<%=request.getContextPath()%>/insertReview.bo",
+             url:"<%=request.getContextPath()%>/insertReview.bo?workId=<%=work.get("workId")%>",
              data:{writer:writer, workId:workId, content:content, star:star},
              type:"post",
              success:function(data){
-           	  var writer = <%=loginUser.getMemberId()%>;
-                 var workId = <%=work.get("workId") %>;
-                 var content = $("#reviewCon").val();
-                 var star = $("#sel1 option:selected").text();
+            	
+            	 $('#replySelectTable').html(data).trigger("create");
+                console.log(data);
+            
+                console.log("성공");
+                var $replySelectTable = $("#replySelectTable");
+                $replySelectTable.html('');
                 
-                location.reload();
-                cnsole.log("성공");
+               var $tr0 = $("<tr>");
+               // $tr0.css('width','300px');
+                var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"lightblue", "color": "gray"});
+            	//var $td1 = $("<td>").text("후기내용").css("height", "50px");
+            	var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"lightblue", "color": "gray"});
+            	var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
+            	var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
+            	
+            	$tr0.append($td0);
+ 				$tr0.append($td1);
+ 				$tr0.append($td2);
+ 				$tr0.append($td3);
+ 				
+ 				$replySelectTable.append($tr0);
+ 				
+ 				
+ 				//ArrayList에 리뷰들이 등록되어있어서 each를 통해 반복문을 돌려서 값을 가져온다!
+ 				//HashMap은 key를 통해서 값을 가져온다!
+ 				  $.each(data, function(index, value){
+ 		               var $tr = $("<tr>").css("height","50px");
+ 		              
+ 		               var $writer = $("<td>").text(decodeURIComponent(value.writer));
+ 		               var $content = $("<td>").text(decodeURIComponent(value.content));
+ 		               var $starPoint= $("<td>").text(decodeURIComponent(value.starPoint));
+ 		             
+ 		               var $writeDate = $("<td>").text(decodeURIComponent(value.writeDate));
+ 		              //var $writeDate = $("<td>").text(date.format(value.writeDate));
+ 		              // var $writeDate2 = (date.format(value.writeDate));
+ 		               
+ 		               $tr.append($writer);
+ 		               $tr.append($content);
+ 		               $tr.append($starPoint);
+ 		               $tr.append($writeDate);
+ 		               $replySelectTable.append($tr)
+ 		               
+ 		               //등록과 동시에 작성 내용 지우기
+ 		               $('#reviewCon').val("");
+ 		               
+ 		              /*  localStorage.setItem('writer', $writer);
+ 		               localStorage.getItem('writer'); */
+ 		               console.log(localStorage);
+ 				  })
+ 		        
+                /* for(var key in data){
+                	
+                	
+                	var $tr = $("<tr>").css("width", "300px");
+                	var $writerTd = $("<td>")
+                    .text(data[key].writer)
+                    .css("width", "100px");
+                	
+                	
+     				var $contentTd = $("<td>")
+                    .text(data[key].content)
+                    .css("width", "400px");
+     				
+     				
+     				var $starTd = $("<td>")
+                    .text(data[key].starPoint)
+                    .css("width", "200px");
+    				
+     				var $datdTd = $("<td>").text(data[key].writeDate).css("width", "200px");
+     				//$tr0.append($tr);
+     				
+     				
+     			
+     				$tr.append($writerTd);
+     				$tr.append($contentTd);
+     				$tr.append($starTd);
+     				$tr.append($dateTd);
+    				
+    				$replySelectTable.append($tr);
+    			    
+                } */
+                
+                
              },
              error:function(){
                 console.log("실패");
              }
          });
-    	  
-      } 
-       --%>
+        
+      }  
        
+      <%--  
        $("#addReview").click(function(){
     	   
     	  alert("안녕");
-       }
-       
+       });
+        --%>
          </script>
      </div>
  
@@ -349,8 +436,8 @@ hr{
       <h3>별점 및 응원글</h3>
       
       <div class="star" style="background:beige;  padding:10px; width:100%; height:150px;">
-      <form id="review" action="<%=request.getContextPath() %>/insertReview.bo" method="post">
-         <textarea style="width:100%; height:80px;" name="content"></textarea>
+      <div id="review" <%-- action="<%=request.getContextPath() %>/insertReview.bo?workId=<%=work.get("workId")%>" method="post" --%>>
+         <textarea id="reviewCon"style="width:100%; height:80px;" name="content"></textarea>
          <select name="star" style="float:left; width:200px; height:40px;">
             <option value="★★★★★">★★★★★ 아주좋아요</option>
             <option value="★★★★☆">★★★★☆ 마음에 들어요</option>
@@ -358,12 +445,17 @@ hr{
             <option value="★★☆☆☆">★★☆☆☆ 그냥그래요</option>
             <option value="★★☆☆☆">★★☆☆☆ 별로에요</option>
          </select>
-         <!-- <button onclick="addReview()" id="addReview" value="리뷰등록하기" style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;">리뷰등록하기</button> -->
-       <!--  <button id="addReview" style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;">리뷰등록하기</button>  -->
-      <input type="submit" value="리뷰 등록하기" id="addReview" style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;">
-      </form>
+         <button onclick="addReview()" id="addReview" value="리뷰등록하기" style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;">리뷰등록하기</button> 
+        <!-- <button id="addReview" style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;">리뷰등록하기</button>   -->
+     <!--  <input type="submit" value="리뷰 등록하기" id="addReview" style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;"> -->
       </div>
-
+      </div>
+      <br>
+	<div id="replySelectArea">
+         <table id="replySelectTable" border="3"align="center" style="width:100%; text-align:center; border:3px dashed gray;">
+         	
+         </table>
+     </div>
       <!-- <div class="row">
          <div class="outer" style="border:1px solid black;">
          <div class="nick">
@@ -380,15 +472,15 @@ hr{
     <div id="menu3" class="tab-pane fade">
     
              <form id="qna" action="<%=request.getContextPath() %>/insertProQna.bo" method="post">
-    
+     		<h2>문의하기</h2>
                    <div class="qnaArea">
                      <div class="qnaTitle">
-                        <h2>문의하기</h2>
+                       
                      </div>
                      <div class="qnaContents">
                            <table class="searchBox" style="width:100%;" >
                               <tr class="qna">
-                                 <td><label >문의 제목:</label></td>
+                                 <td><label>문의 종류:</label></td>
                                  
                                  <!-- <td><input type="text" name="title" style="width:100%;"></td> -->
                                  <td>
@@ -421,7 +513,7 @@ hr{
                                  <td><textarea name="content" style="width:100%;" rows="7"></textarea></td>
                               </tr>
                               <tr class="qna">
-                                 <td colspan="2"><input type="submit" name="writeBtn"value="작성하기" id="qnaBtn" style="float:right;"></td>
+                                 <td colspan="2"><input type="submit" class="writeBtn"value="작성하기" id="qnaBtn" style="float:right;"></td>
                               </tr>
                            </table>
                         
