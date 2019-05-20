@@ -10,7 +10,8 @@
 <body>
 	<script>
 		$(function(){
-			location.href = "<%= request.getContextPath() %>/selectproptype.at";
+			location.href = "<%= request.getContextPath() %>/checkApply.at";
+			<%-- location.href = "<%= request.getContextPath() %>/selectproptype.at"; --%>
 		});
 	</script>
 </body>

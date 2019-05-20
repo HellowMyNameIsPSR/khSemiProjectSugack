@@ -45,6 +45,7 @@
 					<ul>
 						<li><a href="fundingGuide.jsp">펀딩 가이드</a>
 						<li><a href="enrollFundingGoods.jsp">펀딩 작품 등록</a>
+						<li><a href="manageFundGoodsHistory.jsp">펀딩 작품 내역</a></li>
 						<li><a href="makingApplication.jsp">제작 신청</a>
 						<li><a href="makingApplicationHistory.jsp">제작 신청 내역</a>
 						<li><a href="fundingStatistics.jsp">펀딩 통계</a>

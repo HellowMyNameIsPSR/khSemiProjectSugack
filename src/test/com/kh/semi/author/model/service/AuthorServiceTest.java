@@ -15,6 +15,7 @@ public class AuthorServiceTest {
 	private AuthorService authorService;
 	private String brandName;
 	private Author author;
+	private int memberId;
 	
 	@Before
 	public void beforTest() { //test 실행 전에 실행됨
@@ -24,10 +25,8 @@ public class AuthorServiceTest {
 		//testSelectBrandName()
 		brandName = "빛나리";
 		*/
-		author = new Author();
-		author.setMemberId(2);
-		author.setBrandName("네네");
-		author.setApplyContent("안녕하세요. 친환경적인 디자인으로 편안함을 줄 수 있는 브랜드 안영입니다.");
+		
+		memberId = 2;
 	}
 	
 	//Ignore는 test 메소드 무시 : 여러개 작성할 수 있음!
@@ -44,15 +43,8 @@ public class AuthorServiceTest {
 		assertNotNull(authorService.selectProTypeList());		
 	}
 	
-	@Ignore
-	@Test
-	public void testInsertAuthor() { //작가 테이블에 정보 저장
-		assertEquals(authorService.insertAuthor(author), 1);
-	} //end method
-	
-	@Test
-	public void testInsertAuthorType() {
-		assertEquals(authorService.insertAuthorType(2, "천공예"), 1);
+	public void testSelectOneAuthorApply() {
+		assertEquals(authorService.selectOneAuthorApply(memberId), 1);
 	}
 	
 } //end class

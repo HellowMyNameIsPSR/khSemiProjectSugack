@@ -107,7 +107,7 @@
 					<li><a><%= loginUser.getMemberName() %>님 환영합니다</a></li>
 					<li><a href="<%=request.getContextPath()%>/logout.me">로그아웃</a></li>
 					<li><a href="<%= request.getContextPath() %>/views/member/memberUpdateForm.jsp">회원정보수정</a></li>
-					<li><a href="<%= request.getContextPath() %>/views/application/getPTypeList.jsp">입점신청</a></li>
+					<li><a href="<%= request.getContextPath() %>/views/application/checkApply.jsp">입점신청</a></li>
 				</ul>
 			</nav>
 			<%} else { %>
@@ -115,7 +115,7 @@
 				<ul class="nav navbar-nav pull-right">
 					<li><a href="<%= request.getContextPath() %>/views/member/memberLoginForm.jsp">로그인</a></li>
 					<li><a href="<%= request.getContextPath() %>/views/member/memberJoinForm.jsp">회원가입</a></li>
-					<li><a href="<%= request.getContextPath() %>/views/application/getPTypeList.jsp">입점신청</a></li>
+					<li><a href="<%= request.getContextPath() %>/views/application/checkApply.jsp">입점신청</a></li>
 				</ul>
 			</nav>
 			<%} %>
