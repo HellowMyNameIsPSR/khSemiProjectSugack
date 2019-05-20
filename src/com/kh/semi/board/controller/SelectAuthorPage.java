@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.RequestDispatcher;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,8 +38,19 @@ public class SelectAuthorPage extends HttpServlet {
 		System.out.println("나는서블릿이다");
 		
 		ArrayList<HashMap<String,Object>>list = new AuthorPageSerview().selectAuthorPage();
-	
+
+		String page = "";
 		
+		if(list != null) {
+		 page = "views/authorBoard/authorBoard.jsp";
+		 request.setAttribute("list", list);
+		
+		}else {
+		   
+		}
+		RequestDispatcher view = request.getRequestDispatcher(page);
+		view.forward(request, response);
+	
 	
 	
 	}

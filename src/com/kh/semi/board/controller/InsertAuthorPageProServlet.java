@@ -1,5 +1,6 @@
 package com.kh.semi.board.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -125,12 +126,28 @@ public class InsertAuthorPageProServlet extends HttpServlet {
 			 
 			
 			 int result = new AuthorPageSerview().insertAuthorPagePro(b,fileList);
-			 
-			 
-			 
-			 
-			 
-			 
+	
+			 if(result>0) {
+					
+					//재요청이 안되게 sendRedirect를 하고  List를 보여준다.
+					response.sendRedirect(request.getContextPath() + "/selectAuthorPage.tn");
+					
+				}else {
+					
+					//파일은 미리 저장되고 작동하는것이기 때문에!!
+					//실패했을때는 이클립스 사진폴더에 등록된 사진을 지워야한다! 왜그런지는 서블릿쪽에 설명 적어놓음
+					for(int i=0; i<saveFiles.size(); i++) {
+						
+						//경로와 파일이름을 가지고 객체를 만들었다
+						File failedFile = new File(filePath + saveFiles.get(i));
+						
+						System.out.println(failedFile.delete()); //사진을 지워주고, 지워지면 true가 나오고 지워지지않으면 false리턴
+						
+					}
+					
+					
+				}
+	
 			 
 			 
 			 

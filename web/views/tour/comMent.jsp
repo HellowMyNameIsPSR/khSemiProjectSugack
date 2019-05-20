@@ -56,7 +56,7 @@
 							</div>
 							<div class="content"
 								style="border: 5px solid black; width: 900px; height: 100px; padding: 5px; margin-left: 20px;">
-								<textarea style="margin-top: 10px; width: 880px;"
+								<textarea id="addReply" style="margin-top: 10px; width: 880px;"
 									placeholder="작가에게 응원하세요"></textarea>
 							</div>
 							<div class="btn"
@@ -205,6 +205,21 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+		
+	<script>
+	 $(function(){
+		 $("#addReply").click(function(){
+			 var writer = 
+			 
+		 })
+	 })
+	
+	</script>	
+		
+		
+
+
+
 
 </body>
 </html>
