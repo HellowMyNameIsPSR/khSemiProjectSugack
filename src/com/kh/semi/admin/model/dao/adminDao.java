@@ -15,6 +15,8 @@ import java.util.Properties;
 
 import com.kh.semi.admin.model.dao.adminDao;
 import com.kh.semi.admin.model.vo.SearchMember;
+import com.kh.semi.admin.model.vo.SearchProduct;
+import com.kh.semi.author.model.vo.Author;
 import com.kh.semi.member.model.vo.Member;
 import static com.kh.semi.common.JDBCTemplate.*;
 
@@ -89,6 +91,8 @@ public class adminDao {
 			
 			
 			
+			
+			
 			while(rset.next()) {
 				i++;
 				SearchMember sm = new SearchMember();
@@ -137,7 +141,7 @@ public class adminDao {
 		ArrayList<SearchMember> list = null;
 		int i = 0;
 		String query = prop.getProperty("withdrawMember");
-		System.out.println("최종쿼리문 " + query);
+		System.out.println("with최종쿼리문 " + query);
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -146,19 +150,32 @@ public class adminDao {
 				pstmt.setString(1, m.getMemberType());
 				pstmt.setDate(2, m.getWithdrawalDateStart());
 				pstmt.setDate(3, m.getWithdrawalDateLast());
-				pstmt.setString(4, m.getSearchType());
-				pstmt.setString(5, m.getWithdrawalType());
 			}else {
 				pstmt.setString(1, m.getSearchText());
 				pstmt.setString(2, m.getMemberType());
 				pstmt.setDate(3, m.getWithdrawalDateStart());
 				pstmt.setDate(4, m.getWithdrawalDateLast());
-				pstmt.setString(5, m.getSearchType());
-				pstmt.setString(6, m.getWithdrawalType());
 				
 			}
 			
 			rset = pstmt.executeQuery();
+
+			list = new ArrayList<SearchMember>();
+			
+			
+			while(rset.next()) {
+				i++;
+				SearchMember sm = new SearchMember();
+				sm.setEmailText(rset.getString("EMAIL"));
+				sm.setNameText(rset.getString("MEMBER_NAME"));
+				sm.setMemberType(rset.getString("MEMBER_TYPE"));
+				sm.setWithdrawalDay(rset.getDate("OUT_DATE"));
+				sm.setJoinDay(rset.getDate("ENROLL_DATE"));
+				
+				
+				list.add(sm);
+			}
+			System.out.println("총조회할 회원" + i + "명");
 			
 			
 		} catch (SQLException e) {
@@ -472,6 +489,195 @@ public class adminDao {
 	      }
 	      return list;
 	   }
+
+	public ArrayList<HashMap<String, Object>> reqMemList(Connection con) {
+		Properties prop = new Properties();
+		String fileName =  adminDao.class
+				.getResource("/sql/admin/admin-normalquery.properties")
+				.getPath();
+		
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("reqMemList");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				hmap.put("email", rset.getString("EMAIL"));
+				hmap.put("memberId", rset.getInt("MEMBER_ID"));
+				hmap.put("authorName", rset.getString("AUTHOR_NAME"));
+				hmap.put("authorContent", rset.getString("APPLY_CONTENT"));
+				hmap.put("authorStatus", rset.getString("AUTHOR_STATUS"));
+				hmap.put("applyDate", rset.getDate("APPLY_DATE"));
+				
+				list.add(hmap);
+			}
+			
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		
+		
+		return list;
+	}
+
+	public Author selectReqMemOne(String authorName, Connection con) {
+		
+		Properties prop = new Properties();
+		String fileName =  adminDao.class
+				.getResource("/sql/admin/admin-normalquery.properties")
+				.getPath();
+		
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Author a = null;
+		String query = prop.getProperty("reqMemDetailList");
+		
+
+		System.out.println("Dao에서 출력하는 쿼리 " + query);
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, authorName);
+			
+			rset= pstmt.executeQuery();
+			a = new Author();
+			
+			
+			while(rset.next()) {
+				a.setBrandName(rset.getString("AUTHOR_NAME"));
+				a.setApplyContent(rset.getString("APPLY_CONTENT"));
+				a.setApplyDate(rset.getDate("APPLY_DATE"));
+				a.setStaus(rset.getString("AUTHOR_STATUS"));
+				
+				
+				
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return a;
+	}
+
+	public int reqDeny(Connection con, String apply1Stat) {
+		Properties prop = new Properties();
+		String fileName =  adminDao.class
+				.getResource("/sql/admin/admin-normalquery.properties")
+				.getPath();
+		
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("reqDeny");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> searchPro(Connection con, SearchProduct sp) {
+		
+		Properties prop = new Properties();
+		String fileName =  adminDao.class
+				.getResource("/sql/admin/admin-query.properties")
+				.getPath();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<SearchMember> list = null;
+		int i = 0;
+		
+		String query = prop.getProperty("searchProduct");
+		System.out.println("최종쿼리문 " + query);
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			if(sp.getProductName().equals("") && sp.getAuthorName().equals("")) {
+				pstmt.setString(1, sp.getAuthorName());
+				
+			}else if(sp.getProductName().equals("")) {
+				
+			}else if(sp.getAuthorName().equals("")) {
+				
+			}else {
+				
+			}
+			
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 
 
 

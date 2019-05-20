@@ -90,7 +90,7 @@ ArrayList<SearchMember> list = (ArrayList<SearchMember>) request.getAttribute("l
 								</tr>
 
 							</table>	
-							<button id="search" style="float:right;">조회</button>				
+							<button id="searchMemList" style="float:right;">조회</button>				
 						</div>
 						
 		<table class="table table-bordered" id="memberInfoTable" style="border:2px solid gray; text-align:center">
@@ -107,18 +107,7 @@ ArrayList<SearchMember> list = (ArrayList<SearchMember>) request.getAttribute("l
 			</thead>
 			<tbody>
 			
-			</tbody>
-			<%-- <%for(SearchMember sm : list){ %>
-			<tr>
-				<td>1</td>
-				<td><%= sm.getMemberType() %></td>
-				<td><%= sm.getEmailText() %></td>
-				<td><%= sm.getNameText() %></td>
-				<td><%= sm.getJoinDay() %></td>
-				<td><%= sm.getBirthDay() %></td>
-				<td><%= sm.getGender() %></td>
-			</tr>
-			<% } %>	 --%>
+			</tbody>W
 			
 		</table>
 		<div class="row" style="padding-left:200px">
@@ -139,7 +128,7 @@ ArrayList<SearchMember> list = (ArrayList<SearchMember>) request.getAttribute("l
 		<%@ include file="adminMenubar.jsp" %>
 	</div>
 	<script>
-	$("#search").click(function(){
+	$("#searchMemList").click(function(){
 		var searchType = $("input[name='searchType']:checked").val();
 		var searchText = $("input[name='searchText']").val();
 		var memberType = $("input[name='memberType']:checked").val();
@@ -171,9 +160,7 @@ ArrayList<SearchMember> list = (ArrayList<SearchMember>) request.getAttribute("l
 					var $birthDate = $("<td>").text(value.memberBirthDay);
 					var $gender = $("<td>").text(decodeURIComponent(value.memberGender));
 					
-					/* for(key in data){
-						var member = data[key];
-					} */
+					
 					$tr.append($noTd);
 					$tr.append($memType);
 					$tr.append($emailTd);
