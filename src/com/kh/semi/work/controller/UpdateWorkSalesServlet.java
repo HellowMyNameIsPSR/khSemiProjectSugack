@@ -3,7 +3,6 @@ package com.kh.semi.work.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -15,18 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.semi.common.MyFileRenamePolicy;
-import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.work.model.service.WorkService;
 import com.kh.semi.work.model.vo.Work;
-import com.kh.semi.work.model.vo.WorkOption;
 import com.kh.semi.work.model.vo.WorkPic;
 import com.oreilly.servlet.MultipartRequest;
 
-@WebServlet("/insertSale.wo")
-public class InsertWorkSalesServlet extends HttpServlet {
+@WebServlet("/updateSale.wo")
+public class UpdateWorkSalesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public InsertWorkSalesServlet() {}
+    public UpdateWorkSalesServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(ServletFileUpload.isMultipartContent(request)) {
@@ -53,8 +50,8 @@ public class InsertWorkSalesServlet extends HttpServlet {
 			Enumeration<String> files = multiRequest.getFileNames();
 			
 			
+			
 			while(files.hasMoreElements()) {
-				
 				String name = files.nextElement();
 				
 				//System.out.println("name : " + name);
@@ -70,8 +67,7 @@ public class InsertWorkSalesServlet extends HttpServlet {
 					
 				}
 			}
-			
-			//WORK_ID			//작품코드는 시퀀스로 해결
+			int workId	= Integer.parseInt(multiRequest.getParameter("workId"));	
 			String workName = multiRequest.getParameter("workName");				//작품명
 			String workContent = multiRequest.getParameter("workContent");		//작품설명
 			int deliPrice = Integer.parseInt(multiRequest.getParameter("deliPrice"));	//배송비
@@ -83,19 +79,30 @@ public class InsertWorkSalesServlet extends HttpServlet {
 			//MEMBER_ID	//작가코드			//MEMBER 테이블 ID
 			int price = Integer.parseInt(multiRequest.getParameter("price"));	//가격
 			int cid = Integer.parseInt(multiRequest.getParameter("cid"));		//카테고리코드
+			String wpId0 = multiRequest.getParameter("wpId0");
+			String wpId1 = multiRequest.getParameter("wpId1");
+			String wpId2 = multiRequest.getParameter("wpId2");
+			String wpId3 = multiRequest.getParameter("wpId3");
+			String wpId4 = multiRequest.getParameter("wpId4");
+			
+			ArrayList<String> wpId = new ArrayList<String>();
+			wpId.add(wpId0);
+			wpId.add(wpId1);
+			wpId.add(wpId2);
+			wpId.add(wpId3);
+			wpId.add(wpId4);
+			
 			//TYPE_ID	//유형코드 공예유형	//MEMBER 테이블 
 			
-			String memberId = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberId());
-		
+			//String memberId = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberId());
 			Work work = new Work();
+			//work.setWorkId();
+			work.setWorkId(workId);
 			work.setworkName(workName);
 			work.setWorkContent(workContent);
 			work.setDeliPrice(deliPrice);
-			work.setMemberId(Integer.parseInt(memberId));
 			work.setPrice(price);
 			work.setCid(cid);
-			
-			
 			
 			ArrayList<WorkPic> workPic = new ArrayList<WorkPic>();
 			
@@ -108,28 +115,12 @@ public class InsertWorkSalesServlet extends HttpServlet {
 				workPic.add(pic);
 			}
 			
-			String [] optionName = multiRequest.getParameterValues("optionName");
-			String [] optionVal = multiRequest.getParameterValues("optionVal");
-			String [] optionPrice = multiRequest.getParameterValues("optionPrice");
-			
-			ArrayList<WorkOption> workOption = new ArrayList<WorkOption>();
-			
-			for(int i = optionName.length - 1; i >= 0; i--) {
-				WorkOption opt = new WorkOption();
-				opt.setoName(optionName[i]);
-				opt.setoValue(optionVal[i]);
-				opt.setoPrice(Integer.parseInt(optionPrice[i]));
-				
-				workOption.add(opt);
-				System.out.println("옵션 서블렛 리스트 값 : " + workOption);
-			}
-			
-			int result = new WorkService().insertSales(work, workPic, workOption);
+			int result2 = new WorkService().updateSales(work, workPic, wpId);
 			
 			String page = "";
-			if(result > 0) {
+			if(result2 > 0) {
 				//response.sendRedirect(request.getContextPath() + "/selectList.tn");
-				page = "views/author/authorHome.jsp";
+				page = "/sg/selectSale.wo";
 				
 				response.sendRedirect(page);
 			}else {
@@ -143,8 +134,12 @@ public class InsertWorkSalesServlet extends HttpServlet {
 					
 				}
 			}
+			
 		}
-
+		
+		
+	
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -152,14 +147,6 @@ public class InsertWorkSalesServlet extends HttpServlet {
 	}
 
 }
-
-
-
-
-
-
-
-
 
 
 

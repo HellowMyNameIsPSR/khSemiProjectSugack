@@ -11,7 +11,8 @@
 <body>
 	<script>
 		$(function(){
-			location.href = "views/main/mainPage.jsp";
+			//location.href = "views/main/mainPage.jsp";
+			location.href="<%=request.getContextPath()%>/selectImgList.wo";
 		});
 	</script>
 </body>

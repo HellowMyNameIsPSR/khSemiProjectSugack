@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.work.model.vo.*"%>
+<%
+	Work work = (Work) request.getAttribute("work");
+	ArrayList<WorkPic> workPic = (ArrayList<WorkPic>) request.getAttribute("fileList");
+ %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +12,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-<!-- include summernote css/js-->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 <%@ include file="../assets/css/allCss.html" %>
@@ -18,7 +21,7 @@
 		background: radial-gradient(white, #F6FFFF) fixed;
 	}
 	img{
-		background-image: url( "../images/noImage.png" );
+		background-image:url("/sg/views/images/noImage.png");
 		background-size:100%;
 		cursor: pointer;
 	}
@@ -191,7 +194,7 @@
 				<!-- section -->
 				<section id="contents">
 					<header class="main">
-						<span style="font-size:40px;">판매 작품 등록</span>
+						<span style="font-size:40px;">판매 작품 수정</span>
 					</header>
 					<!-- Contents area -->
 					<!-- 확인후 지우기 -->
@@ -200,7 +203,8 @@
 				 	
 				 	
 				 	
-					<form id="salesFrom" action="<%=request.getContextPath()%>/insertSale.wo" method="post" encType="multipart/form-data">
+					<form action="<%=request.getContextPath()%>/updateSale.wo" method="post" encType="multipart/form-data">
+						<input type="number" name="workId" value="<%=work.getWorkId()%>" style="display:none;">
 						<div class="listBox">
 							<div class="listTitle">
 								<h2>카테고리</h2>
@@ -364,13 +368,29 @@
 							</div>
 						</div>
 
+			        	<script>
+						 
+			            	
+			            	$(function(){
+			                	$("input[name=cid]").each(function (){
+			                		var arr = '<%=work.getCid()%>';
+			                		for(var i = 0; i < arr.length; i++) {
+			                			if($(this).val() == arr[i]) {
+			                				$(this).attr("checked", true);
+			                			}
+			                		}
+			                	})
+			                });
+						</script>
+						
+						
 						<!-- 상품명  -->
 						<div class="listBox">
 							<div class="listTitle">
 								<h2>상품명</h2>
 							</div>
 							<div class="listContents">
-								<input name="workName" type="text" placeholder="상품명 입력" style="width: 100%;">
+								<input name="workName" value="<%=work.getworkName()%>"type="text" placeholder="상품명 입력" style="width: 100%;">
 								<p class="subtext">※판매 상품과 직접 관련이 없는 다른 상품명 입력 시 관리자에 의해 판매금지될 수 있습니다.</p>
 							</div>
 						</div>
@@ -386,7 +406,7 @@
 									<tr>
 										<td style="width:100px">판매가</td>
 										<td style="width:250px;">
-											<input name="price" type="number" placeholder="숫자만 입력" value="0" style = "text-align:right;">
+											<input name="price" value="<%=work.getPrice()%>" type="number" placeholder="숫자만 입력" value="0" style = "text-align:right;">
 										</td>
 										<td style="width:50`px">원</td>
 									</tr>
@@ -396,7 +416,7 @@
 									<tr>
 										<td>배송비</td>
 										<td>
-											<input name="deliPrice" type="number" placeholder="숫자만 입력" value="0" style = "text-align:right;">
+											<input name="deliPrice" value="<%=work.getDeliPrice()%>" type="number" placeholder="숫자만 입력" value="0" style = "text-align:right;">
 										</td>
 										<td>원</td>
 									</tr>
@@ -417,43 +437,49 @@
 								</div>
 
 								<div class="optionBox">
-									<div align="center">
-										<div class="optionBtn" id="deleteBtn">
-											<span class="glyphicon glyphicon-minus"></span>&nbsp;옵션 삭제
-										</div>
-										<div class="optionBtn" id="addBtn">
-											<span class="glyphicon glyphicon-plus"></span>&nbsp;옵션 추가
-										</div>
+									<table class="optionTable">
+										<tr align="center">
+											<td>옵션명</td>
+											<td>옵션값</td>
+											<td>추가비용</td>
+											<td align="center">
+												<span id="iconBox" class="glyphicon glyphicon-minus minus0">
+											</span></td>
+											<td align="center">
+												<span id="iconBox"class="glyphicon glyphicon-plus plus0">
+											</span></td>
+										</tr>
+
+										<tbody class="optiontbody">
+											<tr align="center">
+												<td>
+													<input type="text" name="optionName" placeholder="옵션명 입력">
+												</td>
+												<td>
+													<input type="text" name="optionVal" placeholder="옵션값 입력">
+												</td>
+												<td>
+													<input type="number" name="plusSale" placeholder="추가비용 입력">
+												</td>
+												<td colspan="2"></td>
+											</tr>
+										</tbody>
+									</table>
+
+								</div>
+								<div align="center">
+									<div class="optionBtn" id="deleteBtn">
+										<span class="glyphicon glyphicon-minus"></span>&nbsp;옵션 삭제
+									</div>
+									<div class="optionBtn" id="addBtn">
+										<span class="glyphicon glyphicon-plus"></span>&nbsp;옵션 추가
 									</div>
 								</div>
 
 							</div>
 						</div>
-						<button type="button" id="testBtn" class="all-btn">카피 복사</button>
-						<script>salesFrom
-							$('#salesFrom').submit(function(event){
-								 $('.optionName00').each(function(){
-									 $(this).val($('.optionName0').val());
-								 });
-								 $('.optionName11').each(function(){
-									 $(this).val($('.optionName1').val());
-								 });
-								 $('.optionName22').each(function(){
-									 $(this).val($('.optionName2').val());
-								 });
-								 $('.optionName33').each(function(){
-									 $(this).val($('.optionName3').val());
-								 });
-								 $('.optionName44').each(function(){
-									 $(this).val($('.optionName4').val());
-								 });
-					        });
-						/* $('#submit').on("click",function () {
-							 $('.optionName00').each(function(){
-								 $(this).val($('.optionName0').val());
-							 });
-				        }); */
-							
+
+						<script>
 							var num = 0;
 							var cnt = 0;
 							var cnt1 = 0;
@@ -463,67 +489,29 @@
 							var opCnt = 0;
 							
 							$(function(){
-									$(".openOption").on("click", function(){
-										console.log(opCnt);
-										if(opCnt <= 0){
-											opCnt++;
-											console.log(opCnt);
-											$(".optionBox").show()
-											$(".optionBox").append(
-												'<div class="optionDiv">' +
-													'<table class="optionTable0">' +
-														'<tr align="center">' +
-															'<td>옵션명</td>' +
-															'<td>옵션값</td>' +
-															'<td>추가비용</td>' +
-															'<td align="center">' +
-																'<span id="iconBox" class="glyphicon glyphicon-minus minus0">' +
-															'</span></td>' +
-															'<td align="center">' +
-																'<span id="iconBox"class="glyphicon glyphicon-plus plus0">' +
-															'</span></td>' +
-														'</tr>' +
-														'<tbody class="optiontbody">' +
-															'<tr align="center">' +
-																'<td>' +
-																	'<input type="text" value="fas" class="optionName0" name="optionName" placeholder="옵션명 입력">' +
-																'</td>' +
-																'<td>' +
-																	'<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +
-																'</td>' +
-																'<td>' +
-																	'<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +
-																'</td>' +
-																'<td colspan="2"></td>' +
-															'</tr>' +
-														'</tbody>' +
-													'</table>' +
-												'</div>'
-											);
-										}
-									});
-									
-								$(".closeOption").on("click", function(){
+								// 옵션 설정함/설정안함
+								$(".openOption").click(function(){
+									$(".optionBox").show();
+								});
+								
+								$(".closeOption").click(function(){
 									$(".optionBox").hide();
-									$(".optionDiv").remove();
-									$(".option").val(' ');
-									opCnt = 0;
 								});
 								
 								
 								//옵션갑 추가 삭제1
-								$(document).on("click",".plus0", function() {
+								$(".plus0").on("click", function() {
 									cnt++;
 									$(".optiontbody:last").append(
 										'<tr align="center">' +
-											'<td> <input type="hidden" class="optionName00" type="text" " name="optionName" placeholder="옵션명 입력" val=""> </td>' +		
-											'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
-											'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
+											'<td> <input style="display:none;" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
+											'<td>' + '<input type="text" name="optionVal'+ cnt + '" placeholder="옵션값 입력">' +'</td>' +
+											'<td>' + '<input type="number" name="plusSale'+ cnt + '" placeholder="추가비용 입력">' +'</td>' +
 											'<td colspan="2"></td>' +
 										'</tr>'
 									);
 								});
-								$(document).on("click", ".minus0", function(){
+								$(".minus0").on("click", function(){
 									cnt--;
 									if(cnt < 0){
 										cnt = 0;
@@ -536,9 +524,9 @@
 									cnt1++;
 									$(".optiontbody1:last").append(
 										'<tr align="center">' +
-											'<td> <input type="hidden" class="optionName11" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
-											'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
-											'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
+											'<td> <input style="display:none;" type="text" name="optionName1" placeholder="옵션명 입력"> </td>' +		
+											'<td>' + '<input type="text" name="optionVal1' + cnt1 + '" placeholder="옵션값 입력">' +'</td>' +
+											'<td>' + '<input type="number" name="plusSale1' + cnt1 + '" placeholder="추가비용 입력">' +'</td>' +
 											'<td colspan="2"></td>' +
 										'</tr>'
 									);
@@ -556,9 +544,9 @@
 									cnt2++;
 									$(".optiontbody2:last").append(
 										'<tr align="center">' +
-											'<td> <input type="hidden" class="optionName22" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
-											'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
-											'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
+											'<td> <input style="display:none;" type="text" name="optionName2" placeholder="옵션명 입력"> </td>' +		
+											'<td>' + '<input type="text" name="optionVal2' + cnt2 + '" placeholder="옵션값 입력">' +'</td>' +
+											'<td>' + '<input type="number" name="plusSale2' + cnt2 + '" placeholder="추가비용 입력">' +'</td>' +
 											'<td colspan="2"></td>' +
 										'</tr>'
 									);
@@ -576,9 +564,9 @@
 									cnt3++;
 									$(".optiontbody3:last").append(
 										'<tr align="center">' +
-											'<td> <input type="hidden" class="optionName33" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
-											'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
-											'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
+											'<td> <input style="display:none;" type="text" name="optionName3" placeholder="옵션명 입력"> </td>' +		
+											'<td>' + '<input type="text" name="optionVal3' + cnt3 + '" placeholder="옵션값 입력">' +'</td>' +
+											'<td>' + '<input type="number" name="plusSale3' + cnt3 + '" placeholder="추가비용 입력">' +'</td>' +
 											'<td colspan="2"></td>' +
 										'</tr>'
 									);
@@ -596,9 +584,9 @@
 									cnt4++;
 									$(".optiontbody4:last").append(
 										'<tr align="center">' +
-											'<td> <input type="hidden" class="optionName44" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
-											'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
-											'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
+											'<td> <input style="display:none;" type="text" name="optionName4" placeholder="옵션명 입력"> </td>' +		
+											'<td>' + '<input type="text" name="optionVal4' + cnt4 + '" placeholder="옵션값 입력">' +'</td>' +
+											'<td>' + '<input type="number" name="plusSale4' + cnt4 + '" placeholder="추가비용 입력">' +'</td>' +
 											'<td colspan="2"></td>' +
 										'</tr>'
 									);
@@ -614,13 +602,12 @@
 								});
 								
 								//옵션박스 추가 삭제
-										num=0;
-									$("#addBtn").on("click",function() {
-										num++;
-										if(opCnt <= 4){
+								$("#addBtn").click(function() {
+									num++;
+									if(opCnt <= 4){
 										opCnt++;
-										console.log("num : " + num);
-										$(".optionDiv").last().append(
+										opCtn = 4;
+										$(".optionBox").last().append(
 											'<table class="optionTable'+ num +'">' +
 												'<tr align="center">' +
 													'<td>옵션명</td>' +
@@ -636,27 +623,25 @@
 												'<tbody class="optiontbody' + num + '">' +
 													'<tr align="center">' +
 														'<td>' +
-															'<input type="text" class="optionName'+ num +'" name="optionName" placeholder="옵션명 입력">' +
+															'<input type="text" name="optionName'+ num +'" placeholder="옵션명 입력">' +
 														'</td>' +		
-														'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
-														'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
+														'<td>' + '<input type="text" name="optionVal'+ num +'0" placeholder="옵션값 입력">' +'</td>' +
+														'<td>' + '<input type="number" name="plusSale'+ num +'0" placeholder="추가비용 입력">' +'</td>' +
 														'<td colspan="2"></td>' +
 													'</tr>' +
 												'</tbody>' +
 											'</table>'
 										);
-										}
-										//opCnt = 0;
-									});
+									}
+								});
+								
 								$("#deleteBtn").on("click", function(){
 									opCnt--;
 									num--;
-									if(opCnt < 1){
-										console.log(opCnt);
-										opCnt = 1;
-										num = 0;
-									}else if(opCnt >= 1){
-										$(".optionDiv").children().last().remove();
+									if(opCnt < 0){
+										opCnt = 0;
+									}else if(opCnt >= 0){
+										$(".optionBox").children().last().remove();
 									}
 								});
 								
@@ -677,7 +662,7 @@
 									<td></td>
 									<td colspan="3">
 										<div class="imgDiv">
-											<img id="titleImg" width="300" height="240">
+											<img src="<%=request.getContextPath()%>/uploadSalesImage/<%=workPic.get(0).getchangeName()%>" id="titleImg" width="300" height="240">
 										</div>
 									</td>
 								</tr>
@@ -690,44 +675,33 @@
 									<td colspan="4" style="padding-left:30px;">추가이미지</td>
 								</tr>
 								<tr align="center">
-									<td>
-										<div class="imgDiv">
-											<img id="subImg1" style="width:180px;height:150px;">
-										</div>
-									</td>
-									<td>
-										<div class="imgDiv">
-											<img id="subImg2" style="width:180px;height:150px;">
-										</div>
-									</td>
-									<td>
-										<div class="imgDiv">
-											<img id="subImg3" style="width:180px;height:150px;">
-										</div>
-									</td>
-									<td>
-										<div class="imgDiv">
-											<img id="subImg4" style="width:180px;height:150px;">
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="4" style="padding-left:30px;">
-										<p class="subtext">
-										※ 권장 크기 : 640px * 640px<br> &nbsp; &nbsp; 추가이미지는 최대 4개까지
-										설정할 수 있습니다.<br> &nbsp; &nbsp; jpg, jpeg, gif, png, bmp 형식의
-										정지 이미지만 등록됩니다.
-										</p>
-									</td>
+									<% for(int i = 1; i < 5; i++){ 
+										if(workPic.size() > i) {%>
+										<td>
+											<div class="imgDiv">
+												<img id="subImg<%=i%>" src="<%=request.getContextPath()%>/uploadSalesImage/<%=workPic.get(i).getchangeName()%>" style="width:180px;height:150px;">
+											</div>
+										</td>
+										<%} else{%>		
+										<td>
+											<div class="imgDiv">
+												<img id="subImg<%=i%>" src="" style="width:180px;height:150px;">
+											</div>
+										</td>
+										<% } %>
+									<%} %>
 								</tr>
 							</table>
 						</div>
 						<div id="fileArea">
-							<input type="file" id="workImg0" name="workImg0" onchange="loadImg(this,1)">
-							<input type="file" id="workImg1" name="workImg1" onchange="loadImg(this,2)">
-							<input type="file" id="workImg2" name="workImg2" onchange="loadImg(this,3)">
-							<input type="file" id="workImg3" name="workImg3" onchange="loadImg(this,4)">
-							<input type="file" id="workImg4" name="workImg4" onchange="loadImg(this,5)">
+							<% for(int i = 0; i < workPic.size(); i++) {%>
+								<textarea id="wpId<%=i%>" name="wpId<%=i %>"><%=workPic.get(i).getWpid()%></textarea>
+							<% } %>
+							<input type="file" id="workImg0" name="workImg0" onchange="loadImg(this,1)" >
+							<input type="file" id="workImg1" name="workImg1" onchange="loadImg(this,2)" >
+							<input type="file" id="workImg2" name="workImg2" onchange="loadImg(this,3)" >
+							<input type="file" id="workImg3" name="workImg3" onchange="loadImg(this,4)" >
+							<input type="file" id="workImg4" name="workImg4" onchange="loadImg(this,5)" >
 						</div>
 						<script>
 						
@@ -756,6 +730,7 @@
 								if(value.files && value.files[0]){
 									var reader = new FileReader();
 									reader.onload = function(e){
+											
 										switch(num){
 										case 1 :
 											$("#titleImg").attr("src", e.target.result);
@@ -778,12 +753,6 @@
 									reader.readAsDataURL(value.files[0]);
 								}
 							}
-							
-							$(document).ready(function() {
-								$('html, body').animate({
-									scrollTop : $('.searchBox').offset().top
-								}, 'slow');
-							});
 						</script>
 						
 						
@@ -794,7 +763,9 @@
 								<h2>상품상세설명</h2>
 							</div>
 							<div style="padding:30px 30px 30px 30px;">
-						 		<textarea name="workContent" id="summernote">내용</textarea>
+						 		<textarea name="workContent" id="summernote">
+						 		<%=work.getWorkContent()%>
+						 		</textarea>
 							</div>
 						</div>
 						
@@ -858,7 +829,7 @@
 						
 						<div align="center">
 							<button type="reset" class="all-btn" style="width:150px;">취소</button>
-							<button id="submit" type="submit" class="all-btn" style="width:150px;">등록하기</button>
+							<button type="submit" class="all-btn" style="width:150px;">수정하기</button>
 						</div>
 						
 
