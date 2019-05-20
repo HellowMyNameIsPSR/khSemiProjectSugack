@@ -7,10 +7,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.semi.member.model.vo.Address;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.product.model.vo.Basket;
+
 import static com.kh.semi.common.JDBCTemplate.*;
 
 public class MemberDao {
@@ -187,11 +190,11 @@ public class MemberDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, add.getAddressName());
-			pstmt.setString(2, add.getAddress());
+			pstmt.setString(1, add.getAddress());
+			pstmt.setInt(2, add.getMemberId());
 			pstmt.setString(3, add.getPhone1());
 			pstmt.setString(4, add.getPhone2());
-			pstmt.setInt(5, add.getMemberId());
+			pstmt.setString(5, add.getAddressName());
 			
 			result = pstmt.executeUpdate();
 			
@@ -311,11 +314,103 @@ public class MemberDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, add.getAddressName());
-			pstmt.setString(2, add.getAddress());
+			pstmt.setString(1, add.getAddress());
+			pstmt.setInt(2, add.getMemberId());
 			pstmt.setString(3, add.getPhone1());
 			pstmt.setString(4, add.getPhone2());
-			pstmt.setInt(5, add.getAddressId());
+			pstmt.setString(5, add.getAddressName());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectCartList(Connection con, int memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> cart = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		String query = prop.getProperty("selectCartList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				cart = new HashMap<String, Object>();
+				cart.put("bid", rset.getInt("BASKET_ID"));
+				cart.put("mid", rset.getInt("MID"));
+				cart.put("wid", rset.getInt("WID"));
+				cart.put("basketDate", rset.getDate("BASKET_DATE"));
+				cart.put("count", rset.getInt("COUNT"));
+				cart.put("opid", rset.getInt("OP_ID"));
+				cart.put("changeName", rset.getString("CHANGE_NAME"));
+				cart.put("price", rset.getInt("PRICE"));
+				cart.put("deliPrice", rset.getInt("DELI_PRICE"));
+				cart.put("workContent", rset.getString("WORK_CONTENT"));
+				cart.put("workName", rset.getString("WORK_NAME"));
+				cart.put("oname", rset.getString("ONAME"));
+				cart.put("ovalue", rset.getString("OVALUE"));
+				cart.put("oprice", rset.getInt("OPRICE"));
+				list.add(cart);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		
+		return list;
+	}
+
+	public int deleteCart(Connection con, String[] bidArr) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteCart");
+		
+		try {
+			for(int i = 0; i < bidArr.length; i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, Integer.parseInt(bidArr[i]));
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int countUpdate(Connection con, int bid, int count) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("countUpdate");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, count);
+			pstmt.setInt(2, bid);
 			
 			result = pstmt.executeUpdate();
 			

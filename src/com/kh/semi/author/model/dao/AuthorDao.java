@@ -12,7 +12,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.semi.author.model.vo.ApplyHistory;
 import com.kh.semi.author.model.vo.Author;
+import com.kh.semi.author.model.vo.PicFile;
 import com.kh.semi.author.model.vo.ProType;
 
 public class AuthorDao {
@@ -89,6 +91,7 @@ public class AuthorDao {
 			pstmt.setInt(1, author.getMemberId());
 			pstmt.setString(2, author.getBrandName());
 			pstmt.setString(3, author.getApplyContent());
+			pstmt.setString(4, "1차신청");
 			resultAuthor = pstmt.executeUpdate();			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -114,5 +117,125 @@ public class AuthorDao {
 		}
 		return resultAuthorType;
 	} //end method
+
+	public int insertApply1File(Connection con, int memberId, ArrayList<PicFile> fileList) {
+		PreparedStatement pstmt = null;
+		int resultFile = 0;
+		String query = prop.getProperty("insertApply1File");
+		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, fileList.get(i).getOriginName());
+				pstmt.setString(2, fileList.get(i).getChangeName());
+				pstmt.setString(3, fileList.get(i).getFilePath());
+				String fileType = "";
+				if(i == 0) {
+					fileType = "브랜드로고";
+				} else {
+					fileType = "1차입점서류";
+				}				
+				pstmt.setString(4, fileType);
+				pstmt.setInt(5, memberId);
+				resultFile += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return resultFile;
+	}
+	
+	//1차 입점 신청 후 입점 내역 정보 저장한다.
+	public int insertAuthorApply(Connection con, int memberId) {
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("insertAuthorApply");
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "대기");
+			pstmt.setString(2, "-");
+			pstmt.setInt(3, memberId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	} //end method
+
+	//사용자의 입점 정보 가져오기
+	public ArrayList<ApplyHistory> selectOneAuthorApply(Connection con, int memberId) {
+		PreparedStatement pstmt = null;
+		ArrayList<ApplyHistory> list = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectOneAuthorApply");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			rset = pstmt.executeQuery();
+			list = new ArrayList<ApplyHistory>();
+			while(rset.next()) {
+				ApplyHistory applyHistory = new ApplyHistory();
+				applyHistory.setMemberId(rset.getInt("MEMBER_ID"));
+				applyHistory.setMamberName(rset.getString("MEMBER_NAME"));
+				applyHistory.setEmail(rset.getString("EMAIL"));
+				applyHistory.setAuthorName(rset.getString("AUTHOR_NAME"));
+				applyHistory.setApplyContent(rset.getString("APPLY_CONTENT"));
+				applyHistory.setApplyStat1(rset.getString("APPLY_STAT1"));
+				applyHistory.setApplyStat2(rset.getString("APPLY_STAT2"));
+				applyHistory.setApplyDate(rset.getDate("APPLY_DATE"));
+				applyHistory.setCraftId(rset.getInt("CRAFT_ID"));
+				applyHistory.setMaterial(rset.getString("MATERIAL"));
+				applyHistory.setOriginName(rset.getString("ORIGIN_NAME"));
+				applyHistory.setChangeName(rset.getString("CHANGE_NAME"));
+				applyHistory.setFilePath(rset.getString("FILE_PATH"));
+				applyHistory.setFileType(rset.getString("FILE_TYPE"));
+				
+				list.add(applyHistory);
+			} //end while
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return list;
+	}
+
+	//2차 입점 신청 파일을 저장한다.
+	public int insertApply2(Connection con, int memberId, ArrayList<PicFile> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertApply2");
+		try {
+			String filePath = "";
+			for(int i = 0; i < fileList.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, fileList.get(i).getOriginName());
+				pstmt.setString(2, fileList.get(i).getChangeName());
+				pstmt.setString(3, fileList.get(i).getFilePath());
+				if(fileList.get(i).getFileType().equals("businessLicense")) {
+					filePath = "사업자등록증";
+				} else if(fileList.get(i).getFileType().equals("confirm")) {
+					filePath = "구매안전확인증";
+				} else {
+					filePath = "통신판매업신고증";
+				}//end if
+				pstmt.setString(4, filePath);
+				pstmt.setInt(5, memberId);
+				result += pstmt.executeUpdate();
+			} //end for			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 } //end class

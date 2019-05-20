@@ -38,7 +38,7 @@
     	background:black;
     }
     .container{
-    	background:gray;
+    	/* background:gray; */
     	
     	
     }
@@ -75,12 +75,12 @@
 
 </head>
 <body>
-<div class="navdiv">
+
+  <%@ include file="../main/mainMenubar.jsp" %>
  
-</div> 
+
 <div class="container">
 
-  <div class="select" style="width:100%; height:50px; background:beige;">
     
    
     <select style="width:100%; height:30px; margin-top:10px;">

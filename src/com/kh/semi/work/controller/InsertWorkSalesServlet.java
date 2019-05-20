@@ -113,7 +113,6 @@ public class InsertWorkSalesServlet extends HttpServlet {
 			String page = "";
 			if(result2 > 0) {
 				//response.sendRedirect(request.getContextPath() + "/selectList.tn");
-				
 				page = "views/author/authorHome.jsp";
 				
 				response.sendRedirect(page);
