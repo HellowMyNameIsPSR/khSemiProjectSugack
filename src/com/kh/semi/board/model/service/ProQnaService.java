@@ -13,7 +13,7 @@ import com.kh.semi.board.model.vo.ProQna;
 import com.kh.semi.board.model.vo.ProQnaComment;
 public class ProQnaService {
 
-	//Q&A문의글 작성용 메소드
+	//Q&A문의글 작성용 메소드!
 	public int insertProQna(ProQna qna) {
 		Connection con = getConnection();
 		int result = new ProQnaDao().insertProQna(con,qna);

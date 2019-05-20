@@ -73,8 +73,7 @@
 							 	</div>
 							 </div>
 							 	<%} %>
-							 	<br>
-							<br><br><br>
+							 	
 							<!--  <div class="col-sm-4"></div>
 							 
 							  	<div class="col-sm-4 product" style="background-color:lavender; height:50%;">
