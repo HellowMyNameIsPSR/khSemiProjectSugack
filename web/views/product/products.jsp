@@ -111,7 +111,7 @@
    				<img src="views/images/fullheart.png" name="heart" style="width:30px; height:30px;" onclick="heartyn();">
    			</div>
    			<div class="heartprice" style="height:60px; margin-right:10px; margin-top:5px;">
-   			<p name="price" style="float:right; font-size:20px;"><%=hmap.get("price") %></p>
+   			<p name="price" style="float:right; font-size:20px;"><%=hmap.get("price") %>원</p>
    			</div>
    			
    			
