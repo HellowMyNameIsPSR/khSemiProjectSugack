@@ -119,8 +119,70 @@ public class WorkService {
 		
 		return list;
 	}
+	public Work selectOne(int num) {
+		Connection con = getConnection();
+		
+		Work work = new WorkDao().selectOne(con, num);
+		
+		//System.out.println("서비스 work : " + work);
+		
+		/*if(work != null) {
+			int result = new WorkDao().updateCount(con, work.getWorkId());
+			
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}*/
+		
+		close(con);
+		
+		return work;
+	}
+	public ArrayList<WorkPic> selectImg(int num) {
+		Connection con = getConnection();
+		
+		ArrayList<WorkPic> fileList = new WorkDao().selectImg(con, num);
+		
+		close(con);
+		
+		return fileList;
+	}
+	public int updateSales(Work work, ArrayList<WorkPic> workPic, ArrayList<String> wpId) {
+		Connection con = getConnection();
+		int result = 0;
+		
+		
+		int result1 = new WorkDao().updateSale(con, work);
+		System.out.println("서비스 updateSals result 값 : " + result1);
+		if(result1 > 0) {
+			int result2 = new WorkDao().updatePicFile(con, workPic, work, wpId);
+			System.out.println("서비스 updatepicFile result 값 : " + result2);
+			if(result1 > 0 && result2 == workPic.size()) {
+				commit(con);
+				result = 1;
+			}else {
+				rollback(con);
+				result = 0;
+			}
+		}
+		
+		
+		
+		close(con);
+		
+		return result;
+	}
 
+	
+	
+	
+	
+	
 }
+
+
 
 
 
