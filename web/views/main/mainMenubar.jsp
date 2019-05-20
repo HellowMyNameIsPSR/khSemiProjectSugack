@@ -144,7 +144,7 @@
 					</div>
 						<ul class="nav navbar-nav navbar-right">
 							<li><a onclick="myPage();">My정보</a></li>
-							<li><a href="<%= request.getContextPath() %>/views/member/cart.jsp">장바구니</a></li>
+							<li><a href="<%= request.getContextPath() %>/selectCartList.me">장바구니</a></li>
 							<li><a href="<%= request.getContextPath() %>/views/customerCenter/customerCenterNotice.jsp">고객센터</a></li>
 						</ul>
 				</div>
@@ -159,7 +159,7 @@
 					</div>
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="<%= request.getContextPath() %>/views/member/myPage.jsp">My정보</a></li>
-							<li><a href="<%= request.getContextPath() %>/views/member/cart.jsp">장바구니</a></li>
+							<li><a href="<%= request.getContextPath() %>/selectCartList.me">장바구니</a></li>
 							<li><a href="<%= request.getContextPath() %>/views/customerCenter/customerCenterNotice.jsp">고객센터</a></li>
 						</ul>
 				</div>
