@@ -35,11 +35,10 @@
 					</ul>
 				</li>
 				<li>
-					<span ><a href="comMent.jsp">응원하기 조회및 등록</a></span>
+					<span ><a href="comMent.jsp">응원하기 </a></span>
 				
 				</li>
-				<li>
-					<span ><a href="commentEdit.jsp">응원하기 수정및 삭제</a></span>
+				<li>      
 				
 				</li>
 				<li>
