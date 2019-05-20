@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.semi.board.model.vo.*"   %>
+<%
+Board b =(Board)request.getAttribute("b");
+%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -206,16 +209,16 @@
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 		
-	<script>
+	<%-- <script>
 	 $(function(){
 		 $("#addReply").click(function(){
-			 var writer = 
+			 var writer = <%=%>;
 			 
 		 })
 	 })
 	
 	</script>	
-		
+		 --%>
 		
 
 
