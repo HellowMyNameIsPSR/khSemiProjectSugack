@@ -17,6 +17,7 @@ import com.kh.semi.board.model.service.AuthorPageSerview;
 import com.kh.semi.board.model.vo.AuthorPageAttachmrnt;
 import com.kh.semi.board.model.vo.Board;
 import com.kh.semi.common.MyFileRenamePolicy;
+import com.kh.semi.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
@@ -38,7 +39,10 @@ public class InsertAuthorPageDetailServlrt extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-if(ServletFileUpload.isMultipartContent(request)) {
+			
+			Member m = (Member)request.getSession().getAttribute("loginUser");
+		
+		    if(ServletFileUpload.isMultipartContent(request)) {
 			
 			
 			
@@ -91,9 +95,10 @@ if(ServletFileUpload.isMultipartContent(request)) {
 			 System.out.println(authorcontent);
 			 
 			 
-			Board b = new Board();
-			b.setTitle(authorTitle);
-		    b.setContent(authorcontent);
+			 Board b = new Board();
+			 b.setTitle(authorTitle);
+			 b.setContent(authorcontent);
+			 b.setMemberId(m.getMemberId());
 				
 			 
 			 
@@ -113,13 +118,13 @@ if(ServletFileUpload.isMultipartContent(request)) {
  
 			 }
 			 
-			int result = new AuthorPageSerview().insertAuthorPagePro(b,fileList);
+			int result = new AuthorPageSerview().insertAuthorPageDetail(b,fileList);
 			 
 			 
 	if(result>0) {
 				
 				//재요청이 안되게 sendRedirect를 하고  List를 보여준다.
-				response.sendRedirect(request.getContextPath() + "/selectList.tn");
+				response.sendRedirect(request.getContextPath() + "/selectAuthorPage.tn");
 				
 			}else {
 				
