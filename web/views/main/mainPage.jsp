@@ -111,8 +111,9 @@
 		
 	
 		<h2 class="titleText" align="center">인기상품</h2>
-		<div class="container-fluid bg-3 text-center">
-			<%-- <div class="row">
+		<%-- <div class="container-fluid bg-3 text-center">
+			<div class="row">
+
 			<% for(int i = 0; i < 4; i++){ 
 					HashMap<String, Object> hmap = list.get(i);
 			%>
@@ -156,7 +157,7 @@
 			<% } %>
 			</div> --%>
 		</div>
-		
+		 --%>
 		
 		<script>
 			$(function(){

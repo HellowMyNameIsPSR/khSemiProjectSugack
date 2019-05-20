@@ -18,6 +18,7 @@
 		margin:0px 0px 0px 7%;
 		width:150px;
 		height:100px;
+		width:150px;
 	}
 	.topMemu{
 		margin-right:5%;
