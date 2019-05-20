@@ -43,7 +43,6 @@ public class InsertAuthorPageDetailServlrt extends HttpServlet {
 			Member m = (Member)request.getSession().getAttribute("loginUser");
 		
 		    if(ServletFileUpload.isMultipartContent(request)) {
-
 			
 			
 			

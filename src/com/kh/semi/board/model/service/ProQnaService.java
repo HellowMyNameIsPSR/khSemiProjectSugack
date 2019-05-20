@@ -41,8 +41,6 @@ public class ProQnaService {
 		close(con);
 		return list;
 	}
-
-
 	
 	//문의내역 자세히보기
 	public ProQna selectOne(int num) {

@@ -82,14 +82,15 @@ public class AuthorService {
 		Connection con = getConnection();
 		int result = new AuthorDao().insertApply2(con, memberId, fileList);
 		if(result > 0) {
-			commit(con);
-		} else {
-			rollback(con);
+			int resultUpdate = new AuthorDao().updateAuthorApplyStat2(con, memberId);
+			if(resultUpdate > 0) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
 		}
 		close(con);
 		return result;
-	}
-
-	
+	}	
 	
 } //end class

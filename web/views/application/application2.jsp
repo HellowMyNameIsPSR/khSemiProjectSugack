@@ -5,12 +5,7 @@
 <%
 	ArrayList<ApplyHistory> applyHistory
 				= (ArrayList<ApplyHistory>) request.getAttribute("applyHistory");
-	int index = 0; 
-	for(int i = 0; i < applyHistory.size(); i++){
-		if(applyHistory.get(i).getFileType().equals("브랜드로고")){
-			index = i;
-		} //end if
-	} //end for
+	Integer index = (Integer) request.getAttribute("index"); 
 %>
 <!DOCTYPE html>
 <html>
