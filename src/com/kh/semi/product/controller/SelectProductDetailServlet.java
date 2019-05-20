@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.semi.product.model.service.ProService;
+import com.kh.semi.work.model.vo.WorkOption;
 
 /**
  * Servlet implementation class SelectProductDetailServlet
@@ -37,6 +37,7 @@ public class SelectProductDetailServlet extends HttpServlet {
 		int workId = Integer.parseInt(request.getParameter("workId"));
 		
 		ArrayList<HashMap<String,Object>> list = new ProService().selectProductDetailList(workId);
+		ArrayList<WorkOption> olist = new ProService().selectOption(workId);
 		
 		System.out.println("DetailSelectServlet에선 list : "+ list);
 		
@@ -45,9 +46,7 @@ public class SelectProductDetailServlet extends HttpServlet {
 		if(list!=null) {
 			page = "views/product/productDetail.jsp";
 			request.setAttribute("list", list);
-
-			
-			
+			request.setAttribute("olist", olist);
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "상품 자세히보기 실패!");
