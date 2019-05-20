@@ -20,117 +20,90 @@ import com.kh.semi.admin.model.vo.SearchMember;
 import com.kh.semi.common.QueryMake;
 
 
-
-@WebServlet("/memberCheck.ad")
-public class adminMemberCheckSerlvet extends HttpServlet {
+@WebServlet("/withdrawalCheck.ad")
+public class WithdrawalCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
-    public adminMemberCheckSerlvet() {
+  
+    public WithdrawalCheckServlet() {
         super();
-
+    
     }
 
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String searchType = request.getParameter("searchType");
 		String searchText = request.getParameter("searchText");
 		String memberType = request.getParameter("memberType");
-		String joinStart = request.getParameter("joinStart");
-		String joinLast = request.getParameter("joinLast");
-		String birthDateStart = request.getParameter("birthDateStart");
-		String birthDateLast = request.getParameter("birthDateLast");
-		String gender = request.getParameter("gender");
-	
+		String withdrawalStart = request.getParameter("withdrawalStart");
+		String withdrawalLast = request.getParameter("withdrawalLast");
+		String withdrawalType = request.getParameter("withdrawalType");
 		
-		java.sql.Date joinStartday = null;
-		java.sql.Date joinLastday = null;
-		java.sql.Date birthDayStart = null;
-		java.sql.Date birthDayLast = null;
+		
+		java.sql.Date withdrawalDayStart = null;
+		java.sql.Date withdrawalDayLast = null;
 		String jsDay = "1951-01-01";
 		String jlDay = "2020-01-01";
 		
-		if(joinStart.equals("")) {
-			joinStartday = java.sql.Date.valueOf(jsDay);
+		if(withdrawalStart.equals("")) {
+			withdrawalDayStart = java.sql.Date.valueOf(jsDay);
 		}else {
-			joinStartday =  java.sql.Date.valueOf(joinStart);
+			withdrawalDayStart =  java.sql.Date.valueOf(withdrawalStart);
 		}
 		
-		if(joinLast.equals("")) {
-			joinLastday =  java.sql.Date.valueOf(jlDay);
+		if(withdrawalLast.equals("")) {
+			withdrawalDayLast =  java.sql.Date.valueOf(jlDay);
 		}else {
-			joinLastday =  java.sql.Date.valueOf(joinLast);
+			withdrawalDayLast =  java.sql.Date.valueOf(withdrawalLast);
 		}
-		if(birthDateStart.equals("")) {
-			birthDayStart = java.sql.Date.valueOf(jsDay);
-		}else {
-			birthDayStart = java.sql.Date.valueOf(birthDateStart);
-		}
-		if(birthDateLast.equals("")) {
-			birthDayLast = java.sql.Date.valueOf(jlDay);
-		}else {
-			birthDayLast = java.sql.Date.valueOf(birthDateLast);
-		}
-
+		
+		
 		
 		
 		SearchMember m = new SearchMember();
 		
-		
 		m.setSearchText(searchText);
 		m.setMemberType(memberType);
 		m.setSearchType(searchType);
-		m.setJoinStart(joinStartday);
-		m.setJoinLast(joinLastday);
-		m.setBirthDateStart(birthDayStart);
-		m.setBirthDateLast(birthDayLast);
-		m.setGender(gender);
+		m.setWithdrawalDateStart(withdrawalDayStart);
+		m.setWithdrawalDateLast(withdrawalDayLast);
+		m.setWithdrawalType(withdrawalType);
 		
 		
-		QueryMake qm = new QueryMake(m);
+		QueryMake qm = new QueryMake();
 		
+		qm.WithdrawalQuery(m);
 		
-		ArrayList<SearchMember> list = new adminService().searchMember(m);
+		ArrayList<SearchMember> list = new adminService().searchWithdrawal(m);
 		
+
 		JSONArray result = new JSONArray();
 		JSONObject searchMember = null;
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println("list값 출력" + list);
+		
 		for(SearchMember sm : list) {
 			searchMember = new JSONObject();
-			
 			if(sm.getMemberType().equals("W")) {
 				searchMember.put("memberType", URLEncoder.encode("작가", "UTF-8"));
 			}else {
 				searchMember.put("memberType", URLEncoder.encode("일반회원", "UTF-8"));
 			}
-			if(sm.getGender().equals("M")) {
-				searchMember.put("memberGender", URLEncoder.encode("남자", "UTF-8"));
-			}else {
-				searchMember.put("memberGender", URLEncoder.encode("여자", "UTF-8"));
-			}
-			
 			searchMember.put("memberName", URLEncoder.encode(sm.getNameText(), "UTF-8"));
 			searchMember.put("memberEmail", sm.getEmailText());
 			searchMember.put("memberJoinDay", sf.format(sm.getJoinDay()));
-			searchMember.put("memberBirthDay", sf.format(sm.getBirthDay()));
-			
-			
+			searchMember.put("withdrawalDay", sf.format(sm.getWithdrawalDay()));
 			
 			result.add(searchMember);
 		}
-	
-		
 		response.setContentType("application/json");
 		new Gson().toJson(result, response.getWriter());
 		
-		
-		
-		
 	}
 
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	
 		doGet(request, response);
 	}
 
