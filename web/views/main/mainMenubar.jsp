@@ -188,6 +188,7 @@
 							<span class="glyphicon glyphicon-tree-deciduous"></span> &nbsp; 입점신청
 						</a>
 					</li>
+
 				</ul>
 			</nav>
 			<%} else { %>
@@ -261,6 +262,7 @@
 							</a>
 						</li>
 					</ul>
+
 				</div>
 			</nav>
 			<%}else{%>
@@ -422,6 +424,13 @@
 			alert("로그인 후, 사용가능합니다!");
 			location.href='<%=request.getContextPath()%>/views/member/memberLoginForm.jsp';
 		}
-	</script>
+	
+		function goAuthorPage(){
+			location.href='<%=request.getContextPath()%>/selectAuthorPage.tn';
+		}
+		
+		
+		
+		</script>
 </body>
 </html>

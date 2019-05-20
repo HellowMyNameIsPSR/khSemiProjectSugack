@@ -152,6 +152,7 @@
 									<th><strong>상품명</strong></th>
 									<th><strong>판매가</strong></th>
 									<th style="width:150px;"><strong>등록일</strong></th>
+
 								</tr>
 								<tbody id="tbody">
 									

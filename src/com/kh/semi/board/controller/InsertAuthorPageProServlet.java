@@ -1,19 +1,30 @@
 package com.kh.semi.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import com.kh.semi.board.model.service.AuthorPageSerview;
-import com.kh.semi.board.model.vo.Board;;
+
+import com.kh.semi.board.model.vo.AuthorPageAttachmrnt;
+import com.kh.semi.board.model.vo.Board;
+import com.kh.semi.common.MyFileRenamePolicy;
+import com.kh.semi.member.model.vo.Member;
+import com.oreilly.servlet.MultipartRequest;
+
 
 /**
- * Servlet implementation class InsertAuthorPageBoardServlet
+ * Servlet implementation class InsertAuthorPageServlet
  */
-@WebServlet("/insert.tbo")
+@WebServlet("/insert.to")
 public class InsertAuthorPageProServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,35 +40,111 @@ public class InsertAuthorPageProServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String authorTitle =  request.getParameter("author_Title");
-		String authorcontent = request.getParameter("author_content");
-		
-		Board b  = new Board();
-		
-		b.setTitle(authorTitle);
-		b.setContent(authorcontent); 
-		
-		
-		
-	 	 int result = new AuthorPageSerview().InsertAuthorPage(b);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 	
+	
+		if(ServletFileUpload.isMultipartContent(request)) {
+			
+			
+			Member m = (Member)request.getSession().getAttribute("loginUser");
+			
+			
+			System.out.println("로그인 유저 이름 " + m.getMemberName() + "로그인 유저 아이디 :" + m.getMemberId());
+			
+			int maxSize = 1024 * 1024 * 10; 
+			
+			
+			
+			 String root = request.getSession().getServletContext().getRealPath("/");
+            
+			 System.out.println("root:" +root); 
+			 
+			 String filePath = root + "uploadSalesImage/"; 
+			 
+			 
+			 MultipartRequest multiRequest = new MultipartRequest(request,filePath,maxSize,"UTF-8",new MyFileRenamePolicy());
+			 
+			 ArrayList<String> saveFiles = new ArrayList<String>();
+			 ArrayList<String> originFiles = new ArrayList<String>(); 
+			 
+			 
+			 Enumeration<String> files = multiRequest.getFileNames(); 
+			 
+			 
+			 while(files.hasMoreElements()) {
+				 
+				String name = files.nextElement();
+				
+				System.out.println("name :" +name);
+				
+				
+				saveFiles.add(multiRequest.getFilesystemName(name));
+				originFiles.add(multiRequest.getOriginalFileName(name));
+				
+				
+				System.out.println("fileSystem name : " +multiRequest.getFilesystemName(name));
+				System.out.println("originFile :" +multiRequest.getOriginalFileName(name));
+				
+				
+				
+				 
+			 }
+			 
+			 
+			 String authorname  = multiRequest.getParameter("author_name");
+			 String authorabout = multiRequest.getParameter("author_about");
+			  
+			 
+			 
+			 System.out.println(authorname);
+			 System.out.println(authorabout);
+			 
+			 Board b = new Board();
+			 b.setTitle(authorname);
+			 b.setContent(authorabout);
+			 b.setMemberId(m.getMemberId());
+		
+			 
+			 
+			 
+			 
+			 ArrayList<AuthorPageAttachmrnt>fileList = new ArrayList<AuthorPageAttachmrnt>();
+			 
+			 
+			 for(int i=originFiles.size()-1; i>=0; i--) {
+				
+				 
+				 AuthorPageAttachmrnt aat = new AuthorPageAttachmrnt();
+				 aat.setFilePath(filePath);
+				 aat.setOriginName(originFiles.get(i));
+				 aat.setChangeName(saveFiles.get(i));
+				 
+				 
+				 fileList.add(aat);				 
+ 
+			 }
+			 
+			
+			 int result = new AuthorPageSerview().insertAuthorPagePro(b,fileList);
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+			 
+					 
+			
+			
+			
+		}
 		
 		
 		
-
+		
+		
 	}
 
 	/**

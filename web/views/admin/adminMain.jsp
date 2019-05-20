@@ -123,11 +123,13 @@
 						legend: { position: "none" }
 						};
 				var startDate = '2019-01-01';
-				var endDate = '2019-12-31'
+				var endDate = '2019-12-31';
+				var date = 'month';
+				var gender = 'all';
 				var chartData;
 				$.ajax({
 					url:"<%=request.getContextPath()%>/selectMemberForMonth.ad",
-					data:{startDate:startDate, endDate:endDate},
+					data:{startDate:startDate, endDate:endDate, gender:gender, date:date},
 					async : false,
 					type:"get",
 					success:function(data){
@@ -141,6 +143,8 @@
 			
 			google.charts.setOnLoadCallback(chart2);
 			function chart2(){
+				var startDate = '2019-01-01';
+				var endDate = '2019-12-31';
 				var option = {
 						title:'월별 매출',
 						vAxis:{title:"원"},
@@ -150,6 +154,7 @@
 				var chartData;
 				$.ajax({
 					url:"<%=request.getContextPath()%>/selectSalesForMonth.ad",
+					data:{startDate:startDate, endDate:endDate},
 					async : false,
 					type:"get",
 					success:function(data){

@@ -197,7 +197,6 @@ public class WorkService {
 		
 		return result;
 	}
-	
 	//메인페이지 인기상품 리스트
 	public ArrayList<HashMap<String, Object>> selectImageList() {
 		Connection con = getConnection();

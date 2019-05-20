@@ -120,7 +120,6 @@ public class adminMemberCheckSerlvet extends HttpServlet {
 		}
 	
 		
-		//dd
 		response.setContentType("application/json");
 		new Gson().toJson(result, response.getWriter());
 		

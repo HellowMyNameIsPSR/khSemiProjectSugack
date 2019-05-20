@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.semi.board.model.service.ProQnaService;
 import com.kh.semi.board.model.vo.ProQna;
 import com.kh.semi.board.model.vo.ProQnaComment;
+import com.kh.semi.member.model.vo.Member;
 
 /**
  * Servlet implementation class SelectOneProQnaServlet
@@ -33,18 +34,22 @@ public class SelectOneProQnaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bno = Integer.parseInt(request.getParameter("num"));
+		Member m = (Member)request.getSession().getAttribute("loginUser");
+		ProQna qna = new ProQna();
+		qna.setWriter(m.getMemberName());
 		
-		ProQna qna = new ProQnaService().selectOne(bno);
+		qna = new ProQnaService().selectOne(bno);
 		
 		String page = "";
 		
 		if(qna !=null) {
 			ArrayList<ProQnaComment> colist = new ProQnaService().selectCommentList(bno);
-
+			
 			page = "views/board/proQnaDetail.jsp";
 			System.out.println("문의 자세히보기 서블릿에서");
 			System.out.println("SelectOneProQnaServlet : "+qna);
-			System.out.println("CommentList: "+ colist);
+			
+			System.out.println("SelectOneProCommentList: "+ colist);
 			
 			request.setAttribute("qna", qna);
 			request.setAttribute("list", colist);

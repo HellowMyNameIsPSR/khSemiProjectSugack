@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import org.eclipse.jdt.internal.compiler.ast.ReturnStatement;
+
 import com.kh.semi.work.model.vo.PageInfo;
 import com.kh.semi.work.model.vo.PicFile;
 import com.kh.semi.work.model.vo.Work;
@@ -431,12 +433,14 @@ public class WorkDao {
 		
 		String query = prop.getProperty("updatePicFile");
 		
+
 		try {
 			for(int i = 0; i < workPic.size(); i++) {
 				pstmt = con.prepareStatement(query);
 				pstmt.setString(1, workPic.get(i).getoriginName());
 				pstmt.setString(2, workPic.get(i).getchangeName());
 				pstmt.setString(3, wpId.get(i));
+
 				result += pstmt.executeUpdate();
 			}
 		}catch(SQLException e) {
@@ -444,7 +448,6 @@ public class WorkDao {
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
 
@@ -568,9 +571,6 @@ public class WorkDao {
 		
 		return listCount;
 	}
-
-	
-
 
 
 }

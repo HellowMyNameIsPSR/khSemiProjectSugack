@@ -57,7 +57,7 @@
 			</tr>
 			<tr>
 				<td style="text-align:center; background: lightgray; border: 1px solid gray">펀딩등록일</td>
-				<td colspan="3"><input type="date" name="funddate" value=""> ~ <input type="date" name="funddate" value=""></td>
+				<td colspan="3"><input type="date" name="fundDate" value=""> ~ <input type="date" name="funddate" value=""></td>
 			</tr>
 			<tr>
 				<td style="text-align:center; background: lightgray; border: 1px solid gray">펀딩마감일</td>

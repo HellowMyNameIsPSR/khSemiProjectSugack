@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.semi.common.MyFileRenamePolicy;
+
 import com.kh.semi.work.model.service.WorkService;
 import com.kh.semi.work.model.vo.Work;
 import com.kh.semi.work.model.vo.WorkPic;
@@ -60,10 +61,11 @@ public class UpdateWorkSalesServlet extends HttpServlet {
 					saveFiles.add(multiRequest.getFilesystemName(name));
 					originFiles.add(multiRequest.getOriginalFileName(name));
 					
-					/*System.out.println("fileSystem name : " 
+
+					System.out.println("fileSystem name : " 
 							+ multiRequest.getFilesystemName(name));
 					System.out.println("originFile : " 
-							+ multiRequest.getOriginalFileName(name));*/
+							+ multiRequest.getOriginalFileName(name));
 					
 				}
 			}
@@ -92,9 +94,11 @@ public class UpdateWorkSalesServlet extends HttpServlet {
 			wpId.add(wpId3);
 			wpId.add(wpId4);
 			
+
 			//TYPE_ID	//유형코드 공예유형	//MEMBER 테이블 
 			
 			//String memberId = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberId());
+
 			Work work = new Work();
 			//work.setWorkId();
 			work.setWorkId(workId);

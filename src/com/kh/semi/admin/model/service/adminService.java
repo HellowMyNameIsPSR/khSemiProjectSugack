@@ -8,6 +8,9 @@ import java.util.Map;
 
 import com.kh.semi.admin.model.dao.adminDao;
 import com.kh.semi.admin.model.vo.SearchMember;
+import com.kh.semi.admin.model.vo.SearchProduct;
+import com.kh.semi.author.model.vo.Author;
+
 import static com.kh.semi.common.JDBCTemplate.*;
 
 public class adminService {
@@ -148,6 +151,64 @@ public class adminService {
 	      
 	      return hmap;
 	   }
+
+
+
+	public ArrayList<HashMap<String, Object>> reqMemList() {
+		
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new adminDao().reqMemList(con);
+		
+		close(con);
+		System.out.println("서비스 에서 list" + list);
+		
+		return list;
+	}
+
+
+
+	public Author selectReqMemOne(String authorName) {
+		Connection con = getConnection();
+		
+		Author a = new adminDao().selectReqMemOne(authorName, con);
+		
+		close(con);
+		
+		
+		return a;
+	}
+
+
+
+	public int reqDeny(String apply1Stat) {
+		Connection con = getConnection();
+		
+		int result = new adminDao().reqDeny(con, apply1Stat);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+				
+				
+		close(con);
+				
+		return result;
+	}
+
+
+
+	public ArrayList<HashMap<String, Object>> searchProduct(SearchProduct sp) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new adminDao().searchPro(con, sp);
+		
+		close(con);
+		
+		return list;
+	}
 
 		
 
