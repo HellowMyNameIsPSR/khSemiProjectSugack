@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.semi.funding.model.vo.*,
+				 java.util.*" %>
+<%
+	ArrayList<Category> categoryList = 
+		(ArrayList<Category>) request.getAttribute("categoryList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,37 +30,31 @@
 						style="font-size: 20px;">HOME</strong>
 					</a>
 				</header>
+			<form action="" method="post" encType="multipart/form-data">
+			<div id="firstSection">
 				<section id="contents">
-					<header class="main">
+					<header class="main" style="margin-top:10px;">
 						<h2>펀딩 작품등록</h2>
 					</header>
 					<!-- Contents area -->
-
-					<form id="salesInsert" action="" method="post">
-
+					<!-- 카테고리 -->
 						<div class="listBox">
 							<div class="listTitle">
 								<h2>카테고리</h2>
 							</div>
 							<div class="listContents">
-								<div>
-									<button onclick="">카테고리명 검색</button>
-									<button onclick="">카테고리명 선택</button>
-								</div>
-								<div>
-									<table class="searchBox">
-										<tr>
-											<td><input type="text" placeholder="카테고리명 입력"
-												style="width: 100%;"></td>
-											<td width="7%"><span class="glyphicon glyphicon-search"></span></td>
-										</tr>
-									</table>
-								</div>
+								<% for(int i = 0; i < categoryList.size(); i++) { %>
+									<input type="radio" name="category" id="<%= categoryList.get(i).getCid() %>"
+									value="<%= categoryList.get(i).getCategory() %>">
+									<label for="<%= categoryList.get(i).getCid() %>">
+										<%= categoryList.get(i).getCategory() %>
+									</label>
+								<% } %>
 								<p class="subtext">※ 카테고리에 맞지 않는 경우 심사에 불이익이 있을 수 있습니다.</p>
 							</div>
 						</div>
-
-
+					<!-- 카테고리 -->
+					<!-- 프로그램 제목 -->
 						<div class="listBox">
 							<div class="listTitle">
 								<h2>프로젝트 제목</h2>
@@ -62,12 +62,13 @@
 							<div class="listContents">
 								<p class="subtext">※프로젝트 제목은 제작하고자 하는 작품명 혹은 프로젝트 주제가 잘 드러나도록 
 								적어 주시는 것이 좋습니다. 짥은 제목은 모바일 환경 혹은 SMS에 사용됩니다.</p>
-								<div class="">
+								<div class="row">
 									<input type="text" placeholder="프로젝트 명" style="width: 100%;">
 								</div>
 							</div>
 						</div>
-
+					<!-- 프로그램 제목 -->
+					<!-- 프로젝트 이미지 -->
 						<div class="listBox">
 							<div class="listTitle">
 								<h2>프로젝트 이미지</h2>
@@ -115,8 +116,8 @@
 								<input type="text" value="첨부파일" class="form-control" id="confirmArea" readonly>							
 							</div>
 						</div>
-
-
+					<!-- 프로젝트 이미지 -->
+					<!-- 프로젝트 설명 -->
 						<div class="listBox">
 							<div class="listTitle">
 								<h2>프로젝트 설명</h2>
@@ -125,6 +126,8 @@
 								<textarea id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
 							</div>
 						</div>
+					<!-- 프로젝트 설명 -->
+					<!-- 출시 예정 작품 -->
 						<div class="listBox">
 							<div class="listTitle">
 								<input type="checkbox" id="commingSoonGoods" name="commingSoonGoods">
@@ -137,21 +140,141 @@
 								<input type="date" id="commingSoonDate" name="commingSoonDate">
 							</div>
 						</div>
-						
-
-					</form>
+					<!-- 출시 예정 작품 -->						
 						<div align="center">
-							<button class="all-btn" style="width: 150px;" type="submit" id="enrollfunding1">Next > </button>
+							<button class="all-btn" style="width: 150px;" id="enrollfunding1">Next > </button>
 						</div>
 				</section>
+			</div>				
+			<!-- 다음 -->
+			<div id="secondSection">
+				<section id="contents">
+					<header class="main" style="margin-top:10px;">
+						<h2>판매 작품등록</h2>
+					</header>
+					<!-- Contents area -->
+					<!-- 펀딩 목표 금액 -->
+						<div class="listBox">
+							<div class="listTitle">
+								<h2>펀딩 목표 금액</h2>
+							</div>
+							<div class="listContents">
+								<p class="subtext">
+									※ 펀딩의 총 목표 금액을 설정해 주세요.<br>
+									마감일 자정까지 100%이상을 달성했을 시 후원금이 전달됩니다. 마감일 전 후원을 취소하시는 분들이 있어 초과달성을 목표로 하는 것이 유리합니다. <br>
+									목표 금액은 제작비, 인건비, 배송료, 예비 비용 등을 고려하시기 바랍니다.
+								</p>
+								<div class="row">
+									<input type="text" placeholder="목표금액" id="targetAmount" name="targetAmount" style="width:60%">
+									<label>원</label>
+								</div>
+								
+							</div>
+						</div>
+					<!-- 펀딩 목표 금액 -->
+					<!-- 프로젝트 기간 -->
+						<div class="listBox">
+							<div class="listTitle">
+								<h2>프로젝트 기간</h2>
+							</div>
+							<div class="listContents">
+								<p class="subtext">※프로젝트를 몇 일동안 진행하시겠습니까?</p>
+								<div class="row">
+									<input type="number" id="fundingTerm" name="fundingTerm" placeholder="진행일수">
+									<label>일</label>
+								</div>
+							</div>
+						</div>
+					<!-- 프로젝트 기간 -->
+					<!-- 리워드 구성 -->
+						<div class="listBox">
+							<div class="listTitle">
+								<h2>리워드 구성</h2>
+							</div>
+							<div class="listContents">
+							<div class="row">
+								<p class="subtext">
+									※ 후원자들을 위한 리워드 내용을 입려하세요. 
+								</p>
+								<input type="button" value="+" class="all-btn" style="margin-left:10px;">
+							</div>
+								<div class="row">          
+									  <table class="table table-bordered" id="fundOptionTable">
+									      <tr>
+									        <th>작품 명</th>
+									        <th>구성품</th>
+									        <th>추가금액</th>
+									      </tr>
+									      <tr>
+									        <td>John</td>
+									        <td>Doe</td>
+									        <td>john@example.com</td>
+									      </tr>
+									      <tr>
+									        <td>Mary</td>
+									        <td>Moe</td>
+									        <td>mary@example.com</td>
+									      </tr>
+									      <tr>
+									        <td>July</td>
+									        <td>Dooley</td>
+									        <td>july@example.com</td>
+									      </tr>
+									  </table>
+									</div>
+							</div>
+							<hr>
+							<div class="listContents">
+								<h4>구매 제한</h4>
+								<div class="row">
+									<label>1인당 </label>
+									<select style="width:50%;">
+										<option>구성품</option>
+										<option>구성품</option>
+										<option>구성품</option>
+									</select>
+									<label>을(를) </label>
+									<input type="number" placeholder="수량">
+									<label> 개로 제한합니다.</label>
+								</div>
+							</div>
+						</div>
+					<!-- 리워드 구성 -->
+					<!-- 환불 및 교환 정책 -->
+						<div class="listBox">
+							<div class="listTitle">
+								<h2>환불 및 교환 정책</h2>
+							</div>
+							<div class="listContents">
+								<p class="subtext">
+									※ 우리 홈페이지의 환불 및 교환 정책에 관한 내용에 동의하십니까?							
+								</p>
+								<div class="row">
+									<textarea id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
+								</div>
+								<div class="row">
+									<input type="checkbox" id="acceptFund" name="acceptFund">
+									<label for="acceptFund">약관에 동의합니다.</label>
+								</div>
+							</div>
+						</div>
+					<!-- 환불 및 교환 정책 -->
+					<div align="center">
+						<button class="all-btn" style="width: 150px;" id="enrollFundingGoods2">Next > </button>
+					</div>
+				</section>
 			</div>
-		</div>
+		</form>
+	</div>
+	</div>
 		<%@ include file="authorMenuBar.jsp"%>
 	</div>
 	<script>
 		$(function(){
-			$("#enrollfunding1").click(function(){
-				location.href = "<%= request.getContextPath() %>/views/author/enrollFundingGoods2.jsp";
+			$("#secondSection").hide();
+			$("#firstSection").click(function(){
+				$("#firstSection").hide();
+				$("#secondSection").show();
 			});
 		});
 	</script>

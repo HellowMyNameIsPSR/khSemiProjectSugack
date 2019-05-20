@@ -126,7 +126,7 @@ public class InsertAuthorPageProServlet extends HttpServlet {
 			 
 			
 			 int result = new AuthorPageSerview().insertAuthorPagePro(b,fileList);
-	
+			 
 			 if(result>0) {
 					
 					//재요청이 안되게 sendRedirect를 하고  List를 보여준다.
@@ -147,7 +147,13 @@ public class InsertAuthorPageProServlet extends HttpServlet {
 					
 					
 				}
-	
+				 
+			 
+			 
+			 
+			 
+			 
+			
 			 
 			 
 			 

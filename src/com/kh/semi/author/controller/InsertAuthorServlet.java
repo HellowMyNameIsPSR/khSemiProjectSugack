@@ -87,7 +87,7 @@ public class InsertAuthorServlet extends HttpServlet {
 			int result = new AuthorService().insertAuthor(author, fileList, selectPType);
 			if(result > 0) {
 				System.out.println("파일 삽입 성공!");
-				response.sendRedirect("views/application/application2.jsp");
+				response.sendRedirect(request.getContextPath() + "/checkApply.at");
 			} else {
 				System.out.println("파일 삽입 실패!");
 				for(int i = 0; i < changeName.size(); i++) {
