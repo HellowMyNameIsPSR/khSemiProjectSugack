@@ -38,14 +38,8 @@
 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-	<style>
-		<%@ include file="../assets/css/main.html" %>
-	</style>
 <style>
-	.name{
-		width:100%;
-		font-size:30px;
-	}
+		<%@ include file="../assets/css/tableCss.html" %>
 </style>
 </head>
 <body>
@@ -61,16 +55,20 @@
 				<!-- Header -->
 				
 				<header id="header">
-					<div class="name">구매하기</div>
 				</header>
 				
 				<section id="contents">
 				
-				<div class="container" >
+				<div class="container">
+					<div class="name" align="center">
+						<h2>구매하기</h2>
+						<hr>
+					</div>
 					<div class="row">
+					<div class="col-sm-1"></div>
 					<div class="col-sm-5 product" style="background-color:lavender; height:100%;">
 				
-					<table>
+					<table style="width:100%; height:400px;">
 						<tr>
 							<td colspan="3">구매자정보 및 배송지정보</td>
 						</tr>
@@ -116,7 +114,7 @@
 					
 					
 				
-					<div class="col-sm-1 product"></div>
+					<!-- <div class="col-sm-2 product"></div> -->
 					
 					
 					
@@ -172,10 +170,10 @@
 					
 					</div>
 				</div>
-					
+				<div class="col-sm-1"></div>	
 			</div>
 			<br><br>
-			<div class="panel-group col-sm-11">
+			<div class="panel-group col-sm-12">
 			    <div class="panel panel-default">
 			      <div class="panel-heading">
 			        <h4 class="panel-title">
@@ -213,7 +211,7 @@
 					
 					<hr>
 					
-				<div class="col-sm-11">
+				<div class="col-sm-12">
 					<label>이용약관</label>
 					<textarea readonly="readonly" style="overflow-y:scroll"></textarea>
 					<div class="ok" style="float:right;" >
@@ -256,11 +254,13 @@
 				var addChoice = $('#addChoice').val();
 				console.log(addChoice);
 				if(addChoice == "addChoice0") {
+					<%if(add1 != null) {%>
 					<%String[] address = add1.getAddress().split("#");%>
 					$("#phone").val("<%=add1.getPhone1()%>");
 					$("#zipCode").val("<%=address[0]%>");
 					$("#address").val("<%=address[1] + address[3]%>");
 					$("#detailAddress").val("<%=address[2]%>");
+					<%}%>
 				}else if(addChoice == "self") {
 					$("#phone").val("");
 					$("#zipCode").val("");

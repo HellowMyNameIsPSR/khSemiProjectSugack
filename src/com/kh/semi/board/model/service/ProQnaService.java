@@ -44,12 +44,12 @@ public class ProQnaService {
 
 
 	//게시물의 갯수 조회용 메소드!
-	public int getListCount() {
+	/*public int getListCount() {
 		Connection con = getConnection();
 		int listCount = new ProQnaDao().getListCount(con);
 		close(con);
 		return listCount;
-	}
+	}*/
 	
 	//문의내역 자세히보기
 	public ProQna selectOne(int num) {

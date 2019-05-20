@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8" import="java.util.*, com.kh.semi.board.model.vo.*, java.text.SimpleDateFormat"%>
+   pageEncoding="UTF-8" import="java.util.*, com.kh.semi.board.model.vo.*, java.text.SimpleDateFormat, com.kh.semi.work.model.vo.*"%>
 <%	
     ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+	ArrayList<WorkOption> olist = (ArrayList<WorkOption>)request.getAttribute("olist");
+	 System.out.println("product detail에서 olist" + olist);
     System.out.println("product detail에서" + list);
     ProQna qna = (ProQna)request.getAttribute("qna"); 
     HashMap<String, Object> work = (HashMap<String, Object>)list.get(0); 
@@ -22,7 +24,7 @@
 <title>상품 자세히 보기</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
 <style>
    /* .navdiv{
       height:200px;
@@ -181,7 +183,7 @@ hr{
         <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
         <a class="btn btn-primary" href="#">Call to Action!</a> -->
       
-        <h5><%=work.get("workName") %></h5>
+        <h3><%=work.get("workName") %></h3>
 			<h5 id="price"><%=work.get("price") %>원</h5>
 			<hr>
 		
@@ -192,20 +194,22 @@ hr{
 		<form method="post" id="buy">
 			  <input type="hidden" id="workId" name="workId" value="<%=work.get("workId")%>">
    		  <%if((Integer)work.get("opId") != 0) {%>
-			<h5>옵션선택</h5>
-			<select id="sel1"style="width:350px; height:20px;">
-				<option value=""  selected>옵션을 선택해주세요.</option>
-				<option class="sel" value="op1" id="op1">옵션1</option>
-				<option class="sel" value="op2">옵션2</option>
-			</select>
-			<select id="sel2"style="width:350px; height:20px;">
-				<option value=""  selected>옵션을 선택해주세요.</option>
-				<option class="sel" value="op1" id="op1">옵션1</option>
-				<option class="sel" value="op2">옵션2</option>
-			</select>
+			<label>옵션선택</label>
+			<br>
+				<% for(int i = 0; i < olist.size(); i++) { %>
+					<select style="width:100%" class="option" name="option">
+						<option value="0"><%=olist.get(i).getoName() %></option>
+						<% for(int j = 0; j < list.size(); j++) { 
+							if(olist.get(i).getoName().equals(list.get(j).get("oname"))) {
+						%>		
+							<option value="<%=list.get(j).get("opId")%>"><%=list.get(j).get("ovalue")%>(+<%=list.get(j).get("oprice") %>원)</option>
+						<% 
+							}
+						} %>
+					</select><br>
+				<%} %>
 			<hr>
-			<div class="selectOpt" style="width:100%; height:50px; background:white; margin-top:70px;">	
-			</div>
+			
 			<%} else { %>
 			<div style="background:lightgray;">
 				
@@ -222,7 +226,7 @@ hr{
 			<div class="btns" style="margin-top:5px;">
          <button onclick="likeBtn()" style="color:white; float:left;width:70px; height:50px; border:2px solid pink; background:pink; border-radius:7px; font-size:33px;">♡</button>
          <!-- <input type="image" src="../images/heart.png" style="width:80px; height:50px; border:2px solid pink; background:pink; border-radius:7px;"> -->
-         <input type="image" src="views/images/shopping-basket.png" style="width:70px; margin-left:5px;height:50px; border:2px solid lightblue; background:lightblue; border-radius:7px;">
+         <input type="image" src="views/images/shopping-basket.png" id="goBasket" style="width:70px; margin-left:5px;height:50px; border:2px solid lightblue; background:lightblue; border-radius:7px;">
          <!-- <input type="submit" value="구매하기" style="float:right; font-size:15px;width:170px; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"> -->
          <button type="submit" class="all-btn"style="float:right; font-size:15px;width:170px; height:50px;/*  color:white;border:2px solid gray; background:gray; */ border-radius:7px;"
                id="purchase">구매하기</button>
@@ -230,6 +234,17 @@ hr{
 			</form>
 		</div>
 		<script>
+			$(function(){
+				$(".option:last").change(function(){
+					$(".option").each(function(){
+						var optionValue = "";
+						<%for(int i = 0; i < list.size(); i++) {%>
+							
+						<%}%>
+					});
+				});
+			});
+		
 			$("#goBasket").click(function(){
 				var workId = $("#workId").val();
 				var ea = parseInt($("#ea").val());
@@ -241,8 +256,11 @@ hr{
 					type:"post",
 					success:function(data){
 						if(data == "ok"){
-						alert("장바구니에 작품이 담겼습니다.")							
+						alert("장바구니에 작품이 담겼습니다.");							
 						}
+					},
+					error:function(data){
+						alert("로그인후 이용하세요");
 					}
 				});
 			});
@@ -283,6 +301,7 @@ hr{
 					<%-- location.href="<%=request.getContextPath()%>/purchase.pro?ea=" + ea + "&workId=<%=work.get("workId")%>"; --%>
 			});
         function likeBtn(){
+        	<%if(loginUser != null ){%>
         	 var memberId = <%=loginUser.getMemberId()%>;
         	 var workId = <%=work.get("workId")%>;
         	 <%--  var price = <%=work.get("price")%>;
@@ -295,14 +314,15 @@ hr{
         		 success:function(data){
         			 alert("관심상품 추가!");
         		 },error:function(){
-        			 alert("실패");
+        			 alert("실패");1
         		 }
         	 })
+        	 <%}%>
          }
       	  
      	 
           function addReview() {
-    	 
+        	  <%if(loginUser != null ){%>
     	  var writer = <%=loginUser.getMemberId()%>;
           var workId = <%=work.get("workId") %>;
           var content = $("#reviewCon").val();
@@ -405,6 +425,7 @@ hr{
                 console.log("실패");
              }
          });
+         <%}%>
           }
 		</script>
 	  <!--</div>-->
