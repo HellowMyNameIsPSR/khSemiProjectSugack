@@ -236,7 +236,12 @@ hr{
 		<script>
 			$(function(){
 				$(".option:last").change(function(){
-					
+					$(".option").each(function(){
+						var optionValue = "";
+						<%for(int i = 0; i < list.size(); i++) {%>
+							
+						<%}%>
+					});
 				});
 			});
 		
