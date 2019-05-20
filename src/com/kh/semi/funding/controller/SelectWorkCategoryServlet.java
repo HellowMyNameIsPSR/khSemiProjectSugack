@@ -1,30 +1,28 @@
-package com.kh.semi.common.controller;
+package com.kh.semi.funding.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.common.model.vo.Cart;
-import com.kh.semi.member.model.vo.Member;
-import com.kh.semi.product.model.service.ProService;
+import com.kh.semi.funding.model.service.FundingService;
+import com.kh.semi.funding.model.vo.Category;
 
 /**
- * Servlet implementation class SelectCartServlet
+ * Servlet implementation class SelectWorkCategoryServlet
  */
-@WebServlet("/selectCart.basket")
-public class SelectCartServlet extends HttpServlet {
+@WebServlet("/selectCategory.fund")
+public class SelectWorkCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectCartServlet() {
+    public SelectWorkCategoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,30 +31,18 @@ public class SelectCartServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		
-		int wid = Integer.parseInt(request.getParameter("workId"));
-		
-		//ArrayList<Cart> result = new ProService().insertCart(loginUser, wid);
-		
+		ArrayList<Category> list = new FundingService().selectCategoryAll();
 		String page = "";
-		if(result!=null) {
-			
-			page = "views/member/cart.jsp";
-			request.setAttribute("cartList", result);
-			
-		}else {
+		if(list != null) {
+			request.setAttribute("categoryList", list);
+			page = "views/author/enrollFundingGoods.jsp";
+		} else {
+			System.out.println("카테고리 검색 실패!");
+			request.setAttribute("msg", "카테고리 조회 실패!");
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "장바구니 담기 실패!");
 		}
-		
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
-		
-		
-		
-	}
+		request.getRequestDispatcher(page).forward(request, response);;
+	} //end method
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

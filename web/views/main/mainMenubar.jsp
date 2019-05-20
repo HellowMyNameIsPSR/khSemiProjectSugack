@@ -184,7 +184,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="<%= request.getContextPath() %>/views/application/getPTypeList.jsp">
+						<a href="<%= request.getContextPath() %>/views/application/checkApply.jsp">
 							<span class="glyphicon glyphicon-tree-deciduous"></span> &nbsp; 입점신청
 						</a>
 					</li>
@@ -205,7 +205,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="<%= request.getContextPath() %>/views/application/getPTypeList.jsp">
+						<a href="<%= request.getContextPath() %>/views/application/checkApply.jsp">
 							<span class="glyphicon glyphicon-tree-deciduous"></span> &nbsp; 입점신청
 						</a>
 					</li>
