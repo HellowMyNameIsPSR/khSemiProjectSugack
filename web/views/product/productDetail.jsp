@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.board.model.vo.*"%>
-<%   
+<%	
+
     ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
     System.out.println("product detail에서" + list);
     ProQna qna = (ProQna)request.getAttribute("qna"); 
@@ -124,48 +125,48 @@ hr{
     <!-- Heading Row -->
     <div class="align-items-center my-5">
       <div class="col-sm-6" >
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-          <!-- Indicators -->
-          <ol class="carousel-indicators">
-          <% for(int i = 0; i < list.size(); i++) { 
-             if(i == 0) {%>
-               <li data-target="#myCarousel" data-slide-to="<%=i%>" class="active"></li>
-             <% } else { %>
-            <li data-target="#myCarousel" data-slide-to="<%=i%>"></li>
-            <% } %>
-          <%} %>
-          </ol>
-      
-          <!-- Wrapper for slides -->
-          <div class="carousel-inner">
-          <% for(int i=0; i<list.size(); i++){
-               HashMap<String,Object> hmap = list.get(i);
-               if(i == 0) {
-            %>
-           <div class="item active">
-              <img src="uploadSalesImage/<%=hmap.get("changeName")%>" style="width:100%; height:450px;">
-          </div>
-            
-               <%} else { %>
-               <div class="item">
-                 <img src="uploadSalesImage/<%=hmap.get("changeName")%>" style="width:100%; height:450px;">
-               </div>
-            
-               <%} %>
-            <%} %>
-          </div>
-          <!-- Left and right controls -->
-          <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-      </div>
-      
+		  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+		    <!-- Indicators -->
+		    <ol class="carousel-indicators">
+		    <% for(int i = 0; i < list.size(); i++) { 
+		    	if(i == 0) {%>
+			      <li data-target="#myCarousel" data-slide-to="<%=i%>" class="active"></li>
+		    	<% } else { %>
+		      <li data-target="#myCarousel" data-slide-to="<%=i%>"></li>
+		      <% } %>
+		    <%} %>
+		    </ol>
+		
+		    <!-- Wrapper for slides -->
+		    <div class="carousel-inner">
+		    <% for(int i=0; i<list.size(); i++){
+   				HashMap<String,Object> hmap = list.get(i);
+   				if(i == 0) {
+	   		%>
+	        <div class="item active">
+		        <img src="uploadSalesImage/<%=hmap.get("changeName")%>" style="width:100%; height:450px;">
+		    </div>
+	   		
+	   			<%} else { %>
+			      <div class="item">
+			        <img src="uploadSalesImage/<%=hmap.get("changeName")%>" style="width:100%; height:450px;">
+			      </div>
+	   		
+	   			<%} %>
+	   		<%} %>
+		    </div>
+		    <!-- Left and right controls -->
+		    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+		      <span class="glyphicon glyphicon-chevron-left"></span>
+		      <span class="sr-only">Previous</span>
+		    </a>
+		    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+		      <span class="glyphicon glyphicon-chevron-right"></span>
+		      <span class="sr-only">Next</span>
+		    </a>
+		  </div>
+		</div>
+
       </div>
       <!-- /.col-lg-8 -->
       <div class="col-sm-6 productDiv" style="height:450px">
@@ -174,162 +175,114 @@ hr{
         <a class="btn btn-primary" href="#">Call to Action!</a> -->
       
         <h5><%=work.get("workName") %></h5>
-         <h5 id="price"><%=work.get("price") %>원</h5>
-         <hr>
-      
-         <p>배송비</p>
-         <p id="deliPrice"><%=work.get("deliPrice") %>원</p>
+			<h5 id="price"><%=work.get("price") %>원</h5>
+			<hr>
+		
+			<p>배송비</p>
+			<p id="deliPrice"><%=work.get("deliPrice") %>원</p>
 
-         <hr>
-      <form method="post" id="buy">
-           <input type="hidden" id="workId" name="workId" value="<%=work.get("workId")%>">
-           <%if((Integer)work.get("opId") != 0) {%>
-         <h5>옵션선택</h5>
-         <select id="sel1"style="width:350px; height:20px;">
-            <option value=""  selected>옵션을 선택해주세요.</option>
-            <option class="sel" value="op1" id="op1">옵션1</option>
-            <option class="sel" value="op2">옵션2</option>
-         </select>
-         <select id="sel2"style="width:350px; height:20px;">
-            <option value=""  selected>옵션을 선택해주세요.</option>
-            <option class="sel" value="op1" id="op1">옵션1</option>
-            <option class="sel" value="op2">옵션2</option>
-         </select>
-         <hr>
-         <div class="selectOpt" style="width:100%; height:50px; background:white; margin-top:70px;">   
-         </div>
-         <%} else { %>
-         <div style="background:lightgray;">
-            
-            <label>수량</label>
-            <button onclick="plus();">+</button>
-            <input type="number" style="width:50px;" id="ea" name="ea" value="1" readonly>
-            <button onclick="minus();">-</button>
-         </div>
-         <%} %>
-         <div class="totalPrice">
-            <p style="float:left; margin-top:10px; font-size:20px;">총가격: </p>
-            <p style="float:right; margin-top:10px; font-size:20px;" id='sum'></p><p style="float:right"></p>
-         </div>
-         <div class="btns" style="margin-top:5px;">
-         <button style="color:white; float:left;width:70px; height:50px; border:2px solid pink; background:pink; border-radius:7px; font-size:33px;">♡</button>
-         <!-- <input type="image" src="../images/heart.png" style="width:80px; height:50px; border:2px solid pink; background:pink; border-radius:7px;"> -->
-         <input type="image" src="views/images/shopping-basket.png" style="width:70px; margin-left:5px;height:50px; border:2px solid lightblue; background:lightblue; border-radius:7px;">
-         <!-- <input type="submit" value="구매하기" style="float:right; font-size:15px;width:170px; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"> -->
-         <button type="submit" class="all-btn"style="float:right; font-size:15px;width:170px; height:50px;/*  color:white;border:2px solid gray; background:gray; */ border-radius:7px;"
-               id="purchase">구매하기</button>
-         </div>
-         </form>
-         
-         </div>
-         <script>
-         function plus(){
-            document.getElementById("ea").value = (parseInt(document.getElementById("ea").value)+1);
-            var deliPrice = parseInt($("#deliPrice").text());
-            var price = parseInt($("#price").text());
-            var ea = parseInt($("#ea").val());
-            var sum = deliPrice + (price * ea);
-            
-            $("#sum").text(sum);
-            $("#sum").append("원");
-         }
-         function minus(){
-            document.getElementById("ea").value = (parseInt(document.getElementById("ea").value)-1);   
-            var deliPrice = parseInt($("#deliPrice").text());
-            var price = parseInt($("#price").text());
-            var ea = parseInt($("#ea").val());
-            var sum = deliPrice + (price * ea);
-            
-            $("#sum").text(sum);
-            $("#sum").append("원");
-         }
-         
-         <% if (("#delPrice")!=null){ %>
-            var deliPrice = parseInt($("#deliPrice").text());
-            var price = parseInt($("#price").text());
-            var ea = parseInt($("#ea").val());
-            var sum = deliPrice + (price * ea);
-            
-            $("#sum").text(sum);
-            $("#sum").append("원");
-            
-         <% } %>
-         
-     	 $("#purchase").click(function(){
-            $("#buy").attr("action", "<%=request.getContextPath()%>/purchase.pro");
-            <%-- location.href="<%=request.getContextPath()%>/purchase.pro?ea=" + ea + "&workId=<%=work.get("workId")%>"; --%>
-         });
-      
-      
-       <%-- $("#addReview").click(function(){
-    	   var writer = <%=loginUser.getMemberId()%>;
-           var workId = <%=work.get("workId") %>;
-           var content = $("#reviewCon").val();
-           var star = $("#sel1 option:selected").text();
-          
-          
-          
-          $.ajax({
-              url:"<%=request.getContextPath()%>/insertReview.bo",
-              data:{writer:writer, workId:workId, content:content, star:star},
-              type:"post",
-              success:function(data){
-            	  var writer = <%=loginUser.getMemberId()%>;
-                  var workId = <%=work.get("workId") %>;
-                  var content = $("#reviewCon").val();
-                  var star = $("#sel1 option:selected").text();
-                 
-                 location.reload();
-                 cnsole.log("성공");
-              },
-              error:function(){
-                 console.log("실패");
-              }
-          })
-      });  --%>
-      
-      <%--  function addReview() {
-    	  
-    	  var writer = <%=loginUser.getMemberId()%>;
-          var workId = <%=work.get("workId") %>;
-          var content = $("#reviewCon").val();
-          var star = $("#sel1 option:selected").text();
-         
-         
-         
-         $.ajax({
-             url:"<%=request.getContextPath()%>/insertReview.bo",
-             data:{writer:writer, workId:workId, content:content, star:star},
-             type:"post",
-             success:function(data){
-           	  var writer = <%=loginUser.getMemberId()%>;
-                 var workId = <%=work.get("workId") %>;
-                 var content = $("#reviewCon").val();
-                 var star = $("#sel1 option:selected").text();
-                
-                location.reload();
-                cnsole.log("성공");
-             },
-             error:function(){
-                console.log("실패");
-             }
-         });
-    	  
-      } 
-       --%>
-       
-       $("#addReview").click(function(){
-    	   
-    	  alert("안녕");
-       }
-       
-         </script>
-     </div>
- 
-    
-    <hr>
-   <div class="row information">
-   <ul class="nav nav-tabs">
+			<hr>
+		<form method="post" id="buy">
+			  <input type="hidden" id="workId" name="workId" value="<%=work.get("workId")%>">
+   		  <%if((Integer)work.get("opId") != 0) {%>
+			<h5>옵션선택</h5>
+			<select id="sel1"style="width:350px; height:20px;">
+				<option value=""  selected>옵션을 선택해주세요.</option>
+				<option class="sel" value="op1" id="op1">옵션1</option>
+				<option class="sel" value="op2">옵션2</option>
+			</select>
+			<select id="sel2"style="width:350px; height:20px;">
+				<option value=""  selected>옵션을 선택해주세요.</option>
+				<option class="sel" value="op1" id="op1">옵션1</option>
+				<option class="sel" value="op2">옵션2</option>
+			</select>
+			<hr>
+			<div class="selectOpt" style="width:100%; height:50px; background:white; margin-top:70px;">	
+			</div>
+			<%} else { %>
+			<div style="background:lightgray;">
+				
+				<label>수량</label>
+				<button type="button" onclick="plus();">+</button>
+				<input type="number" style="width:50px;" id="ea" name="ea" value="1" readonly>
+				<button type="button" onclick="minus();">-</button>
+			</div>
+			<%} %>
+			<div class="totalPrice">
+				<p style="float:left; margin-top:10px; font-size:20px;">총가격: </p>
+				<p style="float:right; margin-top:10px; font-size:20px;" id='sum'></p><p style="float:right"></p>
+			</div>
+			<div class="btns" style="margin-top:5px;">
+			<button type="button" style="color:white; float:left;width:70px; height:50px; border:2px solid pink; background:pink; border-radius:7px; font-size:33px;">♡</button>
+			<!-- <input type="image" src="../images/heart.png" style="width:80px; height:50px; border:2px solid pink; background:pink; border-radius:7px;"> -->
+			<input type="button" id="goBasket" src="views/images/shopping-basket.png" style="width:70px; margin-left:5px;height:50px; border:2px solid lightblue; background:lightblue; border-radius:7px;">
+			<!-- <input type="submit" value="구매하기" style="float:right; font-size:15px;width:170px; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"> -->
+			<button type="submit" class="all-btn"style="float:right; font-size:15px;width:170px; height:50px;/*  color:white;border:2px solid gray; background:gray; */ border-radius:7px;"
+					id="purchase">구매하기</button>
+			</form>
+			
+			</div>
+		<script>
+			$("#goBasket").click(function(){
+				var workId = $("#workId").val();
+				var ea = parseInt($("#ea").val());
+				var text = "ajax";
+				
+				$.ajax({
+					url:"<%=request.getContextPath()%>/purchase.pro",
+					data:{workId:workId, ea:ea, text:text},
+					type:"post",
+					success:function(data){
+						if(data == "ok"){
+						alert("장바구니에 작품이 담겼습니다.")							
+						}
+					}
+				});
+			});
+		
+			function plus(){
+				document.getElementById("ea").value = (parseInt(document.getElementById("ea").value)+1);
+				var deliPrice = parseInt($("#deliPrice").text());
+				var price = parseInt($("#price").text());
+				var ea = parseInt($("#ea").val());
+				var sum = deliPrice + (price * ea);
+				
+				$("#sum").text(sum);
+				$("#sum").append("원");
+			}
+			function minus(){
+				document.getElementById("ea").value = (parseInt(document.getElementById("ea").value)-1);	
+				var deliPrice = parseInt($("#deliPrice").text());
+				var price = parseInt($("#price").text());
+				var ea = parseInt($("#ea").val());
+				var sum = deliPrice + (price * ea);
+				
+				$("#sum").text(sum);
+				$("#sum").append("원");
+			}
+			
+			<% if (("#delPrice")!=null){ %>
+				var deliPrice = parseInt($("#deliPrice").text());
+				var price = parseInt($("#price").text());
+				var ea = parseInt($("#ea").val());
+				var sum = deliPrice + (price * ea);
+				
+				$("#sum").text(sum);
+				$("#sum").append("원");
+				
+			<% } %>
+			$("#purchase").click(function(){
+					$("#buy").attr("action", "<%=request.getContextPath()%>/purchase.pro");
+					<%-- location.href="<%=request.getContextPath()%>/purchase.pro?ea=" + ea + "&workId=<%=work.get("workId")%>"; --%>
+			});
+		</script>
+	  </div>
+	 </div>
+	 
+	 <hr>
+	<div class="row information">
+	<ul class="nav nav-tabs">
+
     <li class="active"><a data-toggle="tab" href="#menu0">기본정보</a></li>
     <li><a data-toggle="tab" href="#menu1">배송/판매/교환/환불</a></li>
     <li><a data-toggle="tab" href="#menu2">별점 및 응원글</a></li>
@@ -478,29 +431,28 @@ hr{
       <!-- /.col-md-4 -->
     
 </div>
-   
 <!-- <script>
-   $(function(){
-      
-       
-       //최선
-          $("#sel1").change(function(){
-            $(".selectOpt").append($("#sel1 option:selected").text());
-       });
-      
-          $("#sel2").change(function(){
-            $(".selectOpt").append($("#sel2 option:selected").text());
-       });
-             
-       //최선12
-        /* $("#sel1").change(function(){
-            $(".selectOpt").append($("#sel1 option:selected").text());
-       })   */
-      
-       
-      
-       
-   });
+	$(function(){
+		
+		 
+		 //최선
+		    $("#sel1").change(function(){
+				$(".selectOpt").append($("#sel1 option:selected").text());
+		 });
+		
+		    $("#sel2").change(function(){
+				$(".selectOpt").append($("#sel2 option:selected").text());
+		 });
+				 
+		 //최선12
+		  /* $("#sel1").change(function(){
+				$(".selectOpt").append($("#sel1 option:selected").text());
+		 })   */
+		
+		 
+		
+		 
+	});
 </script> -->
 <!-- <div class="container">
   <div class="row">
