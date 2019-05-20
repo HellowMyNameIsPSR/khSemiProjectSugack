@@ -206,7 +206,8 @@
 							<!-- <li><a href="../product/products.jsp">판매</a></li> -->
 							<li><a href="<%= request.getContextPath()%>/selectProduct.pro">판매</a>
 							<li><a href="<%= request.getContextPath() %>/views/fundingProduct/fundingProducts.jsp">펀딩</a></li>
-							<li><a href="<%= request.getContextPath() %>/views/tour/authorpageMain.jsp">작가이야기</a></li>
+							<%-- <li><a href="<%= request.getContextPath()%>/selectAuthorPage.tn">작가이야기</a></li> --%>
+							<li><a href="<%= request.getContextPath()%>/views/tour/artistStorey.jsp">작가이야기</a></li>
 							<li><a href="#contact">About</a></li>
 						</ul>
 					</div>
@@ -224,6 +225,13 @@
 			alert("로그인 후, 사용가능합니다!");
 			location.href='<%=request.getContextPath()%>/views/member/memberLoginForm.jsp';
 		}
-	</script>
+	
+		function goAuthorPage(){
+			location.href='<%=request.getContextPath()%>/selectAuthorPage.tn';
+		}
+		
+		
+		
+		</script>
 </body>
 </html>

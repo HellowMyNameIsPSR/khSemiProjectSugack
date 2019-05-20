@@ -17,6 +17,7 @@ import com.kh.semi.board.model.service.AuthorPageSerview;
 import com.kh.semi.board.model.vo.AuthorPageAttachmrnt;
 import com.kh.semi.board.model.vo.Board;
 import com.kh.semi.common.MyFileRenamePolicy;
+import com.kh.semi.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
@@ -38,7 +39,7 @@ public class InsertAuthorPageDetailServlrt extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-if(ServletFileUpload.isMultipartContent(request)) {
+			if(ServletFileUpload.isMultipartContent(request)) {
 			
 			
 			
