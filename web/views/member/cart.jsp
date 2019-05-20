@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*,com.kh.semi.board.model.vo.*, com.kh.semi.common.model.vo.*"%>
+<%
+    	
+        ArrayList<Cart> list = (ArrayList<Cart>) request.getAttribute("cartList");
+        System.out.println("cart에서" + list);
+        
+        ProQna qna = (ProQna)request.getAttribute("qna"); 
+       
+  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,6 +50,14 @@
 					
 				</header>
 				
+				
+				
+				<% 
+				//Cart c에 list 하나씩들을 다 넣어준다.
+				//c가 인덱스 느낌!
+					for(Cart c : list){ 
+					Cart cart = c;
+				%>
 				<section id="contents">
 					<header class="main">
 						<table>
@@ -53,7 +69,7 @@
 								<th>이미지</th>
 								<th>상품정보</th>
 								<th>수량</th>
-								<th>가격</th>
+								<th><%=cart.getPrice()%></th>
 							</tr>
 							<tr>
 								<td><input type="checkbox" id="select"><label for="select"></label></td>
@@ -80,7 +96,7 @@
 								<td>=</td>
 								<td>18,000</td>
 							</tr>
-							
+							<%} %>
 							
 						</table>
 						<div class="buyArea">

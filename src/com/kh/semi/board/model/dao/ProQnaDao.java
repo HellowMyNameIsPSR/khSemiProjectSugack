@@ -269,7 +269,7 @@ public class ProQnaDao {
 				c.setBno(rset.getInt("BNO"));
 				c.setWriterId(rset.getInt("WRITER_ID"));
 				c.setWriteLevel(rset.getInt("WRITE_LEVEL"));
-				
+				c.setWriter(rset.getString("MEMBER_NAME"));
 				
 				System.out.println("ProQnaDao c : " + c);
 				list.add(c);

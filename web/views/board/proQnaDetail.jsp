@@ -8,7 +8,7 @@
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
 		ArrayList<ProQnaComment> commentList = (ArrayList<ProQnaComment>)request.getAttribute("list");
-		System.out.println("commentList: "+commentList);
+		System.out.println("ProQnaDetail commentList: "+commentList);
 %>
 
 <!DOCTYPE html>
@@ -101,25 +101,33 @@
 				</tr>
 			</table>
 		</div>
-		
+		<br>
 		<div class="replySelectArea">
-			<table id="replySelectTable" border="1" align="center">
-			
+			<table id="replySelectTable" border="1" align="center" style="text-align:center">
+			<tr>
+					<td style="width:170px;">작성자</td>
+					<td style="width:300px;">내용</td>
+					<td style="width:200px;">작성날짜</td>
+					
+			</tr>
 			 <% for(int i = 0; i < commentList.size(); i++) {%> 
 				<!-- 이름 -->
+				
 				<tr>
 					<td><%= commentList.get(i).getWriter() %></td>
+					<td><%=commentList.get(i).getContent() %></td>
+					<td><%=commentList.get(i).getWriteDate() %></td>
 				</tr>
 				
 				<!-- 내용 -->
-				<tr>
-					<td><%=commentList.get(i).getContent() %></td>
+				<!-- <tr>
+					
 				</tr>
 				
-				<!-- 작성 날짜 -->
+				작성 날짜
 				<tr>
-					<td><%=commentList.get(i).getWriteDate() %></td>
-				</tr>
+					
+				</tr> -->
 			<%} %> 
 			</table>
 		</div>
