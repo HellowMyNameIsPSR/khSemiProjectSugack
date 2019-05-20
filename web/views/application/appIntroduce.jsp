@@ -160,9 +160,9 @@
 	      <p><span class="glyphicon glyphicon-user"></span> 담장자 김진환</p>
 	      <p><span class="glyphicon glyphicon-envelope"></span> admin@sg.com</p>
 	    </div>
+	    
 	    <form action="<%= request.getContextPath() %>/insertAuthor.at" 
-	    	  method="post"
-	    	  encType="multiport/forn-data">
+	    	  method="post" encType="multipart/form-data">
 	    <div class="col-sm-7 slideanim">
 	      
 	      <div class="row">
@@ -266,10 +266,15 @@
 				}
 			});
 			
+			if($("#attachApplyFile").val() == null){
+				dataCheck = false;
+				alert("입점신청 서류를 작성해 주세요");
+				return false;
+			}
 			if(dataCheck == false) {
 				//유효성 검사 실패시 서블릿 요청 안함
 				return false;
-			}
+			} 
 		});
 		
 		$("#brandFileArea").click(function(){ //브랜드 이미지 파일 버튼 클릭
@@ -288,6 +293,7 @@
 	  			var reader = new FileReader();
 	  			reader.onload = function(e) {
 	  				$("#applyFileArea").val($("#attachApplyFile").val());
+	  				$("#applyFileArea").attr("src", e.target.result);
 	  			}
 	  			reader.readAsDataURL(value.files[0]);
 	  		} //end if
@@ -299,6 +305,7 @@
 	  				$("#brandFileArea").val($("#attachBrandFile").val());
 	  				console.log(e);
 	  				console.log($("#attachBrandFile").val());
+	  				$("#brandFileArea").attr("src", e.target.result);
 	  			} //end func(e)
 	  			reader.readAsDataURL(value.files[0]);
 	  		} //end if

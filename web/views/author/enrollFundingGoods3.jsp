@@ -8,7 +8,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<script src="js/fundingBtn.js"></script>
 	<%@ include file="stylesheet/eroll.html" %>
 </head>
 <body class="is-preload">
@@ -32,24 +31,7 @@
 
 					<form id="salesInsert" action="" method="post">
 
-						<div class="listBox">
-							<div class="listTitle">
-								<h2>작품 설명</h2>
-							</div>
-							<div class="listContents">
-								<p class="subtext">
-									※ 작품 상세 페이지에 넣을 상세페이지 이미지 파일을 첨부해 주세요.
-								</p>
-								<div class="row">
-									<label class="form-control">상세페이지 이미지
-							       		<input type="file" name="fundDetailPage" id="fundDetailPage" style="overflow:hidden;opacity:0;">
-							       	</label>
-								</div>
-								
-							</div>
-						</div>
-
-
+						
 						<div class="listBox">
 							<div class="listTitle">
 								<h2>제작자 사전모집</h2>
