@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+
     pageEncoding="UTF-8" import="java.util.*"%>
 <%
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)request.getAttribute("list");
@@ -8,6 +9,7 @@
 	int totalProductPrice = 0;
 	int totalDeliPrice = 0;
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,6 +52,14 @@
 					
 				</header>
 				
+				
+				
+				<% 
+				//Cart c에 list 하나씩들을 다 넣어준다.
+				//c가 인덱스 느낌!
+					for(Cart c : list){ 
+					Cart cart = c;
+				%>
 				<section id="contents">
 					<header class="main">
 					<form method="post" action="<%=request.getContextPath()%>/cartPurchaseServlet.pro">
@@ -107,7 +117,7 @@
 								<td>=</td>
 								<td id="totalPrice">0</td>
 							</tr>
-							
+							<%} %>
 							
 						</table>
 						<div align="center">

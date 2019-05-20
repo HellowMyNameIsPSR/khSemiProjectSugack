@@ -131,104 +131,106 @@ public class ProDao {
 		
 	}
 
-	public Address selectUserAddress(Connection con, Member loginUser) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		Address add = null;
-		
-		String query = prop.getProperty("selectUserInfo");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, loginUser.getMemberId());
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				add = new Address();
-				add.setAddressId(rset.getInt("ADDRESS_ID"));
-				add.setAddressName(rset.getString("ADDRESS_NAME"));
-				add.setAddress(rset.getString("ADDRESS"));
-				add.setPhone1(rset.getString("PHONE1"));
-				add.setPhone2(rset.getString("PHONE2"));
-				add.setMemberId(rset.getInt("MEMBER_ID"));
-				add.setAddType(rset.getString("ADD_TYPE"));
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		return add;
-	}
 
-	public HashMap<String, Object> selectProductPurchase(String workId, Connection con) {
-		PreparedStatement pstmt = null;
-		HashMap<String, Object> hmap = null;
-		ResultSet rset = null;
-		
-		String query = prop.getProperty("selectProDetailList");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, Integer.parseInt(workId));
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				hmap = new HashMap<String, Object>();
-				hmap.put("workId", rset.getInt("WORK_ID"));
-				hmap.put("workName", rset.getString("WORK_NAME"));
-				hmap.put("workContent", rset.getString("WORK_CONTENT"));
-				hmap.put("deliPrice", rset.getInt("DELI_PRICE"));
-				hmap.put("wrDate", rset.getDate("RS_DATE"));
-				hmap.put("rsDate", rset.getDate("RS_DATE"));
-				hmap.put("maxCount", rset.getInt("MAX_COUNT"));
-				hmap.put("csDate", rset.getDate("RS_DATE"));
-				hmap.put("workKind", rset.getString("WORK_KIND"));
-				hmap.put("memberId", rset.getInt("MEMBER_ID"));
-				hmap.put("price", rset.getInt("PRICE"));
-				hmap.put("cid", rset.getInt("CID"));
-				hmap.put("typeId", rset.getInt("TYPE_ID"));
-				hmap.put("changeName", rset.getString("CHANGE_NAME"));
-				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		return hmap;
-	}
+   public Address selectUserAddress(Connection con, Member loginUser) {
+      PreparedStatement pstmt = null;
+      ResultSet rset = null;
+      Address add = null;
+      
+      String query = prop.getProperty("selectUserInfo");
+      
+      try {
+         pstmt = con.prepareStatement(query);
+         pstmt.setInt(1, loginUser.getMemberId());
+         
+         rset = pstmt.executeQuery();
+         
+         if(rset.next()) {
+            add = new Address();
+            add.setAddressId(rset.getInt("ADDRESS_ID"));
+            add.setAddressName(rset.getString("ADDRESS_NAME"));
+            add.setAddress(rset.getString("ADDRESS"));
+            add.setPhone1(rset.getString("PHONE1"));
+            add.setPhone2(rset.getString("PHONE2"));
+            add.setMemberId(rset.getInt("MEMBER_ID"));
+            add.setAddType(rset.getString("ADD_TYPE"));
+         }
+         
+      } catch (SQLException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+      
+      
+      return add;
+   }
 
-	public int insertBasket(Connection con, Basket basket) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("insertBasket");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, basket.getMemberId());
-			pstmt.setInt(2, basket.getWorkId());
-			pstmt.setInt(3, basket.getCount());
-			pstmt.setInt(4, basket.getOpId());
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		
-		return result;
-	}
+   public HashMap<String, Object> selectProductPurchase(String workId, Connection con) {
+      PreparedStatement pstmt = null;
+      HashMap<String, Object> hmap = null;
+      ResultSet rset = null;
+      
+      String query = prop.getProperty("selectProDetailList");
+      
+      try {
+         pstmt = con.prepareStatement(query);
+         pstmt.setInt(1, Integer.parseInt(workId));
+         
+         rset = pstmt.executeQuery();
+         
+         if(rset.next()) {
+            hmap = new HashMap<String, Object>();
+            hmap.put("workId", rset.getInt("WORK_ID"));
+            hmap.put("workName", rset.getString("WORK_NAME"));
+            hmap.put("workContent", rset.getString("WORK_CONTENT"));
+            hmap.put("deliPrice", rset.getInt("DELI_PRICE"));
+            hmap.put("wrDate", rset.getDate("RS_DATE"));
+            hmap.put("rsDate", rset.getDate("RS_DATE"));
+            hmap.put("maxCount", rset.getInt("MAX_COUNT"));
+            hmap.put("csDate", rset.getDate("RS_DATE"));
+            hmap.put("workKind", rset.getString("WORK_KIND"));
+            hmap.put("memberId", rset.getInt("MEMBER_ID"));
+            hmap.put("price", rset.getInt("PRICE"));
+            hmap.put("cid", rset.getInt("CID"));
+            hmap.put("typeId", rset.getInt("TYPE_ID"));
+            hmap.put("changeName", rset.getString("CHANGE_NAME"));
+            
+         }
+      } catch (SQLException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      } finally {
+         close(pstmt);
+      }
+      return hmap;
+   }
+
+   public int insertBasket(Connection con, Basket basket) {
+      PreparedStatement pstmt = null;
+      int result = 0;
+      
+      String query = prop.getProperty("insertBasket");
+      
+      try {
+         pstmt = con.prepareStatement(query);
+         pstmt.setInt(1, basket.getMemberId());
+         pstmt.setInt(2, basket.getWorkId());
+         pstmt.setInt(3, basket.getCount());
+         pstmt.setInt(4, basket.getOpId());
+         
+         result = pstmt.executeUpdate();
+         
+      } catch (SQLException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      } finally {
+         close(pstmt);
+      }
+      
+      
+      return result;
+   }
+
 
 	public int selectOnePurchase(Connection con) {
 		Statement stmt = null;
@@ -426,25 +428,6 @@ public class ProDao {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -1,6 +1,9 @@
 package com.kh.semi.author.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,9 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import com.kh.semi.author.model.service.AuthorService;
 import com.kh.semi.author.model.vo.Author;
+import com.kh.semi.author.model.vo.PicFile;
+import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.member.model.vo.Member;
+import com.oreilly.servlet.MultipartRequest;
 
 /**
  * Servlet implementation class InsertAuthorServlet
@@ -31,44 +39,66 @@ public class InsertAuthorServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//파라미터 값 가져오기
-		Member loginUser = (Member) request.getSession().getAttribute("loginUser");
-		int memberId = loginUser.getMemberId();
-		String brandName = request.getParameter("brandName");
-		String comments = request.getParameter("comments");
-		String selectPType = request.getParameter("selectPType");
-		System.out.println(memberId);
-		System.out.println(brandName);
-		System.out.println(comments);
-		System.out.println(selectPType);
 		
-		//작가 테이블에 저장
-		Author author = new Author();
-		author.setMemberId(memberId);
-		author.setBrandName(brandName);
-		author.setApplyContent(comments);
-		int resultAuthor = new AuthorService().insertAuthor(author);
-		if(resultAuthor > 0) { //저장에 성공 했을 때
-			//작가 유형 저장하기
-			System.out.println("작가 정보 저장 성공!");
-			int resultAuthorType = new AuthorService().insertAuthorType(memberId, selectPType);
-			if(resultAuthorType > 0) {
+		if(ServletFileUpload.isMultipartContent(request)) {
+			int maxSize = 1024 * 1024 * 10;
+			String root = request.getSession().getServletContext().getRealPath("/");
+			String filePath = root + "uploadApply/";
+			
+			MultipartRequest multiRequest = new MultipartRequest(request, filePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			ArrayList<String> changeName = new ArrayList<String>(); //변환명
+			ArrayList<String> originName = new ArrayList<String>(); //기존 파일명
+			
+			Enumeration<String> files = multiRequest.getFileNames();
+			while(files.hasMoreElements()) {
+				//input file의 name값이 들어온다.
+				String name = files.nextElement();
+				System.out.println("name :" + name);
+				changeName.add(multiRequest.getFilesystemName(name));
+				originName.add(multiRequest.getOriginalFileName(name));
+				System.out.println("fileSystem name : " + multiRequest.getFilesystemName(name));
+				System.out.println("originFile : " + multiRequest.getOriginalFileName(name));
+			} //end while
+			
+			Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+			int memberId = loginUser.getMemberId();
+			String brandName = multiRequest.getParameter("brandName");
+			String comments = multiRequest.getParameter("comments");
+			String selectPType = multiRequest.getParameter("selectPType");
+			
+			System.out.println(memberId);
+			System.out.println(brandName);
+			System.out.println(comments);
+			System.out.println(selectPType);
+			
+			Author author = new Author();
+			author.setMemberId(memberId);
+			author.setBrandName(brandName);
+			author.setApplyContent(comments);
+			
+			ArrayList<PicFile> fileList = new ArrayList<PicFile>();
+			for(int i = originName.size() - 1; i >= 0; i--) {
+				PicFile picFile = new PicFile();
+				picFile.setFilePath(filePath);
+				picFile.setOriginName(originName.get(i));
+				picFile.setChangeName(changeName.get(i));
+				fileList.add(picFile);
+			} //end for
+			int result = new AuthorService().insertAuthor(author, fileList, selectPType);
+			if(result > 0) {
+				System.out.println("파일 삽입 성공!");
 				response.sendRedirect("views/application/application2.jsp");
 			} else {
-				request.setAttribute("msg", "작가 유형 정보 저장 실패!");
+				System.out.println("파일 삽입 실패!");
+				for(int i = 0; i < changeName.size(); i++) {
+					File failedFile = new File(filePath + changeName.get(i));
+					System.out.println(failedFile.delete());
+				} //end for
+				request.setAttribute("msg", "작가 정보 저장에 실패 했습니다.");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			}
-		} else {
-			//에러 페이지로 보내기
-			request.setAttribute("msg", "작가 정보 저장 실패!");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			//System.out.println("작가 정보 저장 실패!");
-		}
-		
-		
-		
-		//int resultAuthor = new AuthorService();
-	}
+			} //end if
+		} // end if
+	} //end method
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

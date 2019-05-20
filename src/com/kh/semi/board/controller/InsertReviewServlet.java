@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
 import com.kh.semi.board.model.service.ReviewService;
 import com.kh.semi.board.model.vo.Review;
 
@@ -32,20 +35,31 @@ public class InsertReviewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String content = request.getParameter("content");
 		String star = request.getParameter("star");
+		int workId = Integer.parseInt(request.getParameter("workId"));
+		String writer = request.getParameter("writer");
+		
 		
 		Review rv = new Review();
 		rv.setContent(content);
 		rv.setStarPoint(star);
+		rv.setWorkId(workId);
+		rv.setWriter(writer);
+		
 		
 		System.out.println("InsertReviewServlet에서 rv " + rv);
 		
-		int result = new ReviewService().insertReview(rv);
-		
+		int result = new ReviewService().insertReview(rv);	
 		
 		String page="";
 		if(result>0) {
 			System.out.println("리뷰 작성 성공: "+result);
-			response.sendRedirect("views/product/productDetail.jsp");
+			response.sendRedirect(request.getServletContext() + "/selectReview.co?workId=" + workId);
+			
+			//response.sendRedirect("selectProDetail.pro");
+			
+			/*response.setContentType("application/json");
+			
+			new Gson().toJson(rv,response.getWriter());*/
 		}else {
 			System.out.println("리뷰 작성 실패: "+result);
 			request.setAttribute("msg", "리뷰 작성 실패!");

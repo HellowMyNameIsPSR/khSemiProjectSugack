@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.board.model.vo.*"%>
 <%	
+
     ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
     System.out.println("product detail에서" + list);
     ProQna qna = (ProQna)request.getAttribute("qna"); 
@@ -16,101 +17,101 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
-	/* .navdiv{
-		height:200px;
-		background:black;
-	}
-	 */
-	.wln{
-		background:yellow;
-	}
-	
-	.productDiv{
-		background:beige;
-		padding:15px;
-		
-	}
-	.img{
-		float:left;
-		padding:20px;
-		width:430px;
-		background:green;
-	}
-	img{
-		width:400px;
-	}
-	.qnaArea {
-		border:2px solid lightgray;
-		margin: 20px 0px 20px 0px;
-		box-shadow:2px 2px lightgray;
-		width:80%;
-		height:100%;
-		background:beige;
-		margin:0 auto;
-		margin-top:20px;
-	}
-	.qnaTitle {
-		border-bottom:1px solid lightgray;
-		margin: 20px 0px 20px 0px;
-		padding-left:20px;
-	}
-	.qnaContents {
-		margin: 20px 0px 20px 0px;
-		padding-left:20px;
-		padding-right:20px;
-		
-	}
-	.qnaContents div{
-		margin: 20px 0px 20px 0px;
-	}
-	
-	.qna{
-		height:40px;
-	}
-	
-	#qnaBtn{
-		width:30%;
-		padding:5px;
-		color:white;
-		border:2px solid gray; 
-		background:gray;
-		
-		
-	}
-	
-	
+   /* .navdiv{
+      height:200px;
+      background:black;
+   }
+    */
+   .wln{
+      background:yellow;
+   }
+   
+   .productDiv{
+      background:beige;
+      padding:15px;
+      
+   }
+   .img{
+      float:left;
+      padding:20px;
+      width:430px;
+      background:green;
+   }
+   img{
+      width:400px;
+   }
+   .qnaArea {
+      border:2px solid lightgray;
+      margin: 20px 0px 20px 0px;
+      box-shadow:2px 2px lightgray;
+      width:80%;
+      height:100%;
+      background:beige;
+      margin:0 auto;
+      margin-top:20px;
+   }
+   .qnaTitle {
+      border-bottom:1px solid lightgray;
+      margin: 20px 0px 20px 0px;
+      padding-left:20px;
+   }
+   .qnaContents {
+      margin: 20px 0px 20px 0px;
+      padding-left:20px;
+      padding-right:20px;
+      
+   }
+   .qnaContents div{
+      margin: 20px 0px 20px 0px;
+   }
+   
+   .qna{
+      height:40px;
+   }
+   
+   #qnaBtn{
+      width:30%;
+      padding:5px;
+      color:white;
+      border:2px solid gray; 
+      background:gray;
+      
+      
+   }
+   
+   
 /* .shortInfo{
-	margin-left:40px;
-	width:400px;
-	height:550px;
-	padding:25px;
-	margin-right:100px;
-	background:white;
-	margin-top:23px;
+   margin-left:40px;
+   width:400px;
+   height:550px;
+   padding:25px;
+   margin-right:100px;
+   background:white;
+   margin-top:23px;
 } */
 
 hr{
-	border:1px solid gray;
+   border:1px solid gray;
 }
 
 .totalPrice{
-	/* margin-top:10px;
-	
-	float:right; */
-	width:100%;
-	height:50px;
-	border:1px solid black;
-	margin-top:15px;
-	margin-bottom:15px;
-	/* background:orange; */
-	}
+   /* margin-top:10px;
+   
+   float:right; */
+   width:100%;
+   height:50px;
+   border:1px solid black;
+   margin-top:15px;
+   margin-bottom:15px;
+   /* background:orange; */
+   }
 .totalPrice>h4{
-	
-	margin-top:15px;
+   
+   margin-top:15px;
 }
 
 .information{
-	padding:30px;
+   padding:30px;
 }
 </style>
 </head>
@@ -165,7 +166,7 @@ hr{
 		    </a>
 		  </div>
 		</div>
-		
+
       </div>
       <!-- /.col-lg-8 -->
       <div class="col-sm-6 productDiv" style="height:450px">
@@ -281,11 +282,12 @@ hr{
 	 <hr>
 	<div class="row information">
 	<ul class="nav nav-tabs">
+
     <li class="active"><a data-toggle="tab" href="#menu0">기본정보</a></li>
     <li><a data-toggle="tab" href="#menu1">배송/판매/교환/환불</a></li>
     <li><a data-toggle="tab" href="#menu2">별점 및 응원글</a></li>
     <li><a data-toggle="tab" href="#menu3">문의</a></li>
- 	 </ul>
+     </ul>
 
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
@@ -301,89 +303,90 @@ hr{
       
       <div class="star" style="background:beige;  padding:10px; width:100%; height:150px;">
       <form id="review" action="<%=request.getContextPath() %>/insertReview.bo" method="post">
-      	<textarea style="width:100%; height:80px;" name="content"></textarea>
-      	<select name="star" style="float:left; width:200px; height:40px;">
-      		<option value="★★★★★">★★★★★ 아주좋아요</option>
-      		<option value="★★★★☆">★★★★☆ 마음에 들어요</option>
-      		<option value="★★★☆☆ ">★★★☆☆ 보통이에요</option>
-      		<option value="★★☆☆☆">★★☆☆☆ 그냥그래요</option>
-      		<option value="★★☆☆☆">★★☆☆☆ 별로에요</option>
-      	</select>
-      	<input type="submit" id="registar" value="리뷰등록하기" style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;">
-       <!--  <button style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;">리뷰등록하기</button> -->
+         <textarea style="width:100%; height:80px;" name="content"></textarea>
+         <select name="star" style="float:left; width:200px; height:40px;">
+            <option value="★★★★★">★★★★★ 아주좋아요</option>
+            <option value="★★★★☆">★★★★☆ 마음에 들어요</option>
+            <option value="★★★☆☆ ">★★★☆☆ 보통이에요</option>
+            <option value="★★☆☆☆">★★☆☆☆ 그냥그래요</option>
+            <option value="★★☆☆☆">★★☆☆☆ 별로에요</option>
+         </select>
+         <!-- <button onclick="addReview()" id="addReview" value="리뷰등록하기" style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;">리뷰등록하기</button> -->
+       <!--  <button id="addReview" style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;">리뷰등록하기</button>  -->
+      <input type="submit" value="리뷰 등록하기" id="addReview" style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;">
       </form>
       </div>
 
       <!-- <div class="row">
-      	<div class="outer" style="border:1px solid black;">
-      	<div class="nick">
-     		<label>닉네임</label>
-      	</div>
-      	<div class="date">
-      		<label>2019년 4월 5일</label>
-      	</div>
-      	<div>내용</div>
-      	</div>
+         <div class="outer" style="border:1px solid black;">
+         <div class="nick">
+           <label>닉네임</label>
+         </div>
+         <div class="date">
+            <label>2019년 4월 5일</label>
+         </div>
+         <div>내용</div>
+         </div>
       </div> -->
     </div>
     
     <div id="menu3" class="tab-pane fade">
     
-    			<form id="qna" action="<%=request.getContextPath() %>/insertProQna.bo" method="post">
+             <form id="qna" action="<%=request.getContextPath() %>/insertProQna.bo" method="post">
     
-   					 <div class="qnaArea">
-							<div class="qnaTitle">
-								<h2>문의하기</h2>
-							</div>
-							<div class="qnaContents">
-									<table class="searchBox" style="width:100%;" >
-										<tr class="qna">
-											<td><label >문의 제목:</label></td>
-											
-											<!-- <td><input type="text" name="title" style="width:100%;"></td> -->
-											<td>
-												<select name="category" style="width:100%;">
-													<!-- <option value="10" id="product">상품문의</option>
-													<option value="20" id="delivery">배송문의</option>
-													<option value="30" id="change">교환/환불문의</option>
-													<option value="40" id="etc">기타문의</option> -->
-													
-													<option value="상품문의" id="product">상품문의</option>
-													<option value="배송문의" id="delivery">배송문의</option>
-													<option value="교환/환불문의" id="change">교환/환불문의</option>
-													<option value="기타문의" id="etc">기타문의</option>
-												</select>
-											</td>
-											
-										</tr>
-										<!-- <tr class="qna">
-											<td><label >작성자:</label></td>
-											<td><input type="text" name="writer"
-												style="width: 100%;"></td>
-										</tr> -->
-										<!-- <tr class="qna">
-											<td><label>작성일:</label></td>
-											<td><input type="text" name="writeDate"
-												style="width: 100%;"></td>
-										</tr> -->
-										<tr class="qna">
-											<td><label>내용:</label></td>
-											<td><textarea name="content" style="width:100%;" rows="7"></textarea></td>
-										</tr>
-										<tr class="qna">
-											<td colspan="2"><input type="submit" name="writeBtn"value="작성하기" id="qnaBtn" style="float:right;"></td>
-										</tr>
-									</table>
-								
-								</div>
-							</div>
-							
-						</form>
+                   <div class="qnaArea">
+                     <div class="qnaTitle">
+                        <h2>문의하기</h2>
+                     </div>
+                     <div class="qnaContents">
+                           <table class="searchBox" style="width:100%;" >
+                              <tr class="qna">
+                                 <td><label >문의 제목:</label></td>
+                                 
+                                 <!-- <td><input type="text" name="title" style="width:100%;"></td> -->
+                                 <td>
+                                    <select name="category" style="width:100%;">
+                                       <!-- <option value="10" id="product">상품문의</option>
+                                       <option value="20" id="delivery">배송문의</option>
+                                       <option value="30" id="change">교환/환불문의</option>
+                                       <option value="40" id="etc">기타문의</option> -->
+                                       
+                                       <option value="상품문의" id="product">상품문의</option>
+                                       <option value="배송문의" id="delivery">배송문의</option>
+                                       <option value="교환/환불문의" id="change">교환/환불문의</option>
+                                       <option value="기타문의" id="etc">기타문의</option>
+                                    </select>
+                                 </td>
+                                 
+                              </tr>
+                              <!-- <tr class="qna">
+                                 <td><label >작성자:</label></td>
+                                 <td><input type="text" name="writer"
+                                    style="width: 100%;"></td>
+                              </tr> -->
+                              <!-- <tr class="qna">
+                                 <td><label>작성일:</label></td>
+                                 <td><input type="text" name="writeDate"
+                                    style="width: 100%;"></td>
+                              </tr> -->
+                              <tr class="qna">
+                                 <td><label>내용:</label></td>
+                                 <td><textarea name="content" style="width:100%;" rows="7"></textarea></td>
+                              </tr>
+                              <tr class="qna">
+                                 <td colspan="2"><input type="submit" name="writeBtn"value="작성하기" id="qnaBtn" style="float:right;"></td>
+                              </tr>
+                           </table>
+                        
+                        </div>
+                     </div>
+                     
+                  </form>
    
   </div>
   <!--   <div id="menu3" class="tab-pane fade">
       <h3>문의</h3>
-      	<form id="question" method="post">
+         <form id="question" method="post">
       <div class="quest" style="border:1px solid black;background:beige;padding:20px; width:60%; height:200px";>
             <table align="center">
                <tr>
@@ -402,14 +405,14 @@ hr{
                <tr>
                   <td>작성일</td>
                   <td>
-               		<input type="date" name="date"  style="width:395px;">
-              	  </td>
+                     <input type="date" name="date"  style="width:395px;">
+                   </td>
                </tr>
                <tr>
                   <td>내용 </td>
                   <td>
-                 	<textarea name="content" style="width:395px;"></textarea>
-                 	
+                    <textarea name="content" style="width:395px;"></textarea>
+                    
                   </td>
                </tr>
                
@@ -419,7 +422,7 @@ hr{
                <button onclick="complet();">작성완료</button>
                <button onclick="deleteNotice();">삭제하기</button>
             </div>
-      	</form>
+         </form>
       </div>
      -->
   </div>
@@ -428,7 +431,6 @@ hr{
       <!-- /.col-md-4 -->
     
 </div>
-	
 <!-- <script>
 	$(function(){
 		
@@ -454,36 +456,36 @@ hr{
 </script> -->
 <!-- <div class="container">
   <div class="row">
-	<div class="proDiv">
-		<div class="img col-sm-5">
-			<img src="../images/tvxq.jpg">
-		</div>
-		<div class="col-sm-2"></div>
-		<div class="shortInfo col-sm-5">
-			<h5>품명 및 모델명</h5>
-			<h5>기본가격</h5>
-			<hr>
-			<h5>배송비:3000원</h5>
-			<hr>
-			<h5>옵션선택</h5>
-			<select style="width:350px; height:20px;">
-				<option value="op1">옵션1</option>
-				<option value="op2">옵션2</option>
-			</select>
-			<select style="width:350px; height:20px;">
-				<option value="op1">옵션1</option>
-				<option value="op2">옵션2</option>
-			</select>
-			<hr>
-			<div class="selectOpt" style="width:350px; height:100px; background:black; margin-top:70px;">	
-			</div>
-			<div class="totalPrice">
-				<h4>총가격:</h4>
-				<p style="float:right; margin-top:-30px; font-size:15px;">10000원</p>
-			</div>
-		</div>
-	  </div>
-	</div>
+   <div class="proDiv">
+      <div class="img col-sm-5">
+         <img src="../images/tvxq.jpg">
+      </div>
+      <div class="col-sm-2"></div>
+      <div class="shortInfo col-sm-5">
+         <h5>품명 및 모델명</h5>
+         <h5>기본가격</h5>
+         <hr>
+         <h5>배송비:3000원</h5>
+         <hr>
+         <h5>옵션선택</h5>
+         <select style="width:350px; height:20px;">
+            <option value="op1">옵션1</option>
+            <option value="op2">옵션2</option>
+         </select>
+         <select style="width:350px; height:20px;">
+            <option value="op1">옵션1</option>
+            <option value="op2">옵션2</option>
+         </select>
+         <hr>
+         <div class="selectOpt" style="width:350px; height:100px; background:black; margin-top:70px;">   
+         </div>
+         <div class="totalPrice">
+            <h4>총가격:</h4>
+            <p style="float:right; margin-top:-30px; font-size:15px;">10000원</p>
+         </div>
+      </div>
+     </div>
+   </div>
   </div> -->
 
 </body>

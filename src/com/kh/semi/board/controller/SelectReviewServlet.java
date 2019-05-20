@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.board.model.service.ReviewService;
 import com.kh.semi.board.model.vo.Review;
 import com.kh.semi.member.model.vo.Member;
@@ -35,15 +36,21 @@ public class SelectReviewServlet extends HttpServlet {
 		Member user = (Member)request.getSession().getAttribute("loginUser");
 		
 		int memberId = user.getMemberId();
+		int workId = Integer.parseInt(request.getParameter("workId"));
 		
-		
-		ArrayList<Review> list = new ReviewService().selectList(memberId);
+		ArrayList<Review> list = new ReviewService().selectList(memberId,workId);
 		System.out.println("SelectReviewServlet에서 : " + list);
 		String page="";
 		if(list !=null) {
-			page = "views/board/boardReview.jsp";
+			/*page = "views/board/boardReview.jsp";
 			request.setAttribute("list", list);
-			request.getRequestDispatcher(page).forward(request, response);
+			request.getRequestDispatcher(page).forward(request, response);*/
+			
+			response.setContentType("application/json");
+			
+			
+			new Gson().toJson(list, response.getWriter());
+			
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "리뷰 조회 실패!");

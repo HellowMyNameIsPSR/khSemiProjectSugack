@@ -8,8 +8,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<script src="js/fundingBtn.js"></script>
 	<%@ include file="stylesheet/eroll.html" %>
+	<%@ include file="../assets/css/allCss.html" %>
 </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -26,7 +26,7 @@
 				</header>
 				<section id="contents">
 					<header class="main">
-						<h2>판매 작품등록</h2>
+						<h2>펀딩 작품등록</h2>
 					</header>
 					<!-- Contents area -->
 
@@ -64,7 +64,6 @@
 								적어 주시는 것이 좋습니다. 짥은 제목은 모바일 환경 혹은 SMS에 사용됩니다.</p>
 								<div class="">
 									<input type="text" placeholder="프로젝트 명" style="width: 100%;">
-									<input type="text" placeholder="짧은 프로젝트 명" style="width: 100%;">
 								</div>
 							</div>
 						</div>
@@ -75,23 +74,45 @@
 							</div>
 							<div class="listContents"
 								style="border-bottom: 1px solid lightgray;">
-								<h4>대표이미지</h4>
+								<h4>작품 이미지</h4>
 								<p class="subtext">
 									※ 대표 이미지는 프로젝트의 썸네일 등으로 사용됩니다. <br> 
 									가장 중요한 시각적 요소로 후원자들이 프로젝트를 쉽게 파악하고 좋은 인상을 줄 수 있는 이미지를 선정하세요.<br>
 								</p>
-								<div
-									style="border: 1px solid black; width: 150px; height: 150px; margin-left: 100px;'"></div>
-							</div>
-							<div class="listContents">
-								<h4>추가이미지</h4>
-								<div
-									style="border: 1px solid black; width: 150px; height: 150px; margin-left: 100px;'"></div>
 								<p class="subtext">
 									※ 권장 크기 : 640px * 640px<br> &nbsp; &nbsp; 추가이미지는 최대 7개까지
 									설정할 수 있습니다.<br> &nbsp; &nbsp; jpg, jpeg, gif, png, bmp 형식의
 									정지 이미지만 등록됩니다.
 								</p>
+								<div class="row">
+										<div class="col-sm-2" style="margin-left:10px;">
+											 <img src="<%= request.getContextPath() %>/authorRelationFile/basicImage.png"
+											 	  style="width:150px; height:150px;">
+										</div>
+										<div class="col-sm-2" style="margin-left:10px;">
+											 <img src="<%= request.getContextPath() %>/authorRelationFile/basicImage.png"
+											 	  style="width:150px; height:150px;">
+										</div>
+										<div class="col-sm-2" style="margin-left:10px;">
+											 <img src="<%= request.getContextPath() %>/authorRelationFile/basicImage.png"
+											 	  style="width:150px; height:150px;">
+										</div>
+										<div class="col-sm-2" style="margin-left:10px;">
+											 <img src="<%= request.getContextPath() %>/authorRelationFile/basicImage.png"
+											 	  style="width:150px; height:150px;">
+										</div>
+										<div class="col-sm-2" style="margin-left:10px;">
+											 <img src="<%= request.getContextPath() %>/authorRelationFile/basicImage.png"
+											 	  style="width:150px; height:150px;">
+										</div>
+								</div>
+							</div>
+							<div class="listContents">
+								<h4>프로젝트 상세보기 이미지</h4>
+								<p class="subtext">
+									※ 프로젝트 상세페이지에 첨부할 이미지를 첨부해 주세요.
+								</p>
+								<input type="text" value="첨부파일" class="form-control" id="confirmArea" readonly>							
 							</div>
 						</div>
 
@@ -120,18 +141,19 @@
 
 					</form>
 						<div align="center">
-							<button style="width: 150px;" type="submit" id="enrollfunding1">Next > </button>
+							<button class="all-btn" style="width: 150px;" type="submit" id="enrollfunding1">Next > </button>
 						</div>
-
-
-
-
-
-
 				</section>
 			</div>
 		</div>
 		<%@ include file="authorMenuBar.jsp"%>
 	</div>
+	<script>
+		$(function(){
+			$("#enrollfunding1").click(function(){
+				location.href = "<%= request.getContextPath() %>/views/author/enrollFundingGoods2.jsp";
+			});
+		});
+	</script>
 </body>
 </html>

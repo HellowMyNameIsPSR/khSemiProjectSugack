@@ -26,10 +26,10 @@ public class ReviewService {
 	}
 
 	//리뷰 조회용메소드!
-	public ArrayList<Review> selectList(int memberId) {
+	public ArrayList<Review> selectList(int memberId, int workId) {
 		Connection con = getConnection();
 		
-		ArrayList<Review> list = new ReviewDao().selectList(con, memberId);
+		ArrayList<Review> list = new ReviewDao().selectList(con, memberId, workId);
 		
 		close(con);
 		return list;

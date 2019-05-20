@@ -8,9 +8,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<script src="js/fundingBtn.js"></script>
-	<script src="js/enrollFundGoods.js"></script>
 	<%@ include file="stylesheet/eroll.html" %>
+	<%@ include file="../assets/css/allCss.html" %>
 </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -74,7 +73,7 @@
 								<p class="subtext">
 									※ 후원자들을 위한 리워드 내용을 입려하세요. 
 								</p>
-								<input type="button" value="+" class="all-btn">
+								<input type="button" value="+" class="all-btn" style="margin-left:10px;">
 							</div>
 								<div class="row">          
 									  <table class="table table-bordered" id="fundOptionTable">
@@ -101,14 +100,14 @@
 									  </table>
 									</div>
 							</div>
-							<hr>
+							<!-- <hr>
 							<div class="listContents">
 								<h4>예상 배송일</h4>
 								<div class="row">
 									<input type="date">
 									<label>일부터 순차적 발송</label>
 								</div>
-							</div>
+							</div> -->
 							<hr>
 							<div class="listContents">
 								<h4>구매 제한</h4>
@@ -132,6 +131,9 @@
 								<h2>환불 및 교환 정책</h2>
 							</div>
 							<div class="listContents">
+								<p class="subtext">
+									※ 우리 홈페이지의 환불 및 교환 정책에 관한 내용에 동의하십니까?							
+								</p>
 								<div class="row">
 									<textarea id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
 								</div>
@@ -150,5 +152,24 @@
 		</div>
 		<%@ include file="authorMenuBar.jsp"%>
 	</div>
+	<script>
+	$(function(){
+		$("#fundOptionTable").children().children().mouseenter(function(){
+			$(this).css({
+				"border" : "2px solid #3366ff"
+			});
+		}).mouseout(function(){
+			$(this).css({
+				"border" : "1px solid #ddd"
+			});
+		}).click(function(){
+			console.log("클릭");
+		});
+		
+		$("#enrollFundingGoods2").click(function(){
+			location.href = "<%= request.getContextPath() %>/views/author/enrollFundingGoods3.jsp";
+		});
+	});
+	</script>
 </body>
 </html>

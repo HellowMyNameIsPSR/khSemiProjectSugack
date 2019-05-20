@@ -1,12 +1,17 @@
 package com.kh.semi.author.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.semi.author.model.dao.AuthorDao;
+import com.kh.semi.author.model.vo.ApplyHistory;
 import com.kh.semi.author.model.vo.Author;
+import com.kh.semi.author.model.vo.PicFile;
 import com.kh.semi.author.model.vo.ProType;
 
 public class AuthorService {
@@ -27,29 +32,64 @@ public class AuthorService {
 		return list;
 	} //end method
 
-	//작가 정보 저장
-	public int insertAuthor(Author author) {
+	//1차 입점 신청 하기
+	public int insertAuthor(Author author, ArrayList<PicFile> fileList, String selectPType) {
 		Connection con = getConnection();
 		int resultAuthor = new AuthorDao().insertAuthor(con, author);
-		if(resultAuthor > 0) {
+		int resultAuthorApply = 0; //입점 내역 저장
+		int resultFile = 0; //1차 입점 신청 파일 저장
+		int resultAuthorType = 0; //작가 공예 유형 저장
+		
+		if(resultAuthor > 0) { //Author 테이블에 정보를 저장 했는 가?
+			resultAuthorApply = new AuthorDao().insertAuthorApply(con, author.getMemberId());
+		} else {
+			close(con);
+			System.out.println("작가 정보 저장 실패!");
+			return 0;
+		}
+		if(resultAuthorApply > 0) { //Author_Apply 테이블에 정보를 저장 했는가?
+			resultAuthorType = new AuthorDao().insertAuthorType(con, author.getMemberId(), selectPType);
+		} else {
+			close(con);
+			System.out.println("입점 신청 내역 정보 저장 실패!");
+			return 0;
+		}
+		if(resultAuthorType > 0) { //Author_type 테이블에 정보를 저장 했는가?
+			resultFile = new AuthorDao().insertApply1File(con, author.getMemberId(), fileList);
+		} else {
+			close(con);
+			System.out.println("작가 공예 유형 정보 저장 실패!");
+			return 0;
+		}
+		if(resultFile > 0) { //Pic_file 테이블에 정보를 저장 했는가?
 			commit(con);
 		} else {
+			System.out.println("1차 입점 서류 저장 실패!");
 			rollback(con);
 		}
 		close(con);
-		return resultAuthor;
+		return resultFile;
 	} //end method
 
-	public int insertAuthorType(int memberId, String selectPType) {
+	public ArrayList<ApplyHistory> selectOneAuthorApply(int memberId) {
 		Connection con = getConnection();
-		int resultAuthorType = new AuthorDao().insertAuthorType(con, memberId, selectPType);
-		if(resultAuthorType > 0) {
+		ArrayList<ApplyHistory> list = new AuthorDao().selectOneAuthorApply(con, memberId);
+		close(con);
+		return list;
+	} //end method
+
+	public int insertApply2(int memberId, ArrayList<PicFile> fileList) {
+		Connection con = getConnection();
+		int result = new AuthorDao().insertApply2(con, memberId, fileList);
+		if(result > 0) {
 			commit(con);
 		} else {
 			rollback(con);
 		}
 		close(con);
-		return resultAuthorType;
-	} //end method
+		return result;
+	}
 
+	
+	
 } //end class
