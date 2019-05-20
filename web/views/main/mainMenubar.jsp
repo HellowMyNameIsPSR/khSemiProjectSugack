@@ -17,6 +17,7 @@
 		cursor:pointer;
 		margin:0px 0px 0px 7%;
 		height:100px;
+		width:150px;
 	}
 	.topMemu{
 		margin-right:5%;

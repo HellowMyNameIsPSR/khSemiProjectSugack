@@ -2,12 +2,15 @@
     pageEncoding="UTF-8" import="java.util.*, com.kh.semi.member.model.vo.*"%>
 <%
 	ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String,Object>>) request.getAttribute("list");
+	HashMap<String, Object> work = (HashMap<String, Object>)list.get(0); 
+	System.out.println(work);
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>관심판매상품!</title>
+
 <style>
 	.name{
 		width:100%;
@@ -39,12 +42,17 @@
 				<section id="contents">
 					<div class="container">
 						<div class="row">
-							 <div class="col-sm-4 product" style="background-color:lavender; height:50%;">
-							 	<div class="outer">
-							 		<%for(int i=0; i<list.size(); i++){
+						
+							 	<%for(int i=0; i<list.size(); i++){
 							 			HashMap<String,Object> hmap = list.get(i);
-							 		%>
+							 	%>
+							 <div class="col-sm-2 product" style="background-color:lavender; height:50%; margin-right:20px;">
+							 	<div class="outer">
+							 	
 							 		
+							 		
+							 		<div style="background:white; width:100%"></div>
+							 		<br><br>
 							 		<div class="img" style="width:230px;">
 							 			<img src="uploadSalesImage/<%=hmap.get("changeName") %>" style="width:200px; height:200px;">
 							 		</div>
@@ -53,17 +61,21 @@
 							 		</div>
 							 		
 							 		<div class="heart">
-							 			<img src="views/images/heart.png" style="width:50px; height:50px; float:left;">
+							 			<img src="views/images/heart.png" onclick="delLike();" style="width:50px; height:50px; float:left;">
 							 		</div>
 							 		<div>
 							 			<label id="price" style="margin-left:160px;"><%=hmap.get("price") %>원</label>
 							 		</div>
-							 		<%} %>
+							 		
+							 		<br><br><br>
+							 		
+							 		<br><br>
 							 	</div>
-							 	
 							 </div>
-							
-							 <div class="col-sm-4"></div>
+							 	<%} %>
+							 	<br>
+							<br><br><br>
+							<!--  <div class="col-sm-4"></div>
 							 
 							  	<div class="col-sm-4 product" style="background-color:lavender; height:50%;">
 							 	<div class="outer">
@@ -82,14 +94,41 @@
 							 		</div>
 							 	</div>
 							 	
-							 </div>
+							 </div> -->
 					
 					</div>
 					
 					
 					<br><br>
+					<%
+						Member loginUser2 = (Member)request.getSession().getAttribute("loginUser");
+					 %>
+					 <script>
+					 
+						function delLike(){
+							
+							var memberId = <%=loginUser2.getMemberId()%>;
+							var workId = <%=work.get("workId")%>;
+							
+						   
+							$.ajax({
+								url:"<%=request.getContextPath()%>/deleteLike.me?<%=work.get("workId")%>",
+								data:{memberId:memberId, workId:workId},
+								type:"post",
+								success:function(data){
+									alert("성공!");
+									//alert(data);
+									
+								},error:function(){
+									alert("실패!");
+								}
+							})
+							console.log(workId);
+							
+						}
+					</script> 
 					
-					<div class="row">
+					<!-- <div class="row">
 							 		 <div class="col-sm-4 product" style="background-color:lavender; height:50%;">
 							 	<div class="outer">
 							 		<div class="img" style="width:230px;">
@@ -128,14 +167,14 @@
 							 	
 							 </div>
 					
-					</div>
+					</div> -->
 					</div>
 					<!-- Contents area -->
 				</section>
 			</div>
 		</div>
-		<%@ include file="../common/userMenubarServlet.jsp" %>
+		<!-- 여기 메뉴바 -->	<%@ include file="../common/userMenubarServlet.jsp" %>
 	</div>
-			
+		
 </body>
 </html>

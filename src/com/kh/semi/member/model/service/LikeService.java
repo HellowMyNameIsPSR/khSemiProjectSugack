@@ -35,4 +35,16 @@ public class LikeService {
 		return list;
 	}
 
+	public int deleteLike(int memberId, int workId) {
+		Connection con = getConnection();
+		int result = new LikeDao().deleteLike(con,memberId, workId);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return 0;
+	}
+
 }
