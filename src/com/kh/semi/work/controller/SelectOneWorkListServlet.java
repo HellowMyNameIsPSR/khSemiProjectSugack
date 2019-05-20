@@ -22,7 +22,6 @@ public class SelectOneWorkListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
-		System.out.println("숫자" + num);
 		
 		ArrayList<WorkPic> fileList = new ArrayList<WorkPic>();
 		

@@ -93,11 +93,11 @@
 											num++;
 											$("#tbody").append(
 												"<tr>" +
-													"<td> " + num + "</td>" + 
+													"<td> " + num + "</td>" +
+													"<td> " + data[i].workId + "</td>" + 
 													"<td> " + data[i].workName + "</td>" + 
-													"<td> " + data[i].price + "</td>" + 
+													"<td> " + data[i].price + "원 </td>" + 
 													"<td> " + data[i].wrDate + "</td>" + 
-													"<td></td>" +
 												"</td>"
 											);
 										}
@@ -128,10 +128,10 @@
 											$("#tbody").append(
 												"<tr>" +
 													"<td> " + num + "</td>" + 
+													"<td> " + data[i].workId + "</td>" + 
 													"<td> " + data[i].workName + "</td>" + 
-													"<td> " + data[i].price + "</td>" + 
+													"<td> " + data[i].price + "원 </td>" + 
 													"<td> " + data[i].wrDate + "</td>" + 
-													"<td></td>" +
 												"</td>"
 											);
 										}
@@ -152,7 +152,7 @@
 									<th><strong>상품명</strong></th>
 									<th><strong>판매가</strong></th>
 									<th style="width:150px;"><strong>등록일</strong></th>
-									<th style="width:100px;"><strong>수정</strong></th>
+
 								</tr>
 								<tbody id="tbody">
 									
@@ -167,7 +167,6 @@
 									<td><%= work.getworkName() %></td>
 									<td><%= work.getPrice() %>원</td>
 									<td><%= work.getWrDate() %></td>
-									<td></td>
 								</tr>
 								<% } %> 
 								</tbody>

@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-<!-- include summernote css/js-->
+
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 <%@ include file="../assets/css/allCss.html" %>
@@ -695,12 +695,10 @@
 							</table>
 						</div>
 						<div id="fileArea">
+							<% for(int i = 0; i < workPic.size(); i++) {%>
+								<textarea id="wpId<%=i%>" name="wpId<%=i %>"><%=workPic.get(i).getWpid()%></textarea>
+							<% } %>
 
-							<textarea id="wpId0" name="wpId0"><%=workPic.get(0).getWpid()%></textarea>
-							<textarea id="wpId1" name="wpId1"><%=workPic.get(1).getWpid()%></textarea>
-							<textarea id="wpId2" name="wpId2"><%=workPic.get(2).getWpid()%></textarea>
-							<textarea id="wpId3" name="wpId3"><%=workPic.get(3).getWpid()%></textarea>
-							<textarea id="wpId4" name="wpId4"><%=workPic.get(4).getWpid()%></textarea>
 							<input type="file" id="workImg0" name="workImg0" onchange="loadImg(this,1)" >
 							<input type="file" id="workImg1" name="workImg1" onchange="loadImg(this,2)" >
 							<input type="file" id="workImg2" name="workImg2" onchange="loadImg(this,3)" >

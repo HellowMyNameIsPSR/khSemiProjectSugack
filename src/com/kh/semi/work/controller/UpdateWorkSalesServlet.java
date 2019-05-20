@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.semi.common.MyFileRenamePolicy;
-import com.kh.semi.member.model.vo.Member;
+
 import com.kh.semi.work.model.service.WorkService;
 import com.kh.semi.work.model.vo.Work;
 import com.kh.semi.work.model.vo.WorkPic;
@@ -61,6 +61,7 @@ public class UpdateWorkSalesServlet extends HttpServlet {
 					saveFiles.add(multiRequest.getFilesystemName(name));
 					originFiles.add(multiRequest.getOriginalFileName(name));
 					
+
 					System.out.println("fileSystem name : " 
 							+ multiRequest.getFilesystemName(name));
 					System.out.println("originFile : " 
@@ -93,11 +94,11 @@ public class UpdateWorkSalesServlet extends HttpServlet {
 			wpId.add(wpId3);
 			wpId.add(wpId4);
 			
-			System.out.println(wpId +"dfsafsaf");
+
 			//TYPE_ID	//유형코드 공예유형	//MEMBER 테이블 
 			
 			//String memberId = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberId());
-			System.out.println("workId : " + workId);
+
 			Work work = new Work();
 			//work.setWorkId();
 			work.setWorkId(workId);
@@ -123,7 +124,7 @@ public class UpdateWorkSalesServlet extends HttpServlet {
 			String page = "";
 			if(result2 > 0) {
 				//response.sendRedirect(request.getContextPath() + "/selectList.tn");
-				page = "views/author/authorHome.jsp";
+				page = "/sg/selectSale.wo";
 				
 				response.sendRedirect(page);
 			}else {

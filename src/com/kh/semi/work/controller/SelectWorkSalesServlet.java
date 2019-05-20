@@ -48,6 +48,7 @@ public class SelectWorkSalesServlet extends HttpServlet {
 		
 		ArrayList<Work> list = new WorkService().selectSalesList(pi);
 		
+
 		String page = "";
 		if(list != null) {
 			page="views/author/manageSaleGoods.jsp";
