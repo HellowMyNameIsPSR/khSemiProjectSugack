@@ -206,8 +206,8 @@
 							<!-- <li><a href="../product/products.jsp">판매</a></li> -->
 							<li><a href="<%= request.getContextPath()%>/selectProduct.pro">판매</a>
 							<li><a href="<%= request.getContextPath() %>/views/fundingProduct/fundingProducts.jsp">펀딩</a></li>
-							<%-- <li><a href="<%= request.getContextPath()%>/selectAuthorPage.tn">작가이야기</a></li> --%>
-							<li><a href="<%= request.getContextPath()%>/views/tour/artistStorey.jsp">작가이야기</a></li>
+							 <li><a href="<%= request.getContextPath()%>/selectAuthorPage.tn">작가이야기</a></li> 
+							<%-- <li><a href="<%= request.getContextPath()%>/views/tour/artistStorey.jsp">작가이야기</a></li> --%>
 							<li><a href="#contact">About</a></li>
 						</ul>
 					</div>

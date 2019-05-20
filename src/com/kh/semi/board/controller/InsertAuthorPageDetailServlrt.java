@@ -39,7 +39,10 @@ public class InsertAuthorPageDetailServlrt extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			if(ServletFileUpload.isMultipartContent(request)) {
+			
+			Member m = (Member)request.getSession().getAttribute("loginUser");
+		
+		    if(ServletFileUpload.isMultipartContent(request)) {
 			
 			
 			
@@ -92,9 +95,10 @@ public class InsertAuthorPageDetailServlrt extends HttpServlet {
 			 System.out.println(authorcontent);
 			 
 			 
-			Board b = new Board();
-			b.setTitle(authorTitle);
-		    b.setContent(authorcontent);
+			 Board b = new Board();
+			 b.setTitle(authorTitle);
+			 b.setContent(authorcontent);
+			 b.setMemberId(m.getMemberId());
 				
 			 
 			 
@@ -114,13 +118,13 @@ public class InsertAuthorPageDetailServlrt extends HttpServlet {
  
 			 }
 			 
-			int result = new AuthorPageSerview().insertAuthorPagePro(b,fileList);
+			int result = new AuthorPageSerview().insertAuthorPageDetail(b,fileList);
 			 
 			 
 	if(result>0) {
 				
 				//재요청이 안되게 sendRedirect를 하고  List를 보여준다.
-				response.sendRedirect(request.getContextPath() + "/selectList.tn");
+				response.sendRedirect(request.getContextPath() + "/selectAuthorPage.tn");
 				
 			}else {
 				
