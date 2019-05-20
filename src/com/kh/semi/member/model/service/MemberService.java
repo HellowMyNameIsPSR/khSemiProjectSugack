@@ -3,10 +3,13 @@ package com.kh.semi.member.model.service;
 import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.member.model.vo.Address;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.product.model.vo.Basket;
+
 import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MemberService {
 
@@ -141,6 +144,48 @@ public class MemberService {
 		}else {
 			rollback(con);
 		}
+		close(con);
+		
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectCartList(int memberId) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new MemberDao().selectCartList(con, memberId);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int deleteCart(String[] bidArr) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().deleteCart(con, bidArr);
+		
+		if(result == bidArr.length) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int countUpdate(int bid, int count) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().countUpdate(con, bid, count);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
 		close(con);
 		
 		return result;

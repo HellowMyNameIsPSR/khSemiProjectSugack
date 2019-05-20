@@ -3,6 +3,7 @@ package com.kh.semi.work.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -12,12 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-import org.eclipse.jdt.internal.compiler.lookup.MemberTypeBinding;
 
 import com.kh.semi.common.MyFileRenamePolicy;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.work.model.service.WorkService;
 import com.kh.semi.work.model.vo.Work;
+import com.kh.semi.work.model.vo.WorkOption;
 import com.kh.semi.work.model.vo.WorkPic;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -62,10 +63,10 @@ public class InsertWorkSalesServlet extends HttpServlet {
 					saveFiles.add(multiRequest.getFilesystemName(name));
 					originFiles.add(multiRequest.getOriginalFileName(name));
 					
-					System.out.println("fileSystem name : " 
+					/*System.out.println("fileSystem name : " 
 							+ multiRequest.getFilesystemName(name));
 					System.out.println("originFile : " 
-							+ multiRequest.getOriginalFileName(name));
+							+ multiRequest.getOriginalFileName(name));*/
 					
 				}
 			}
@@ -107,13 +108,27 @@ public class InsertWorkSalesServlet extends HttpServlet {
 				workPic.add(pic);
 			}
 			
-			int result2 = new WorkService().insertSales(work, workPic);
+			String [] optionName = multiRequest.getParameterValues("optionName");
+			String [] optionVal = multiRequest.getParameterValues("optionVal");
+			String [] optionPrice = multiRequest.getParameterValues("optionPrice");
 			
+			ArrayList<WorkOption> workOption = new ArrayList<WorkOption>();
+			
+			for(int i = optionName.length - 1; i >= 0; i--) {
+				WorkOption opt = new WorkOption();
+				opt.setoName(optionName[i]);
+				opt.setoValue(optionVal[i]);
+				opt.setoPrice(Integer.parseInt(optionPrice[i]));
+				
+				workOption.add(opt);
+				System.out.println("옵션 서블렛 리스트 값 : " + workOption);
+			}
+			
+			int result = new WorkService().insertSales(work, workPic, workOption);
 			
 			String page = "";
-			if(result2 > 0) {
+			if(result > 0) {
 				//response.sendRedirect(request.getContextPath() + "/selectList.tn");
-				
 				page = "views/author/authorHome.jsp";
 				
 				response.sendRedirect(page);

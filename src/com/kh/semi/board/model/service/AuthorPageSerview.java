@@ -53,7 +53,7 @@ public class AuthorPageSerview {
 		Connection con = getConnection();
 		ArrayList<HashMap<String,Object>> list = new AuthorPageDao().selectAuthorPage(con);
 		close(con);
-		
+	
 		System.out.println("작가목록 보기용 Service에서:" +list);
 		
 		return list;
@@ -123,6 +123,7 @@ public class AuthorPageSerview {
 		
 		
 		return hmap;
+
 	}
 
 }

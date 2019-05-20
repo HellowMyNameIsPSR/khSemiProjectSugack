@@ -33,29 +33,30 @@
 				<li>
 					<span class="opener">좋아요리스트</span>
 					<ul>
-						<li><a href="likeAuthor.jsp">관심작가</a>
-						<li><a href="likeFundingPro.jsp">관심 펀딩 상품</a>
-						<li><a href="likePro.jsp">관심 판매상품</a>
+						<li><a href="likeAuthor.jsp">관심작가</a></li>
+						<li><a href="likeFundingPro.jsp">관심 펀딩 상품</a></li>
+						<li><a href="<%=request.getContextPath()%>/selectLikeList.me?mid=<%=loginUser.getMemberId()%>">관심 판매상품</a></li>
 					</ul>
 				</li>
 				<li>
 					<span class="opener">게시글관리!</span>
 					<ul>
-						 <li><a href="boardReview.jsp">응원글 및 리뷰</a> 
-						<%-- <li><a href="<%=request.getContextPath() %>/selectReview.co?num=<%=loginUser.getMemberId() %>">응원글 및 리뷰</a> --%>
-						<li><a href="<%=request.getContextPath()%>/selectProQna.bo?num=<%=loginUser.getMemberId()%>">문의</a>
+					<!-- <li><a href="views/board/boardReview.jsp">응원글</a> -->
+						<%--  <li><a href="<%=request.getContextPath()%>/selectReview.co?memberId=<%=loginUser.getMemberId()%>">응원글 및 리뷰</a>  --%>
+						<li><a href="<%=request.getContextPath()%>/selectReview.co?mid=<%=loginUser.getMemberId()%>">응원글 및 리뷰</a></li>
+						<li><a href="<%=request.getContextPath()%>/selectProQna.bo?mid=<%=loginUser.getMemberId()%>">문의</a></li>
 					</ul>
 				</li>
 				<li><a href="boardPoint.jsp">적립금 사용 내역</a></li>
 				<li>
 					<span class="opener">개인정보</span>
 					<ul>
-						<li><a href="modifyMe.jsp">개인정보 수정</a>
-						<li><a href="<%=request.getContextPath()%>/addressList.me?num=<%=loginUser.getMemberId()%>">내 주소 관리</a>
-						<li><a href="withDrawal.jsp">회원 탈퇴</a>
+						<li><a href="modifyMe.jsp">개인정보 수정</a></li>
+						<li><a href="<%=request.getContextPath()%>/addressList.me?num=<%=loginUser.getMemberId()%>">내 주소 관리</a></li>
+						<li><a href="withDrawal.jsp">회원 탈퇴</a></li>
 					</ul>
 				</li>
-				<li><a href="#">고객센터</a>
+				<li><a href="#">고객센터</a></li>
 			</ul>
 		</nav>
 		<!-- Footer -->

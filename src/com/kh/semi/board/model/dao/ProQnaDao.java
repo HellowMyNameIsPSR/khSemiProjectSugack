@@ -49,10 +49,13 @@ public class ProQnaDao {
 		
 			
 			pstmt.setInt(1, qna.getMid());
-			pstmt.setString(2, qna.getContent());
-			pstmt.setInt(3, qna.getBno());  //작품코드
+			pstmt.setString(2, qna.getcategory());
+			pstmt.setString(3, qna.getContent());
+			pstmt.setInt(4, qna.getWorkId());
+			//pstmt.setInt(3, qna.getBno());  //작품코드
+			
 			//pstmt.setInt(4, Integer.parseInt(qna.getcategory()));
-			pstmt.setString(4, qna.getcategory());
+			
 			
 			result = pstmt.executeUpdate();
 			
@@ -106,34 +109,6 @@ public class ProQnaDao {
 		return list;
 	}
 
-	//전체 게시물 수 조회하기
-	public int getListCount(Connection con) {
-		Statement stmt = null;
-		int listCount = 0;
-		ResultSet rset = null;
-		
-		
-		String query = prop.getProperty("listCount");
-		
-		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
-			
-			
-			if(rset.next()) {
-				listCount = rset.getInt(1);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(stmt);
-			close(rset);
-		}
-		
-		
-		return listCount;
-	}
 
 
 	//문의내역 자세히보기
@@ -183,6 +158,8 @@ public class ProQnaDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
+			
+			
 			pstmt.setString(1, comment.getContent());
 			pstmt.setInt(2, comment.getBno());
 			pstmt.setInt(3, comment.getWriterId());
@@ -269,7 +246,7 @@ public class ProQnaDao {
 				c.setBno(rset.getInt("BNO"));
 				c.setWriterId(rset.getInt("WRITER_ID"));
 				c.setWriteLevel(rset.getInt("WRITE_LEVEL"));
-				
+				c.setWriter(rset.getString("MEMBER_NAME"));
 				
 				System.out.println("ProQnaDao c : " + c);
 				list.add(c);

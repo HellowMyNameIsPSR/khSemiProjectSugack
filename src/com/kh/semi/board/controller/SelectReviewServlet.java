@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.kh.semi.board.model.dao.ReviewDao;
 import com.kh.semi.board.model.service.ReviewService;
 import com.kh.semi.board.model.vo.Review;
 import com.kh.semi.member.model.vo.Member;
@@ -35,15 +37,19 @@ public class SelectReviewServlet extends HttpServlet {
 		Member user = (Member)request.getSession().getAttribute("loginUser");
 		
 		int memberId = user.getMemberId();
+		//int workId = Integer.parseInt(request.getParameter("workId"));
 		
+		ArrayList<Review> reviewList = new ReviewService().selectMyReviewList(memberId);
 		
-		ArrayList<Review> list = new ReviewService().selectList(memberId);
-		System.out.println("SelectReviewServlet에서 : " + list);
+		System.out.println("dao에서 가져왔니?" + reviewList);
 		String page="";
-		if(list !=null) {
-			page = "views/board/boardReview.jsp";
-			request.setAttribute("list", list);
+		if(reviewList !=null) {
+			page ="views/board/boardReview.jsp";
+			request.setAttribute("list", reviewList);
 			request.getRequestDispatcher(page).forward(request, response);
+			
+			System.out.println("SelectServlet : "+reviewList);
+			
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "리뷰 조회 실패!");

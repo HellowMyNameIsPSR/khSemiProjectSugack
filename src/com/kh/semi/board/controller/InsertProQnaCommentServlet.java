@@ -47,7 +47,7 @@ public class InsertProQnaCommentServlet extends HttpServlet {
 		System.out.println("InsertProQnaCommentServlet에서 객체 생성: "+comment);
 		int result = new ProQnaService().insertComment(comment);
 		
-		String page="";
+		//String page="";
 		
 		if(result>0) {
 			response.getWriter().print("ok");

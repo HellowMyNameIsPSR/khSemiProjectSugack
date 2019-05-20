@@ -74,6 +74,7 @@ public class SearchMember implements java.io.Serializable{
 	public Date getJoinLast() {
 		return joinLast;
 	}
+	
 
 	public void setJoinLast(Date joinLast) {
 		this.joinLast = joinLast;

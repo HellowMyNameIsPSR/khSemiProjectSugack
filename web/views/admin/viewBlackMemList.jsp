@@ -31,44 +31,45 @@
 								<tr>
 									<td style="width: 180px;">경고분류</td>
 									<td style="width: 700px;">
-									<select name="" id="">
-											<option value="">1차</option>
-											<option value="">2차</option>
-											<option value="">3차</option>											
+									<select name="warnLevel">
+											<option value="1c">1차</option>
+											<option value="2c">2차</option>
+											<option value="3c">3차</option>											
 									</select>
+									<td colspan="2"></td>
 								</tr>	
 								<tr>
 									<td>경고일자</td>
-									<td><input type="date" style="width: 400px;" /></td>
-									<td style="width: 30px;"><label
-										style="font-size: 15px; text-align: center;">~</label></td>
-									<td style="width: 200px;"><input type="date"
-										style="width: 200px;" /></td>
+										<td>
+											<input type="date" style="width: 400px;" name="warnStart">
+										</td>
+										<td style="width: 30px;"><label	style="font-size: 15px; text-align: center;">~</label></td>
+										<td style="width: 200px;">
+											<input type="date" style="width: 200px;" name="warnLast">
+										</td>
 								</tr>
 								<tr>
 									<td>경고종류</td>
-									<td style="width: 150px;"><select name="" id=""
-										style="width: 330px;">
-											<option value="">상품</option>
-											<option value="">펀딩</option>
-											<option value="">판매자</option>
-											<option value="">기타</option>
-									</select>
+									<td style="width: 150px;">
+										<select name="warnType" style="width: 330px;">
+											<option value="product">상품</option>
+											<option value="funding">펀딩</option>
+											<option value="seller">판매자</option>
+											<option value="other">기타</option>
+										</select>
 									</td>
 								</tr>
 								<tr>
 									<td style="width: 180px;">신고위치</td>
 									<td style="width: 150px;">
-									<select name="" id=""
-										style="width: 150px;">
+									<select name="warnLocation " style="width: 150px;">
 											<option value="">상품</option>
 											<option value="">펀딩</option>
 											<option value="">기타</option>
 									</select>
 									</td>
 									<td style="width: 150px;">
-									<select name="" id=""
-										style="width: 150px;">
+									<select name="" id="" style="width: 150px;">
 											<option value="">상품</option>
 											<option value="">펀딩</option>
 											<option value="">기타</option>
@@ -91,11 +92,13 @@
 								</tr>
 
 							</table>
-							<input type="submit" value="조회" />
+							<button id="searchBlackList" style="float:right;">조회</button>				
+
 						</form>
 						<h3>블랙리스트 조회 결과</h3>
 						<table class="table table-bordered"
 							style="border: 2px solid gray; text-align: center">
+							<thead>
 							<tr style="background: lightgray;">
 								<td>번호</td>
 								<td>경고분류</td>
@@ -105,51 +108,10 @@
 								<td>신고내용</td>
 								<td>신고자</td>
 							</tr>
-							<tr>
-								<td>1</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>5</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
+							</thead>
+							<tbody>
+							
+							</tbody>
 						</table>
 						<div class="row" style="padding-left: 400px">
 							<ul class="pagination justify-content-center">
@@ -167,6 +129,30 @@
 		</div>
 		<%@ include file="adminMenubar.jsp"%>
 	</div>
+	<script>
+	//블랙리스트 값은 아직 정해지지 않아 대기
+	$("#searchBlackList").click(function(){
+		var warnLevel = $("input[name='warnLevel']:selected").val();
+		var warnStart = $("input[name='warnStart']").val();
+		var warnLast = $("input[name='warnLast']").val();
+		var warnType = $("input[name='warnType']:selected").val();
+		var warnLocation = $("input[name='warnLocation']:selected").val();
+		
+		
+		$.ajax({
+			url:"<%= request.getContextPath() %>/blackMemberCheck.ad",
+			data:searchMember,
+			type:"get",
+			success:function(data){
+				var $tr = $("<tr>");
+				var $noTd = $("<td>").text(index + 1);
+				//var $warnLevel = $("td").
+				
+			}
+		})
+
+	})
+	</script>
 
 </body>
 </html>

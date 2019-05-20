@@ -14,7 +14,6 @@ import java.util.Properties;
 
 import com.kh.semi.board.model.vo.AuthorPageAttachmrnt;
 import com.kh.semi.board.model.vo.Board;
-import com.kh.semi.board.model.vo.ProQna;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 
@@ -49,7 +48,6 @@ public class AuthorPageDao {
 			pstmt.setInt(1, b.getMemberId());
 			pstmt.setString(2, b.getTitle());
 			pstmt.setString(3, b.getContent());
-
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -224,10 +222,6 @@ public class AuthorPageDao {
 				
 				list.add(at);
 				
-				
-				
-				
-				
 			}
 			
 			
@@ -281,10 +275,11 @@ public class AuthorPageDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
-		
+
 		}
 
 		return result;
+
 	}
 
 	public int insertAuthorPageDetailAttachment(Connection con, ArrayList<AuthorPageAttachmrnt> fileList) {

@@ -93,11 +93,11 @@
 											num++;
 											$("#tbody").append(
 												"<tr>" +
-													"<td> " + num + "</td>" + 
+													"<td> " + num + "</td>" +
+													"<td> " + data[i].workId + "</td>" + 
 													"<td> " + data[i].workName + "</td>" + 
-													"<td> " + data[i].price + "</td>" + 
+													"<td> " + data[i].price + "원 </td>" + 
 													"<td> " + data[i].wrDate + "</td>" + 
-													"<td></td>" +
 												"</td>"
 											);
 										}
@@ -106,7 +106,7 @@
 								});
 							});
 							
-							$("#searhName").click(function(){
+							$("#searhName").on("click", function(){
 								var workName = $("#workName").val();
 								
 								//console.log($("#workName").val());
@@ -128,10 +128,10 @@
 											$("#tbody").append(
 												"<tr>" +
 													"<td> " + num + "</td>" + 
+													"<td> " + data[i].workId + "</td>" + 
 													"<td> " + data[i].workName + "</td>" + 
-													"<td> " + data[i].price + "</td>" + 
+													"<td> " + data[i].price + "원 </td>" + 
 													"<td> " + data[i].wrDate + "</td>" + 
-													"<td></td>" +
 												"</td>"
 											);
 										}
@@ -148,10 +148,11 @@
 							<table class="listTable">
 								<tr>
 									<th style="width:30px;"><strong>NO.</strong></th>
+									<th style="width:70px;"><strong>상품코드</strong></th>
 									<th><strong>상품명</strong></th>
 									<th><strong>판매가</strong></th>
 									<th style="width:150px;"><strong>등록일</strong></th>
-									<th style="width:100px;"><strong>상태</strong></th>
+
 								</tr>
 								<tbody id="tbody">
 									
@@ -162,10 +163,10 @@
 								 %>
 								<tr>
 									<td><%= num %></td>
+									<td><%= work.getWorkId() %></td>
 									<td><%= work.getworkName() %></td>
 									<td><%= work.getPrice() %>원</td>
 									<td><%= work.getWrDate() %></td>
-									<td></td>
 								</tr>
 								<% } %> 
 								</tbody>
@@ -224,22 +225,23 @@
 						</div>
 					<script>
 						$(function(){
-							$(".listTable tr").mouseenter(function(){
+							$(".listTable td").mouseenter(function(){
 								$(this)
 									.parent()
-									.css({"background":"darkgray", "cursor":"pointer"});
+									.css({"background":"black", "cursor":"pointer"});
 							}).mouseout(function(){
 								$(this)
 									.parent()
-									.css({"background":"black"});
+									.css({"background-color":"black"});
 							}).click(function(){
-								var num = $(this).parent().children().eq(0).text();
+								var num = $(this).parent().children().eq(1).text();
 								console.log(num);
-								location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
+								location.href="<%=request.getContextPath()%>/selectListOne.wo?num=" + num;
 							});
 						})
 						
 					</script>
+					
 
 				</section>
 			</div>

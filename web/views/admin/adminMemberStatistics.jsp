@@ -63,7 +63,7 @@
 			$("#search").click(function(){
 				var startDate = $("#startDate").val();
 				var endDate = $("#endDate").val();
-				var gender = $('input[name="gender"]:checked').val()
+				var gender = $('input[name="gender"]:checked').val();
 				var date = $("#date").val();
 				console.log(gender);
 				if(date == 'month'){

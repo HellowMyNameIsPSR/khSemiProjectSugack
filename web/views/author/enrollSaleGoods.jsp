@@ -200,7 +200,7 @@
 				 	
 				 	
 				 	
-					<form action="<%=request.getContextPath()%>/insertSale.wo" method="post" encType="multipart/form-data">
+					<form id="salesFrom" action="<%=request.getContextPath()%>/insertSale.wo" method="post" encType="multipart/form-data">
 						<div class="listBox">
 							<div class="listTitle">
 								<h2>카테고리</h2>
@@ -417,49 +417,43 @@
 								</div>
 
 								<div class="optionBox">
-									<table class="optionTable">
-										<tr align="center">
-											<td>옵션명</td>
-											<td>옵션값</td>
-											<td>추가비용</td>
-											<td align="center">
-												<span id="iconBox" class="glyphicon glyphicon-minus minus0">
-											</span></td>
-											<td align="center">
-												<span id="iconBox"class="glyphicon glyphicon-plus plus0">
-											</span></td>
-										</tr>
-
-										<tbody class="optiontbody">
-											<tr align="center">
-												<td>
-													<input type="text" name="optionName" placeholder="옵션명 입력">
-												</td>
-												<td>
-													<input type="text" name="optionVal" placeholder="옵션값 입력">
-												</td>
-												<td>
-													<input type="number" name="plusSale" placeholder="추가비용 입력">
-												</td>
-												<td colspan="2"></td>
-											</tr>
-										</tbody>
-									</table>
-
-								</div>
-								<div align="center">
-									<div class="optionBtn" id="deleteBtn">
-										<span class="glyphicon glyphicon-minus"></span>&nbsp;옵션 삭제
-									</div>
-									<div class="optionBtn" id="addBtn">
-										<span class="glyphicon glyphicon-plus"></span>&nbsp;옵션 추가
+									<div align="center">
+										<div class="optionBtn" id="deleteBtn">
+											<span class="glyphicon glyphicon-minus"></span>&nbsp;옵션 삭제
+										</div>
+										<div class="optionBtn" id="addBtn">
+											<span class="glyphicon glyphicon-plus"></span>&nbsp;옵션 추가
+										</div>
 									</div>
 								</div>
 
 							</div>
 						</div>
-
-						<script>
+						<button type="button" id="testBtn" class="all-btn">카피 복사</button>
+						<script>salesFrom
+							$('#salesFrom').submit(function(event){
+								 $('.optionName00').each(function(){
+									 $(this).val($('.optionName0').val());
+								 });
+								 $('.optionName11').each(function(){
+									 $(this).val($('.optionName1').val());
+								 });
+								 $('.optionName22').each(function(){
+									 $(this).val($('.optionName2').val());
+								 });
+								 $('.optionName33').each(function(){
+									 $(this).val($('.optionName3').val());
+								 });
+								 $('.optionName44').each(function(){
+									 $(this).val($('.optionName4').val());
+								 });
+					        });
+						/* $('#submit').on("click",function () {
+							 $('.optionName00').each(function(){
+								 $(this).val($('.optionName0').val());
+							 });
+				        }); */
+							
 							var num = 0;
 							var cnt = 0;
 							var cnt1 = 0;
@@ -469,29 +463,67 @@
 							var opCnt = 0;
 							
 							$(function(){
-								// 옵션 설정함/설정안함
-								$(".openOption").click(function(){
-									$(".optionBox").show();
-								});
-								
-								$(".closeOption").click(function(){
+									$(".openOption").on("click", function(){
+										console.log(opCnt);
+										if(opCnt <= 0){
+											opCnt++;
+											console.log(opCnt);
+											$(".optionBox").show()
+											$(".optionBox").append(
+												'<div class="optionDiv">' +
+													'<table class="optionTable0">' +
+														'<tr align="center">' +
+															'<td>옵션명</td>' +
+															'<td>옵션값</td>' +
+															'<td>추가비용</td>' +
+															'<td align="center">' +
+																'<span id="iconBox" class="glyphicon glyphicon-minus minus0">' +
+															'</span></td>' +
+															'<td align="center">' +
+																'<span id="iconBox"class="glyphicon glyphicon-plus plus0">' +
+															'</span></td>' +
+														'</tr>' +
+														'<tbody class="optiontbody">' +
+															'<tr align="center">' +
+																'<td>' +
+																	'<input type="text" value="fas" class="optionName0" name="optionName" placeholder="옵션명 입력">' +
+																'</td>' +
+																'<td>' +
+																	'<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +
+																'</td>' +
+																'<td>' +
+																	'<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +
+																'</td>' +
+																'<td colspan="2"></td>' +
+															'</tr>' +
+														'</tbody>' +
+													'</table>' +
+												'</div>'
+											);
+										}
+									});
+									
+								$(".closeOption").on("click", function(){
 									$(".optionBox").hide();
+									$(".optionDiv").remove();
+									$(".option").val(' ');
+									opCnt = 0;
 								});
 								
 								
 								//옵션갑 추가 삭제1
-								$(".plus0").on("click", function() {
+								$(document).on("click",".plus0", function() {
 									cnt++;
 									$(".optiontbody:last").append(
 										'<tr align="center">' +
-											'<td> <input style="display:none;" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
-											'<td>' + '<input type="text" name="optionVal'+ cnt + '" placeholder="옵션값 입력">' +'</td>' +
-											'<td>' + '<input type="number" name="plusSale'+ cnt + '" placeholder="추가비용 입력">' +'</td>' +
+											'<td> <input type="hidden" class="optionName00" type="text" " name="optionName" placeholder="옵션명 입력" val=""> </td>' +		
+											'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
+											'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
 											'<td colspan="2"></td>' +
 										'</tr>'
 									);
 								});
-								$(".minus0").on("click", function(){
+								$(document).on("click", ".minus0", function(){
 									cnt--;
 									if(cnt < 0){
 										cnt = 0;
@@ -504,9 +536,9 @@
 									cnt1++;
 									$(".optiontbody1:last").append(
 										'<tr align="center">' +
-											'<td> <input style="display:none;" type="text" name="optionName1" placeholder="옵션명 입력"> </td>' +		
-											'<td>' + '<input type="text" name="optionVal1' + cnt1 + '" placeholder="옵션값 입력">' +'</td>' +
-											'<td>' + '<input type="number" name="plusSale1' + cnt1 + '" placeholder="추가비용 입력">' +'</td>' +
+											'<td> <input type="hidden" class="optionName11" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
+											'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
+											'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
 											'<td colspan="2"></td>' +
 										'</tr>'
 									);
@@ -524,9 +556,9 @@
 									cnt2++;
 									$(".optiontbody2:last").append(
 										'<tr align="center">' +
-											'<td> <input style="display:none;" type="text" name="optionName2" placeholder="옵션명 입력"> </td>' +		
-											'<td>' + '<input type="text" name="optionVal2' + cnt2 + '" placeholder="옵션값 입력">' +'</td>' +
-											'<td>' + '<input type="number" name="plusSale2' + cnt2 + '" placeholder="추가비용 입력">' +'</td>' +
+											'<td> <input type="hidden" class="optionName22" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
+											'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
+											'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
 											'<td colspan="2"></td>' +
 										'</tr>'
 									);
@@ -544,9 +576,9 @@
 									cnt3++;
 									$(".optiontbody3:last").append(
 										'<tr align="center">' +
-											'<td> <input style="display:none;" type="text" name="optionName3" placeholder="옵션명 입력"> </td>' +		
-											'<td>' + '<input type="text" name="optionVal3' + cnt3 + '" placeholder="옵션값 입력">' +'</td>' +
-											'<td>' + '<input type="number" name="plusSale3' + cnt3 + '" placeholder="추가비용 입력">' +'</td>' +
+											'<td> <input type="hidden" class="optionName33" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
+											'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
+											'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
 											'<td colspan="2"></td>' +
 										'</tr>'
 									);
@@ -564,9 +596,9 @@
 									cnt4++;
 									$(".optiontbody4:last").append(
 										'<tr align="center">' +
-											'<td> <input style="display:none;" type="text" name="optionName4" placeholder="옵션명 입력"> </td>' +		
-											'<td>' + '<input type="text" name="optionVal4' + cnt4 + '" placeholder="옵션값 입력">' +'</td>' +
-											'<td>' + '<input type="number" name="plusSale4' + cnt4 + '" placeholder="추가비용 입력">' +'</td>' +
+											'<td> <input type="hidden" class="optionName44" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
+											'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
+											'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
 											'<td colspan="2"></td>' +
 										'</tr>'
 									);
@@ -582,12 +614,13 @@
 								});
 								
 								//옵션박스 추가 삭제
-								$("#addBtn").click(function() {
-									num++;
-									if(opCnt <= 4){
+										num=0;
+									$("#addBtn").on("click",function() {
+										num++;
+										if(opCnt <= 4){
 										opCnt++;
-										opCtn = 4;
-										$(".optionBox").last().append(
+										console.log("num : " + num);
+										$(".optionDiv").last().append(
 											'<table class="optionTable'+ num +'">' +
 												'<tr align="center">' +
 													'<td>옵션명</td>' +
@@ -603,25 +636,27 @@
 												'<tbody class="optiontbody' + num + '">' +
 													'<tr align="center">' +
 														'<td>' +
-															'<input type="text" name="optionName'+ num +'" placeholder="옵션명 입력">' +
+															'<input type="text" class="optionName'+ num +'" name="optionName" placeholder="옵션명 입력">' +
 														'</td>' +		
-														'<td>' + '<input type="text" name="optionVal'+ num +'0" placeholder="옵션값 입력">' +'</td>' +
-														'<td>' + '<input type="number" name="plusSale'+ num +'0" placeholder="추가비용 입력">' +'</td>' +
+														'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
+														'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
 														'<td colspan="2"></td>' +
 													'</tr>' +
 												'</tbody>' +
 											'</table>'
 										);
-									}
-								});
-								
+										}
+										//opCnt = 0;
+									});
 								$("#deleteBtn").on("click", function(){
 									opCnt--;
 									num--;
-									if(opCnt < 0){
-										opCnt = 0;
-									}else if(opCnt >= 0){
-										$(".optionBox").children().last().remove();
+									if(opCnt < 1){
+										console.log(opCnt);
+										opCnt = 1;
+										num = 0;
+									}else if(opCnt >= 1){
+										$(".optionDiv").children().last().remove();
 									}
 								});
 								
@@ -743,6 +778,12 @@
 									reader.readAsDataURL(value.files[0]);
 								}
 							}
+							
+							$(document).ready(function() {
+								$('html, body').animate({
+									scrollTop : $('.searchBox').offset().top
+								}, 'slow');
+							});
 						</script>
 						
 						
@@ -753,9 +794,7 @@
 								<h2>상품상세설명</h2>
 							</div>
 							<div style="padding:30px 30px 30px 30px;">
-						 		<textarea name="workContent" id="summernote">
-						 		내용
-						 		</textarea>
+						 		<textarea name="workContent" id="summernote">내용</textarea>
 							</div>
 						</div>
 						
@@ -819,7 +858,7 @@
 						
 						<div align="center">
 							<button type="reset" class="all-btn" style="width:150px;">취소</button>
-							<button type="submit" class="all-btn" style="width:150px;">등록하기</button>
+							<button id="submit" type="submit" class="all-btn" style="width:150px;">등록하기</button>
 						</div>
 						
 

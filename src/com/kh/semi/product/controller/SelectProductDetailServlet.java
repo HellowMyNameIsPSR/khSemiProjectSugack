@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.product.model.service.ProService;
 
 /**
@@ -44,6 +45,9 @@ public class SelectProductDetailServlet extends HttpServlet {
 		if(list!=null) {
 			page = "views/product/productDetail.jsp";
 			request.setAttribute("list", list);
+
+			
+			
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "상품 자세히보기 실패!");

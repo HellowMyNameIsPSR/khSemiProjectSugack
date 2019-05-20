@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import com.kh.semi.admin.model.dao.adminDao;
 import com.kh.semi.admin.model.vo.SearchMember;
+import com.kh.semi.admin.model.vo.SearchProduct;
 
 public class QueryMake {
 	
@@ -100,13 +101,12 @@ public class QueryMake {
 		if(m.getWithdrawalDateStart() != null) {
 			query += " AND OUT_DATE >= ? AND OUT_DATE < ?";
 		}
-		
-		if(m.getSearchType() != null) {
-			query += " AND STATUS = ?";
 			
-		}
+			query += " AND STATUS = 'N'";
+			
+		
 		prop.setProperty("withdrawMember", query);
-		System.out.println("생산된 쿼리문" + query);
+		System.out.println("with생산된 쿼리문" + query);
 	
 
 		//C:/Users/kimjinhwan/eclipse-workspace/suGack/src/sql/admin
@@ -120,6 +120,56 @@ public class QueryMake {
 			e.printStackTrace();
 		}		
 
+		
+		
+	}
+	
+	public void ProductQuery(SearchProduct sp) {
+		Properties prop = new Properties();
+		
+		String fileName = QueryMake.class
+		.getResource("/sql/admin/admin-query.properties")
+		.getPath();
+		
+		
+		String query = "SELECT A.AUTHOR_NAME, MATERIAL, W.PRICE, W.WORK_NAME, C.CATEGORY, W.WR_DATE FROM WORK W JOIN AUTHOR A ON (W.MEMBER_ID = A.MEMBER_ID) JOIN PROTYPE P ON (P.TYPE_ID = W.TYPE_ID) JOIN CATEGORY C ON (C.CID = W.CID)";
+		
+		if(sp.getProductName().equals("") && sp.getAuthorName().equals("")) {
+			query += " WHERE WORK_NAME LIKE '%'";
+		}else if(sp.getProductName().equals("")) {
+			query += " WHERE WORK_NAME LIKE '%' AND WORK_NAME = ?";
+		}else if(sp.getAuthorName().equals("")){
+			query += " WHERE WORK_NAME = ? AND WORK_NAME = '%'";
+		}else {
+			query += " WHERE WORK_NAME = ? AND WORK_NAME = ?";
+		}
+		
+		if(sp.getProStart() != null) {
+			query += " AND RS_DATE >= ? AND RS_DATE < ?";
+		}
+		if(sp.getProductValLow() > 0 && sp.getProductValHigh() > 0) {
+			query += " AND PRICE >= ? AND PRICE < ?";
+		}
+		if(sp.getProductType() != null) {
+			query += " AND MATERIAL = ?";
+		}
+		if(sp.getCategory() != null) {
+			query += " AND CATEGORY = ?";
+		}
+		prop.setProperty("searchProduct", query);
+		System.out.println("searchProduct생산된 쿼리문" + query);
+	
+
+		//C:/Users/kimjinhwan/eclipse-workspace/suGack/src/sql/admin
+		
+		
+		try {
+			prop.store(new FileWriter(fileName), "");
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}		
 		
 		
 	}
