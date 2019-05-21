@@ -40,6 +40,9 @@ public class PurchaseProduct extends HttpServlet {
 		String workId = request.getParameter("workId");
 		String ea = request.getParameter("ea");
 		String text = request.getParameter("text");
+		String []opId = request.getParameterValues("option");
+		
+		int bid = 0;
 		
 		if(text == null) {
 			text = "";
@@ -47,13 +50,23 @@ public class PurchaseProduct extends HttpServlet {
 		
 		System.out.println(ea + " " + workId + " ");
 		
-		Basket basket = new Basket();
-		basket.setCount(Integer.parseInt(ea));
-		basket.setWorkId(Integer.parseInt(workId));
-		basket.setMemberId(loginUser.getMemberId());
-		basket.setOpId(0);
 		
-		int bid = new ProService().insertBasket(basket);
+		Basket basket = null;
+		if(opId == null) {
+			basket = new Basket();
+			basket.setCount(Integer.parseInt(ea));
+			basket.setWorkId(Integer.parseInt(workId));
+			basket.setMemberId(loginUser.getMemberId());
+			bid = new ProService().insertBasket(basket, 0);
+		}else {
+			basket = new Basket();
+			basket.setCount(Integer.parseInt(ea));
+			basket.setWorkId(Integer.parseInt(workId));
+			basket.setMemberId(loginUser.getMemberId());
+			bid = new ProService().insertBasket(basket, opId);
+		}
+		
+		
 		
 		if(bid > 0 && text.equals("ajax")) {
 			response.getWriter().print("ok");

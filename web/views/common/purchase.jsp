@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.kh.semi.member.model.vo.*, java.util.*"%>
+    pageEncoding="UTF-8" import="com.kh.semi.member.model.vo.*, java.util.*, com.kh.semi.work.model.vo.*"%>
 <%
 	HashMap<String, Object> hmap = (HashMap<String, Object>)request.getAttribute("hmap");
 	ArrayList<Address> addList = (ArrayList<Address>)hmap.get("addList");
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)hmap.get("list");
+	ArrayList<WorkOption> olist = (ArrayList<WorkOption>)hmap.get("olist");
 	HashMap<String, Object> work = list.get(0);
 	Address add1 = null;
 	Address add2 = null;
@@ -11,7 +12,11 @@
 	int totalPrice = 0;
 	int totalProductPrice = 0;
 	int totalDeliPrice = 0;
+	int totalOptionPrice = 0;
 	String allWorkName = "";
+	String allOptionName = "";
+	
+	
 	for(int i = 0; i < addList.size(); i ++) {
 		if(i == 0) {
 			add1 = addList.get(i);
@@ -24,7 +29,13 @@
 	for(int i = 0; i < list.size(); i++) {
 		totalProductPrice += (Integer)list.get(i).get("price") * (Integer)list.get(i).get("count");
 		totalDeliPrice += (Integer)list.get(i).get("deliPrice");
-		allWorkName += (String)list.get(i).get("workName") + "/" + (String)list.get(i).get("opName");
+		allWorkName += (String)list.get(i).get("workName");
+		 for(int j = 0; j < olist.size(); j++) {
+			if((Integer)olist.get(j).getwId() == (Integer)list.get(i).get("basketId")) { 
+				totalOptionPrice += (Integer)olist.get(j).getoPrice();
+
+			}
+		} 
 	}
 		totalPrice = (totalProductPrice + totalDeliPrice);
 	
@@ -152,6 +163,8 @@
 							<td colspan="2">주문수량</td>
 							
 							<td >
+								
+							
 								<%for(int i = 0; i < list.size(); i++) { %>
 								<label><%=list.get(i).get("workName") %> : <%=list.get(i).get("count") %>개</label><br>
 								<%} %>
@@ -161,7 +174,7 @@
 						<tr>
 							<td colspan="2" style="font-size:20px;">최종 결제금액</td>
 							
-							<td ><label style="font-size:20px; color:red;"><%=totalPrice%>원</label></td>
+							<td ><label style="font-size:20px; color:red;"><%=totalPrice + totalOptionPrice%>원</label></td>
 							
 						</tr>
 						
@@ -182,24 +195,30 @@
 			      </div>
 			      <div id="collapse1" class="panel-collapse collapse">
 			        <ul class="list-group">
-			        <%for(int i = 0; i < list.size(); i++) {%>
+			        <%for(int i = 0; i < list.size(); i++) {
+			        	String ovalue = "";
+						int oprice = 0;
+			        %>
+			        
+			        <% for(int j = 0; j < olist.size(); j++) {%>
+						<%if((Integer)olist.get(j).getwId() == (Integer)list.get(i).get("basketId")) { 
+							 ovalue += (String)olist.get(j).getoName() + " : " + (String)olist.get(j).getoValue() + "/";
+							 oprice += (Integer)olist.get(j).getoPrice();
+							 System.out.println("ovalue = " + ovalue);
+						}else { 
+							ovalue += "";	
+						} 
+					} %>
 			          <li class="list-group-item">
 			          	<div>
 			          		<h5><%=list.get(i).get("authorName") %>작가님 작품</h5>
-							<%if(list.get(i).get("ovalue") != null) { %>
 							<img src="uploadSalesImage/<%=list.get(i).get("changeName") %>" style="width:50px; height:50px;">
-							<label><%=list.get(i).get("workName") %>/<%=list.get(i).get("ovalue") %></label>
-							<%}else { %>
-							<div>
-							<img src="uploadSalesImage/<%=list.get(i).get("changeName") %>" style="width:50px; height:50px;">
-							<label><%=list.get(i).get("workName") %></label>
-							</div>
+							<label><%=list.get(i).get("workName") %>/<%=ovalue %></label>
 							<div>
 								<label>수량 : <%=list.get(i).get("count") %>개</label>
-								<label style="float:right;"><%=(Integer)list.get(i).get("price") * (Integer)list.get(i).get("count") %>원</label><br>
+								<label style="float:right;"><%=((Integer)list.get(i).get("price") + oprice) * (Integer)list.get(i).get("count") %>원</label><br>
 								<label>배송비 : <%=list.get(i).get("deliPrice") %>원</label>
 							</div>
-							<%} %>
 						</div>
 			          </li>
 			         <%} %>
@@ -316,7 +335,7 @@
 			    pay_method : 'card',
 			    merchant_uid : '<%=(int)(Math.random()*100000)+1%>' + new Date().getTime(),
 			    name : '<%=(String)work.get("workName") %>외 <%=(Integer)list.size() - 1%>개의 상품',
-			    amount : <%=totalPrice%>,
+			    amount : <%=totalPrice + totalOptionPrice%>,
 			    buyer_email : '<%=loginUser.getEmail()%>',
 			    buyer_name : '<%=loginUser.getMemberName()%>',
 			    buyer_tel : '<%=loginUser.getPhone()%>',

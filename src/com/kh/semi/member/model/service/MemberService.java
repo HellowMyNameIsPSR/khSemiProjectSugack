@@ -4,6 +4,7 @@ import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.member.model.vo.Address;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.product.model.vo.Basket;
+import com.kh.semi.work.model.vo.WorkOption;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 
@@ -166,6 +167,7 @@ public class MemberService {
 		
 		if(result == bidArr.length) {
 			commit(con);
+			int result2 = new MemberDao().deleteBasketOption(con, bidArr);
 		}else {
 			rollback(con);
 		}
@@ -189,6 +191,33 @@ public class MemberService {
 		close(con);
 		
 		return result;
+	}
+
+	public ArrayList<WorkOption> selectOptionList(int memberId) {
+		Connection con = getConnection();
+		
+		ArrayList<WorkOption> olist = new MemberDao().selectOptionList(memberId, con);
+		
+		close(con);
+		
+		return olist;
+	}
+
+	public HashMap<String, Object> selectOrderList(int memberId) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		ArrayList<String> bundleList = new MemberDao().selectBundleCode(con, memberId);
+		ArrayList<HashMap<String, Object>> orderList = new MemberDao().selectOrderList(con, memberId);
+		ArrayList<WorkOption> olist = new MemberDao().selectOptionList(memberId, con);
+		
+		hmap.put("blist", bundleList);
+		hmap.put("orderList", orderList);
+		hmap.put("olist", olist);
+		
+		close(con);
+		
+		return hmap;
 	}
 
 
