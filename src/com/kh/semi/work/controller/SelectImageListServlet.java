@@ -22,16 +22,18 @@ public class SelectImageListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<HashMap<String, Object>> list = 
 				new WorkService().selectImageList();
-		
 		String page = "";
 		if(list != null) {
+			System.out.println("리스트를 뽑았습니다.");
+			System.out.println(list.size());
 			page = "views/main/mainPage.jsp";
 			request.setAttribute("list", list);
 		}else {
 			System.out.println("리스트 못뽑았따!!");
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "이미지 조회 실패!");
 		}
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -72,13 +72,14 @@ public class InsertFundingWorkServlet extends HttpServlet {
 			fund.setMaxVoo(targetMaxAmount);
 			fund.setMinVoo(targetMinAmount);
 			fund.setFunDate(fundingTerm);
+			fund.setFundStatus("대기");
 			
 			Work fundWork = new Work();
 			fundWork.setWorkName(fundingGoodsName);
 			fundWork.setWorkContent(fundComments);
 			fundWork.setPrice(fundingPrice);
 			fundWork.setDeliPrice(deliPrice);
-			fundWork.setWorkKind("funding");
+			fundWork.setWorkKind("fund");
 			fundWork.setMemberId(memberId);
 			fundWork.setAuthorType(authorType);
 			fundWork.setCategory(category);

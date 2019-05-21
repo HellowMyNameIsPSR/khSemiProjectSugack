@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,7 +19,7 @@
 </head>
 <body>
 	<div class="container">
-		<form action="" method="get">
+	
 		<h3>펀딩상품조회</h3>
 		<table class="table table-bordered" style="border:2px solid gray; ">
 			<tr>
@@ -75,7 +75,7 @@
 				<td>
 				<input type="text" name="name" style="width: 40%;">
 				</td>				
-				</td>
+
 			</tr>
 			<tr>
 				<td style="text-align:center; background: lightgray; border: 1px solid gray">펀딩등록일</td>
@@ -87,12 +87,12 @@
 			</tr>
 			<tr>
 				<td style="text-align:center; background: lightgray; border: 1px solid gray">펀딩진행률</td>
-				<td><input type="text"; style="width: 40%;"></td>
+				<td> <input type="text"; style="width: 40%;"></td>
 				<td> <input type="text";  style="width: 40%;"></td>
 			</tr>
 		</table>
-		<input type="submit" value="검색">
-		</form>
+		<button id="searchFunding" style="float:right">검색</button>
+		
 		<br>
 		<hr>
 		<h3>펀딩 조회 결과</h3>

@@ -3,8 +3,9 @@
 <% 
 	ArrayList<HashMap<String, Object>> list = 
 		(ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+	System.out.println(list.isEmpty());
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -113,7 +114,6 @@
 		<h2 class="titleText" align="center">인기상품</h2>
 		<div class="container-fluid bg-3 text-center">
 			<div class="row">
-
 			<% for(int i = 0; i < 4; i++){ 
 					HashMap<String, Object> hmap = list.get(i);
 			%>

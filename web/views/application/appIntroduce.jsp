@@ -203,12 +203,13 @@
 	    </form>
 	  </div>
 	</div><!-- end Container (Contact Section) -->
+	<%@ include file="../main/footer.jsp" %>
 	<!-- footer -->
-	<footer class="container-fluid text-center bg-grey">
+	<!-- <footer class="container-fluid text-center bg-grey">
 	  <a href="#myPage" title="To Top">
 	    <span class="glyphicon glyphicon-chevron-up"></span>
 	  </a>
-	</footer>	
+	</footer>	 -->
 	
 	<!-- script -->
 	<script src="<%= request.getContextPath() %>/views/application/js/appIntroduce.js"></script>

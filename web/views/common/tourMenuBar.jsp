@@ -36,7 +36,7 @@
 				</li>
 				<li>
 					<span ><a href="../views/tour/comMent.jsp">응원하기 </a></span>
-				
+				     
 				</li>
 				<li>      
 				

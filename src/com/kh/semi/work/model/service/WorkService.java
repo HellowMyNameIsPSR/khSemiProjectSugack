@@ -204,7 +204,7 @@ public class WorkService {
 		
 		ArrayList<HashMap<String, Object>> list = 
 				new WorkDao().selectImageList(con);
-		
+		System.out.println("service : " + list.size());
 		close(con);
 		
 		
@@ -241,6 +241,24 @@ public class WorkService {
 		Connection con = getConnection();
 		
 		int listCount = new WorkDao().exchangeListCount(con, memberId);
+		
+		close(con);
+		
+		return listCount;
+	}
+	public ArrayList<HashMap<String, Object>> selectQnaList(PageInfo pi, String memberId) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list  = new WorkDao().selectQnaList(con, pi, memberId);
+		
+		close(con);
+		
+		return list;
+	}
+	public int qnaListCount(String memberId) {
+		Connection con = getConnection();
+		
+		int listCount = new WorkDao().qnaListCount(con, memberId);
 		
 		close(con);
 		
