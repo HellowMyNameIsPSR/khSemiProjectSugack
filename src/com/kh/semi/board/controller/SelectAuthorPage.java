@@ -34,7 +34,7 @@ public class SelectAuthorPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		System.out.println("나는서블릿이다");
+	/*	System.out.println("나는서블릿이다");*/
 		
 		ArrayList<HashMap<String,Object>>list = new AuthorPageSerview().selectAuthorPage();
 	

@@ -50,8 +50,7 @@ Board b =(Board)request.getAttribute("b");
 
 						</div>
 
-						<div class="row"
-							style="border: 1px solid black; width: 1100px; height: 200px;">
+						
                             
 							<div class="nick"
 								style="width: 100%; height: 50px; padding: 5px;">
@@ -66,7 +65,7 @@ Board b =(Board)request.getAttribute("b");
 								style="float: right; width: 120px; height: 100px; margin-left: 10px;">
 								<button id="addReply" style="width: 100px; height: 100px;">등록</button>
 							</div>
-						</div>
+						
 
 						<br>
 
