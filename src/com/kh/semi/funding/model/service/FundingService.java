@@ -31,14 +31,14 @@ public class FundingService {
 		Connection con = getConnection();
 		int resultFunding = new FundingDao().insertFundingWork(con, fundWork);
 		int resultFundFile = 0;
-		//int test = 0;
+		int test = 0;
 		if(resultFunding > 0) {
 			int resultFund = new FundingDao().insertFund(con, fund);
 			if(resultFund > 0) {				
 				resultFundFile = new FundingDao().insertFundingFile(con, fileList);
 				if(resultFundFile > 0) {
 					commit(con);
-					//test = 1;
+					test = 1;
 				} else {
 					rollback(con);
 				} //end if

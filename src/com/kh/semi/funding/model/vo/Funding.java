@@ -12,13 +12,14 @@ public class Funding implements Serializable{
 	private String cooperation;
 	private Date startDate;
 	private int  funDate;
+	private String fundStatus;
 	
 	public Funding() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Funding(int workId, Date finishDate, int minVoo, int maxVoo, Date deliDate, String cooperation,
-			Date startDate, int funDate) {
+			Date startDate, int funDate, String fundStatus) {
 		super();
 		this.workId = workId;
 		this.finishDate = finishDate;
@@ -28,13 +29,7 @@ public class Funding implements Serializable{
 		this.cooperation = cooperation;
 		this.startDate = startDate;
 		this.funDate = funDate;
-	}
-
-	@Override
-	public String toString() {
-		return "Funding [workId=" + workId + ", finishDate=" + finishDate + ", minVoo=" + minVoo + ", maxVoo=" + maxVoo
-				+ ", deliDate=" + deliDate + ", cooperation=" + cooperation + ", startDate=" + startDate + ", funDate="
-				+ funDate + "]";
+		this.fundStatus = fundStatus;
 	}
 
 	public int getWorkId() {
@@ -99,6 +94,21 @@ public class Funding implements Serializable{
 
 	public void setFunDate(int funDate) {
 		this.funDate = funDate;
+	}
+
+	public String getFundStatus() {
+		return fundStatus;
+	}
+
+	public void setFundStatus(String fundStatus) {
+		this.fundStatus = fundStatus;
+	}
+
+	@Override
+	public String toString() {
+		return "Funding [workId=" + workId + ", finishDate=" + finishDate + ", minVoo=" + minVoo + ", maxVoo=" + maxVoo
+				+ ", deliDate=" + deliDate + ", cooperation=" + cooperation + ", startDate=" + startDate + ", funDate="
+				+ funDate + ", fundStatus=" + fundStatus + "]";
 	}
 	
 } //end class
