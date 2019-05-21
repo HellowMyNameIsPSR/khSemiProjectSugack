@@ -14,11 +14,11 @@ import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.work.model.service.WorkService;
 import com.kh.semi.work.model.vo.PageInfo;
 
-@WebServlet("/selectOrderList.wo")
-public class SelectOrderListServlet extends HttpServlet {
+@WebServlet("/selectExchangeList.wo")
+public class selectExchangeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SelectOrderListServlet() {}
+    public selectExchangeListServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int currentPage;		//현재페이지를 표시할 변수
@@ -36,7 +36,7 @@ public class SelectOrderListServlet extends HttpServlet {
 		
 		limit = 10;
 		
-		int listCount = new WorkService().orderListCount(memberId);
+		int listCount = new WorkService().exchangeListCount(memberId);
 		
 		maxPage = (int)((double)listCount/limit + 0.9);
 		
@@ -49,24 +49,19 @@ public class SelectOrderListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
-		ArrayList<HashMap<String, Object>> list = new WorkService().selectOrderList(pi, memberId);
-		
-		
-		/*System.out.println("currentPage : " + currentPage);
-		System.out.println("limit : " + limit);
-		System.out.println("maxPage : " + maxPage);
-		System.out.println("startPage : " + startPage);
-		System.out.println("endPage : " + endPage);*/
+		ArrayList<HashMap<String, Object>> list = new WorkService().selectExchangeList(pi, memberId);
 		
 		String page = "";
 		if(list != null) {
-			page="views/author/manageSale.jsp";
+			page="views/author/manageSaleExchange.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		}else {
 			System.out.println("오류 찾자");
 		}
 		request.getRequestDispatcher(page).forward(request, response);
+	
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -74,10 +69,6 @@ public class SelectOrderListServlet extends HttpServlet {
 	}
 
 }
-
-
-
-
 
 
 

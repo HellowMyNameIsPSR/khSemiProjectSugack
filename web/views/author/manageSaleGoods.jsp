@@ -180,7 +180,7 @@
 								<span class="glyphicon glyphicon-chevron-left"></span>
 							</button>
 							<% if(currentPage <= 1) {%>
-							<button class="pagingBtn2" " disabled>
+							<button class="pagingBtn2" disabled>
 								<span class="glyphicon glyphicon-chevron-left"></span>
 							</button>
 							<%}else{ %>

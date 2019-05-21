@@ -56,10 +56,11 @@ public class WorkService {
 		}
 		
 		int result2 = new WorkDao().insertPicFile(con, workPic);
+		
 		int result3 = new WorkDao().insertOption(con, workOption);
 		
 		System.out.println("옵션 서비스 값 : " + result3);
-		if(result1 > 0 && result2 == workPic.size() && result3 > 0) {
+		if(result1 > 0 && result2 == workPic.size() && result3 == workOption.size()) {
 			commit(con);
 			result = 1;
 		}else {
@@ -88,20 +89,20 @@ public class WorkService {
 		return result;
 	}*/
 	//판매작품관리 리스트 보기용 메소드
-	public ArrayList<Work> selectSalesList(PageInfo pi) {
+	public ArrayList<Work> selectSalesList(PageInfo pi, String memberId) {
 		Connection con = getConnection();
 		
-		ArrayList<Work> list = new WorkDao().selectSalesList(con, pi);
+		ArrayList<Work> list = new WorkDao().selectSalesList(con, pi, memberId);
 		
 		close(con);
 		
 		return list;
 	}
 	//페이징 메소드
-	public int getListCount() {
+	public int getListCount(String memberId) {
 		Connection con = getConnection();
 		
-		int listCount = new WorkDao().getListCount(con);
+		int listCount = new WorkDao().getListCount(con, memberId);
 		
 		close(con);
 		
@@ -209,19 +210,37 @@ public class WorkService {
 		
 		return list;
 	}
-	public ArrayList<HashMap<String, Object>> selectOrderList(PageInfo pi) {
+	public ArrayList<HashMap<String, Object>> selectOrderList(PageInfo pi, String memberId) {
 		Connection con = getConnection();
 		
-		ArrayList<HashMap<String, Object>> list  = new WorkDao().selectOrderList(con, pi);
+		ArrayList<HashMap<String, Object>> list  = new WorkDao().selectOrderList(con, pi, memberId);
 		
 		close(con);
 		
 		return list;
 	}
-	public int orderListCount() {
+	public int orderListCount(String memberId) {
 		Connection con = getConnection();
 		
-		int listCount = new WorkDao().orderListCount(con);
+		int listCount = new WorkDao().orderListCount(con, memberId);
+		
+		close(con);
+		
+		return listCount;
+	}
+	public ArrayList<HashMap<String, Object>> selectExchangeList(PageInfo pi, String memberId) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list  = new WorkDao().selectExchangeList(con, pi, memberId);
+		
+		close(con);
+		
+		return list;
+	}
+	public int exchangeListCount(String memberId) {
+		Connection con = getConnection();
+		
+		int listCount = new WorkDao().exchangeListCount(con, memberId);
 		
 		close(con);
 		
