@@ -260,7 +260,7 @@
 				<input type="file" id="fundingImg3" name="fundingImg3" onchange="uploadFundingImg(this, 3);">
 				<input type="file" id="fundingImg4" name="fundingImg4" onchange="uploadFundingImg(this, 4);">
 				<input type="file" id="fundingImg5" name="fundingImg5" onchange="uploadFundingImg(this, 5);">
-				<input type="file" id="fundingDetailImg" name="fundingDetailImg" onchange="uploadFundingDetailImg(this);">
+				<input type="file" id="fundingDetailImg" name="fundingDetailImg" onchange="uploadFundingImg(this, 6);">
 			</div>
 			</section>
 		</form>
@@ -394,6 +394,10 @@
 						case 5:
 							$("#fundingImg5").attr("src", e.target.result);
 							$("#fundingImgArea5").attr("src", e.target.result);
+							break;
+						case 6:
+							$("#fundingDetailImg").attr("src", e.target.result);
+							$("#fundingDetailImgArea").val($("#fundingDetailImg").val());
 							break;
 					}
 				} //end func

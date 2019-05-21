@@ -90,7 +90,9 @@ public class InsertFundingWorkServlet extends HttpServlet {
 				workPic.setOriginName(originNames.get(i));
 				workPic.setChangeName(changeNames.get(i));
 				String picType = "";
-				if(names.get(i).equals("")) {
+				if(names.get(i).equals("fundingDetailImg")) {
+					picType = "fundDetail";
+				} else if(names.get(i).equals("fundingImg1")){
 					picType = "fundingRep";
 				} else {
 					picType = "funding";
