@@ -15,10 +15,10 @@ import com.kh.semi.work.model.service.WorkService;
 import com.kh.semi.work.model.vo.PageInfo;
 
 @WebServlet("/selectExchangeList.wo")
-public class selectExchangeListServlet extends HttpServlet {
+public class SelectExchangeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public selectExchangeListServlet() {}
+    public SelectExchangeListServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int currentPage;		//현재페이지를 표시할 변수

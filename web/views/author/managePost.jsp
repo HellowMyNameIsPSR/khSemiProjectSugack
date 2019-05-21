@@ -8,75 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<style>
-	.managePostTitle{
-		margin: 20px 0px 20px 0px;
-		height:70px;
-		padding-top:15px;
-		padding-left:20px;
-		min-width:650px;
-	}
-	
-	.subTitle{
-		border:1px solid gray;
-		margin: 20px 0px 20px 0px;
-		box-shadow:2px 2px lightgray;
-		height:50px;
-		padding-top:5px;
-		padding-left:20px;
-		background:lightgray;
-		font-size:20px;
-		min-width:650px;
-	}
-	
-	.postMenu{
-		margin-bottom:70px;
-		min-width:650px;
-		width:40%
-	}
-	.postMenu tr>td{
-		border:1px solid gray;
-		box-shadow:2px 2px lightgray;
-		background:rightgray;
-		text-align:center;
-	}
-	.menuA:hover{
-		background:skyblue;
-		cursor:pointer
-	}
-	
-	.managePostContents{
-		border:2px solid lightgray;
-		margin: 20px 0px 20px 0px;
-		box-shadow:2px 2px lightgray;
-		height:150px;
-		min-width:650px;
-	}
-	
-	.managePostTable{
-		border:2px solid lightgray;
-		margin: 20px 0px 20px 0px;
-		box-shadow:2px 2px lightgray;
-		height:500px;
-		min-width:650px;
-
-	}
-	
-	.listTable tr>td{
-		border:1px solid darkgray;
-		font-size:13px;
-		text-align:center;
-		background:white;
-	}
-	.listTable tr>th{
-		border:1px solid darkgray;
-		font-size:13px;
-		text-align:center;
-		background:lightgray;
-		padding-top:7px;
-		padding-botton:7px;
-	}
-</style>
+<%@ include file="../assets/css/author.html" %>
 </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -86,56 +18,68 @@
 			<div class="inner">
 				<!-- Header -->
 				<header id="header">
-					<a href="authorHome.jsp" class="logo"> <span
-						class="glyphicon glyphicon-home"></span> &nbsp; 
-						<strong style="font-size: 20px;">HOME</strong>
+					<a href="/sg/views/author/authorHome.jsp" class="logo"> <span
+						class="glyphicon glyphicon-home"></span> &nbsp; <strong
+						style="font-size: 20px;">HOME</strong>
 					</a>
 				</header>
 				<section id="contents">
-					<header class="main managePostTitle">
+					<header class="main">
 						<h2>문의/리뷰관리</h2>
 					</header>
-					
-					<div class="subTitle">
-						<p><strong>문의관리</strong></p>
-					</div>
 					<!-- Contents area -->
 					
 					<nav>
-						<table class="postMenu">
-							<tr>
-								<td class="menuA" onClick = " location.href='managePost.jsp'">문의관리</td>
-								<td class="menuA" onClick = " location.href='managePostReview.jsp'">리뷰관리</td>
-				
-							</tr>
-						</table>
+						<div class="menuDiv">
+							<table class="postMenu">
+								<tr>
+									<td class="menuA" onClick = "location.href='<%=request.getContextPath()%>/selectQnaList.wo'">문의관리</td>
+									<td class="menuA" onClick = " location.href='managePostReview.jsp'">리뷰관리</td>
+					
+								</tr>
+							</table>
+						</div>
 					</nav>
-					
-					
-					<div class="managePostContents" align="center">
-						<br>
-						<p>문의 날짜 조회로 날짜로 검색 api 찾아서 하기</p>
-						<button style="width: 150px;">검색</button>
+					<div class="manageSaleTitle">
+						<h2>문의관리</h2>
 					</div>
+					
+					<table class="inquiryTable" >
+						<tr>
+							<td>조회 기간</td>
+							<td>
+								<input id="startDate" name="startDate" type="date" style="margin-right:50px;" value="2019-01-01">
+								<span class="glyphicon glyphicon-minus"></span>
+								<input id="endDate" name="endDate" type="date" style="margin-left:50px;" value="2019-12-31">
+							</td>
+							<td>
+								<input type="button" value="검색" id="searhDate"  class="all-btn" style="width:150px; height:40px;">
+							</td>
+						</tr>
+						<tr>
+							<td>상품명 조회</td>
+							<td>
+								<input id="workName" name="workName" type="text" style="width:400px;">
+							</td>
+							<td >
+								<input type="button" value="검색" id="searhName"  class="all-btn" style="width:150px; height:40px;">
+							</td>
+						</tr>
+					</table>
 					
 					
 					<div class="managePostTable">
 						<table class="listTable">
 							<tr>
 								<th style="width:30px;"><strong>NO.</strong></th>
+								<th style="width:100px;"><strong>게시글 번호</strong></th>
 								<th><strong>문의 상품명</strong></th>
 								<th><strong>문의 제목</strong></th>
-								<th><strong>문의 내용</strong></th>
+								<th style="width:100px;"><strong>작성자</strong></th>
+								<th style="width:100px;"><strong>작성일</strong></th>
+								<th style="width:100px;"><strong></strong></th>
 							</tr>
-							<tr><td></td><td></td><td></td><td></td>
-							<tr><td></td><td></td><td></td><td></td>
-							<tr><td></td><td></td><td></td><td></td>
-							<tr><td></td><td></td><td></td><td></td>
-							<tr><td></td><td></td><td></td><td></td>
-							<tr><td></td><td></td><td></td><td></td>
-							<tr><td></td><td></td><td></td><td></td>
-							<tr><td></td><td></td><td></td><td></td>
-							</tr>
+							<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 						</table>
 					</div>
 					

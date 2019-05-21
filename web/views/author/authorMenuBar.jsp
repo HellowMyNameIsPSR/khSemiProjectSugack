@@ -14,9 +14,10 @@
 <div id="sidebar">
 	<div class="inner">
 		<!-- Logo -->
-		<section class="alt">
-			<a href="#">LOGO</a>
-		</section>
+		<a href="<%=request.getContextPath()%>/selectImgList.wo"> <img
+			id="authorLogo" src="/sg/views/main/images/logo.png"
+			style="display: inline-block;">
+		</a>
 		<!-- Menu -->
 		<nav id="menu">
 			<header class="major">
