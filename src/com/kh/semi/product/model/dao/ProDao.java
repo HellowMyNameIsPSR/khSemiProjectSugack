@@ -66,6 +66,7 @@ public class ProDao {
 				hmap.put("cid", rset.getInt("CID"));
 				hmap.put("typeId", rset.getInt("TYPE_ID"));
 				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("wcount", rset.getInt("WCOUNT"));
 				list.add(hmap);
 				
 				System.out.println("dao에서 : " + list);
@@ -113,6 +114,7 @@ public class ProDao {
 				hmap.put("price", rset.getInt("PRICE"));
 				hmap.put("cid", rset.getInt("CID"));
 				hmap.put("typeId", rset.getInt("TYPE_ID"));
+				hmap.put("wcount", rset.getInt("WCOUNT"));
 				hmap.put("originName", rset.getString("ORIGIN_NAME"));
 				hmap.put("changeName", rset.getString("CHANGE_NAME"));
 				hmap.put("picType", rset.getInt("PIC_TYPE"));
@@ -491,6 +493,28 @@ public class ProDao {
 				result += pstmt.executeUpdate();		
 			}
 			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateCount(Connection con, int workId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,workId);
+			pstmt.setInt(2,workId);
+			
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

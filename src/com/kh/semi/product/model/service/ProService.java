@@ -31,8 +31,16 @@ public class ProService {
 	
 	//상품 상세보기용 메소드
 	public ArrayList<HashMap<String, Object>> selectProductDetailList(int workId) {
+		
 		Connection con = getConnection();
-		ArrayList<HashMap<String,Object>> list = new ProDao().selectProductDetailList(con,workId);
+		ArrayList<HashMap<String,Object>> list = null;
+		
+		int result = new ProDao().updateCount(con,workId);
+		
+		if(result>0) {
+			list = new ProDao().selectProductDetailList(con,workId);
+		}
+		
 		close(con);
 		
 		System.out.println("DetailService에서 : " + list);

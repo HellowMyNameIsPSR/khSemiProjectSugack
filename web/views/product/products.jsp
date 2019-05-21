@@ -126,6 +126,7 @@
    				HashMap<String,Object> hmap = list.get(i);
    				%>
 
+
    		<div class="col-sm-3 col-xs-6 mainImg">
    			<input type="hidden" value="<%=hmap.get("workId")%>">
 					<table class="workList">
@@ -201,7 +202,7 @@
    		 success:function(data){
    			 alert("관심상품 추가!");
    		 },error:function(){
-   			 alert("실패");1
+   			 alert("실패");
    		 }
    	 })
    	 <%}%>

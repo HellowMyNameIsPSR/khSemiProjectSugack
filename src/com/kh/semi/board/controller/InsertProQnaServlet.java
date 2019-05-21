@@ -32,6 +32,8 @@ public class InsertProQnaServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int workId = Integer.parseInt(request.getParameter("workId"));
+		System.out.println("workId : "+workId);
 		String category = request.getParameter("category");
 		
 		String content = request.getParameter("content");
@@ -43,6 +45,7 @@ public class InsertProQnaServlet extends HttpServlet {
 		qna.setcategory(category);
 		qna.setContent(content);
 		qna.setMid(writer);
+		qna.setWorkId(workId);
 		//qna.setBno(bno);
 		System.out.println("InsertProQnaServlet에서" + qna);
 		
