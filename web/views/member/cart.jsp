@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.work.model.vo.*"%>
 <%
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)request.getAttribute("list");
-	System.out.println(list.size());
+	ArrayList<WorkOption> olist = (ArrayList<WorkOption>)request.getAttribute("olist");
+	System.out.println("olist : " + olist);
 	
 	int totalPrice = 0;
 	int totalProductPrice = 0;
 	int totalDeliPrice = 0;
+	int totalOptionPrice = 0;
 %>
 <!DOCTYPE html>
 <html>
@@ -66,8 +68,10 @@
 								<th>배송비</th>
 							</tr>
 							<% for(int i = 0; i < list.size(); i++) { 
-								totalPrice += ((int)list.get(i).get("price") + (int)list.get(i).get("oprice")) * (int)list.get(i).get("count") + (int)list.get(i).get("deliPrice");
-								totalProductPrice += ((int)list.get(i).get("price") + (int)list.get(i).get("oprice")) * (int)list.get(i).get("count");
+								String ovalue = "";
+								int oprice = 0;
+								totalPrice += ((int)list.get(i).get("price") * (int)list.get(i).get("count") + (int)list.get(i).get("deliPrice"));
+								totalProductPrice += ((int)list.get(i).get("price") * (int)list.get(i).get("count"));
 								totalDeliPrice += (int)list.get(i).get("deliPrice");
 							%>
 							<tr>
@@ -75,17 +79,22 @@
 									<input type="checkbox" id="select<%=i%>" class="select" name="select" value="<%=list.get(i).get("bid")%>"><label for="select<%=i%>"></label>
 								</td>
 								<td><img src="uploadSalesImage/<%=list.get(i).get("changeName") %>" style="width:50px; height:50px;"></td>
-								<%if(list.get(i).get("ovalue") != null) { %>
-								<td><div class="explain"><%=list.get(i).get("workName") %>/<%=list.get(i).get("ovalue") %></div></td>
-								<%}else { %>
-								<td><div class="explain"><%=list.get(i).get("workName") %></div></td>
-								<%} %>
+								<% for(int j = 0; j < olist.size(); j++) {%>
+									<%if((Integer)olist.get(j).getwId() == (Integer)list.get(i).get("bid")) { 
+										 ovalue += (String)olist.get(j).getoName() + " : " + (String)olist.get(j).getoValue() + "/";
+										 oprice += (Integer)olist.get(j).getoPrice();
+									}else { 
+										ovalue += "";
+									} 
+								} %>
+									<%if(ovalue.equals("null")) {ovalue = "";}%>
+									<td><div class="explain"><%=list.get(i).get("workName") %>/<%=ovalue %></div></td>
 								<td>
 									<button type="button" class="plus">+</button>
 									<input type="number" value="<%=list.get(i).get("count")%>" readonly style="width:30px;" id="count">
 									<button type="button" class="minus">-</button>
 								</td>
-								<td id="price"><%=((int)list.get(i).get("price") + (int)list.get(i).get("oprice")) * (int)list.get(i).get("count")%></td>
+								<td id="price"><%=(((int)list.get(i).get("price") + oprice)  * (int)list.get(i).get("count"))%></td>
 								<td id="deliPrice"><%=(int)list.get(i).get("deliPrice") %></td>
 							</tr>
 							<% } %> 

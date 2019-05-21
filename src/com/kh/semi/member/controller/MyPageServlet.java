@@ -12,20 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.member.model.service.MemberService;
 import com.kh.semi.member.model.vo.Member;
-import com.kh.semi.product.model.vo.Basket;
-import com.kh.semi.work.model.vo.WorkOption;
 
 /**
- * Servlet implementation class SelectCartListServlet
+ * Servlet implementation class MyPageServlet
  */
-@WebServlet("/selectCartList.me")
-public class SelectCartListServlet extends HttpServlet {
+@WebServlet("/myPage.me")
+public class MyPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectCartListServlet() {
+    public MyPageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,21 +33,11 @@ public class SelectCartListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		if(loginUser == null) {
-			request.setAttribute("msg", "로그인이 필요합니다");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		HashMap<String, Object> hmap = new MemberService().selectOrderList(loginUser.getMemberId());
 		
-		ArrayList<HashMap<String, Object>> list = new MemberService().selectCartList(loginUser.getMemberId());
-		ArrayList<WorkOption> olist = new MemberService().selectOptionList(loginUser.getMemberId());
-		
-		if(list.size() > 0) {
-			request.setAttribute("list", list);
-			request.setAttribute("olist", olist);
-			request.getRequestDispatcher("views/member/cart.jsp").forward(request, response);
-		}else {
-			request.setAttribute("msg", "장바구니가 비어있습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		if(hmap.size() > 0) {
+			request.setAttribute("hmap", hmap);
+			request.getRequestDispatcher("views/member/myPage.jsp").forward(request, response);
 		}
 		
 	}
@@ -63,18 +51,3 @@ public class SelectCartListServlet extends HttpServlet {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -185,12 +185,12 @@ hr{
         <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
         <a class="btn btn-primary" href="#">Call to Action!</a> -->
       
-        <h3><%=work.get("workName") %></h3>
-			<h5 id="price"><%=work.get("price") %>원</h5>
+        <h4><%=work.get("workName") %></h4>
+			<p id="price"><%=work.get("price") %>원</p>
 			<hr>
 		
-			<p>배송비</p>
-			<p id="deliPrice"><%=work.get("deliPrice") %>원</p>
+			<label>배송비 : </label>
+			<label id="deliPrice"><%=work.get("deliPrice") %>원</label>
 
 			<hr>
 		<form method="post" id="buy">
@@ -208,18 +208,27 @@ hr{
 						<% 
 							}
 						} %>
-					</select><br>
+					</select>
 				<%} %>
-			<hr>
-			
-			<%} else { %>
-			<div style="background:lightgray;">
+				<div style="background:lightgray;" id="countArea">
 				
 				<label>수량</label>
 				<button type="button" onclick="plus();">+</button>
 				<input type="number" style="width:50px;" id="ea" name="ea" value="1" readonly>
 				<button type="button" onclick="minus();">-</button>
 			</div>
+				
+			<hr>
+			
+			<%} else { %>
+			<label>옵션이 없습니다.</label>
+			<div style="background:lightgray;" id="countArea">	
+				<label>수량</label>
+				<button type="button" onclick="plus();">+</button>
+				<input type="number" style="width:50px;" id="ea" name="ea" value="1" readonly>
+				<button type="button" onclick="minus();">-</button>
+			</div>
+			<hr>
 			<%} %>
 			<div class="totalPrice">
 				<p style="float:left; margin-top:10px; font-size:20px;">총가격: </p>
@@ -236,14 +245,31 @@ hr{
 			</form>
 		</div>
 		<script>
+			var optionPrice = 0;
+			var opId = new Array();
 			$(function(){
 				$(".option:last").change(function(){
+					var optionValue = "";
+					optionPrice = 0;
 					$(".option").each(function(){
-						var optionValue = "";
 						<%for(int i = 0; i < list.size(); i++) {%>
-							
+							if($(this).val() == <%=list.get(i).get("opId")%>) {
+								optionValue +=  '<%=list.get(i).get("oname") + "=" + list.get(i).get("ovalue")%> , ';
+								optionPrice += <%=(Integer)list.get(i).get("oprice")%>
+								opId.push($(this).val());
+							}
 						<%}%>
 					});
+					console.log(opId);
+					var deliPrice = parseInt($("#deliPrice").text());
+					var price = parseInt($("#price").text());
+					var ea = parseInt($("#ea").val());
+					var sum = $("#sum").text();
+					
+					
+					$("#sum").text(parseInt(sum) + (parseInt(optionPrice) * parseInt(ea)));
+					$("#sum").append("원");
+
 				});
 			});
 		
@@ -252,9 +278,10 @@ hr{
 				var ea = parseInt($("#ea").val());
 				var text = "ajax";
 				
+				$.ajaxSettings.traditional = true;
 				$.ajax({
 					url:"<%=request.getContextPath()%>/purchase.pro",
-					data:{workId:workId, ea:ea, text:text},
+					data:{workId:workId, ea:ea, text:text, opId:opId},
 					type:"post",
 					success:function(data){
 						if(data == "ok"){
@@ -274,7 +301,7 @@ hr{
 				var ea = parseInt($("#ea").val());
 				var sum = deliPrice + (price * ea);
 				
-				$("#sum").text(sum);
+				$("#sum").text(sum + (parseInt(optionPrice) * parseInt(ea)));
 				$("#sum").append("원");
 			}
 			function minus(){
@@ -284,7 +311,7 @@ hr{
 				var ea = parseInt($("#ea").val());
 				var sum = deliPrice + (price * ea);
 				
-				$("#sum").text(sum);
+				$("#sum").text(sum + (parseInt(optionPrice) * parseInt(ea)));
 				$("#sum").append("원");
 			}
 			

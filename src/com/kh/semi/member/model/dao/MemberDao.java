@@ -13,6 +13,7 @@ import java.util.Properties;
 import com.kh.semi.member.model.vo.Address;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.product.model.vo.Basket;
+import com.kh.semi.work.model.vo.WorkOption;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 
@@ -354,15 +355,11 @@ public class MemberDao {
 				cart.put("wid", rset.getInt("WID"));
 				cart.put("basketDate", rset.getDate("BASKET_DATE"));
 				cart.put("count", rset.getInt("COUNT"));
-				cart.put("opid", rset.getInt("OP_ID"));
 				cart.put("changeName", rset.getString("CHANGE_NAME"));
 				cart.put("price", rset.getInt("PRICE"));
 				cart.put("deliPrice", rset.getInt("DELI_PRICE"));
-				cart.put("workContent", rset.getString("WORK_CONTENT"));
+				cart.put("authorName", rset.getString("MEMBER_NAME"));
 				cart.put("workName", rset.getString("WORK_NAME"));
-				cart.put("oname", rset.getString("ONAME"));
-				cart.put("ovalue", rset.getString("OVALUE"));
-				cart.put("oprice", rset.getInt("OPRICE"));
 				list.add(cart);
 			}
 			
@@ -421,6 +418,120 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<WorkOption> selectOptionList(int memberId, Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		WorkOption wo = null;
+		ArrayList<WorkOption> olist = null;
+		
+		String query = prop.getProperty("selectBuyOption");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			olist = new ArrayList<WorkOption>();
+			while(rset.next()) {
+				wo = new WorkOption();
+				wo.setOpId(rset.getInt("OP_ID"));
+				wo.setoName(rset.getString("ONAME"));
+				wo.setoPrice(rset.getInt("OPRICE"));
+				wo.setoValue(rset.getString("OVALUE"));
+				wo.setwId(rset.getInt("BASKET_ID"));
+				olist.add(wo);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return olist;
+	}
+
+	public int deleteBasketOption(Connection con, String[] bidArr) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteBasketOption");
+		
+		return 0;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectOrderList(Connection con, int memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> hmap = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		String query = prop.getProperty("selectOrderList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			rset = pstmt.executeQuery();
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				hmap.put("bid", rset.getInt("BASKET_ID"));
+				hmap.put("mid", rset.getInt("MID"));
+				hmap.put("wid", rset.getInt("WID"));
+				hmap.put("basketDate", rset.getDate("BASKET_DATE"));
+				hmap.put("count", rset.getInt("COUNT"));
+				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("price", rset.getInt("PRICE"));
+				hmap.put("deliPrice", rset.getInt("DELI_PRICE"));
+				hmap.put("authorName", rset.getString("MEMBER_NAME"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("bundleCode", rset.getString("BUNDLE_CODE"));
+				hmap.put("payDate", rset.getDate("PAY_DATE"));
+				list.add(hmap);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<String> selectBundleCode(Connection con, int memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<String> bundleList = null;
+		
+		String query = prop.getProperty("selectBundleCode");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			bundleList = new ArrayList<String>();
+			while(rset.next()) {
+				bundleList.add(rset.getString(1));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return bundleList;
 	}
 
 	

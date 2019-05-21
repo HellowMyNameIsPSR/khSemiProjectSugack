@@ -218,7 +218,6 @@ public class ProDao {
 			pstmt.setInt(1, basket.getMemberId());
 			pstmt.setInt(2, basket.getWorkId());
 			pstmt.setInt(3, basket.getCount());
-			pstmt.setInt(4, basket.getOpId());
 			
 			result = pstmt.executeUpdate();
 			
@@ -281,13 +280,9 @@ public class ProDao {
 				buyInfo.put("workId", rset.getInt("WID"));
 				buyInfo.put("basketDate", rset.getDate("BASKET_DATE"));
 				buyInfo.put("count", rset.getInt("COUNT"));
-				buyInfo.put("opId", rset.getInt("OP_ID"));
 				buyInfo.put("workName", rset.getString("WORK_NAME"));
 				buyInfo.put("price", rset.getInt("PRICE"));
 				buyInfo.put("deliPrice", rset.getInt("DELI_PRICE"));
-				buyInfo.put("oName", rset.getString("ONAME"));
-				buyInfo.put("oPrice", rset.getInt("OPRICE"));
-				buyInfo.put("ovalue", rset.getString("OVALUE"));
 				buyInfo.put("authorName", rset.getString("MEMBER_NAME"));
 				buyInfo.put("changeName", rset.getString("CHANGE_NAME"));
 				list.add(buyInfo);
@@ -402,13 +397,9 @@ public class ProDao {
 					buyInfo.put("workId", rset.getInt("WID"));
 					buyInfo.put("basketDate", rset.getDate("BASKET_DATE"));
 					buyInfo.put("count", rset.getInt("COUNT"));
-					buyInfo.put("opId", rset.getInt("OP_ID"));
 					buyInfo.put("workName", rset.getString("WORK_NAME"));
 					buyInfo.put("price", rset.getInt("PRICE"));
 					buyInfo.put("deliPrice", rset.getInt("DELI_PRICE"));
-					buyInfo.put("oName", rset.getString("ONAME"));
-					buyInfo.put("oPrice", rset.getInt("OPRICE"));
-					buyInfo.put("ovalue", rset.getString("OVALUE"));
 					buyInfo.put("authorName", rset.getString("MEMBER_NAME"));
 					buyInfo.put("changeName", rset.getString("CHANGE_NAME"));
 					list.add(buyInfo);
@@ -460,6 +451,54 @@ public class ProDao {
 		}
 		
 		return olist;
+	}
+
+	public int insertBasketOption(Connection con, int bid, int i) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertBasketOption");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, bid);
+			pstmt.setInt(2, i);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertBasketOption(Connection con, int bid, String[] opId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertBasketOption");
+		
+		try {
+			for(int i = 0; i < opId.length; i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, bid);
+				pstmt.setInt(2, Integer.parseInt(opId[i]));
+				
+				result += pstmt.executeUpdate();		
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

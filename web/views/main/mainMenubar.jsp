@@ -300,7 +300,7 @@
 					</a>
 					<ul class="nav navbar-nav navbar-right hideMiddleMenu" align="center">
 						<li>
-							<a href="<%= request.getContextPath() %>/views/member/myPage.jsp">
+							<a href="<%= request.getContextPath() %>/myPage.me">
 								<span class="glyphicon glyphicon-user"></span><br><span style="font-size:12px;">My정보</span>
 							</a>
 						</li>
@@ -325,7 +325,7 @@
 					</a>
 					<ul id="middleMenu" class="nav navbar-nav navbar-right">
 						<li>
-							<a href="<%= request.getContextPath() %>/views/member/myPage.jsp">
+							<a href="<%= request.getContextPath() %>/myPage.me">
 								<span class="glyphicon glyphicon-user middleIcon"></span><br>My정보
 							</a>
 						</li>

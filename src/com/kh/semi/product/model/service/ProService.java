@@ -62,14 +62,32 @@ public class ProService {
 	}
 
 
-	public int insertBasket(Basket basket) {
+	public int insertBasket(Basket basket, int i) {
 		Connection con = getConnection();
 		int bid = 0;
 		int result = new ProDao().insertBasket(con, basket);
 		
 		if(result > 0) {
-			commit(con);
 			bid = new ProDao().selectOnePurchase(con);
+			int result2 = new ProDao().insertBasketOption(con, bid, i);
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return bid;
+	}
+	
+	public int insertBasket(Basket basket, String[] opId) {
+		Connection con = getConnection();
+		int bid = 0;
+		int result = new ProDao().insertBasket(con, basket);
+		
+		if(result > 0) {
+			bid = new ProDao().selectOnePurchase(con);
+			int result2 = new ProDao().insertBasketOption(con, bid, opId);
+			commit(con);
 		}else {
 			rollback(con);
 		}
@@ -84,10 +102,12 @@ public class ProService {
 		
 		ArrayList<Address> addList = new MemberDao().addressList(con, memberId);
 		ArrayList<HashMap<String, Object>> list = new ProDao().selectBuyInfo(bid, con);
+		ArrayList<WorkOption> olist = new MemberDao().selectOptionList(memberId, con);
 		
 		HashMap<String, Object> buyInfo = new HashMap<String, Object>();
 		buyInfo.put("addList", addList);
 		buyInfo.put("list", list);
+		buyInfo.put("olist", olist);
 		
 		close(con);
 		
@@ -136,10 +156,12 @@ public class ProService {
 		
 		ArrayList<Address> addList = new MemberDao().addressList(con, memberId);
 		ArrayList<HashMap<String, Object>> list = new ProDao().selectCartBuyInfo(bidArr, con);
+		ArrayList<WorkOption> olist = new MemberDao().selectOptionList(memberId, con);
 		
 		HashMap<String, Object> buyInfo = new HashMap<String, Object>();
 		buyInfo.put("addList", addList);
 		buyInfo.put("list", list);
+		buyInfo.put("olist", olist);
 		
 		close(con);
 		
@@ -156,6 +178,9 @@ public class ProService {
 		
 		return olist;
 	}
+
+
+	
 
 }
 
