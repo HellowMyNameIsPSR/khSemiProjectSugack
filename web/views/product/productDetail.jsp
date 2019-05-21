@@ -51,12 +51,14 @@
    }
    .qnaArea {
       border-left:2px solid lightgray;
-      margin: 20px 0px 20px 0px;
-      box-shadow:2px 2px lightgray;
+      border-right:2px solid lightgray;
+      border-bottom:2px solid lightgray;
       width:100%;
       height:100%;
       /* background:#F6F476; */
       background:beige;
+      margin-right:10px;
+      margin-bottom:10px;
     
    }
    .qnaTitle {
@@ -437,7 +439,7 @@ hr{
 
     <li class="active"><a data-toggle="tab" href="#menu0">기본정보</a></li>
     <li><a data-toggle="tab" href="#menu1">배송/판매/교환/환불</a></li>
-    <li><a data-toggle="tab" href="#menu2">별점 및 응원글</a></li>
+    <li><a data-toggle="tab" href="#menu2">별점 및 리뷰</a></li>
     <li><a data-toggle="tab" href="#menu3">문의</a></li>
      </ul>
 
@@ -451,7 +453,7 @@ hr{
       <p>Ut enim minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     </div>
     <div id="menu2" class="tab-pane fade">
-      <h3>별점 및 응원글</h3>
+      <h3>별점 및 리뷰</h3>
       
        <div class="star" style="background:beige;  padding:10px; width:100%; height:150px;">
       <div id="review" <%-- action="<%=request.getContextPath() %>/insertReview.bo?workId=<%=work.get("workId")%>" method="post" --%>>
@@ -490,7 +492,7 @@ hr{
     <div id="menu3" class="tab-pane fade">
     
              <form id="qna" action="<%=request.getContextPath() %>/insertProQna.bo" method="post">
-     		<h2>문의하기</h2>
+     		<h3>문의하기</h3>
                    <div class="qnaArea">
                      <div class="qnaTitle">
                        
