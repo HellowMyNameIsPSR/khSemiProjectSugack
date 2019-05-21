@@ -29,25 +29,27 @@
 				<section id="contents">
 					<header class="main">
 						<div class="reqDetail">
+						<input type="hidden" id="brandName" value="<%= a.getBrandName() %>" />
 						<table>
 							<tr>
 								<td><h4><%= a.getApplyContent() %></h4></td>
-								<td style="text-align: right"><h4>신청일자 : <%= a.getApplyDate() %></h4></td>
+								<td colspan="2" style="text-align: right"><h4>신청일자 : <%= a.getApplyDate() %></h4></td>
 
 							</tr>
 						
 							<tr>
 								<td>점포명: <%= a.getBrandName() %></td>
+								<td style="width: 150px;">승인상태 : <%= a.getStaus() %></td>
 								<td style="text-align: right">
-								<a href="filedown.jsp">해당 작품의 신청서 다운받기</a>
+								<a href="#" style="inline-block:true; width: 250px;">해당 작품의 신청서 다운받기</a>
 								</td>
 							</tr>
 						</table>
-						<textarea id="reqDetailText" cols="30" rows="10" style="resize: none;"><%= a.getApplyContent() %></textarea>						
+						<textarea id="reqDetailText" cols="30" rows="10" style="resize: none;" readonly><%= a.getApplyContent() %></textarea>						
 						</div>
 
-							<button id="accept">승인</button>
-							<button id="deny">거부</button>
+							<button id="accept" value="1차승인">승인</button>
+							<button id="deny" value="1차거부">거부</button>
 					</header>
 				</section>
 			</div>
@@ -57,19 +59,22 @@
 	<script>
 	$(function(){
 		$("#accept").click(function(){
-			var apply1Stat = $("성공");
-
+			var apply1Stat =$(this).val();
+			console.log(apply1Stat);
+			var brandName = $("#brandName").val();
+			console.log(brandName);
 			 if(confirm("정말 승인하시겠습니까 ?") == true){
 					$.ajax({
 						url:"<%= request.getContextPath() %>/reqDeny.ad",
-						date:{apply1Stat:apply1Stat},
+						data:{apply1Stat:apply1Stat, brandName:brandName},
 						type:"get",
 						success:function(data){
 							alert("승인 되었습니다");
+							location.reload();
+
 						}
 					})
 				       
-			        alert("등록되었습니다");
 			    }
 			    else{
 			        return ;
@@ -81,15 +86,18 @@
 		});
 		
 		$("#deny").click(function(){
-			var apply1Stat = $("거부");
-
+			var apply1Stat = $(this).val();
+			console.log(apply1Stat);
+			var brandName = $("#brandName").val();
+			console.log(brandName);
 			if(confirm("정말 거부하시겠습니까 ?") == true){
 				$.ajax({
 					url:"<%= request.getContextPath() %>/reqDeny.ad",
-					date:{apply1Stat:apply1Stat},
+					data:{apply1Stat:apply1Stat, brandName:brandName},
 					type:"get",
 					success:function(data){
 						alert("거부처리 되었습니다");
+						location.reload();
 					}
 				})
 			       

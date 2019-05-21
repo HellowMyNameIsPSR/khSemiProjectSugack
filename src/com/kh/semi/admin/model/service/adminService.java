@@ -181,10 +181,10 @@ public class adminService {
 
 
 
-	public int reqDeny(String apply1Stat) {
+	public int reqDeny(String apply1Stat, String brandName) {
 		Connection con = getConnection();
 		
-		int result = new adminDao().reqDeny(con, apply1Stat);
+		int result = new adminDao().reqDeny(con, apply1Stat, brandName);
 		
 		if(result > 0) {
 			commit(con);
@@ -200,10 +200,12 @@ public class adminService {
 
 
 
-	public ArrayList<HashMap<String, Object>> searchProduct(SearchProduct sp) {
+	public ArrayList<SearchProduct> searchProduct(SearchProduct sp) {
 		Connection con = getConnection();
 		
-		ArrayList<HashMap<String, Object>> list = new adminDao().searchPro(con, sp);
+		ArrayList<SearchProduct> list = new adminDao().searchPro(con, sp);
+		System.out.println("Dao에서 result" + list);
+
 		
 		close(con);
 		

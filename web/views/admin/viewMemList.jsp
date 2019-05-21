@@ -107,7 +107,7 @@ ArrayList<SearchMember> list = (ArrayList<SearchMember>) request.getAttribute("l
 			</thead>
 			<tbody>
 			
-			</tbody>W
+			</tbody>
 			
 		</table>
 		<div class="row" style="padding-left:200px">

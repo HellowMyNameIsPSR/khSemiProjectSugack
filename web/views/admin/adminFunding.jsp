@@ -26,20 +26,42 @@
 				<td style="text-align:center; background: lightgray; border: 1px solid gray">재료별검색</td>
 				<td>
 				<select name="material">
-					<option value="p1">가죽</option>
-					<option value="p2">가죽</option>
-					<option value="p3">가죽</option>
-					<option value="p4">가죽</option>
-					<option value="p5">가죽</option>
+					<option value="귀금속">귀금속</option>
+					<option value="목공예">목공예</option>
+					<option value="천공예">천공예</option>
+					<option value="도공예">도공예</option>
+					<option value="가죽공예">가죽공예</option>	
+					<option value="기타">기타</option>
 				</select>
 				</td>
 				<td>
 					<select name="category">
-						<option value="c1">지갑</option>
-						<option value="c2">옷</option>
-						<option value="c3">기타</option>
-						<option value="c4">목공</option>
-						<option value="c5">기타</option>
+					<option value="케이스">케이스</option>
+						<option value="인테리어소품">인테리어소품</option>
+						<option value="의류">의류</option>
+						<option value="육아,아동">육아,아동</option>
+						<option value="가구">가구</option>
+						<option value="여성수제화">여성수제화</option>
+						<option value="속옷, 양말류">속옷, 양말류</option>
+						<option value="주방, 생활">주방, 생활</option>
+						<option value="귀걸이">귀걸이</option>
+						<option value="남성수제화">남성수제화</option>
+						<option value="기타섬유, 퀼트">기타섬유, 퀼트</option>
+						<option value="반려동물 용품">반려동물 용품</option>
+						<option value="반지">반지</option>
+						<option value="도자기">도자기</option>
+						<option value="가방, 파우치">가방, 파우치</option>
+						<option value="문구, 팬시">문구, 팬시</option>
+						<option value="목걸이">목걸이</option>
+						<option value="전자기기 관련">전자기기 관련</option>
+						<option value="패션잡화">패션잡화</option>
+						<option value="시계">시계</option>
+						<option value="팔찌">팔찌</option>	
+						<option value="지갑">지갑</option>
+						<option value="그외 악세서리">그외 악세서리</option>
+						<option value="인형, 장난감">인형, 장난감</option>
+						<option value="공예">공예</option>
+						<option value="기타섬유퀼트">기타섬유퀼트</option>	
 					</select>
 				</td>
 			</tr>
@@ -65,7 +87,8 @@
 			</tr>
 			<tr>
 				<td style="text-align:center; background: lightgray; border: 1px solid gray">펀딩진행률</td>
-				<td colspan="3"><input type="text"; style="width: 40%;"> ~ <input type="text";  style="width: 40%;"></td>
+				<td><input type="text"; style="width: 40%;"></td>
+				<td> <input type="text";  style="width: 40%;"></td>
 			</tr>
 		</table>
 		<input type="submit" value="검색">
@@ -83,7 +106,7 @@
 				<td>펀딩등록일</td>
 				<td>펀딩마감일</td>
 				<td>펀딩진행률</td>
-				<td>판매자</td>
+				<td>작가명</td>
 			</tr>
 			<tr>
 				<td><input type="checkbox"></td>

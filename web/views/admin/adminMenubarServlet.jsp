@@ -45,8 +45,7 @@
 				<li>
 					<span class="opener">운영</span>
 					<ul>
-						<!-- <li><a href="<%=request.getContextPath()%>/reqMemList.ad">입점신청관리</a> -->
-						<li><a href="/sg/reqMemList.ad">입점신청관리</a> 
+						<li><a href="<%=request.getContextPath()%>/reqMemList.ad">입점신청관리</a>
 						<li><a href="viewQuestList.jsp">1:1문의관리</a>
 						<li><a href="viewMileList.jsp">적립금관리</a>
 						<li><a href="viewBbsList.jsp">고객센터관리</a>
