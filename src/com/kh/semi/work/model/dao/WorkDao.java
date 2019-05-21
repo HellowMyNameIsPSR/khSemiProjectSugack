@@ -652,6 +652,72 @@ public class WorkDao {
 		return listCount;
 	}
 
+	public ArrayList<HashMap<String, Object>> selectQnaList(Connection con, PageInfo pi, String memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectExchangeList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			pstmt.setInt(3, Integer.parseInt(memberId));
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()){
+				hmap = new HashMap<String, Object>();
+				hmap.put("odId", rset.getInt("OD_ID"));
+				hmap.put("refundEnddate", rset.getDate("REFUND_ENDDATE"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int qnaListCount(Connection con, String memberId) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("exchangeListCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
 
 }
 

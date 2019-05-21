@@ -22,7 +22,6 @@ public class SelectImageListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<HashMap<String, Object>> list = 
 				new WorkService().selectImageList();
-		
 		String page = "";
 		if(list != null) {
 			page = "views/main/mainPage.jsp";

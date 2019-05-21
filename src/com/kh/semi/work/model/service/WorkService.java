@@ -246,6 +246,24 @@ public class WorkService {
 		
 		return listCount;
 	}
+	public ArrayList<HashMap<String, Object>> selectQnaList(PageInfo pi, String memberId) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list  = new WorkDao().selectQnaList(con, pi, memberId);
+		
+		close(con);
+		
+		return list;
+	}
+	public int qnaListCount(String memberId) {
+		Connection con = getConnection();
+		
+		int listCount = new WorkDao().qnaListCount(con, memberId);
+		
+		close(con);
+		
+		return listCount;
+	}
 	
 
 	
