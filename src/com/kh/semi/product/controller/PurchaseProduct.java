@@ -48,7 +48,6 @@ public class PurchaseProduct extends HttpServlet {
 			text = "";
 		}
 		
-		System.out.println(ea + " " + workId + " ");
 		
 		
 		Basket basket = null;

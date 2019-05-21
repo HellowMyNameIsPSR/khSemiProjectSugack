@@ -426,7 +426,7 @@ public class MemberDao {
 		WorkOption wo = null;
 		ArrayList<WorkOption> olist = null;
 		
-		String query = prop.getProperty("selectBuyOption");
+		String query = prop.getProperty("selectBasketOption");
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -532,6 +532,42 @@ public class MemberDao {
 		}
 		
 		return bundleList;
+	}
+
+	public ArrayList<WorkOption> selectBuyOptionList(int memberId, Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		WorkOption wo = null;
+		ArrayList<WorkOption> olist = null;
+		
+		String query = prop.getProperty("selectBuyOption");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			olist = new ArrayList<WorkOption>();
+			while(rset.next()) {
+				wo = new WorkOption();
+				wo.setOpId(rset.getInt("OP_ID"));
+				wo.setoName(rset.getString("ONAME"));
+				wo.setoPrice(rset.getInt("OPRICE"));
+				wo.setoValue(rset.getString("OVALUE"));
+				wo.setwId(rset.getInt("BASKET_ID"));
+				olist.add(wo);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return olist;
 	}
 
 	

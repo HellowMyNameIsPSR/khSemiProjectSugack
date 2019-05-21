@@ -209,7 +209,7 @@ public class MemberService {
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
 		ArrayList<String> bundleList = new MemberDao().selectBundleCode(con, memberId);
 		ArrayList<HashMap<String, Object>> orderList = new MemberDao().selectOrderList(con, memberId);
-		ArrayList<WorkOption> olist = new MemberDao().selectOptionList(memberId, con);
+		ArrayList<WorkOption> olist = new MemberDao().selectBuyOptionList(memberId, con);
 		
 		hmap.put("blist", bundleList);
 		hmap.put("orderList", orderList);
