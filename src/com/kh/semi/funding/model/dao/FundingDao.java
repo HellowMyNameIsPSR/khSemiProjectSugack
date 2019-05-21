@@ -127,7 +127,7 @@ public class FundingDao {
 		}
 		return result;
 	}
-
+	//펀드 테이블 등록
 	public int insertFund(Connection con, Funding fund) {
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("insertFund");
@@ -138,6 +138,7 @@ public class FundingDao {
 			pstmt.setInt(2, fund.getMaxVoo());
 			pstmt.setString(3, "N");
 			pstmt.setInt(4, fund.getFunDate());
+			pstmt.setString(5, fund.getFundStatus());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

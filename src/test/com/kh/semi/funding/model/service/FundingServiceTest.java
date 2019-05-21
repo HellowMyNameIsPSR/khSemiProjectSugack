@@ -29,6 +29,7 @@ public class FundingServiceTest {
 		fund.setMaxVoo(100);
 		fund.setMinVoo(200);
 		fund.setFunDate(7);
+		fund.setFundStatus("대기");
 		
 		fundWork = new Work();
 		fundWork.setWorkName("test funding name");

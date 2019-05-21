@@ -454,7 +454,7 @@ public class WorkDao {
 		}
 		return result;
 	}
-
+	
 	public ArrayList<HashMap<String, Object>> selectImageList(Connection con) {
 		Statement stmt = null;
 		ArrayList<HashMap<String, Object>> list = null;
@@ -493,7 +493,7 @@ public class WorkDao {
 				hmap.put("filePath", rset.getString("FILE_PATH"));
 				
 				hmap.put("category", rset.getString("CATEGORY"));
-				
+				System.out.println("da0 hmap : " + hmap.size());
 				list.add(hmap);
 			}
 			
@@ -505,7 +505,7 @@ public class WorkDao {
 			close(stmt);
 			close(rset);
 		}
-		
+		System.out.println("dao : " + list.size());
 		return list;
 	}
 

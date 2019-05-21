@@ -204,7 +204,7 @@ public class WorkService {
 		
 		ArrayList<HashMap<String, Object>> list = 
 				new WorkDao().selectImageList(con);
-		
+		System.out.println("service : " + list.size());
 		close(con);
 		
 		

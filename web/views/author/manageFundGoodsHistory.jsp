@@ -82,9 +82,9 @@
 		//드롭박스에서 값을 선택 했을 때
 		function sortTable() {
 			var sortTable = document.getElementById("sortTable");
-			var selectData = sortTable.options[sortTable.selectedIndex].value
-		} //end func
-		/* 
+			var selectData = sortTable.options[sortTable.selectedIndex].value;
+			console.log(selectData);
+		} //end func 
 		$(function(){
 			
 			$.ajax({
@@ -100,7 +100,7 @@
 					
 				}
 			});
-		}); */
+		}); 
 	</script>
 </body>
 </html>
