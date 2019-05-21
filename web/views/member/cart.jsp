@@ -79,13 +79,16 @@
 									<input type="checkbox" id="select<%=i%>" class="select" name="select" value="<%=list.get(i).get("bid")%>"><label for="select<%=i%>"></label>
 								</td>
 								<td><img src="uploadSalesImage/<%=list.get(i).get("changeName") %>" style="width:50px; height:50px;"></td>
-								<% for(int j = 0; j < olist.size(); j++) {%>
+								<% for(int j = 0; j < olist.size(); j++) {
+									System.out.println((Integer)olist.get(j).getwId() + " + " + (Integer)list.get(i).get("bid"));
+								%>
 									<%if((Integer)olist.get(j).getwId() == (Integer)list.get(i).get("bid")) { 
 										 ovalue += (String)olist.get(j).getoName() + " : " + (String)olist.get(j).getoValue() + "/";
 										 oprice += (Integer)olist.get(j).getoPrice();
 									}else { 
 										ovalue += "";
 									} 
+									
 								} %>
 									<%if(ovalue.equals("null")) {ovalue = "";}%>
 									<td><div class="explain"><%=list.get(i).get("workName") %>/<%=ovalue %></div></td>
@@ -95,7 +98,7 @@
 									<button type="button" class="minus">-</button>
 								</td>
 								<td id="price"><%=(((int)list.get(i).get("price") + oprice)  * (int)list.get(i).get("count"))%></td>
-								<td id="deliPrice"><%=(int)list.get(i).get("deliPrice") %></td>
+								<td id="deliPrice"><%=(int)	list.get(i).get("deliPrice") %></td>
 							</tr>
 							<% } %> 
 							

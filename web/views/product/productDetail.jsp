@@ -246,9 +246,9 @@ hr{
 		</div>
 		<script>
 			var optionPrice = 0;
-			var opId = new Array();
 			$(function(){
 				$(".option:last").change(function(){
+					var opId = new Array();
 					var optionValue = "";
 					optionPrice = 0;
 					$(".option").each(function(){
@@ -274,14 +274,23 @@ hr{
 			});
 		
 			$("#goBasket").click(function(){
+				var option = new Array();
+				$(".option").each(function(){
+					<%for(int i = 0; i < list.size(); i++) {%>
+						if($(this).val() == <%=list.get(i).get("opId")%>) {
+							option.push($(this).val());
+						}
+					<%}%>
+				});
 				var workId = $("#workId").val();
 				var ea = parseInt($("#ea").val());
 				var text = "ajax";
+				console.log(option);
 				
 				$.ajaxSettings.traditional = true;
 				$.ajax({
 					url:"<%=request.getContextPath()%>/purchase.pro",
-					data:{workId:workId, ea:ea, text:text, opId:opId},
+					data:{workId:workId, ea:ea, text:text, option:option},
 					type:"post",
 					success:function(data){
 						if(data == "ok"){

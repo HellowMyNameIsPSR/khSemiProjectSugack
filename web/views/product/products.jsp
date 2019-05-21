@@ -70,7 +70,41 @@
     	margin:auto;
     	margin-top:10px;
     }
-    
+	
+	.workList {
+	cursor:pointer;
+	border-radius: 100px 5px 5px 5px;
+	border:1px solid #727272;
+	width: 100%;
+	height: 100%;
+	background: radial-gradient(white, #E6F3FE) fixed;
+	}
+	
+	.workList tr>td{
+	padding:5px 5px 5px 5px;
+}
+
+.cFont {
+	font-size: 12px;
+	color: lightgray;
+	text-align: left;
+	padding-left: 10px;
+}
+
+.nFont {
+	font-size:13px;
+	border-top: 1px solid lightgray;
+	text-align: left;
+	height:50px;
+}
+
+.lFont {
+	border-top: 1px solid lightgray;
+	font-size: 12px;
+	text-align: left;
+	padding-left: 10px;
+	color: lightgray;
+}
   </style>
 
 </head>
@@ -80,94 +114,37 @@
  
 
 <div class="container">
-
-    
-   
     <select style="width:100%; height:30px; margin-top:10px;">
 		<option value="pop">인기순</option>
 		<option value="new">최신순</option>
 		<option value="low">낮은가격순</option>
 		<option value="high">높은가격순</option>
 	</select>
- 	</div>
   <div class="row">
   	<!-- <div class="col-sm-1"></div> -->
   	<% for(int i=0; i<list.size(); i++){
    				HashMap<String,Object> hmap = list.get(i);
    				%>
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-   		<div class="content" style="background-color:green; height:300px; width:100%">
-   			
-   			
-   			<div class="mainImg" style="height:200px;">
-   				<input type="hidden" value=<%=hmap.get("workId") %>>
-   				<img src="uploadSalesImage/<%=hmap.get("changeName") %>" name="pic" style="width:100%; height:200px; align:center" class="thumbImg" >
-   			</div>
-   			
-   			<div class="proName" style="height:40px;">
-   				<p name="titleName"style="text-align:center; font-size:15px; margin-top:5px;"><%=hmap.get("workName") %></p>
-   			</div>
-   			<div class="heart" style="padding:7px; height:50px; width:40px; float:left;" >
-   				<img src="views/images/fullheart.png" name="heart" style="width:30px; height:30px;" onclick="heartyn();">
-   			</div>
-   			<div class="heartprice" style="height:60px; margin-right:10px; margin-top:5px;">
-   			<p name="price" style="float:right; font-size:20px;"><%=hmap.get("price") %>원</p>
-   			</div>
-   			
-   			
-   		</div>
-    	
-    </div>
-    <%} %>
-    
-    
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <!-- <div class="col-sm-1"></div> -->
-  </div>
-  <div class="row">
-    <!-- <div class="col-sm-1"></div> -->
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <!-- <div class="col-sm-1"></div> -->
-  </div>
-  <div class="row">
-   <!--  <div class="col-sm-4" style="background-color:lavender;width:420px; height:380px;">.col-sm-4</div>
-    <div class="col-sm-4" style="background-color:lavenderblush;width:420px; height:380px;">.col-sm-4</div>
-    <div class="col-sm-4" style="background-color:lavender;width:420px; height:380px;">.col-sm-4</div>  -->
-    <!--  <div class="col-sm-1"></div> -->
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <!-- <div class="co1sl-sm-1"></div> --> 
-  </div>	
 
+   		<div class="col-sm-3 col-xs-6 mainImg">
+   			<input type="hidden" value="<%=hmap.get("workId")%>">
+					<table class="workList">
+						<tr><td class="workTd" colspan="2" style="widt:150px; height:150px;">
+							<img src="<%=request.getContextPath()%>/uploadSalesImage/<%=hmap.get("changeName")%>" style="width:100%;height:100%;">
+						</td></tr>
+						<tr><td colspan="2" class="cFont"><%=hmap.get("category")%></td></tr>
+						<tr><td colspan="2" class="nFont"><%=hmap.get("workName")%></td></tr>
+						<tr>
+							<td class="lFont">좋아요</td>
+							<td><%=hmap.get("wCount")%><span style="color:red; text-align:right;"class="glyphicon glyphicon-heart"></span></td></tr>
+					</table>
+					<br>
+				</div>
+    	
+
+    <%} %>
+    </div>
+    </div>
 
 
 <script>

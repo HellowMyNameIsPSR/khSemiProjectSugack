@@ -5,12 +5,15 @@
 	ArrayList<String> blist = (ArrayList<String>)hmap.get("blist");
 	ArrayList<HashMap<String, Object>> orderList = (ArrayList<HashMap<String, Object>>)hmap.get("orderList");
 	ArrayList<WorkOption> olist = (ArrayList<WorkOption>)hmap.get("olist");
+	System.out.println(olist);
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>마이페이지!!</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 <style>
 	.myPage{
 		display:block;
@@ -64,44 +67,65 @@
 				</header>
 				
 				<section id="contents">
-					<header class="main">
-						<table>
-							<tr style="text-align:center">
-								<td style="border:1px solid gray;">주문번호</td>
-								<td style="border:1px solid gray;">상품사진</td>
-								<td style="border:1px solid gray;">주문일</td>
-								<td style="border:1px solid gray;">상품명</td>
-								<td style="border:1px solid gray;">수량</td>
-							</tr>
-							<%for(int i = 0; i < orderList.size(); i++) {
-								String ovalue = "";
-								int oprice = 0;
-							%>
-								<% for(int j = 0; j < olist.size(); j++) {
-									if((Integer)olist.get(j).getwId() == (Integer)orderList.get(i).get("bid")) { 
-										 ovalue += (String)olist.get(j).getoName() + " : " + (String)olist.get(j).getoValue() + "/";
-										 oprice += (Integer)olist.get(j).getoPrice();
-										 System.out.println("ovalue = " + ovalue);
-									}else { 
-										ovalue += "";	
-									} 
-								} %>
-							<tr>
-								<td style="border:1px solid gray;"><%=orderList.get(i).get("bundleCode") %></td>
-								<td style="border:1px solid gray;"><img src="uploadSalesImage/<%=orderList.get(i).get("changeName")%>" style="width:50px; height:50px;"></td>
-								<td style="border:1px solid gray;"><%=orderList.get(i).get("payDate") %></td>
-								<td style="border:1px solid gray;"><%=orderList.get(i).get("workName") + "/" + ovalue %></td>
-								<td style="border:1px solid gray;"><%=orderList.get(i).get("count") %></td>
-							</tr>
-							<%} %>
-						</table>
-					</header>
+				<% for(int i = 0; i < blist.size(); i++) { %>
+			<table>
+				<tr style="height:50px; font-size:18px;">
+					<th>주문번호</th>
+					<th><%=blist.get(i)%></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+				<tr>
+				<%for(int k = 0; k < orderList.size(); k++) {
+					if(blist.get(i).equals((String)orderList.get(k).get("bundleCode"))){
+						String ovalue = "";
+						int oprice = 0;
+				%>
+					<td><img src="uploadSalesImage/<%=orderList.get(k).get("changeName") %>" style="width:50px; height:50px;"></td>
+					<% for(int j = 0; j < olist.size(); j++) {
+						System.out.println((Integer)olist.get(j).getwId() + " + " + (Integer)orderList.get(k).get("bid"));
+					%>
+						<%if((Integer)olist.get(j).getwId() == (Integer)orderList.get(k).get("bid")) { 
+							 ovalue += (String)olist.get(j).getoName() + " : " + (String)olist.get(j).getoValue() + "/";
+							 oprice += (Integer)olist.get(j).getoPrice();
+						}else { 
+							ovalue += "";
+						} 
+						
+					} %>
+						<%if(ovalue.equals("null")) {ovalue = "";}%>
+						<td><%=orderList.get(k).get("authorName") %>작가님 작품</td>
+						<td><div class="explain"><%=orderList.get(k).get("workName") %>/<%=ovalue %></div></td>
+					<td>
+						<%=orderList.get(k).get("count")%>
+					</td>
+					<td id="price"><%=((((int)orderList.get(k).get("price") + oprice)  * (int)orderList.get(k).get("count")) + (int)orderList.get(k).get("deliPrice"))%></td>
+					<td id="btn">
+						<button>환불요청</button>
+						<button>교환요청</button>
+					</td>
+				</tr>
+				<% }
+				} %> 
+			</table>
+				<% } %>
 					<!-- Contents area -->
 				</section>
+						
+						<%-- <tr>
+							<td style="border:1px solid gray;"><%=orderList.get(i).get("bundleCode") %></td>
+							<td style="border:1px solid gray;"><img src="uploadSalesImage/<%=orderList.get(i).get("changeName")%>" style="width:50px; height:50px;"></td>
+							<td style="border:1px solid gray;"><%=orderList.get(i).get("payDate") %></td>
+							<td style="border:1px solid gray;"><%=orderList.get(i).get("workName") + "/" + ovalue %></td>
+							<td style="border:1px solid gray;"><%=orderList.get(i).get("count") %></td>
+						</tr> --%>
+					</div>
 			</div>
 		</div>
 		
-	</div>
+
  	
 </body>
 </html>

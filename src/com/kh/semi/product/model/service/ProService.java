@@ -68,6 +68,7 @@ public class ProService {
 		int result = new ProDao().insertBasket(con, basket);
 		
 		if(result > 0) {
+			commit(con);
 			bid = new ProDao().selectOnePurchase(con);
 			int result2 = new ProDao().insertBasketOption(con, bid, i);
 			commit(con);
@@ -85,6 +86,7 @@ public class ProService {
 		int result = new ProDao().insertBasket(con, basket);
 		
 		if(result > 0) {
+			commit(con);
 			bid = new ProDao().selectOnePurchase(con);
 			int result2 = new ProDao().insertBasketOption(con, bid, opId);
 			commit(con);
