@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.semi.board.model.vo.*"   %>
 <%
-Board b =(Board)request.getAttribute("b");
+String member_Id = (String)request.getAttribute("memberId");
 %>	
 <!DOCTYPE html>
 <html>
@@ -47,11 +47,12 @@ Board b =(Board)request.getAttribute("b");
 						<div>
 							<p>관심 가는 작가 들에게 응원에 메세지를 남겨 주세요</p>
 							<p>Tip: 관련작가들이 성실이 댓글에 성실히 답해드려요</p>
-
+							<p>가져온 멤버  Id : <%=member_Id %></p> 
 						</div>
 
-						
-                            
+						<%               %>
+                            <div class="row"
+							style="border: 1px solid black; width: 1100px; height: 200px;">
 							<div class="nick"
 								style="width: 100%; height: 50px; padding: 5px;">
 								<p>닉네임</p>
@@ -65,7 +66,7 @@ Board b =(Board)request.getAttribute("b");
 								style="float: right; width: 120px; height: 100px; margin-left: 10px;">
 								<button id="addReply" style="width: 100px; height: 100px;">등록</button>
 							</div>
-						
+						</div>
 
 						<br>
 
@@ -200,7 +201,7 @@ Board b =(Board)request.getAttribute("b");
 				</section>
 			</div>
 		</div>
-		<%@ include file="../common/tourMenuBar.jsp"%>
+		<%@ include file="/views/common/tourMenuBarServlet.jsp"%>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script
