@@ -46,18 +46,16 @@
 							 	<%for(int i=0; i<list.size(); i++){
 							 			HashMap<String,Object> hmap = list.get(i);
 							 	%>
-							 <div class="col-sm-2 product" style="background-color:lavender; height:50%; margin-right:20px;">
+							 <div class="col-sm-2 product" style="background-color:lavender; height:50%; margin-right:20px; margin-bottom:10px;">
 							 	<div class="outer">
-							 	
+
 							 		
 							 		
-							 		<div style="background:white; width:100%"></div>
-							 		<br><br>
-							 		<div class="img" style="width:230px;">
+							 		<div class="img" style="width:230px; margin-top:20px; margin-left:5px;">
 							 			<img src="uploadSalesImage/<%=hmap.get("changeName") %>" style="width:200px; height:200px;">
 							 		</div>
 							 		<div class="productName">
-							 			<label style="margin-left:80px;"><%=hmap.get("workName") %></label>
+							 			<label style="margin-left:20px; margin-top:10px;" ><%=hmap.get("workName") %></label>
 							 		</div>
 							 		
 							 		<div class="heart">
@@ -115,7 +113,8 @@
 								data:{memberId:memberId, workId:workId},
 								type:"post",
 								success:function(data){
-									alert("성공!");
+									alert("관심상품 취소!");
+									location.reload();
 									//alert(data);
 									
 								},error:function(){

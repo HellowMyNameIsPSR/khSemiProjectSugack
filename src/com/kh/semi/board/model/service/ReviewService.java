@@ -1,6 +1,9 @@
 package com.kh.semi.board.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -70,6 +73,23 @@ public class ReviewService {
 		
 		close(con);
 		return reviewList;
+	}
+
+
+	//마이페이지에서 리뷰 삭제
+	public int deleteReview(int memberId, int workId) {
+		Connection con = getConnection();
+		int result = new ReviewDao().deleteReview(con, memberId, workId);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
 	}
 
 }

@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.semi.board.model.vo.*, java.util.*"%>
-<% ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list"); 
+<% ArrayList<Review> list = (ArrayList<Review>)request.getAttribute("list");
+
 	System.out.println("boardReview.jsp에서 : " + list);
+	
+	
 %>
 <!-- r객체가 여러개있는 list인데,  r객체에있는 정보들을 가지고있다!(DAO에서 채워준 rset) -->
 <!DOCTYPE html>
@@ -41,6 +44,8 @@
 	.name{
 		font-size:30px;
 	}
+	
+
 </style>
 </head>
 <body>
@@ -63,8 +68,8 @@
 				</header>
 				
 				<section id="contents">
-				<% for(Review review : list){ %>
-					<div class="outer">
+				 <% for(Review review : list){ %> 
+					<div class="outer" style="margin-bottom:10px;">
 					
 						<div class="row">
 						<!-- <div class="img">
@@ -79,9 +84,16 @@
 						<div class="row">
 							<div class="textarea">
 							<%-- <%int num = 0; for(Review review :list){ %> --%>
-								<textarea> <%=review.getContent()%></textarea>
+								<textarea style="margin-left:-5px"> <%=review.getContent()%></textarea>
 							<%-- <%} %> --%>	
 							</div>
+							
+						</div>
+						<div class="Btn" style="float:right; background:yellow; margin-right:30px;" >
+								<button onclick="eidt();">수정하기</button>
+								
+								<button onclick="del()">삭제하기</button>
+								
 						</div>
 						<!-- <div class="btn">
 							<input type="submit" value="수정하기">
@@ -89,39 +101,54 @@
 						</div> -->
 						
 					</div>
-							<br><br><br>
+				<%} %>
+					 
+		<%
+			Member loginUser2 = (Member)request.getSession().getAttribute("loginUser");
+		 %>	
+		 <%--<% for(Review review : list){ --%> 
+		<%-- <!-- <% for(int i = 0; i < list.size(); i++) { %>   -->  --%>			
 		<script>
-			function proName(){
+			<%-- function proName(){
 				//alert("배고파");
 				 location.href="<%=request.getContextPath()%>/selectProDetail.pro?workId=<%=review.getWorkId()%>";
-			}
+			} --%>
+			
+			
+			<% for(Review review : list){
+				System.out.println("하 : " + review);
+		    %>
+		   
+			 function del(){
+	
+			 var memberId = <%=loginUser2.getMemberId()%>;
+			 var workId = <%=review.getWorkId()%>;
+				console.log(workId);
+				if(confirm("정말 삭제하시겠습니까 ?") == true){
+			 	$.ajax({
+					
+					url:"<%=request.getContextPath()%>/deleteReview.bo?<%=review.getWorkId()%>", <%-- <%=list.get(i).getWorkId()%> --%>
+					data:{memberId:memberId, workId:workId},
+					type:"post",
+					
+					success:function(data){
+						alert("삭제되었습니다.");
+						location.reload();
+					}
+					
+				})
+				
+				}else{return ;}
+			 }//function의 끝
+			 <%}%>
+			
+		
+			
+	
 		</script>		
-					<%} %>
+				
 			
 				
-				
-					<!-- <div class="outer">
-						<div class="row">
-						<div class="img">
-							<img src="../images/tvxq.jpg" style="width:100px; height:100px;">
-						</div>
-						<div class="proName">
-							<label>작가명</label><br>
-							<label>상품명</label>
-						</div>
-						</div>
-						<div class="row">
-							<div class="textarea">
-								<textarea></textarea>
-								
-							</div>
-						</div>
-						<div class="btn">
-							<input type="reset" value="취소하기">
-							<input type="submit" value="저장하기">
-							
-						</div>
-					</div> -->
 					<!-- Contents area -->
 				</section>
 			</div>
