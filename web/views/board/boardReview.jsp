@@ -12,6 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>응원 및 리뷰</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 	.outer{
 		border:1px solid lightgray;
@@ -90,9 +91,10 @@
 							
 						</div>
 						<div class="Btn" style="float:right; background:yellow; margin-right:30px;" >
+								<input type="hidden" value="<%=review.getWorkId()%>">
 								<button onclick="eidt();">수정하기</button>
 								
-								<button onclick="del()">삭제하기</button>
+								<button class="delete">삭제하기</button>
 								
 						</div>
 						<!-- <div class="btn">
@@ -114,35 +116,39 @@
 				 location.href="<%=request.getContextPath()%>/selectProDetail.pro?workId=<%=review.getWorkId()%>";
 			} --%>
 			
+
 			
-			<% for(Review review : list){
-				System.out.println("하 : " + review);
-		    %>
-		   
-			 function del(){
-	
-			 var memberId = <%=loginUser2.getMemberId()%>;
-			 var workId = <%=review.getWorkId()%>;
-				console.log(workId);
-				if(confirm("정말 삭제하시겠습니까 ?") == true){
-			 	$.ajax({
+			$(function(){
+				$(".delete").click(function(){
+					var memberId = <%=loginUser2.getMemberId()%>;
+					 var workId = $(this).parent().children().eq(0).val();
+						console.log(workId);
+						if(confirm("정말 삭제하시겠습니까 ?") == true){
+						 	$.ajax({
+								url:"<%=request.getContextPath()%>/deleteReview.bo", <%-- <%=list.get(i).getWorkId()%> --%>
+								data:{memberId:memberId, workId:workId},
+								type:"post",
+								success:function(data){
+									alert("삭제되었습니다.");
+									location.reload();
+								}
+								
+							});
+						
+						}else{return ;}
 					
-					url:"<%=request.getContextPath()%>/deleteReview.bo?<%=review.getWorkId()%>", <%-- <%=list.get(i).getWorkId()%> --%>
-					data:{memberId:memberId, workId:workId},
-					type:"post",
-					
-					success:function(data){
-						alert("삭제되었습니다.");
-						location.reload();
-					}
-					
-				})
+				});
+			});
+			
 				
-				}else{return ;}
-			 }//function의 끝
-			 <%}%>
+				
 			
-		
+				
+			
+			
+			 
+			
+
 			
 	
 		</script>		

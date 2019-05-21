@@ -116,58 +116,13 @@
    			
    			
    		</div>
-    	
-    </div>
+    	</div>
+  
+    
     <%} %>
+      
+    </div>
     
-    
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <!-- <div class="col-sm-1"></div> -->
-  </div>
-  <div class="row">
-    <!-- <div class="col-sm-1"></div> -->
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <!-- <div class="col-sm-1"></div> -->
-  </div>
-  <div class="row">
-   <!--  <div class="col-sm-4" style="background-color:lavender;width:420px; height:380px;">.col-sm-4</div>
-    <div class="col-sm-4" style="background-color:lavenderblush;width:420px; height:380px;">.col-sm-4</div>
-    <div class="col-sm-4" style="background-color:lavender;width:420px; height:380px;">.col-sm-4</div>  -->
-    <!--  <div class="col-sm-1"></div> -->
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <!-- <div class="co1sl-sm-1"></div> --> 
-  </div>	
-
 
 
 <script>
@@ -224,7 +179,7 @@
    		 success:function(data){
    			 alert("관심상품 추가!");
    		 },error:function(){
-   			 alert("실패");1
+   			 alert("실패");
    		 }
    	 })
    	 <%}%>

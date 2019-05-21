@@ -20,30 +20,34 @@
 <style>
 	.outer{
 		width:800px;
-		
-		background:lightblue;
-		color:white;
 		margin-left:auto;
 		margin-right:auto;
 		margin-top:30px;
 	}
-	
-	td{
-		border:1px solid white;
+	.table1{
+		background: radial-gradient(white, #F6FFFF) fixed;
+		border:2px solid lightgray;
+		box-shadow:2px 2px lightgray;
+		padding:20px 20px 20px 20px;
 	}
-	
-	.tableArea{
-		border:1px solid white;
-		width:800px;
-		height:350px;
-		margin:0 auto;
+	.table1 tr>td{
+		border:1px solid gray;
+		text-align:center;
 	}
-	
-	.replyArea{
-		width:800px;
-		color:white;
-		background:lightblue;
-		margin:0 auto;
+	.table2{
+		background: radial-gradient(white, #F6FFFF) fixed;
+		border:2px solid lightgray;
+		box-shadow:2px 2px lightgray;
+		padding:20px 20px 20px 20px;
+	}
+	.table2 tr>td{
+		border:1px solid gray;
+		text-align:center;
+	}
+	#addReply{
+		color:gray; 
+		background:lightgray; 
+		width:90px; height:50px;
 	}
 	
 	
@@ -53,87 +57,61 @@
 
 	<div class="outer">
 		<br>
-		<div align="float:left">
+		<div>
 		<img src="views/images/left-arrow.png" style="width:50px; height:50px;" onclick="location.href='<%=request.getContextPath()%>/selectProQna.bo'">
 		<%-- 	<button style="background:#bcd5e8;  border-radius:15px;height:50px; color:white" onclick="location.href='<%=request.getContextPath()%>/selectProQna.bo'">메뉴로 돌아가기</button> --%>
 		</div>
-		<h2 align="center">문의내역 상세보기</h2>
-		<div class="tableArea">
-			<table align="center" width="800px">
-				<tr>
-					<td colspan="2">문의종류</td>
-					<td colspan="2"><span><%=qna.getCategory() %></span></td>
-					<%-- <td>제목</td>
-					<td colspan="3"><span><%=qna.getbTitle() %></span></td> --%>
-				</tr>
-				
-				<tr>
-					<td>작성자</td>
-					<td><span><%=qna.getWriter() %></span></td>
-					
-					<td>작성일</td>
-					<td><span><%=qna.getWriteDate() %></span></td>
-				</tr>
-				
-				<tr>
-					<td colspan="6">내용</td>
-				</tr>
-				
-				<tr>
-					<td colspan="6" style="height:200px">
-						<p id="content"><%= qna.getContent() %></p>
-					</td>
-				</tr>
-			</table>
-		</div>
-		
+		<table class="table1"style="width:800px;">
+			<tr>
+				<td colspan="5"><h2 align="center">문의내역 상세보기</h2></td>
+			</tr>
+			<tr>
+				<td style="width:120px;">상품명</td>
+				<td style="width:250px"><%=qna.getWorkId() %></td>
+				<td style="width:120px;">문의종류</td>
+				<td colspan="2" style="width:200px;"><%=qna.getCategory() %></td>
+			</tr>
+			<tr>
+				<td>작성자</td>
+				<td><span><%=qna.getWriter() %></span></td>
+				<td>작성일</td>
+				<td colspan="2"><span><%=qna.getWriteDate() %></span></td>
+			</tr>
+			<tr align="center" style="height:300px;">
+				<td colspan="5" ><%= qna.getContent() %></td>
+			</tr>
+			
+			
+		</table>
+		<br><br>
+		<table class="table2"style="width:800px;">
+			<tr align="center">
+				<td style="width:100px;">댓글작성</td>
+				<td><textarea style="width:99%; height:99%;"rows="3" cols="80" id="replyContent" name="reply"></textarea></td>
+				<td><button id="addReply">댓글 등록</button></td>
+			</tr>
+			<tr>
+				<td colspan="3" style="border:none; height:20px;"></td>
+			</tr>
+			<tr style="height:40px;">
+				<td>작성자</td>
+				<td>내용</td>
+				<td>작성날짜</td>
+			</tr>
+			<% for(int i = 0; i < commentList.size(); i++) {%> 
+			<!-- 이름 -->
+			
+			<tr style="height:40px;">
+				<td><%= commentList.get(i).getWriter() %></td>
+				<td><%=commentList.get(i).getContent() %></td>
+				<td><%=commentList.get(i).getWriteDate() %></td>
+			</tr>
+			<%} %> 
+		</table>
+		<br><br>
 		
 	</div>
 	<%-- <%if(loginUser.getMemberId()==0){ %> --%>
-	<div class="replyArea">
-		<div class="replyWriterArea">
-			<table align="center">
-				<tr>
-					<td>댓글작성</td>
-					<td>
-						<textarea rows="3" cols="80" id="replyContent" name="reply"></textarea>
-					</td>
-					<td><button id="addReply" style="color:gray; background:lightgray; width:50px; height:50px;">댓글 등록</button></td>
-				</tr>
-			</table>
-		</div>
-		<br>
-		<div class="replySelectArea">
-			<table id="replySelectTable" border="1" align="center" style="text-align:center">
-			<tr>
-					<td style="width:170px;">작성자</td>
-					<td style="width:300px;">내용</td>
-					<td style="width:200px;">작성날짜</td>
-					
-			</tr>
-			 <% for(int i = 0; i < commentList.size(); i++) {%> 
-				<!-- 이름 -->
-				
-				<tr>
-					<td><%= commentList.get(i).getWriter() %></td>
-					<td><%=commentList.get(i).getContent() %></td>
-					<td><%=commentList.get(i).getWriteDate() %></td>
-				</tr>
-				
-				<!-- 내용 -->
-				<!-- <tr>
-					
-				</tr>
-				
-				작성 날짜
-				<tr>
-					
-				</tr> -->
-			<%} %> 
-			</table>
-		</div>
-		
-	</div>
 	<%-- <%} %> --%>
 	<script>
 		$(function(){
@@ -193,5 +171,6 @@
 			})
 		})
 	</script>
+	<div style="height:500px;"></div>
 </body>
 </html>
