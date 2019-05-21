@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.funding.model.service.FundingService;
 import com.kh.semi.funding.model.vo.Category;
+import com.kh.semi.member.model.vo.Member;
 
 /**
  * Servlet implementation class SelectWorkCategoryServlet
@@ -31,10 +32,13 @@ public class SelectWorkCategoryServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int memberId = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
 		ArrayList<Category> list = new FundingService().selectCategoryAll();
+		ArrayList<String> authorTypeList = new FundingService().selectAuthortype(memberId);
 		String page = "";
-		if(list != null) {
+		if(list != null && authorTypeList != null) {
 			request.setAttribute("categoryList", list);
+			request.setAttribute("authorTypeList", authorTypeList);
 			page = "views/author/enrollFundingGoods.jsp";
 		} else {
 			System.out.println("카테고리 검색 실패!");

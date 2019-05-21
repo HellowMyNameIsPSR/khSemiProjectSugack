@@ -28,14 +28,23 @@
 						<h2>펀딩 작품 내역</h2>
 					</header>
 					<!-- Contents area -->
+					<div class="row">
+						<select name="sortTable" id="sortTable" onchange="sortTable();">
+							<option value="최근등록" selected>최근등록</option>
+							<option value="대기">상태 : 대기</option>
+							<option value="진행">상태 : 진행중</option>
+							<option value="종료">상태 : 종료</option>
+						</select>
+					</div><br>
+
 					<div class="row">          
 						  <table class="table table-bordered">
 						    <thead>
 						      <tr>
-						        <th>상품명</th>
-						        <th>모집인원</th>
-						        <th>총 모집인원</th>
-						        <th>신청일</th>
+						        <th>작품명</th>
+						        <th>등록일</th>
+						        <th>시작일</th>
+						        <th>종료일</th>
 						        <th>상태</th>
 						      </tr>
 						    </thead>
@@ -69,5 +78,29 @@
 		</div>
 		<%@ include file="authorMenuBar.jsp"%>
 	</div>
+	<script>
+		//드롭박스에서 값을 선택 했을 때
+		function sortTable() {
+			var sortTable = document.getElementById("sortTable");
+			var selectData = sortTable.options[sortTable.selectedIndex].value
+		} //end func
+		/* 
+		$(function(){
+			
+			$.ajax({
+				url : "",
+				type : "get",
+				success : function(data) {
+					
+				},
+				error : function(data) {
+					
+				},
+				complete : function(data) {
+					
+				}
+			});
+		}); */
+	</script>
 </body>
 </html>
