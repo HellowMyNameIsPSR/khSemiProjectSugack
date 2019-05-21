@@ -27,19 +27,19 @@ public class QueryMake {
 		
 	
 		if(m.getSearchType().equals("email")) {
-			query += " WHERE EMAIL = ?";
+			query += " WHERE EMAIL LIKE '%'||?||'%'"; 
 			if(m.getSearchText().equals("")) {
 				query = "SELECT * FROM MEMBER WHERE EMAIL LIKE '%'";
 			}
 		}else {
-			query += " WHERE MEMBER_NAME = ?";
+			query += " WHERE MEMBER_NAME LIKE '%'||?||'%'";
 			if(m.getSearchText().equals("")) {
 				query = "SELECT * FROM MEMBER WHERE MEMBER_NAME LIKE '%'";
 			}
 		}
 		
 		if(m.getMemberType() != null) {
-			query += " AND MEMBER_TYPE = ?";
+			query += " AND MEMBER_TYPE= ?";
 		}
 		if(m.getJoinStart() != null) {
 			query += " AND ENROLL_DATE >= ? AND ENROLL_DATE < ?";
@@ -85,12 +85,12 @@ public class QueryMake {
 		String query = "SELECT * FROM MEMBER";
 		
 		if(m.getSearchType().equals("email")) {
-			query += " WHERE EMAIL = ?";
+			query += " WHERE EMAIL LIKE '%'||?||'%'";
 			if(m.getSearchText().equals("")) {
 				query = "SELECT * FROM MEMBER WHERE EMAIL LIKE '%'";
 			}
 		}else {
-			query += " WHERE MEMBER_NAME = ?";
+			query += " WHERE MEMBER_NAMELIKE '%'||?||'%'";
 			if(m.getSearchText().equals("")) {
 				query = "SELECT * FROM MEMBER WHERE MEMBER_NAME LIKE '%'";
 			}
@@ -137,20 +137,20 @@ public class QueryMake {
 		if(sp.getProductName().equals("") && sp.getAuthorName().equals("")) {
 			query += " WHERE WORK_NAME LIKE '%'";
 		}else if(sp.getProductName().equals("")) {
-			query += " WHERE WORK_NAME LIKE '%' AND WORK_NAME = ?";
+			query += " WHERE AUTHOR_NAME LIKE '%' AND WORK_NAME LIKE '%'||?||'%'";
 		}else if(sp.getAuthorName().equals("")){
-			query += " WHERE WORK_NAME = ? AND WORK_NAME = '%'";
+			query += " WHERE WORK_NAME LIKE '%'||?||'%' AND AUTHOR_NAME LIKE '%'";
 		}else {
-			query += " WHERE WORK_NAME = ? AND WORK_NAME = ?";
+			query += " WHERE WORK_NAME LIKE '%'||?||'%' AND AUTHOR_NAME LIKE '%'||?||'%'";
 		}
 		
 		if(sp.getProStart() != null) {
-			query += " AND RS_DATE >= ? AND RS_DATE < ?";
+			query += " AND WR_DATE >= ? AND WR_DATE < ?";
 		}
-		if(sp.getProductValLow() > 0 && sp.getProductValHigh() > 0) {
+		if(sp.getProductValLow() >= 0 && sp.getProductValHigh() > 0) {
 			query += " AND PRICE >= ? AND PRICE < ?";
 		}
-		if(sp.getProductType() != null) {
+		if(sp.getMaterial() != null) {
 			query += " AND MATERIAL = ?";
 		}
 		if(sp.getCategory() != null) {
@@ -158,9 +158,6 @@ public class QueryMake {
 		}
 		prop.setProperty("searchProduct", query);
 		System.out.println("searchProduct생산된 쿼리문" + query);
-	
-
-		//C:/Users/kimjinhwan/eclipse-workspace/suGack/src/sql/admin
 		
 		
 		try {

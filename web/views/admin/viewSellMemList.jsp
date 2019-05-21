@@ -31,7 +31,7 @@
 							<table class="table table-bordered">
 								<tr>
 									<td style="width: 180px;">판매자명</td>
-									<td style="width: 700px;">
+									<td style="width: 700px;" colspan="3">
 									<input type="text" />
 								</tr>	
 								<tr>
@@ -43,8 +43,8 @@
 										style="width: 200px;" /></td>
 								</tr>
 								<tr>
-									<td>판매종류</td>
-									<td style="width: 150px;"><select name="" id=""
+									<td>작가유형</td>
+									<td style="width: 150px;" colspan="3"><select name="" id=""
 										style="width: 330px;">
 											<option value="">가죽</option>
 											<option value="">직물</option>
@@ -69,63 +69,19 @@
 							</table>
 							<input type="submit" value="조회" />
 						</form>
-						<h3>블랙리스트 조회 결과</h3>
+						<h3>판매자 조회 결과</h3>
 						<table class="table table-bordered"
 							style="border: 2px solid gray; text-align: center">
 							<tr style="background: lightgray;">
 								<td>번호</td>
-								<td>경고분류</td>
-								<td>신고일자</td>
-								<td>신고종류</td>
-								<td>신고위치</td>
-								<td>신고내용</td>
+								<td>작가명</td>
+								<td>작가유형</td>
+								<td>판매등록일자</td>
+								<td>상품재료</td>
+								<td>상품명</td>
 								<td>신고자</td>
 							</tr>
-							<tr>
-								<td>1</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>5</td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
+						
 						</table>
 						<div class="row" style="padding-left: 400px">
 							<ul class="pagination justify-content-center">

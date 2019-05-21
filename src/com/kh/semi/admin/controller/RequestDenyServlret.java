@@ -25,8 +25,12 @@ public class RequestDenyServlret extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String apply1Stat = request.getParameter("apply1Stat");
+		String brandName = request.getParameter("brandName");
 		
-		int result = new adminService().reqDeny(apply1Stat);
+		System.out.println("apply상태 : " + apply1Stat);
+		System.out.println("brandName : " + brandName);
+		
+		int result = new adminService().reqDeny(apply1Stat, brandName);
 		
 		
 		

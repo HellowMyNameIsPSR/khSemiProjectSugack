@@ -148,7 +148,32 @@
 	<header>
 		<nav class="navbar navbar-default">
 			<!-- 네비 상단   (로그인후 바뀌는건 우짤까요?? if else문 사용 가능한가요??)-->
-			<% if(loginUser != null && loginUser.getMemberType().equals("W")){%>
+			
+			
+			
+			
+			<% if(loginUser != null && loginUser.getMemberType().equals("A")){%>
+				<nav class="navbar navbar-top hidden-xs">
+				<ul class="nav navbar-nav pull-right topMemu">
+					<li><a style="font-weight:bold; color:black;"><%= loginUser.getMemberName() %> 님</a></li>
+					<li>
+						<a href="<%=request.getContextPath()%>/logout.me">
+							<span class="glyphicon glyphicon-log-out"></span> &nbsp; 로그아웃
+						</a>
+					</li>
+					<li>
+						<a href="<%= request.getContextPath() %>/views/member/memberUpdateForm.jsp">
+							<span class="glyphicon glyphicon-user"></span> &nbsp; 회원정보수정
+						</a>
+					</li>
+					<li>
+						<a href="<%= request.getContextPath() %>/views/admin/adminHome.jsp">
+							<span class="glyphicon glyphicon-tree-deciduous"></span> &nbsp; 관리자홈
+						</a>
+					</li>
+				</ul>
+			</nav>
+			<% } else if(loginUser != null && loginUser.getMemberType().equals("W")){%>
 				<nav class="navbar navbar-top hidden-xs">
 				<ul class="nav navbar-nav pull-right topMemu">
 					<li><a style="font-weight:bold; color:black;"><%= loginUser.getMemberName() %> 님</a></li>

@@ -83,6 +83,15 @@ public class adminDao {
 				
 			}
 			
+			System.out.println(m.getSearchText());
+			System.out.println(m.getMemberType());
+			System.out.println(m.getJoinStart());
+			System.out.println(m.getJoinLast());
+			System.out.println(m.getBirthDateStart());
+			System.out.println(m.getBirthDateLast());
+			System.out.println(m.getGender());
+				
+			
 			
 			
 			rset = pstmt.executeQuery();
@@ -598,7 +607,7 @@ public class adminDao {
 		return a;
 	}
 
-	public int reqDeny(Connection con, String apply1Stat) {
+	public int reqDeny(Connection con, String apply1Stat, String brandName) {
 		Properties prop = new Properties();
 		String fileName =  adminDao.class
 				.getResource("/sql/admin/admin-normalquery.properties")
@@ -615,9 +624,14 @@ public class adminDao {
 		int result = 0;
 		
 		String query = prop.getProperty("reqDeny");
+		System.out.println("query" + query);
 		
 		try {
 			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, apply1Stat);
+			pstmt.setString(2, brandName);
+			
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -627,47 +641,17 @@ public class adminDao {
 			close(pstmt);
 		}
 		
-		
+		System.out.println("Dao에서 결과" + result);
 		
 		return result;
 	}
 
-	public ArrayList<HashMap<String, Object>> searchPro(Connection con, SearchProduct sp) {
+	public ArrayList<SearchProduct> searchPro(Connection con, SearchProduct sp) {
 		
 		Properties prop = new Properties();
 		String fileName =  adminDao.class
 				.getResource("/sql/admin/admin-query.properties")
 				.getPath();
-		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<SearchMember> list = null;
-		int i = 0;
-		
-		String query = prop.getProperty("searchProduct");
-		System.out.println("최종쿼리문 " + query);
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			
-			if(sp.getProductName().equals("") && sp.getAuthorName().equals("")) {
-				pstmt.setString(1, sp.getAuthorName());
-				
-			}else if(sp.getProductName().equals("")) {
-				
-			}else if(sp.getAuthorName().equals("")) {
-				
-			}else {
-				
-			}
-			
-			
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		
 		
 		try {
 			prop.load(new FileReader(fileName));
@@ -676,10 +660,101 @@ public class adminDao {
 			e.printStackTrace();
 		}
 		
-		return null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<SearchProduct> list = null;
+		int i = 0;
+		
+		System.out.println("111카테고리 " +sp.getCategory()); 
+		System.out.println("11작가유형 " +sp.getMaterial()); 
+		
+		String query = prop.getProperty("searchProduct");
+		System.out.println("최종쿼리문 " + query);
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			if(sp.getProductName().equals("") && sp.getAuthorName().equals("")) {
+				pstmt.setDate(1, sp.getProStart());
+				pstmt.setDate(2, sp.getProLast());
+				pstmt.setInt(3, sp.getProductValLow());
+				pstmt.setInt(4, sp.getProductValHigh());
+				pstmt.setString(5, sp.getMaterial());
+				pstmt.setString(6, sp.getCategory());
+
+			}else if(sp.getProductName().equals("")) {
+				pstmt.setString(1, sp.getAuthorName());
+				pstmt.setDate(2, sp.getProStart());
+				pstmt.setDate(3, sp.getProLast());
+				pstmt.setInt(4, sp.getProductValLow());
+				pstmt.setInt(5, sp.getProductValHigh());
+				pstmt.setString(6, sp.getMaterial());
+				pstmt.setString(7, sp.getCategory());
+				
+			}else if(sp.getAuthorName().equals("")) {
+				pstmt.setString(1, sp.getProductName());
+				pstmt.setDate(2, sp.getProStart());
+				pstmt.setDate(3, sp.getProLast());
+				pstmt.setInt(4, sp.getProductValLow());
+				pstmt.setInt(5, sp.getProductValHigh());
+				pstmt.setString(6, sp.getMaterial());
+				pstmt.setString(7, sp.getCategory());
+			}else {
+				pstmt.setString(1, sp.getProductName());
+				pstmt.setString(2, sp.getAuthorName());
+				pstmt.setDate(3, sp.getProStart());
+				pstmt.setDate(4, sp.getProLast());
+				pstmt.setInt(5, sp.getProductValLow());
+				pstmt.setInt(6, sp.getProductValHigh());
+				pstmt.setString(7, sp.getMaterial());
+				pstmt.setString(8, sp.getCategory());
+			}
+			
+			System.out.println("상품명 " + sp.getProductName());
+			System.out.println("작가명 " + sp.getAuthorName());
+			System.out.println("등록일 " + sp.getProStart());
+			System.out.println("등록일마감 " +sp.getProLast());
+			System.out.println("최소값 " + sp.getProductValLow());
+			System.out.println("최대값 " +sp.getProductValHigh()); 
+			System.out.println("카테고리 " +sp.getCategory()); 
+			System.out.println("작가유형 " +sp.getMaterial()); 
+			
+			rset = pstmt.executeQuery();
+			
+			
+			
+			
+			list = new ArrayList<SearchProduct>();
+			
+			while(rset.next()) {
+				System.out.println("돈다요 돈다요 리절트셑이 돈다요");
+				SearchProduct sm = new SearchProduct();
+				sm.setAuthorName(rset.getString("AUTHOR_NAME"));
+				sm.setMaterial(rset.getString("MATERIAL"));
+				sm.setProductValue(rset.getInt("PRICE"));
+				sm.setProductName(rset.getString("WORK_NAME"));
+				sm.setCategory(rset.getString("CATEGORY"));
+				sm.setProDateResult(rset.getDate("WR_DATE"));
+			
+				
+				list.add(sm);
+				
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rset);
+				
+			
+		}
+		System.out.println("Dao에서 result" + list);
+		return list;
+	
+
 	}
-
-
 
 }
 

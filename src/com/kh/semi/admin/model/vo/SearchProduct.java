@@ -13,7 +13,18 @@ public class SearchProduct {
 	private int productValHigh;
 	private int valResult;
 	private Date proDateResult;
+	private String material;
+	private String craft;
+	private int productValue;
 	
+	public int getProductValue() {
+		return productValue;
+	}
+
+	public void setProductValue(int productValue) {
+		this.productValue = productValue;
+	}
+
 	public SearchProduct() {}
 
 	public String getCategory() {
@@ -96,8 +107,25 @@ public class SearchProduct {
 		this.proDateResult = proDateResult;
 	}
 
+	public String getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(String material) {
+		this.material = material;
+	}
+
+	public String getCraft() {
+		return craft;
+	}
+
+	public void setCraft(String craft) {
+		this.craft = craft;
+	}
+
 	public SearchProduct(String category, String productType, String authorName, String productName, Date proStart,
-			Date proLast, int productValLow, int productValHigh, int valResult, Date proDateResult) {
+			Date proLast, int productValLow, int productValHigh, int valResult, Date proDateResult, String material,
+			String craft, int productValue) {
 		super();
 		this.category = category;
 		this.productType = productType;
@@ -107,8 +135,11 @@ public class SearchProduct {
 		this.proLast = proLast;
 		this.productValLow = productValLow;
 		this.productValHigh = productValHigh;
+		this.productValue = productValue;
 		this.valResult = valResult;
 		this.proDateResult = proDateResult;
+		this.material = material;
+		this.craft = craft;
 	}
 
 	@Override
@@ -116,8 +147,10 @@ public class SearchProduct {
 		return "SearchProduct [category=" + category + ", productType=" + productType + ", authorName=" + authorName
 				+ ", productName=" + productName + ", proStart=" + proStart + ", proLast=" + proLast
 				+ ", productValLow=" + productValLow + ", productValHigh=" + productValHigh + ", valResult=" + valResult
-				+ ", proDateResult=" + proDateResult + "]";
+				+ ", proDateResult=" + proDateResult + ", material=" + material + ", craft=" + craft + "]";
 	}
+
+	
 	
 	
 	
