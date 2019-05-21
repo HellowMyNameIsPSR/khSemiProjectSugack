@@ -26,9 +26,9 @@
 			<div class="inner">
 				<!-- Header -->
 				<header id="header">
-					<a href="authorHome.jsp" class="logo"> <span
-						class="glyphicon glyphicon-home"></span> &nbsp; 
-						<strong style="font-size: 20px;">HOME</strong>
+					<a href="/sg/views/author/authorHome.jsp" class="logo"> <span
+						class="glyphicon glyphicon-home"></span> &nbsp; <strong
+						style="font-size: 20px;">HOME</strong>
 					</a>
 				</header>
 				<section id="contents">
@@ -41,13 +41,13 @@
 						<div class="menuDiv">
 							<table class="saliMenu">
 								<tr>
-									<td class="menuA" onClick = " location.href='manageSale.jsp'">주문조회</td>
-									<td class="menuA" onClick = " location.href='manageSaleExchange.jsp'">교환관리</td>
-									<td class="menuA" onClick = " location.href='manageSaleReturn.jsp'">반품관리</td>
-									<td class="menuA" onClick = " location.href='manageSaleCancel.jsp'">취소관리</td>
+									<td class="menuA" onClick = "location.href='<%=request.getContextPath()%>/selectOrderList.wo'">주문조회</td>
+									<td class="menuA" onClick = "location.href='<%=request.getContextPath()%>/selectExchangeList.wo'">환불관리</td>
+									<td class="menuA" onClick = "location.href=''">교환관리</td>
+									<td class="menuA" onClick = "location.href=''">취소관리</td>
 								</tr>
 							</table>
-							</div>
+						</div>
 					</nav>
 					<div class="manageSaleTitle">
 						<h2>주문 조회</h2>
@@ -89,20 +89,20 @@
 								<td>0</td><td>OD_ID(ORDER_LIST)</td><td>PAY_DATE(PAYMENT)</td><td>WORK_NAME(WORK)</td><td>MEMBER_ID(MEMBER)</td><td>DELI_STATUS(DELIVERY)</td>
 							</tr> -->
 							<%
-									int num = 0;
-								 	for(int i = 0; i < list.size(); i++){
-								 		HashMap<String, Object> hmap = list.get(i);
-									num++;
-								 %>
-								<tr>
-									<td><%= num %></td>
-									<td><%= hmap.get("odId") %></td>
-									<td><%= hmap.get("payDate") %></td>
-									<td><%= hmap.get("workName") %></td>
-									<td><%= hmap.get("memberId") %></td>
-									<td><%= hmap.get("deliStatus") %></td>
-								</tr>
-								<% } %> 
+								int num = 0;
+							 	for(int i = 0; i < list.size(); i++){
+							 		HashMap<String, Object> hmap = list.get(i);
+								num++;
+							 %>
+							<tr>
+								<td><%= num %></td>
+								<td><%= hmap.get("odId") %></td>
+								<td><%= hmap.get("payDate") %></td>
+								<td><%= hmap.get("workName") %></td>
+								<td><%= hmap.get("memberId") %></td>
+								<td><%= hmap.get("deliStatus") %></td>
+							</tr>
+							<% } %> 
 						</table>
 					</div>
 					

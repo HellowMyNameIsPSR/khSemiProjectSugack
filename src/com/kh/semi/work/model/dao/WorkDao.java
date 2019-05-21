@@ -107,7 +107,7 @@ public class WorkDao {
 	}
 
 	//판매작품관리 리스트 보기용 메소드
-	public ArrayList<Work> selectSalesList(Connection con, PageInfo pi) {
+	public ArrayList<Work> selectSalesList(Connection con, PageInfo pi, String memberId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Work> list = null;
@@ -117,10 +117,12 @@ public class WorkDao {
 		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
 		int endRow = startRow + pi.getLimit() - 1;
 		
+		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
@@ -135,6 +137,7 @@ public class WorkDao {
 				work.setWrDate(rset.getDate("WR_DATE"));
 
 				list.add(work);
+				
 			}
 			
 		} catch (SQLException e) {
@@ -146,16 +149,17 @@ public class WorkDao {
 		return list;
 	}
 
-	public int getListCount(Connection con) {
-		Statement stmt = null;
+	public int getListCount(Connection con, String memberId) {
+		PreparedStatement pstmt = null;
 		int listCount = 0;
 		ResultSet rset = null;
 		
 		String query = prop.getProperty("listCount");
 		
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				listCount = rset.getInt(1);
@@ -164,7 +168,7 @@ public class WorkDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 		
@@ -505,7 +509,7 @@ public class WorkDao {
 		return list;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectOrderList(Connection con, PageInfo pi) {
+	public ArrayList<HashMap<String, Object>> selectOrderList(Connection con, PageInfo pi, String memberId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<HashMap<String, Object>> list = null;
@@ -516,10 +520,14 @@ public class WorkDao {
 		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
 		int endRow = startRow + pi.getLimit() - 1;
 		
+		System.out.println("스타트 : " + startRow);
+		System.out.println("엔드 : " + endRow);
+		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
+			pstmt.setInt(3, Integer.parseInt(memberId));
 			
 			rset = pstmt.executeQuery();
 			
@@ -531,12 +539,83 @@ public class WorkDao {
 				hmap.put("odId", rset.getInt("OD_ID"));
 				hmap.put("payDate", rset.getDate("PAY_DATE"));
 				hmap.put("workName", rset.getString("WORK_NAME"));
-				hmap.put("memberId", "박상언");
+				hmap.put("memberId", rset.getString("MEMBER_NAME"));
 				hmap.put("deliStatus", rset.getString("DELI_STATUS"));
 				
 				list.add(hmap);
+				
+				System.out.println("dao 리스트 사이즈 " + list.size());
 			}
 			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int orderListCount(Connection con, String memberId) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("orderlistCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectExchangeList(Connection con, PageInfo pi, String memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectExchangeList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			pstmt.setInt(3, Integer.parseInt(memberId));
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()){
+				hmap = new HashMap<String, Object>();
+				hmap.put("odId", rset.getInt("OD_ID"));
+				hmap.put("refundEnddate", rset.getDate("REFUND_ENDDATE"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("count", rset.getInt("COUNT"));
+				hmap.put("memberName", rset.getString("MEMBER_NAME"));
+				hmap.put("refundDate", rset.getString("REFUND_DATE"));
+				hmap.put("refundReason", rset.getString("REFUND_REASON"));
+				
+				list.add(hmap);
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -547,16 +626,17 @@ public class WorkDao {
 		return list;
 	}
 
-	public int orderListCount(Connection con) {
-		Statement stmt = null;
+	public int exchangeListCount(Connection con, String memberId) {
+		PreparedStatement pstmt = null;
 		int listCount = 0;
 		ResultSet rset = null;
 		
-		String query = prop.getProperty("orderListCount");
+		String query = prop.getProperty("exchangeListCount");
 		
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				listCount = rset.getInt(1);
@@ -565,7 +645,7 @@ public class WorkDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 		
