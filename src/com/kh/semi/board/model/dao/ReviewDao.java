@@ -210,6 +210,28 @@ public class ReviewDao {
 		return list;
 	}
 
+	public int deleteReview(Connection con, int memberId, int workId) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteReview");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			pstmt.setInt(2, workId);
+			
+			result = pstmt.executeUpdate();
+			System.out.println("ReviewDao에서 result: "+result);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
 	
 
 	

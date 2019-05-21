@@ -16,7 +16,9 @@
 	#logoImg{
 		cursor:pointer;
 		margin:0px 0px 0px 7%;
+		width:150px;
 		height:100px;
+		width:150px;
 	}
 	.topMemu{
 		margin-right:5%;
@@ -209,7 +211,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="<%= request.getContextPath() %>/views/application/getPTypeList.jsp">
+						<a href="<%= request.getContextPath() %>/views/application/checkApply.jsp">
 							<span class="glyphicon glyphicon-tree-deciduous"></span> &nbsp; 입점신청
 						</a>
 					</li>
@@ -230,7 +232,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="<%= request.getContextPath() %>/views/application/getPTypeList.jsp">
+						<a href="<%= request.getContextPath() %>/views/application/checkApply.jsp">
 							<span class="glyphicon glyphicon-tree-deciduous"></span> &nbsp; 입점신청
 						</a>
 					</li>
@@ -253,7 +255,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="<%= request.getContextPath() %>/views/member/cart.jsp">
+							<a href="<%= request.getContextPath() %>/selectCartList.me">
 								<span class="glyphicon glyphicon-shopping-cart"></span><br><span style="font-size:12px;">장바구니</span>
 							</a>
 						</li>
@@ -277,7 +279,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="<%= request.getContextPath() %>/views/member/cart.jsp">
+							<a href="<%= request.getContextPath() %>/selectCartList.me">
 								<span class="glyphicon glyphicon-shopping-cart middleIcon"></span><br>장바구니
 							</a>
 						</li>
@@ -303,7 +305,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="<%= request.getContextPath() %>/views/member/cart.jsp">
+							<a href="<%= request.getContextPath() %>/selectCartList.me">
 								<span class="glyphicon glyphicon-shopping-cart"></span><br><span style="font-size:12px;">장바구니</span>
 							</a>
 						</li>
@@ -328,7 +330,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="<%= request.getContextPath() %>/views/member/cart.jsp">
+							<a href="<%= request.getContextPath() %>/selectCartList.me">
 								<span class="glyphicon glyphicon-shopping-cart middleIcon"></span><br>장바구니
 							</a>
 						</li>
@@ -422,7 +424,7 @@
 							</li>
 							<li><a href="<%=request.getContextPath()%>/selectProduct.pro">판매</a>
 							<li><a href="<%=request.getContextPath()%>/views/fundingProduct/fundingProducts.jsp">펀딩</a></li>
-							<li><a href="<%=request.getContextPath()%>/views/tour/authorpageMain.jsp">작가이야기</a></li>
+							<li><a href="<%= request.getContextPath()%>/selectAuthorPage.tn">작가이야기</a></li>
 							<li><a href="#contact">About</a></li>
 						</ul>
 					</div>

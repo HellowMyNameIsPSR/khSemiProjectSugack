@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.work.model.service.WorkService;
 import com.kh.semi.work.model.vo.PageInfo;
 
@@ -26,16 +27,16 @@ public class SelectOrderListServlet extends HttpServlet {
 		int startPage;			//한번에 표시될 페이지가 시작할 페이지
 		int endPage;			//한번에 표시될 페이지가 끝나는 페이지
 		
-		
+		String memberId = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberId());
 		
 		currentPage = 1;
 		if(request.getParameter("currentPage") != null){
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		limit = 9;
+		limit = 10;
 		
-		int listCount = new WorkService().orderListCount();
+		int listCount = new WorkService().orderListCount(memberId);
 		
 		maxPage = (int)((double)listCount/limit + 0.9);
 		
@@ -48,7 +49,8 @@ public class SelectOrderListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
-		ArrayList<HashMap<String, Object>> list = new WorkService().selectOrderList(pi);
+		ArrayList<HashMap<String, Object>> list = new WorkService().selectOrderList(pi, memberId);
+		
 		
 		/*System.out.println("currentPage : " + currentPage);
 		System.out.println("limit : " + limit);

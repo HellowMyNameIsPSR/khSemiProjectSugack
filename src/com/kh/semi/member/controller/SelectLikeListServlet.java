@@ -39,14 +39,15 @@ public class SelectLikeListServlet extends HttpServlet {
 		
 		String page="";
 		
-		if(list!=null) {
+		if((list.size() > 0)) {
 			page = "views/board/likePro.jsp";
 			request.setAttribute("list", list);
 			request.getRequestDispatcher(page).forward(request, response);
 			
 		}else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "관심상품 조회 실패!");
+		
+			request.setAttribute("msg", "등록된 관심상품이 없습니다!");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
 		/*RequestDispatcher view = (RequestDispatcher) request.getRequestDispatcher(page);

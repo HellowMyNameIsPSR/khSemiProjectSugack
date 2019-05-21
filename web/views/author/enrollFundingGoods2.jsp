@@ -1,17 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>수작 - 펀딩 작품 등록2</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-	<%@ include file="stylesheet/eroll.html" %>
-	<%@ include file="../assets/css/allCss.html" %>
-</head>
-<body class="is-preload">
+
 <!-- Wrapper -->
 	<div id="wrapper">
 		<!-- Main -->
@@ -171,5 +161,3 @@
 		});
 	});
 	</script>
-</body>
-</html>

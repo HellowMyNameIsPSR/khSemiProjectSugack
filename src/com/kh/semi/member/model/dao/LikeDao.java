@@ -70,6 +70,7 @@ public class LikeDao {
 				hmap.put("workName", rset.getString("WORK_NAME"));
 				hmap.put("price", rset.getInt("PRICE"));
 				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				//hmap.put("memberId", rset.getInt(memberId));
 				
 				list.add(hmap);
 			}
@@ -83,6 +84,28 @@ public class LikeDao {
 		
 		
 		return list;
+	}
+
+	public int deleteLike(Connection con, int memberId, int workId) {
+		PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("deleteLike");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			pstmt.setInt(2, workId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 }

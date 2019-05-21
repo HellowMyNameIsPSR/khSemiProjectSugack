@@ -12,7 +12,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
  <style>
 	
@@ -168,7 +168,7 @@
     <!-- <div class="co1sl-sm-1"></div> --> 
   </div>	
 
-</div>
+
 
 <script>
 	$(".mainImg").click(function(){
@@ -193,9 +193,9 @@
 	
 	
 	
-	function heartyn(){
+	 function heartyn(){
 		
-		var ctn = 2;
+		/* var ctn = 2;
 		
 			if(ctn%2==0){
 				
@@ -209,10 +209,28 @@
 				
 			}
 			
-			ctn++;
+			ctn++; */
+		<% HashMap<String, Object> work = (HashMap<String, Object>)list.get(0); %>
+		<%if(loginUser != null ){%>
+   		 var memberId = <%=loginUser.getMemberId()%>;
+   	 	 var workId = <%=work.get("workId")%>;
+   	 <%--  var price = <%=work.get("price")%>;
+   	 var deliPrice =<%=work.get("deliPrice")%>; --%>
+   	 
+   	 $.ajax({
+   		 url:"<%=request.getContextPath()%>/insertLike.me?<%=work.get("workId")%>",
+   		 data:{memberId:memberId, workId:workId/* , price:price, deliPrice:deliPrice */},
+   		 type:"post",
+   		 success:function(data){
+   			 alert("관심상품 추가!");
+   		 },error:function(){
+   			 alert("실패");1
+   		 }
+   	 })
+   	 <%}%>
 			
 		
-	} 
+	}  
 </script>	
 
 </body>

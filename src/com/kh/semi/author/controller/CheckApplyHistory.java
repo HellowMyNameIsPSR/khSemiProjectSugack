@@ -40,13 +40,24 @@ public class CheckApplyHistory extends HttpServlet {
 			ArrayList<ApplyHistory> list = 
 					new AuthorService()
 					.selectOneAuthorApply(((Member) request.getSession().getAttribute("loginUser")).getMemberId());
-			
-			if(list != null && !list.get(0).getApplyStat2().equals("승인")) {
-				request.setAttribute("applyHistory", list);
-				page = "views/application/application2.jsp";
-				request.getRequestDispatcher(page).forward(request, response);
+			System.out.println(list.isEmpty());
+			if(!list.isEmpty()) {
+				if(!list.get(0).getApplyStat2().equals("승인")) {
+					int index = 0;
+					for(int i = 0; i < list.size(); i++){
+						if(list.get(i).getFileType().equals("브랜드로고")){
+							index = i;
+						} //end if
+					} //end for
+					request.setAttribute("index", index);
+					request.setAttribute("applyHistory", list);
+					page = "views/application/application2.jsp";
+					request.getRequestDispatcher(page).forward(request, response);
+				} else {
+					response.sendRedirect("views/author/authorHome.jsp");
+				}
 			} else {
-				response.sendRedirect("views/author/authorHome.jsp");
+				response.sendRedirect(request.getContextPath() + "/selectproptype.at");
 			}
 		} else {
 			response.sendRedirect(request.getContextPath() + "/selectproptype.at");

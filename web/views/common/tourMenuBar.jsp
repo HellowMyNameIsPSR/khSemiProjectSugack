@@ -29,17 +29,16 @@
 				<li>
 					<span class="opener">작품갤러리</span>
 					<ul>
-						<li><a href="comingSoonproduct.jsp">출시전 작품</a>
+						<li><a href="views/tour/comingSoonproduct.jsp">출시전 작품</a>
 						<li><a href="fundingProducts.jsp">펀딩상품</a>
 						<li><a href="proDuct.jsp">판매 상품</a>
 					</ul>
 				</li>
 				<li>
-					<span ><a href="comMent.jsp">응원하기 조회및 등록</a></span>
+					<span ><a href="../views/tour/comMent.jsp">응원하기 </a></span>
 				
 				</li>
-				<li>
-					<span ><a href="commentEdit.jsp">응원하기 수정및 삭제</a></span>
+				<li>      
 				
 				</li>
 				<li>

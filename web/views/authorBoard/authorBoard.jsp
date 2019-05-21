@@ -10,10 +10,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<%-- <%@ include file="../assets/css/allCss.html" %> --%>
  <style>
 	
     
@@ -33,26 +36,26 @@
       }
       .row.content {height:auto;} 
     } */
-    .navdiv{
+    /* .navdiv{
     	height:200px;
     	background:black;
-    }
-    .container{
+    } */
+    /* .container{
     	background:gray;
     	
     	
-    }
+    } */
     /* .row{
     margin-left:70px;
     	/* height:400px; */
-    	padding:10px;
-    } */
+   /*  	padding:10px;
+    } */ */
     select{
     	margin-top:10px;
     	height:70%;
     }
     
-    .col-sm-4{
+    /* .col-sm-4{ */
     	/* margin-left:30px;
     	margin-right:30px;
     	margin-bottom:23px; */
@@ -61,9 +64,9 @@
     	
     }
     
-    .row{
+   /*  .row{
     	background:yellow;
-    	/* margin:10px; */
+    	/* margin:10px; */ 
     	
     }
     .content{
@@ -77,6 +80,8 @@
 <body>
 <div class="navdiv">
  
+ 
+ <%@ include file="../main/mainMenubar.jsp"%>
 </div> 
 <div class="container">
 
@@ -98,7 +103,7 @@
    				System.out.println("hmap: "+hmap);
    				%>
     <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-   		<div class="content" style="background-color:green; height:300px; width:100%">
+   		<div class="content" style="background-color:#FFFFFF; height:300px; width:100%">
    			
    			
    			<div class="mainImg" style="height:200px;">
@@ -124,29 +129,29 @@
     
     
     <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
+    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
     </div>
     <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
+    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
     </div>
     <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
+    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
     </div>
     <!-- <div class="col-sm-1"></div> -->
   </div>
   <div class="row">
     <!-- <div class="col-sm-1"></div> -->
     <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
+    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
     </div>
     <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
+    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
     </div>
     <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
+    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
     </div>
     <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
+    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
     </div>
     <!-- <div class="col-sm-1"></div> -->
   </div>
@@ -156,16 +161,16 @@
     <div class="col-sm-4" style="background-color:lavender;width:420px; height:380px;">.col-sm-4</div>  -->
     <!--  <div class="col-sm-1"></div> -->
     <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
+    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
     </div>
     <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
+    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
     </div>
     <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
+    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
     </div>
     <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
+    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
     </div>
     <!-- <div class="co1sl-sm-1"></div> --> 
   </div>	

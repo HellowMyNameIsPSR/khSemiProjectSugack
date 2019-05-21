@@ -15,7 +15,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>문의 내역 상세보기!</title>
+<title>문의 내역 상세보기</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <style>
 	.outer{
@@ -54,14 +54,15 @@
 	<div class="outer">
 		<br>
 		<div align="float:left">
-			<button onclick="location.href='<%=request.getContextPath()%>/selectProQna.bo'">메뉴로 돌아가기</button>
+		<img src="views/images/left-arrow.png" style="width:50px; height:50px;" onclick="location.href='<%=request.getContextPath()%>/selectProQna.bo'">
+		<%-- 	<button style="background:#bcd5e8;  border-radius:15px;height:50px; color:white" onclick="location.href='<%=request.getContextPath()%>/selectProQna.bo'">메뉴로 돌아가기</button> --%>
 		</div>
-		<h2 align="center">문의내역 상세보기!</h2>
+		<h2 align="center">문의내역 상세보기</h2>
 		<div class="tableArea">
 			<table align="center" width="800px">
 				<tr>
 					<td colspan="2">문의종류</td>
-					<td><span><%=qna.getCategory() %></span></td>
+					<td colspan="2"><span><%=qna.getCategory() %></span></td>
 					<%-- <td>제목</td>
 					<td colspan="3"><span><%=qna.getbTitle() %></span></td> --%>
 				</tr>
@@ -97,7 +98,7 @@
 					<td>
 						<textarea rows="3" cols="80" id="replyContent" name="reply"></textarea>
 					</td>
-					<td><button id="addReply">댓글 등록</button></td>
+					<td><button id="addReply" style="color:gray; background:lightgray; width:50px; height:50px;">댓글 등록</button></td>
 				</tr>
 			</table>
 		</div>
@@ -156,7 +157,7 @@
 						console.log(s); */
 						//console.log("ajax까지 성공: "+data)
 						if(data == "ok"){
-        					
+							location.reload();
 							//self.close();
 							
 						}else if(data =="fail") {

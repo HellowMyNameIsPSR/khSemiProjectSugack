@@ -372,7 +372,6 @@ public class MemberDao {
 		} finally {
 			close(rset);
 			close(pstmt);
-			
 		}
 		
 		return list;

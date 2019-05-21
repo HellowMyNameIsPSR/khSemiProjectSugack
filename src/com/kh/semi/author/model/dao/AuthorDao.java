@@ -238,4 +238,22 @@ public class AuthorDao {
 		return result;
 	}
 
+	//2차신청상태 대기로 변경하기
+	public int updateAuthorApplyStat2(Connection con, int memberId) {
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("updateAuthorApplyStat2");
+		int result = 0;
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "대기");
+			pstmt.setInt(2, memberId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 } //end class

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.kh.semi.board.model.vo.*"   %>
+<%
+Board b =(Board)request.getAttribute("b");
+%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,8 +50,7 @@
 
 						</div>
 
-						<div class="row"
-							style="border: 1px solid black; width: 1100px; height: 200px;">
+						
                             
 							<div class="nick"
 								style="width: 100%; height: 50px; padding: 5px;">
@@ -63,7 +65,7 @@
 								style="float: right; width: 120px; height: 100px; margin-left: 10px;">
 								<button id="addReply" style="width: 100px; height: 100px;">등록</button>
 							</div>
-						</div>
+						
 
 						<br>
 
@@ -206,16 +208,16 @@
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 		
-	<script>
+	<%-- <script>
 	 $(function(){
 		 $("#addReply").click(function(){
-			 var writer = 
+			 var writer = <%=%>;
 			 
 		 })
 	 })
 	
 	</script>	
-		
+		 --%>
 		
 
 
