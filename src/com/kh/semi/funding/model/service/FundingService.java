@@ -1,6 +1,9 @@
 package com.kh.semi.funding.model.service;
 
-import static com.kh.semi.common.JDBCTemplate.*;
+import static com.kh.semi.common.JDBCTemplate.close;
+import static com.kh.semi.common.JDBCTemplate.commit;
+import static com.kh.semi.common.JDBCTemplate.getConnection;
+import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -68,7 +71,10 @@ public class FundingService {
 		Connection con = getConnection();
 		
 		ArrayList<HashMap<String,Object>> list = new FundingDao().selectFundingProDetailList(con,workId);
-
+		close(con);
+		return list;
+	}
+	
 	//등록된 펀딩 작품 내역의 상태가 '대기' 상태 인 것을 최신 순으로 정렬합니다.
 	public ArrayList<SortFunding> selectSortFunding(int memberId, SortFunding sortFunding) {
 		Connection con = getConnection();
