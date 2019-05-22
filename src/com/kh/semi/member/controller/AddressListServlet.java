@@ -31,7 +31,7 @@ public class AddressListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		int num = 0;
 		int memberId = Integer.parseInt(request.getParameter("num"));
 		System.out.println(memberId);
 		ArrayList<Address> list = new MemberService().addressList(memberId);
