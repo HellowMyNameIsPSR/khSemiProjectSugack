@@ -14,7 +14,7 @@ import com.kh.semi.board.model.vo.ProQna;
 import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class InsertProQnaServlet
+ * Servlet implementation class InsertProQnaServlet!
  */
 @WebServlet("/insertProQna.bo")
 public class InsertProQnaServlet extends HttpServlet {

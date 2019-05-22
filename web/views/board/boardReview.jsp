@@ -6,7 +6,7 @@
 	
 	
 %>
-<!-- r객체가 여러개있는 list인데,  r객체에있는 정보들을 가지고있다!(DAO에서 채워준 rset) -->
+<!-- r객체가 여러개있는 list인데,  r객체에있는 정보들을 가지고있다!(DAO에서 채워준 rset) -->!
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +17,11 @@
 	.outer{
 		border:1px solid lightgray;
 		width:80%;
-		height:250px;
+		height:340px;
 		background:#AEE0FF;
+		margin-left:10px;
+		padding:5px;
+		padding-left:10px;
 	}
 	.img{
 		width:100px;
@@ -30,14 +33,15 @@
 	.textarea{
 		/* background:black; */
 		margin-left:20px;
-		margin-top:10px;	
+		margin-top:-60px;
 		width:95%;
-		height:80px;
+		height:90px;
 	}
 	
 	.proName{
 		margin-left:20px;
-		margin-top:10px;	
+		margin-top:20px;	
+		height:200px;
 	}
 	.btn{
 		float:right;
@@ -46,6 +50,11 @@
 		font-size:30px;
 	}
 	
+	.btns{
+	
+		width:100px;
+		height:50px;
+	}
 
 </style>
 </head>
@@ -70,7 +79,7 @@
 				
 				<section id="contents">
 				 <% for(Review review : list){ %> 
-					<div class="outer" style="margin-bottom:10px;">
+					<div class="outer" style="margin-bottom:140px;">
 					
 						<div class="row">
 						<!-- <div class="img">
@@ -90,11 +99,11 @@
 							</div>
 							
 						</div>
-						<div class="Btn" style="float:right; background:yellow; margin-right:30px;" >
+						<div class="Btn" style="float:right; background:yellow; margin-right:30px; margin-top:20px;" >
 								<input type="hidden" value="<%=review.getWorkId()%>">
-								<button onclick="eidt();">수정하기</button>
+								<button onclick="eidt();" class="btns">수정하기</button>
 								
-								<button class="delete">삭제하기</button>
+								<button class="delete btns">삭제하기</button>
 								
 						</div>
 						<!-- <div class="btn">

@@ -18,11 +18,13 @@ public class Product implements java.io.Serializable{
 	private int cid;
 	private int typeId;
 	private String changeName;
+	private String category;
+	
 	
 	public Product() {}
 
 	public Product(int workId, String workName, String workContent, int deliPrice, Date wrDate, Date rsDate,
-			int maxCount, Date csDate, String workKind, int memberId, int price, int cid, int typeId , String changeName) {
+			int maxCount, Date csDate, String workKind, int memberId, int price, int cid, int typeId , String changeName, String category) {
 		super();
 		this.workId = workId;
 		this.workName = workName;
@@ -38,6 +40,19 @@ public class Product implements java.io.Serializable{
 		this.cid = cid;
 		this.typeId = typeId;
 		this.changeName = changeName;
+		this.category = category;
+		
+	}
+
+	
+	
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public int getWorkId() {
@@ -157,8 +172,10 @@ public class Product implements java.io.Serializable{
 		return "Product [workId=" + workId + ", workName=" + workName + ", workContent=" + workContent + ", deliPrice="
 				+ deliPrice + ", wrDate=" + wrDate + ", rsDate=" + rsDate + ", maxCount=" + maxCount + ", csDate="
 				+ csDate + ", workKind=" + workKind + ", memberId=" + memberId + ", price=" + price + ", cid=" + cid
-				+ ", typeId=" + typeId + "]";
+				+ ", typeId=" + typeId + ", changeName=" + changeName + ", category=" + category + "]";
 	}
+
+	
 	
 	
 

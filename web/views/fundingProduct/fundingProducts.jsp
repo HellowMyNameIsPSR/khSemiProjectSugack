@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*"%>
+<%
+	ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String,Object>>) request.getAttribute("list");
+	System.out.println("fundingProducts.jsp: " + list);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,16 +37,8 @@
     	height:200px;
     	background:black;
     }
-    .container{
-    	background:gray;
-    	
-    	
-    }
-    /* .row{
-    margin-left:70px;
-    	/* height:400px; */
-    	padding:10px;
-    } */
+    
+  
     select{
     	margin-top:10px;
     	height:70%;
@@ -58,7 +54,7 @@
     }
     
     .row{
-    	background:yellow;
+    	margin-top:30px;
     	/* margin:10px; */
     	
     }
@@ -66,6 +62,41 @@
     	margin:auto;
     	margin-top:10px;
     }
+    /* 여기서부터 붙여넣기 시작 */
+    .workList {
+	cursor:pointer;
+	border-radius: 100px 5px 5px 5px;
+	border:1px solid #727272;
+	width: 100%;
+	height: 100%;
+	background: radial-gradient(white, #E6F3FE) fixed;
+	}
+	
+	.workList tr>td{
+	padding:5px 5px 5px 5px;
+}
+
+.cFont {
+	font-size: 12px;
+	color: lightgray;
+	text-align: left;
+	padding-left: 10px;
+}
+
+.nFont {
+	font-size:13px;
+	border-top: 1px solid lightgray;
+	text-align: left;
+	height:50px;
+}
+
+.lFont {
+	border-top: 1px solid lightgray;
+	font-size: 12px;
+	text-align: left;
+	padding-left: 10px;
+	color: lightgray;
+}
     
     
     .information{
@@ -75,104 +106,52 @@
 
 </head>
 <body>
-<div class="navdiv">
+	  <%@ include file="../main/mainMenubar.jsp" %>
+	
  
-</div> 
 <div class="container">
 
-  <div class="select" style="width:100%; height:50px; background:beige;">
-    
-   
+
     <select style="width:100%; height:30px; margin-top:10px;">
 		<option value="pop">인기순</option>
 		<option value="new">최신순</option>
 		<option value="low">낮은가격순</option>
 		<option value="high">높은가격순</option>
 	</select>
- 	</div>
+
   <div class="row">
-  	<!-- <div class="col-sm-1"></div> -->
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-   		<div class="content" style="background-color:green; height:300px; width:100%">
-   			<img src="../images/heart.png" style="float:right;width:30px; height:30px; ">
-   			<div class="img" style="height:200px;">
-   			
-   			<img src="../images/tvxq.jpg" style="width:100%; height:80%; align:center" >
-   			
-   			</div>
-   			<div class="proName" style="height:40px;">
-   				<p style="text-align:center; font-size:15px; margin-top:5px;">품명</p>
-   			</div>
-   			<div class="heart" style="padding:7px; height:50px; width:40px; float:right; " >
-   				<!-- <img src="../images/heart.png" style="width:30px; height:30px; "> -->
-   			</div>
-   			<div class="orderPrice">
-   			<div class="order" style="height:60px; margin-top:-10px; float:left;">
-   				<p style="font-size:15px;  margin-left:10px;">주문량  <br>&nbsp;: 70%</p>
-   			</div>
-   				
-   				<div class="price"style="height:60px; margin-top:-10px;  float:right; ">
-   				<p style="font-size:15px; margin-right:-25px;">5000원</p>
-   				</div>
-   			
-   			</div>	
-   			
-   			
-   		</div>
+  	<!-- <div class="col-sm-1"></div>@ -->
+  	
+		<%for (int i=0; i<list.size(); i++){ 
+			HashMap<String,Object> hmap = list.get(i);
+		%>
+
+   		<div class="col-sm-3 col-xs-6 mainImg">
+   			<input type="hidden" value="<%=hmap.get("workId")%>">
+					<table class="workList">
+						<tr><td class="workTd" colspan="2" style="widt:150px; height:150px;">
+							<img class="fundImg" src="<%=request.getContextPath()%>/uploadFundingGoodsImg/<%=hmap.get("changeName")%>" style="width:100%;height:100%;">
+						</td></tr>
+						<tr><td colspan="2" class="cFont"><%=hmap.get("category")%></td></tr>
+						<tr><td colspan="2" class="nFont">작가명: <%=hmap.get("memberName") %></td></tr>
+						<tr>
+							<td class="lFont">좋아요</td>
+							<td><span style="margin-left:-160px; color:red; text-align:right;"class="glyphicon glyphicon-heart"></span></td></tr>
+					</table>
+					<br>
+				</div>
     	
+
+    <%-- <%} %> --%>
+    <%} %>
     </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <!-- <div class="col-sm-1"></div> -->
-  </div>
-  <div class="row">
-    <!-- <div class="col-sm-1"></div> -->
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <!-- <div class="col-sm-1"></div> -->
-  </div>
-  <div class="row">
-   <!--  <div class="col-sm-4" style="background-color:lavender;width:420px; height:380px;">.col-sm-4</div>
-    <div class="col-sm-4" style="background-color:lavenderblush;width:420px; height:380px;">.col-sm-4</div>
-    <div class="col-sm-4" style="background-color:lavender;width:420px; height:380px;">.col-sm-4</div>  -->
-    <!--  <div class="col-sm-1"></div> -->
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:green; height:300px; width:100%"></div>
-    </div>
-    <!-- <div class="col-sm-1"></div> --> 
-  </div>	
- 
+
 </div>
 <script>
-	$(".product").click(function(){
+	$(".mainImg").click(function(){
 		//해당 상세 페이지로 가기
-		location.href="fundingProductDetail.jsp";
+		var workId = $(this).children().val();
+		location.href="<%=request.getContextPath()%>/selectFundingProDetail.pro?workId="+ workId; 
 	});
 </script>
 

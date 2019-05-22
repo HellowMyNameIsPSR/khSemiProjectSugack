@@ -15,7 +15,7 @@ import com.kh.semi.board.model.service.ReviewService;
 import com.kh.semi.board.model.vo.Review;
 
 /**
- * Servlet implementation class InsertReviewServlet
+ * Servlet implementation class InsertReviewServlet!
  */
 @WebServlet("/insertReview.bo")
 

@@ -15,7 +15,7 @@ import com.kh.semi.board.model.vo.ProQnaComment;
 import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class SelectOneProQnaServlet
+ * Servlet implementation class SelectOneProQnaServlet!
  */
 @WebServlet("/selectOne.bo")
 public class SelectOneProQnaServlet extends HttpServlet {

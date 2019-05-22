@@ -213,6 +213,7 @@ public class ReviewDao {
 	public int deleteReview(Connection con, int memberId, int workId) {
 		
 		PreparedStatement pstmt = null;
+		
 		int result = 0;
 		
 		String query = prop.getProperty("deleteReview");
@@ -230,6 +231,43 @@ public class ReviewDao {
 		}
 		
 		return result;
+	}
+
+	
+	public ArrayList<Review> selectAllReview(Connection con, int workId) {
+		PreparedStatement pstmt = null;
+		ArrayList<Review> list = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectAllReview");
+		
+		System.out.println("Dao에서 입력받은 값" + workId);
+		System.out.println("Dao에서 쿼리문" + query);
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, workId);
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Review>();
+			
+			while(rset.next()) {
+				Review r = new Review();
+				
+				r.setWriteDate(rset.getDate("WRITE_DATE"));
+				r.setContent(rset.getString("CONTENT"));
+				r.setWriter(rset.getString("MEMBER_NAME"));
+				r.setStarPoint(rset.getString("STAR_POINT"));
+				
+				System.out.println("rset이도는가?" + r);
+				list.add(r);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block!
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	

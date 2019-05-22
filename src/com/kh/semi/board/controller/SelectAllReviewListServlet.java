@@ -10,57 +10,47 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.semi.board.model.dao.ReviewDao;
+import com.google.gson.GsonBuilder;
 import com.kh.semi.board.model.service.ReviewService;
 import com.kh.semi.board.model.vo.Review;
-import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class SelectReviewServlet!
+ * Servlet implementation class SelectAllReviewListServlet
  */
-@WebServlet("/selectReview.co")
-public class SelectReviewServlet extends HttpServlet {
+@WebServlet("/selectAllReview.bo")
+public class SelectAllReviewListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectReviewServlet() {
+    public SelectAllReviewListServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        // TODO Auto-generated constructor stub!
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member user = (Member)request.getSession().getAttribute("loginUser");
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		int workId = Integer.parseInt(request.getParameter("workId"));
+		ArrayList<Review> list = new ReviewService().selectAllReview(workId);
 		
-		int memberId = user.getMemberId();
-		//int workId = Integer.parseInt(request.getParameter("workId"));
+		response.setContentType("application/json");
+		Gson gson= new GsonBuilder().setDateFormat("yyyy년-MM월-dd일").create();
+		gson.toJson(list, response.getWriter());
+		System.out.println("서블릿에서 보내주는가" + list);
 		
-		ArrayList<Review> reviewList = new ReviewService().selectMyReviewList(memberId);
 		
-		System.out.println("dao에서 가져왔니?" + reviewList);
-		String page="";
-		if(reviewList !=null) {
-			page ="views/board/boardReview.jsp";
-			request.setAttribute("list", reviewList);
-			request.getRequestDispatcher(page).forward(request, response);
-			
-			System.out.println("SelectServlet : "+reviewList);
-			
-		}else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "리뷰 조회 실패!");
-		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-genedratwed method stub
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

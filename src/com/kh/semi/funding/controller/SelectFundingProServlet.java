@@ -1,7 +1,8 @@
-package com.kh.semi.board.controller;
+package com.kh.semi.funding.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,55 +11,58 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import com.kh.semi.board.model.service.ProQnaService;
-import com.kh.semi.board.model.vo.ProQna;
-import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.funding.model.service.FundingService;
 
 /**
- * Servlet implementation class SelectProQnaServlet
+ * Servlet implementation class SelectFundingProServlet
  */
-@WebServlet("/selectProQna.bo")
-public class SelectProQnaServlet extends HttpServlet {
+@WebServlet("/selectProFunding.pro")
+public class SelectFundingProServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectProQnaServlet() {
+    public SelectFundingProServlet() {
         super();
-        // TODO Auto-generated constructor stub!
+        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member user = (Member)request.getSession().getAttribute("loginUser");
 		
-		int memberId = user.getMemberId();
-		ArrayList<ProQna> list = new ProQnaService().selectList(memberId);
-		//System.out.println(list);
+		System.out.println("펀딩서블릿 진입!");
+		ArrayList<HashMap<String,Object>> list = new FundingService().selectFundingProList();
+		System.out.println("SelectFunding서블릿: "+list);
+		String page ="";
 		
-		String page = "";
-		if(list !=null) {
-			page ="views/board/boardQna.jsp";
+		
+		
+		
+		
+		
+		
+	
+		if(list!=null) {
+			page = "views/fundingProduct/fundingProducts.jsp";
 			request.setAttribute("list", list);
-			request.getRequestDispatcher(page).forward(request, response);
-			
+		
 		}else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "문의내역 조회 실패!");
-		} 
-//		RequestDispatcher view = request.getRequestDispatcher(page);
-//		view.forward(request, response);
+			request.setAttribute("msg", "상품게시판 조회 실패!");
+		}
+		RequestDispatcher view = request.getRequestDispatcher(page);
+		view.forward(request, response);
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO A!uto-generated method stub
+		// TODO Auto-generated method stub!!
 		doGet(request, response);
 	}
 

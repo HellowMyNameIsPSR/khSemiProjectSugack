@@ -355,7 +355,7 @@
 						<ul class="nav navbar-nav navbar-left mobileDownMenu">
 							<li><a href="">카테고리</a>
 							<li><a href="<%=request.getContextPath()%>/selectProduct.pro">판매</a>
-							<li><a href="<%=request.getContextPath()%>/views/fundingProduct/fundingProducts.jsp">펀딩</a></li>
+							<li> <a href="<%=request.getContextPath()%>/selectProFunding.pro">펀딩</a> </li>
 							<li><a href="<%=request.getContextPath()%>/views/tour/authorpageMain.jsp">작가이야기</a></li>
 							<li><a href="#contact">About</a></li>
 						</ul>
@@ -364,7 +364,7 @@
 			
 			
 			
-			 <!-- 네비 하단 --> 
+			 <!-- 네비 하단! --> 
 			<nav class="navbar navbar-bottom hidden-xs">
 				<div class="container bottom">
 					<div class="collapse navbar-collapse" id="myNav">
@@ -423,7 +423,7 @@
 								</ul>
 							</li>
 							<li><a href="<%=request.getContextPath()%>/selectProduct.pro">판매</a>
-							<li><a href="<%=request.getContextPath()%>/views/fundingProduct/fundingProducts.jsp">펀딩</a></li>
+							<li><a href="<%=request.getContextPath()%>/selectProFunding.pro">펀딩</a></li>
 							<li><a href="<%= request.getContextPath()%>/selectAuthorPage.tn">작가이야기</a></li>
 							<li><a href="#contact">About</a></li>
 						</ul>

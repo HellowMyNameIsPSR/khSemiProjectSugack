@@ -67,6 +67,7 @@ public class ProDao {
 				hmap.put("typeId", rset.getInt("TYPE_ID"));
 				hmap.put("changeName", rset.getString("CHANGE_NAME"));
 				hmap.put("wcount", rset.getInt("WCOUNT"));
+				hmap.put("category", rset.getString("CATEGORY"));
 				list.add(hmap);
 				
 				System.out.println("dao에서 : " + list);
@@ -127,7 +128,7 @@ public class ProDao {
 				System.out.println("Detaildao에서 : " + list);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block!!
 			e.printStackTrace();
 		} finally {
 			close(pstmt);

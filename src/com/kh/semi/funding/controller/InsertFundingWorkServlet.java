@@ -100,7 +100,7 @@ public class InsertFundingWorkServlet extends HttpServlet {
 				}
 				workPic.setPicType(picType);
 				fileList.add(workPic);
-			} //end for
+			} //end for!
 			
 			int result = new FundingService().insertFundingWork(fundWork, fileList, fund);
 			if(result > 0) {

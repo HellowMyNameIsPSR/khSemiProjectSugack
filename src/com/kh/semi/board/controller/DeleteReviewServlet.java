@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.semi.board.model.service.ReviewService;
 
 /**
- * Servlet implementation class DeleteReviewServlet
+ * Servlet implementation class DeleteReviewServlet!
  */
 @WebServlet("/deleteReview.bo")
 public class DeleteReviewServlet extends HttpServlet {

@@ -1,4 +1,4 @@
-package com.kh.semi.product.controller;
+package com.kh.semi.funding.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,20 +11,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.product.model.service.ProService;
-import com.kh.semi.work.model.vo.WorkOption;
+import com.kh.semi.funding.model.service.FundingService;
 
 /**
- * Servlet implementation class SelectProductDetailServlet
+ * Servlet implementation class SelectDetailFundingProServlet
  */
-@WebServlet("/selectProDetail.pro")
-public class SelectProductDetailServlet extends HttpServlet {
+@WebServlet("/selectFundingProDetail.pro")
+public class SelectDetailFundingProServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectProductDetailServlet() {
+    public SelectDetailFundingProServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,30 +35,28 @@ public class SelectProductDetailServlet extends HttpServlet {
 		
 		int workId = Integer.parseInt(request.getParameter("workId"));
 		
-		ArrayList<HashMap<String,Object>> list = new ProService().selectProductDetailList(workId);
-		ArrayList<WorkOption> olist = new ProService().selectOption(workId);
+		ArrayList<HashMap<String,Object>> list = new FundingService().selectFundingProDetailList(workId);
 		
-		System.out.println("DetailSelectServlet에선 list : "+ list);
 		
-		String page ="";
+String page ="";
 		
 		if(list!=null) {
-			page = "views/product/productDetail.jsp";
+			page = "views/fundingProduct/fundingProductDetail.jsp";
 			request.setAttribute("list", list);
-			request.setAttribute("olist", olist);
+			
 		}else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "상품 자세히보기 실패!");
+			request.setAttribute("msg", "펀딩상품 자세히보기 실패!");
 		}
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)!
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub!
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

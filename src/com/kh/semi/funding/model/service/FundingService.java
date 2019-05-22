@@ -51,6 +51,24 @@ public class FundingService {
 		//return test;
 	}
 	
+
+	//펀딩상품 전체 리스트 조회
+	public ArrayList<HashMap<String, Object>> selectFundingProList() {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new FundingDao().selectFunctionProList(con);
+		System.out.println("FundingService: " + list);
+		close(con);
+		
+		return list;
+	}
+	
+	//펀딩상품 자세히보기!
+	public ArrayList<HashMap<String, Object>> selectFundingProDetailList(int workId) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String,Object>> list = new FundingDao().selectFundingProDetailList(con,workId);
+
 	//등록된 펀딩 작품 내역의 상태가 '대기' 상태 인 것을 최신 순으로 정렬합니다.
 	public ArrayList<SortFunding> selectSortFunding(int memberId, SortFunding sortFunding) {
 		Connection con = getConnection();
@@ -62,8 +80,7 @@ public class FundingService {
 	//펀딩 작품 정보를 조회합니다.
 	public ArrayList<HashMap<String, String>> selectFundContents(int memberId, int workId) {
 		Connection con = getConnection();
-		ArrayList<HashMap<String, String>> list = new FundingDao().selectFundContents(con, memberId, workId);
-		
+		ArrayList<HashMap<String, String>> list = new FundingDao().selectFundContents(con, memberId, workId);		
 		close(con);
 		return list;
 	} 

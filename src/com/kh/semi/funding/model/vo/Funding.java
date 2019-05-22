@@ -13,13 +13,14 @@ public class Funding implements Serializable{
 	private Date startDate;
 	private int  funDate;
 	private String fundStatus;
+	private String memberName;
 	
 	public Funding() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Funding(int workId, Date finishDate, int minVoo, int maxVoo, Date deliDate, String cooperation,
-			Date startDate, int funDate, String fundStatus) {
+			Date startDate, int funDate, String fundStatus, String memberName) {
 		super();
 		this.workId = workId;
 		this.finishDate = finishDate;
@@ -30,6 +31,15 @@ public class Funding implements Serializable{
 		this.startDate = startDate;
 		this.funDate = funDate;
 		this.fundStatus = fundStatus;
+		this.memberName= memberName;
+	}
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 
 	public int getWorkId() {
@@ -108,7 +118,9 @@ public class Funding implements Serializable{
 	public String toString() {
 		return "Funding [workId=" + workId + ", finishDate=" + finishDate + ", minVoo=" + minVoo + ", maxVoo=" + maxVoo
 				+ ", deliDate=" + deliDate + ", cooperation=" + cooperation + ", startDate=" + startDate + ", funDate="
-				+ funDate + ", fundStatus=" + fundStatus + "]";
+				+ funDate + ", fundStatus=" + fundStatus + ", memberName=" + memberName + "]";
 	}
+
 	
-} //end class
+	
+} //end class!

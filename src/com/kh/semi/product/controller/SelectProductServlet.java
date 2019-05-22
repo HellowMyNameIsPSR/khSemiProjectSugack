@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.semi.product.model.service.ProService;
 
 /**
- * Servlet implementation class SelectProductServlet
+ * Servlet implementation class SelectProductServlet!
  */
 @WebServlet("/selectProduct.pro")
 public class SelectProductServlet extends HttpServlet {
@@ -32,6 +32,7 @@ public class SelectProductServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("프로덕트 서블릿 진입성공!");
 		ArrayList<HashMap<String,Object>> list = new ProService().selectProductList();
 		
 		System.out.println("SelectServlet에선 list : "+ list);

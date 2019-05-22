@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*"%>
+    
+ <%
+ 	ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String,Object>>) request.getAttribute("list");
+ %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,123 +14,135 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
-	.navdiv{
-		height:200px;
-		background:black;
-	}
-	
-	.container{
-		background:yellow;
-	}
-	
-	.productDiv{
-		background:beige;
-		padding:15px;
-	}
-	.img{
-		float:left;
-		padding:20px;
-		width:430px;
-		background:green;
-	}
-	img{
-		width:400px;
-	}
-
+	.proArea{
+      background:yellow;
+   }
+   
+   .productDiv{
+      background:#D4ECFF;
+      padding:15px;
+    
+      
+   }
+   .img{
+      float:left;
+      padding:20px;
+      width:430px;
+      background:green;
+   }
+   img{
+      width:400px;
+   }
+   .qnaArea {
+      border-left:2px solid lightgray;
+      border-right:2px solid lightgray;
+      border-bottom:2px solid lightgray;
+      width:100%;
+      height:100%;
+      /* background:#F6F476; */
+      background:beige;
+      margin-right:10px;
+      margin-bottom:10px;
+    
+   }
+   .qnaTitle {
+      border-bottom:1px solid lightgray;
+      margin: 20px 0px 20px 0px;
+      padding-left:20px;
+   }
+   .qnaContents {
+      margin: 20px 15px 20px 15px;
+      padding-left:20px;
+      padding-right:20px;
+      border:1px solid lightgray;
+   }
+   .qnaContents div{
+      margin: 20px 0px 20px 0px;
+   }
+   
+   .qna{
+      height:40px;
+   }
+   
+   #qnaBtn{
+      width:20%;
+      padding:5px;
+      color:white;
+      border:2px solid gray; 
+      background:gray;
+      height:30%;
+      
+      
+   }
+   
+  
 /* .shortInfo{
-	margin-left:40px;
-	width:400px;
-	height:550px;
-	padding:25px;
-	margin-right:100px;
-	background:white;
-	margin-top:23px;
+   margin-left:40px;
+   width:400px;
+   height:550px;
+   padding:25px;
+   margin-right:100px;
+   background:white;
+   margin-top:23px;
 } */
 
 hr{
-	border:1px solid gray;
+   border:1px solid gray;
 }
 
 .totalPrice{
-	/* margin-top:10px;
-	
-	float:right; */
-	width:100%;
-	height:50px;
-	background:orange;
-	}
+   /* margin-top:10px;
+   
+   float:right; */
+   width:100%;
+   height:50px;
+   border:1px solid black;
+   margin-top:15px;
+   margin-bottom:15px;
+   /* background:orange; */
+   }
 .totalPrice>h4{
-	
-	margin-top:15px;
+   
+   margin-top:15px;
 }
-input[type:image]{
-	border:1px solid black;
-} 
 
 .information{
-	padding:30px;
+   padding:30px;
 }
 
+#purchase{
+	background:white;
+	
+}
 
-.qnaArea {
-		border:2px solid lightgray;
-		margin: 20px 0px 20px 0px;
-		box-shadow:2px 2px lightgray;
-		width:80%;
-		height:100%;
-		background:beige;
-		margin:0 auto;
-		margin-top:20px;
-	}
-	.qnaTitle {
-		border-bottom:1px solid lightgray;
-		margin: 20px 0px 20px 0px;
-		padding-left:20px;
-	}
-	.qnaContents {
-		margin: 20px 0px 20px 0px;
-		padding-left:20px;
-		padding-right:20px;
-		
-	}
-	.qnaContents div{
-		margin: 20px 0px 20px 0px;
-	}
-	
-	.qna{
-		height:40px;
-	}
-	
-	#qnaBtn{
-		width:30%;
-		padding:5px;
-		color:white;
-		border:2px solid gray; 
-		background:gray;
-		
-		
-	}
+#purchase:hover{
+	background:#80A8E8;
+}
 </style>
 </head>
 <body>
-<div class="navdiv">
- 
-</div> 
+<%@ include file="../main/mainMenubar.jsp" %>
   <!-- Page Content -->
   <div class="container">
-
+   
     <!-- Heading Row -->
-    <div class="row align-items-center my-5">
-      <div class="col-lg-6 " >
-        <img class="img-fluid rounded mb-4 mb-lg-0" src="../images/tvxq.jpg" style="width:100%;">
+    <% for(int i=0; i<list.size(); i++){
+   				HashMap<String,Object> hmap = list.get(i);
+   				
+	   %>
+     <div class="align-items-center my-5">
+     
+      <div class="col-sm-6" >
+        <img class="img-fluid rounded mb-4 mb-lg-0" src="uploadFundingGoodsImg/<%=hmap.get("changeName") %>" style="width:100%; height:480px">
       </div>
+   
       <!-- /.col-lg-8 -->
-      <div class="col-lg-6 productDiv">
-        <!-- <h1 class="font-weight-light">Business Name or Tagline</h1>
+      <div class="col-sm-6 productDiv" style="height:480px;">
+        <!-- <h1 class="font-weight-light">Business Name or Tagline!</h1>
         <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
         <a class="btn btn-primary" href="#">Call to Action!</a> -->
-        <h5>품명 및 모델명</h5>
-			<h5>기본가격</h5>
+        <h5><%=hmap.get("workName") %></h5>
+			<h5>기본가격: <%=hmap.get("price") %>원</h5>
 			<hr>
 			<h5>주문D-Day</h5>
 			<h5>현재주문량(%)</h5>
@@ -141,8 +157,7 @@ input[type:image]{
 			</select>
 			
 			<hr>
-			<div class="selectOpt" style="width:100%; height:100px; background:black; margin-top:70px;">	
-			</div>
+			
 			<div class="totalPrice">
 				<p style="float:left; margin-top:10px; font-size:20px;">총가격: </p>
 				<p style="float:right; margin-top:10px; font-size:20px;">10000원</p>
@@ -152,9 +167,14 @@ input[type:image]{
 			<!-- <input type="image" src="../images/heart.png" style="width:80px; height:50px; border:2px solid pink; background:pink; border-radius:7px;"> -->
 			<button style="float:right; font-size:16px;width:20%; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"id="purchase">구매하기</button>
 			</div>
-      </div>
+     
+    
       <!-- /.col-md-4 -->
     </div>
+    
+     </div>
+       <%} %>
+     </div>
     <hr>
     	<div class="row information">
 	<ul class="nav nav-tabs">
@@ -271,8 +291,9 @@ input[type:image]{
       	</form>
       </div>
      -->
+     </div>
   </div>
-</div>
+
 <script>
 	$(function(){
 		$("#sel1").click(function(){

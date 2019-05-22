@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
+<title>판매상품목록</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
@@ -17,7 +17,7 @@
  <style>
 	
     
-    /* Set black background color, white text and some padding */
+    /* Set black background color, white text and some padding */!
     footer {
       width:100%;
       background-color: #555;
@@ -62,8 +62,9 @@
     }
     
     .row{
-    	background:yellow;
+    	/* background:yellow; */
     	/* margin:10px; */
+    	margin-top:30px;
     	
     }
     .content{
@@ -137,7 +138,7 @@
 						<tr><td colspan="2" class="nFont"><%=hmap.get("workName")%></td></tr>
 						<tr>
 							<td class="lFont">좋아요</td>
-							<td><%=hmap.get("wCount")%><span style="color:red; text-align:right;"class="glyphicon glyphicon-heart"></span></td></tr>
+							<td><span style="margin-left:-160px; color:red; text-align:right;"class="glyphicon glyphicon-heart"></span></td></tr>
 					</table>
 					<br>
 				</div>
