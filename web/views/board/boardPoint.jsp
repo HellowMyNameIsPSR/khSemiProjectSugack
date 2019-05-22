@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.member.model.vo.*"%>
+<%
+	ArrayList<Point> list = (ArrayList<Point>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>문의글내역!!</title>
+<title>적립금 내역</title>
 <style>
 	.name{
 		width:100%;
@@ -25,7 +28,7 @@
 				<!-- Header -->
 				
 				<header id="header">
-					<div class="name">적립금 내역!</div>
+					<div class="name">적립금 내역</div>
 				</header>
 				
 				<section id="contents">
@@ -38,28 +41,19 @@
 									<td>내용</td>
 									<td>총 적립금</td>
 								</tr>
-								
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
+								<% for(int i = 0; i < list.size(); i++) {
+									int totalPoint = 0; 
+									totalPoint += list.get(i).getPoint();
+								%>
+								 <tr style="text-align:center;">
+									<td><%=list.get(i).getpDate() %></td>
+									<td><%=list.get(i).getPoint() %></td>
+									<%if(list.get(i).getpLocation().equals("PAYED")) {%>
+									<td>상품 구매</td>
+									<%} %>
+									<td><%= totalPoint %></td>
 								</tr>
-								
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								
+								<%} %>
 							</table>
 						</div>
 					
@@ -69,7 +63,7 @@
 				</section>
 			</div>
 		</div>
-		<%@ include file="../common/userMenuBar.jsp" %>
+		<%@ include file="../common/userMenubarServlet.jsp" %>
 	</div>
 			
 </body>

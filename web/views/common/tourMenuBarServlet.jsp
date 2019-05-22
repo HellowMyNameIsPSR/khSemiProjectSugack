@@ -76,7 +76,7 @@
 				
 				
 				<li>
-					<span ><a href="views/tour/artistStorey.jsp"> 작가스토리</a></span>
+					<span ><a href="selectAuthorStory.au?memberId=<%=memberId%>"> 작가스토리</a></span>
 					
 				</li>
 				<li ><a href="views/tour/artistachieveMent.jsp">작가업적</a>

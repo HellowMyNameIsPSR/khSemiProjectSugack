@@ -72,10 +72,18 @@ public class FundingServiceTest {
 	public void testIinsertFundingWork() {
 		assertEquals(fundingService.insertFundingWork(fundWork, fileList, fund), 1);
 	}
-	
+	@Ignore
 	@Test
 	public void testSelectSortFunding() {
 		assertNotNull(fundingService.selectSortFunding(2, sortFunding));
 	}
-	
+	@Ignore
+	@Test
+	public void testSelectFundContents() {
+		assertNotNull(fundingService.selectFundContents(2, 47));
+	}
+	@Test
+	public void testSelectWorkPicFile() {
+		assertNotNull(fundingService.selectWorkPicFile(2, 47));
+	}
 } //end class

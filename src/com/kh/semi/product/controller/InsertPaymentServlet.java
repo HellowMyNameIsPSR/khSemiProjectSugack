@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.product.model.service.ProService;
 import com.kh.semi.product.model.vo.OrderList;
 import com.kh.semi.product.model.vo.Payment;
@@ -32,6 +33,7 @@ public class InsertPaymentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		String pid = request.getParameter("pid");
 		String payPrice = request.getParameter("payPrice");
 		String payMethod = request.getParameter("payMethod");
@@ -39,6 +41,8 @@ public class InsertPaymentServlet extends HttpServlet {
 		String applyNum = request.getParameter("applyNum");
 		String bundleCode = request.getParameter("bundleCode");
 		String[] bidArr = request.getParameterValues("bidArr");
+		int point = (int)(Integer.parseInt(payPrice) * 0.05);
+		
 		System.out.println(applyNum);
 		Payment pay = new Payment();
 		pay.setPayId(pid);
@@ -60,9 +64,11 @@ public class InsertPaymentServlet extends HttpServlet {
 		
 		if(result > 0) {
 			int result2 = new ProService().deleteBasket(oList);
-			
 			if(result2 > 0) {
-				response.sendRedirect("index.jsp");				
+				int result3 = new ProService().insertPoint(loginUser.getMemberId(), point);
+				if(result3 > 0) {
+					response.sendRedirect("index.jsp");									
+				}
 			}
 		}
 		

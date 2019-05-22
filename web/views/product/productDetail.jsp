@@ -649,8 +649,6 @@ hr{
           }
 		</script>
 	  <!--</div>-->
-	 </div>
-	 
 	 <hr>
 	<div class="row information">
 	<ul class="nav nav-tabs">
@@ -808,6 +806,8 @@ hr{
       <!-- /.col-md-4 -->
     
 </div>
+	 </div>
+	 
    
 <!-- <script>
    $(function(){

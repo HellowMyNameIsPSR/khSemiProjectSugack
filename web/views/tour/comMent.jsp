@@ -2,11 +2,12 @@
 	pageEncoding="UTF-8" import="com.kh.semi.board.model.vo.* ,com.kh.semi.member.model.vo.Member" %>
 <%
 String member_Id = (String)request.getAttribute("memberId");
-%>	
-<%
-	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-%>
 
+%>	
+<%-- <%
+	Member loginUser2 = (Member)request.getSession().getAttribute("loginUser");
+%>  
+ --%>
  <!DOCTYPE html>
 <html>
 <head>
@@ -58,16 +59,17 @@ String member_Id = (String)request.getAttribute("memberId");
 						<div>
 							<p>관심 가는 작가 들에게 응원에 메세지를 남겨 주세요</p>
 							<p>Tip: 관련작가들이 성실이 댓글에 성실히 답해드려요</p>
-							<p>가져온 멤버  Id : <%=member_Id %></p> 
+							<p>가져온 멤버  Id : <%=member_Id %></p>
+							<%-- <p>가져온  loginId :<%=loginUser2.getMemberId() %></p> --%> 
 						</div>
 
-						    
+						     <div>
                             <div class="row" 
 							style="border: 1px solid black; width: 1100px; height: 200px;">
-							<div class="replyWriterArea">
+							
 							<div class="nick"
 								style="width: 100%; height: 50px; padding: 5px;">
-								<p>닉네임</p>
+								<p>작성자</p>
 							</div>
 							<div class="content"
 								style="border: 5px solid black; width: 900px; height: 100px; padding: 5px; margin-left: 20px;">
@@ -78,7 +80,10 @@ String member_Id = (String)request.getAttribute("memberId");
 								style="float: right; width: 120px; height: 100px; margin-left: 10px;">
 								<button id="addReply" style="width: 100px; height: 100px;">등록</button>
 							</div>
+						
 						</div>
+						</div>
+						
 
 						<br>
 
@@ -105,14 +110,16 @@ String member_Id = (String)request.getAttribute("memberId");
 
 						
 
-					</div>
-					<!-- Contents area -->
+					
+					
+					</div><!-- Contents area -->
 				</section>
 			</div>
 		</div>
-		<%@ include file="/views/common/tourMenuBarServlet.jsp"%>
+		
+		<%@ include file="/views/common/tourMenuBarServlet.jsp" %>
 	</div>
-		<script > 
+		<%-- <script > 
 		 $(function(){
 			 $("#addReply").click(function(){
 			 	var memberName = <%loginUser1.getMemberName()%>;
@@ -134,7 +141,7 @@ String member_Id = (String)request.getAttribute("memberId");
 		</script>
 		 
 		 
-		 
+		  --%>
 		
 
 

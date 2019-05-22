@@ -49,7 +49,7 @@
 						<li><a href="<%=request.getContextPath()%>/selectProQna.bo?mid=<%=loginUser.getMemberId()%>">문의</a></li>
 					</ul>
 				</li>
-				<li><a href="boardPoint.jsp">적립금 사용 내역</a></li>
+				<li><a href="<%=request.getContextPath()%>/selectPoint.me">적립금 사용 내역</a></li>
 				<li>
 					<span class="opener">개인정보</span>
 					<ul>

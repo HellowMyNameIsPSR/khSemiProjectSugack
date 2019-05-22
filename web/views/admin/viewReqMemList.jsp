@@ -22,7 +22,7 @@
 			<div class="inner">
 				<!-- Header -->
 				<header id="header">
-					<a href="adminHome.jsp" class="logo">
+					<a href="/sg/views/admin/adminHome.jsp" class="logo">
 						Admin<strong>HOME</strong>
 					</a>
 				</header>
@@ -51,7 +51,7 @@
 								 	</tr>
 								</table>
 								
-								<div class="row" style="height:40px; border: 1px solid red; margin-top:0px; margin-left: 0; margin-right: auto;">
+								<div class="row" style="height:40px; margin-top:0px; margin-left: 0; margin-right: auto;">
 									<h4>최근 신청 리스트(5건)</h4>
 								</div>
 						<table class="table table-bordered"	id="reqListArea" style="border: 2px solid gray; text-align: center">
@@ -96,7 +96,7 @@
 				</section>
 			</div>
 		</div>
-		<%@ include file= "/views/admin/adminMenubar.jsp" %>
+		<%@ include file= "/views/admin/adminMenubarServlet.jsp" %>
 	</div>
 	<script>
 	$(function(){

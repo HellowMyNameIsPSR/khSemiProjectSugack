@@ -3,6 +3,8 @@
     
      <%
     	RequestMember rm = (RequestMember) request.getAttribute("author");
+     	String picPath = (String) request.getAttribute("picPath");
+     	ArrayList<String> picPath2 = (ArrayList<String>) request.getAttribute("picPath2");
     	
     %>
 <!DOCTYPE html>
@@ -36,7 +38,7 @@
 			<div class="inner">
 				<!-- Header -->
 				<header id="header">
-					<a href="/views/admin/adminHome.jsp" class="logo">
+					<a href="/sg/views/admin/adminHome.jsp" class="logo">
 						Admin<strong>HOME</strong>
 					</a>
 				</header>
@@ -56,7 +58,7 @@
 			</tr>
 			<tr>
 				<td rowspan="6">
-					<img src="../../uploadSalesImage/2019051511234519622.jpg" style="width:400px; height:400px">
+					<img src="<%= request.getContextPath() %>/uploadApply/<%= picPath %>" style="width:400px; height:400px">
 				</td>
 			</tr>
 			<tr>
@@ -133,6 +135,7 @@
 			      			<td colspan="2">
 			      				<label class="form-control">구매 안전 서비스 관리 이용 확인증</label>
 			      				<div style="background:yellow; width:400px; height:400px; margin-bottom:40px;">
+			      				<img src="<%= request.getContextPath() %>/uploadApply/<%= picPath2.get(2) %>" style="width:400px; height:400px">
 			      				</div>
 			      			</td>
 			      		</tr>
@@ -142,6 +145,7 @@
 			      			<td colspan="2">
 			      				<label class="form-control">통신판매업 신고증</label>
 			      					<div style="background:yellow; width:400px; height:400px; margin-left:17px;">
+			      					<img src="<%= request.getContextPath() %>/uploadApply/<%= picPath2.get(1) %>" style="width:400px; height:400px">
 			      				</div>
 			      			</td>
 			      			
@@ -150,6 +154,7 @@
 			      			<td colspan="2">
 			      				<label class="form-control">통신판매업 신고증</label>
 			      					<div style="background:yellow; width:400px; height:400px;">
+			      					<img src="<%= request.getContextPath() %>/uploadApply/<%= picPath2.get(0) %>" style="width:400px; height:400px">
 			      				</div>
 			      			</td>
 			      		</tr>
@@ -174,11 +179,9 @@
 				</section>
 				</div>
 			</div>
-		<%@ include file= "/views/admin/adminMenubar.jsp" %>
+		<%@ include file= "/views/admin/adminMenubarServlet.jsp" %>
 	</div>
 
-<%--  <%@ include file="../main/mainMenubar.jsp" %> 
- --%>
 
 	<script>
 	$(function(){

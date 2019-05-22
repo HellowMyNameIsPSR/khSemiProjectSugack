@@ -190,6 +190,23 @@ public class ProService {
 	}
 
 
+	public int insertPoint(int memberId, int point) {
+		Connection con = getConnection();
+		
+		int result = new ProDao().insertPoint(con, memberId, point);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+
 	
 
 }
