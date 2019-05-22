@@ -46,12 +46,12 @@
 	<div class="container" align="center">
 			<div class="joinForm hidden-xs">
 				<h2 align="center">회원정보수정</h2>
-				<form action="<%= request.getContextPath() %>/update.me" method="post" class="form-horizontal">
+				<div class="form-horizontal">
 					<div class="form-group">
 						<label class="control-label col-sm-3">이메일</label>
 						<div class="col-sm-6">
-							<input type="email" name="email" class="form-control" readonly value="<%=loginUser.getEmail()%>">
-							<input type="hidden" name="memberId" value="<%= loginUser.getMemberId() %>">
+							<input type="email" name="email" id="email" class="form-control" readonly value="<%=loginUser.getEmail()%>">
+							<input type="hidden" name="memberId" id="memberId" value="<%= loginUser.getMemberId() %>">
 						</div>
 					</div>
 					<div class="form-group">
@@ -70,9 +70,8 @@
 					<div class="form-group">
 						<label class="control-label col-sm-3">핸드폰</label>
 						<div class="col-sm-6">
-							<input type="tel" name="phone" class="form-control" value="<%=loginUser.getPhone()%>">
+							<input type="tel" name="phone" id="phone" class="form-control" value="<%=loginUser.getPhone()%>">
 						</div>
-						<button class="col-sm-2 btn btn-primary">인증</button>
 					</div>	
 					<div class="form-group">
 						<label class="control-label col-sm-3">성별</label>
@@ -90,93 +89,62 @@
 							  </select>
 						<%} %>
 						</div>
-						<button class="col-sm-2 btn btn-primary">중복확인</button>
+					
 					</div>
 					
 					<div class="form-group">
 						<label class="control-label col-sm-3">생년월일</label>
 						<div class="col-sm-6">
 							<% if(loginUser.getBirthDate() != null) {%>
-							<input type="date" name="birth" class="form-control" value="<%=sdf.format(loginUser.getBirthDate())%>">
+							<input type="date" name="birthDate" id="birthDate" class="form-control" value="<%=sdf.format(loginUser.getBirthDate())%>">
 							<%}else { %>
-							<input type="date" name="birthDate" class="form-control" value="1999-01-01">
+							<input type="date" name="birthDate" id="birthDate" class="form-control" value="1999-01-01">
 							<%} %>
 						</div>
 					</div>
 					<br>
-					<button type="submit" class="btn btn-primary btn-md btn-block">정보수정</button>
-					<button type="reset" class="btn btn-default btn-md btn-block"> 취소 </button>
+					<div class="form-group">
+						<label class="control-label col-sm-3"></label>
+						<div class="col-sm-6">
+							<button onclick="update();" class="btn btn-primary btn-md btn-block">정보수정</button>
+							<button onclick="location.href='<%=request.getContextPath()%>/index.jsp'" class="btn btn-default btn-md btn-block"> 취소 </button>
+							
+							
+						</div>
+					</div>
 				
-				</form>
+				</div>
 					
 				
 			</div>
 			
 			
-			<div class="joinForm hidden-sm hidden-lg hidden-md">
-				<h2 align="center">회원정보수정</h2>
-				<form action="<%= request.getContextPath() %>/insertMember.me" method="post" class="form-horizontal">
-					<div class="form-group">
-						<label class="control-label col-sm-3">이메일</label>
-						<div class="col-sm-6">
-							<input type="email" name="email" class="form-control" readonly>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">비밀번호</label>
-						<div class="col-sm-6">
-							<input type="password" name="password" class="form-control">
-						</div>
-						
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">비밀번호확인</label>
-						<div class="col-sm-6">
-							<input type="password" name="password2" class="form-control">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">핸드폰</label>
-						<div class="col-sm-6">
-							<input type="tel" name="phone" class="form-control">
-						</div>
-						<button class="col-sm-2 btn btn-primary">인증</button>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">닉네임</label>
-						<div class="col-sm-6">
-							<input type="text" name="nickName" class="form-control">
-						</div>
-						<button class="col-sm-2 btn btn-primary">중복확인</button>
-					</div>
-					
-					<div class="form-group">
-						<label class="control-label col-sm-3">성별</label>
-						<div class="col-sm-6">
-							  <select class="form-control" id="sel1">
-							    <option value="M">남자</option>
-							    <option value="F">여자</option>
-							  </select>
-						</div>
-						<button class="col-sm-2 btn btn-primary">중복확인</button>
-					</div>
-					
-					<div class="form-group">
-						<label class="control-label col-sm-3">생년월일</label>
-						<div class="col-sm-6">
-							<input type="date" name="date" class="form-control">
-						</div>
-					</div>
-				
-				</form>
-					<br>
-					<button type="submit" class="btn btn-primary btn-md btn-block">정보수정</button>
-					<button type="reset" class="btn btn-default btn-md btn-block"> 취소 </button>
-				
-			</div>
+			
 		
 	</div>
 	<script>
+		function update(){
+			var password = $("#password").val();
+			var phone = $("#phone").val();
+			var gender = $("#gender").val();
+			var birthDate = $("#birthDate").val();
+			var memberId = $("#memberId").val();
+			var email = $("#email").val();
+			$.ajax({
+				url:"<%=request.getContextPath()%>/update.me",
+				type:"post",
+				data:{password:password, phone:phone, gender:gender, birthDate:birthDate, memberId:memberId, email:email},
+				success:function(data){
+					if(data == "ok") {
+						alert("정보가 성공적으로 수정되었습니다.");
+					}else {
+						alert("정보수정에 실패했습니다.");
+					}
+				}
+			});
+			
+		}
+		
 		$(function(){
 			$("#password2").change(function(){
 				var password = $("#password").val();

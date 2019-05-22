@@ -51,7 +51,27 @@
 							<input type="email" name="email" id="email" class="form-control" placeholder="이메일">
 						</div>
 						<!-- <button class="col-sm-2 btn btn-primary" onclick="idCheck();">중복확인</button> -->
-						<input type="button" class="col-sm-2 btn btn-primary" id="idCheck" value="중복확인">
+						<div class="col-sm-2">
+							<input type="button" class="btn btn-primary" id="idCheck" value="중복확인">
+							
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">인증번호</label>
+						<div class="col-sm-6">
+							<input type="text" name="number" id="number" class="form-control" placeholder="인증번호" disabled>
+						</div>
+						<!-- <button class="col-sm-2 btn btn-primary" onclick="idCheck();">중복확인</button> -->
+						<div class="col-sm-2">
+							<input type="button" class="btn btn-primary" id="mailConfirm" value="인증">
+							
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-3">이름</label>
+						<div class="col-sm-6">
+							<input type="text" name="name" class="form-control" placeholder="이름">
+						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-3">비밀번호</label>
@@ -67,18 +87,18 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label class="control-label col-sm-3">생년월일</label>
+						<div class="col-sm-6">
+							<input type="date" name="birthDate" class="form-control" value="1999-01-01">
+						</div>
+					</div>
+					<div class="form-group">
 						<label class="control-label col-sm-3">핸드폰</label>
 						<div class="col-sm-6">
 							<input type="tel" name="phone" class="form-control" placeholder="000-0000-0000">
 						</div>
-						<button class="col-sm-2 btn btn-primary">인증</button>
 					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">이름</label>
-						<div class="col-sm-6">
-							<input type="text" name="name" class="form-control" placeholder="이름">
-						</div>
-					</div>
+					
 					<div class="col-sm-3"></div>
 					<div class="col-sm-6">
 					<button type="submit" class="btn btn-primary btn-md btn-block" id="submit">회원가입</button>
@@ -96,7 +116,10 @@
 	
 	
 	<script>
+		var code;
 		$(function(){
+			$("button[type='submit']").attr("disabled", true);
+			
 			$("#password2").change(function(){
 				var password = $("#password").val();
 				var password2 = $("#password2").val();
@@ -121,10 +144,10 @@
 					success:function(data){
 						if(data == "fail") {
 							alert("사용 할 수 없는 이메일 입니다.");
-							$("#submit").attr("disabled", true);
-						}else {
-							alert("사용 가능한 아이디입니다.");
-							$("#submit").attr("disabled", false);
+						}else{
+							alert("사용 가능한 이메일 입니다.\n이메일로 인증번호를 보냈습니다 확인후 입력해주세요");
+							$("#number").attr("disabled", false);
+							sendMail(email);					
 						}
 					},
 					error:function(data){
@@ -132,7 +155,34 @@
 					}
 				});
 			});
+			
+			
 		});
+		
+		function sendMail(email){
+			console.log(email);
+			$.ajax({
+				url:"<%=request.getContextPath()%>/sendMail.me",
+				type:'post',
+				data:{email:email},
+				success:function(data){
+					if(data != "fail"){
+						code = data;
+					}
+				}
+			});
+		}
+		
+		$("#mailConfirm").click(function(){
+			var confirmCode = $("#number").val();
+			if(confirmCode == code) {
+				alert("인증이 완료되었습니다.");
+				$("#submit").attr("disabled", false);
+			}else {
+				alert("인증번호를 다시 확인해주세요");
+			}
+		});
+		
 	</script>
 </body>
 </html>
