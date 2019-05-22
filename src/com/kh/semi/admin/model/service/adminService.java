@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.kh.semi.admin.model.dao.adminDao;
+import com.kh.semi.admin.model.vo.RequestMember;
 import com.kh.semi.admin.model.vo.SearchMember;
 import com.kh.semi.admin.model.vo.SearchProduct;
 import com.kh.semi.author.model.vo.Author;
@@ -168,25 +169,27 @@ public class adminService {
 
 
 
-	public Author selectReqMemOne(String authorName) {
+	public RequestMember selectReqMemOne(String authorName) {
 		Connection con = getConnection();
 		
-		Author a = new adminDao().selectReqMemOne(authorName, con);
+		RequestMember rm = new adminDao().selectReqMemOne(authorName, con);
 		
 		close(con);
 		
 		
-		return a;
+		return rm;
 	}
 
 
 
-	public int reqDeny(String apply1Stat, String brandName) {
+	public int reqDeny(String apply1Stat, int memberId) {
 		Connection con = getConnection();
 		
-		int result = new adminDao().reqDeny(con, apply1Stat, brandName);
+		int result1 = new adminDao().reqDeny(con, apply1Stat, memberId);
+		int result = 0;
 		
-		if(result > 0) {
+		if(result1 > 0) {
+			result = new adminDao().reqDate(con, memberId);
 			commit(con);
 		}else {
 			rollback(con);
@@ -210,6 +213,27 @@ public class adminService {
 		close(con);
 		
 		return list;
+	}
+
+
+
+	public int reqDeny2(String apply2Stat, int memberId) {
+		Connection con = getConnection();
+		
+		int result1 = new adminDao().reqDeny2(con, apply2Stat, memberId);
+		int result = 0;
+		
+		if(result1 > 0) {
+			result = new adminDao().reqDate(con, memberId);
+			commit(con);
+		}else {
+			rollback(con);
+		}
+				
+				
+		close(con);
+				
+		return result;
 	}
 
 		

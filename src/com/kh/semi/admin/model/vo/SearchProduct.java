@@ -2,7 +2,7 @@ package com.kh.semi.admin.model.vo;
 
 import java.sql.Date;
 
-public class SearchProduct {
+public class SearchProduct implements java.io.Serializable{
 	private String category;
 	private String productType;
 	private String authorName;
