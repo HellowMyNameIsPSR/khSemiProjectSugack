@@ -159,8 +159,8 @@
 							console.log($(this).children(".hideTd").text());
 							var workId = $(this).children(".hideTd").text();
 							if(status == "승인"){
-								alert("2차 등록 화면으로 넘어감");		
-								<%-- location.href = "<%= request.getContextPath() %>/selectFundCon.fund?workId=" + workId; --%>
+								//alert("2차 등록 화면으로 넘어감");		
+								location.href = "<%= request.getContextPath() %>/selectFundCon.fund?workId=" + workId;
 							} //end if
 						}); 
 					}			
