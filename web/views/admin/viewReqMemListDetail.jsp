@@ -46,7 +46,7 @@
 					
 						<div class="reqBrandPic"  style="background: red; border: 1px solid red; float:left; width:15%; height:155px;" >
 								
-							<img src="#<%-- <%=request.getContextPath()%>/uploadSalesImage/<%=hmap.get("changeName")%> --%>" style="width:100%;height:100%;">
+							<img src="#<%-- <%=request.getContextPath()%>/uploadSalesImage/<%=hmap.get("changeName")%> --%>" style="width:100%; height:100%;">
 							
 						</div>				
 					

@@ -830,6 +830,103 @@ public class adminDao {
 		
 	}
 
+	public String selectReqMemOnePicPath(String authorName, Connection con) {
+		
+		Properties prop = new Properties();
+		String fileName =  adminDao.class
+				.getResource("/sql/admin/admin-normalquery.properties")
+				.getPath();
+		
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String picPath = null;
+		String query = prop.getProperty("reqPic1");
+		
+
+		System.out.println("Dao에서 출력하는 쿼리 " + query);
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "브랜드로고");
+			pstmt.setString(2, authorName);
+			
+			rset= pstmt.executeQuery();
+			
+			while(rset.next()) {
+				picPath = rset.getString("CHANGE_NAME");
+			
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		System.out.println("Dao에서의 picPath" + picPath);
+		return picPath;
+
+	}
+
+	public ArrayList<String> selectReqMemSecondPic(String authorName, Connection con) {
+		Properties prop = new Properties();
+		String fileName =  adminDao.class
+				.getResource("/sql/admin/admin-normalquery.properties")
+				.getPath();
+		
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<String> selectReqMemSecondPic = new ArrayList<String>();
+		String query = prop.getProperty("reqPic2");
+		
+
+		System.out.println("Dao에서 출력하는 쿼리 " + query);
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "브랜드로고");
+			pstmt.setString(2, "1차입점서류");
+			pstmt.setString(3, authorName);
+			
+			rset= pstmt.executeQuery();
+			
+			while(rset.next()) {
+				String s = rset.getString("CHANGE_NAME");
+				
+				selectReqMemSecondPic.add(s);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		System.out.println("selectReqMemSecondPic" + selectReqMemSecondPic);
+		return selectReqMemSecondPic;
+		
+
+	}
+
 }
 
 

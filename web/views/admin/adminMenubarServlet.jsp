@@ -8,7 +8,7 @@
 	<!-- <link rel="stylesheet" href="../assets/css/main.css" /> -->
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<style>
-			<%@ include file="../assets/css/main.html" %>
+		<%@ include file="../assets/css/main.html" %>
 	</style>
 	<title></title>
 </head>
@@ -25,37 +25,37 @@
 				<h2>Menu</h2>
 			</header>
 			<ul>
-				<li><a href="adminHome.jsp">HOME</a></li>
+				<li><a href="/sg/views/admin/adminHome.jsp">HOME</a></li>
 				<li>
 					<span class="opener">상품 관리</span>
 					<ul>
-						<li><a href="viewGoodsList.jsp">판매상품 조회 / 삭제</a>
-						<li><a href="viewFundingList.jsp">펀딩상품 조회  / 삭제</a>
+						<li><a href="/sg/views/admin/viewGoodsList.jsp">판매상품 조회 / 삭제</a>
+						<li><a href="/sg/views/admin/viewFundingList.jsp">펀딩상품 조회  / 삭제</a>
 					</ul>
 				</li>
 				<li>
 					<span class="opener">회원 관리</span>
 					<ul>
-						<li><a href="viewMemList.jsp">회원관리</a>
-						<li><a href="viewWithdrawalMemList.jsp">탈퇴회원관리</a>
-						<li><a href="viewBlackMemList.jsp">블랙리스트 관리</a>
-						<li><a href="viewSellMemList.jsp">판매자관리</a>
+						<li><a href="/views/admin/viewMemList.jsp">회원관리</a>
+						<li><a href="/views/admin/viewWithdrawalMemList.jsp">탈퇴회원관리</a>
+						<li><a href="/views/admin/viewBlackMemList.jsp">블랙리스트 관리</a>
+						<li><a href="/views/admin/viewSellMemList.jsp">판매자관리</a>
 					</ul>
 				</li>
 				<li>
 					<span class="opener">운영</span>
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/reqMemList.ad">입점신청관리</a>
-						<li><a href="viewQuestList.jsp">1:1문의관리</a>
-						<li><a href="viewMileList.jsp">적립금관리</a>
-						<li><a href="viewBbsList.jsp">고객센터관리</a>
+						<li><a href="/views/admin/viewQuestList.jsp">1:1문의관리</a>
+						<li><a href="/views/admin/viewMileList.jsp">적립금관리</a>
+						<li><a href="/views/admin/viewBbsList.jsp">고객센터관리</a>
 					</ul>
 				</li>
 				<li><span class="opener">통계</span>
 					<ul>
-						<li><a href="adminSalesStatistics.jsp">매출관련통계</a>
-						<li><a href="adminMemberStatistics.jsp">회원관련통계</a>
-						<li><a href="adminAuthorStatistics.jsp">작가관련통계</a>
+						<li><a href="/views/admin/adminSalesStatistics.jsp">매출관련통계</a>
+						<li><a href="/views/admin/adminMemberStatistics.jsp">회원관련통계</a>
+						<li><a href="/views/admin/adminAuthorStatistics.jsp">작가관련통계</a>
 					</ul>
 				</li>
 			</ul>
@@ -74,8 +74,3 @@
 	</div>
 </div>
 <!-- script -->
-<script src="../assets/js/jquery.min.js"></script>
-<script src="../assets/js/browser.min.js"></script>
-<script src="../assets/js/breakpoints.min.js"></script>
-<script src="../assets/js/util.js"></script>
-<script src="../assets/js/main.js"></script>
