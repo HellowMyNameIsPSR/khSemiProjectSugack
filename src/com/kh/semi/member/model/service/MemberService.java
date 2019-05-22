@@ -3,6 +3,7 @@ package com.kh.semi.member.model.service;
 import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.member.model.vo.Address;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.member.model.vo.Point;
 import com.kh.semi.product.model.vo.Basket;
 import com.kh.semi.work.model.vo.WorkOption;
 
@@ -334,6 +335,16 @@ public class MemberService {
 		
 		
 		return result;
+	}
+
+	public ArrayList<Point> selectPoint(int memberId) {
+		Connection con = getConnection();
+		
+		ArrayList<Point> list = new MemberDao().selectPoint(con, memberId);
+		
+		close(con);
+		
+		return list;
 	}
 
 

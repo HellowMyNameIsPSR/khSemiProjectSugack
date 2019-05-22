@@ -13,6 +13,7 @@ import java.util.Properties;
 
 import com.kh.semi.member.model.vo.Address;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.member.model.vo.Point;
 import com.kh.semi.product.model.vo.Basket;
 import com.kh.semi.work.model.vo.WorkOption;
 
@@ -651,6 +652,46 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<Point> selectPoint(Connection con, int memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Point> list = null;
+		Point p = null;
+		
+		String query = prop.getProperty("selectPoint");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Point>();
+			while(rset.next()) {
+				p = new Point();
+				p.setPointId(rset.getInt("POINT_ID"));
+				p.setpDate(rset.getDate("PDATE"));
+				p.setpLocation(rset.getString("PLOCATION"));
+				p.setPoint(rset.getInt("POINT"));
+				p.setMid(rset.getInt("MID"));
+				p.setStatus(rset.getString("STATUS"));
+				
+				list.add(p);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return list;
 	}
 
 	

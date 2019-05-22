@@ -526,6 +526,31 @@ public class ProDao {
 		return result;
 	}
 
+	public int insertPoint(Connection con, int memberId, int point) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertPoint");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, point);
+			pstmt.setInt(2, memberId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
 }
 
 

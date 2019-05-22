@@ -20,7 +20,10 @@
 	<div class="inner">
 		<!-- Logo -->
 		<section class="alt">
-			<a href="index.jsp">LOGO</a>
+			<a href="index.jsp"><img
+			id="authorLogo" src="/sg/views/main/images/logo.png"
+			style="display: inline-block; width:150px; height:100px;">
+		</a>
 		</section>
 		<!-- Menu -->
 		<nav id="menu">
@@ -45,7 +48,7 @@
 						<li><a href="<%=request.getContextPath()%>/selectProQna.bo?mid=<%=loginUser.getMemberId()%>">문의</a></li>
 					</ul>
 				</li>
-				<li><a href="views/board/boardPoint.jsp">적립금 사용 내역</a></li>
+				<li><a href="<%=request.getContextPath()%>/selectPoint.me">적립금 사용 내역</a></li>
 				<li>
 					<span class="opener">개인정보</span>
 					<ul>
