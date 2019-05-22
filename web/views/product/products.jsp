@@ -138,7 +138,7 @@
 						<tr><td colspan="2" class="nFont"><%=hmap.get("workName")%></td></tr>
 						<tr>
 							<td class="lFont">좋아요</td>
-							<td><span style="margin-left:-160px; color:red; text-align:right;"class="glyphicon glyphicon-heart"></span></td></tr>
+							<td><span style="margin-left:-130px; color:red; text-align:right;"class="glyphicon glyphicon-heart"></span></td></tr>
 					</table>
 					<br>
 				</div>

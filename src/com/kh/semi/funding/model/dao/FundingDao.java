@@ -182,7 +182,7 @@ public class FundingDao {
 				hmap.put("typeId", rset.getInt("TYPE_ID"));
 				hmap.put("changeName", rset.getString("CHANGE_NAME"));
 				hmap.put("category", rset.getString("CATEGORY"));
-				hmap.put("memberName" , rset.getString("MEMBER_NAME"));
+				hmap.put("memberName" , rset.getString("AUTHOR_NAME"));
 				list.add(hmap);
 				System.out.println("FundingDao: " + list);
 			
