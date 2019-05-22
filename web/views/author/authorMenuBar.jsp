@@ -65,8 +65,8 @@
 				<li>
 					<span class="opener">개인정보</span>
 					<ul>
-						<li><a href="editAuthorInfo.jsp">개인정보 수정</a>
-						<li><a href="deleteAuthor.jsp">회원 탈퇴</a>
+						<li><a href="/sg/views/author/editAuthorInfo.jsp">개인정보 수정</a>
+						<li><a href="/sg/views/author/deleteAuthor.jsp">회원 탈퇴</a>
 					</ul>
 				</li>
 				<li><a href="#">고객센터</a>

@@ -42,8 +42,7 @@
 								<tr>
 									<td class="menuA" onClick = "location.href='<%=request.getContextPath()%>/selectOrderList.wo'">주문조회</td>
 									<td class="menuA" onClick = "location.href='<%=request.getContextPath()%>/selectExchangeList.wo'">환불관리</td>
-									<td class="menuA" onClick = "location.href=''">환불관리</td>
-									<td class="menuA" onClick = "location.href=''">취소관리</td>
+									<td class="menuA" onClick = "location.href=''">교환관리</td>
 								</tr>
 							</table>
 						</div>
@@ -224,8 +223,7 @@
 										//console.log(data);
 										var num = 0;
 										$("#tbody").find("tr").remove();
-										$(".pagingArea1").hide();
-										$(".pagingArea2").show();
+										$(".pagingArea1").remove();
 										
 										
 										for(var i = 0; i < data.length; i++){

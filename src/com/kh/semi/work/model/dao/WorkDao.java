@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import org.eclipse.jdt.internal.compiler.ast.ReturnStatement;
 
+import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.work.model.vo.PageInfo;
 import com.kh.semi.work.model.vo.PicFile;
 import com.kh.semi.work.model.vo.Work;
@@ -863,6 +864,25 @@ public class WorkDao {
 		}
 		
 		return listCount;
+	}
+
+	public int deleteAuthor(Connection con, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteAuthor");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, m.getMemberId());
+	
+			result += pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 

@@ -56,7 +56,7 @@
 									<input id="endDate" name="endDate" type="date" style="margin-left:50px;" value="2019-12-31">
 								</td>
 								<td>
-									<input type="button" value="검색" id="searhDate"  class="all-btn" style="width:150px; height:40px;">
+									<input onclick="searchDate(1)" type="button" value="검색" id="searhDate"  class="all-btn" style="width:150px; height:40px;">
 								</td>
 							</tr>
 							<tr>
@@ -70,7 +70,7 @@
 							</tr>
 						</table>
 						<script>
-							$("#searhDate").click(function(){
+							function searchDate(){
 								var startDate = $("#startDate").val();
 								var endDate = $("#endDate").val();
 								
@@ -85,7 +85,11 @@
 										//console.log(data);
 										var num = 0;
 										$("#tbody").find("tr").remove();
-										$(".pagingArea").remove();
+										$(".pagingArea").children().remove();
+										
+										<button onclick="searchDate(1)"><<</button>
+										
+										
 										
 										console.log(data[0].workId)
 										
@@ -120,6 +124,10 @@
 										var num = 0;
 										$("#tbody").find("tr").remove();
 										$(".pagingArea").remove();
+										var $btn = $("<button onclick='search()'>")
+										var $span = $("<span>")
+										$btn.append($span)
+										
 										
 										console.log(data[0].workId)
 										
@@ -175,6 +183,12 @@
 		
 						<%-- 페이지 처리 --%>
 						<div class="pagingArea" align="center">
+							<button class="pagingBtn2" onclick="location.href='<%=request.getContextPath()%>/selectSale.wo?currentPage=1'">
+								<span class="glyphicon glyphicon-chevron-left"></span>
+								<span class="glyphicon glyphicon-chevron-left"></span>
+							</button>
+							
+							
 							<button class="pagingBtn2" onclick="location.href='<%=request.getContextPath()%>/selectSale.wo?currentPage=1'">
 								<span class="glyphicon glyphicon-chevron-left"></span>
 								<span class="glyphicon glyphicon-chevron-left"></span>

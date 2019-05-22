@@ -45,7 +45,6 @@
 									<td class="menuA" onClick = "location.href='<%=request.getContextPath()%>/selectOrderList.wo'">주문조회</td>
 									<td class="menuA" onClick = "location.href='<%=request.getContextPath()%>/selectExchangeList.wo'">환불관리</td>
 									<td class="menuA" onClick = "location.href=''">교환관리</td>
-									<td class="menuA" onClick = "location.href=''">취소관리</td>
 								</tr>
 							</table>
 						</div>

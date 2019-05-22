@@ -1,26 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.member.model.vo.*"%>
+<% Member member = (Member)request.getSession().getAttribute("loginUser"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>수작 - 작가탈퇴</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<%@ include file="../assets/css/author.html" %>
 <style>
-	.authorInfo {
-	border:2px solid lightgray;
-	margin: 20px 0px 20px 0px;
-	box-shadow:2px 2px lightgray;
-	}
-	.authorInfo tr{
-		padding:0 auto;
-	}
 	
-	.authorInfo tr>td{
-		background:white;
-		height:80px;
-		
+	.deleteDiv{
+		background: radial-gradient(white, #F6FFFF) fixed;
+		border:2px solid lightgray;
+		box-shadow:2px 2px lightgray;
+		margin-botton:50px;
+		min-width:500px;
 	}
-
+	.deleteTable{
+		margin:0px 0px 0px 0px;
+		min-width:500px;
+	}
+	.deleteTable tr>td{
+		margin:0px 0px 0px 0px;
+		border:2px solid lightgray;
+		font-size:13px;
+		background: radial-gradient(white, #F6FFFF) fixed;
+		height:20px;
+	}
+	.all-btn{
+		margin-top:70px;
+	}
 </style>
 </head>
 <body class="is-preload">
@@ -31,61 +43,76 @@
 			<div class="inner">
 				<!-- Header -->
 				<header id="header">
-					<a href="authorHome.jsp" class="logo">
-						<span class="glyphicon glyphicon-home"></span>
-						&nbsp;
-						<strong style="font-size:20px;">HOME</strong>
+					<a href="/sg/views/author/authorHome.jsp" class="logo"> <span
+						class="glyphicon glyphicon-home"></span> &nbsp; <strong
+						style="font-size: 20px;">HOME</strong>
 					</a>
 				</header>
 				<section id="contents">
 					<header class="main">
-						<h1>작가탈퇴</h1>
+						<h2>작가 등록 취소</h2>
 					</header>
 					<!-- Contents area -->
-
-					<form id="deleteAuthor" action="" method="post">
-						<table class="authorInfo">
-							<tr>
-								<td><h2 style="margin: 0 auto; padding-left: 20px">판매자 등록 취소</h2>
-							</td>
+					<div class="manageSaleTitle" style="min-width:500px;">
+						<h2>작가 등록 취소</h2>
+					</div>
+					<div class="deleteDiv">
+						<table class="deleteTable">
+							<tr style="height:40px; text-align:center; font-weight:bold;">
+								<td colspan="2" style="font-size:20px;">판매자 등록 취소 안내</td>
+							</tr>
+							<tr style="height:100px;">
+								<td colspan="2">꺼져줄께 수작 없이 잘살아~~</td>
 							</tr>
 							<tr>
-								<td style="width: 200px;">판매자 등록 취소 안내</td>
+								<td style="width:150px; font-weight:bold; font-size:15px;">판매자 이름</td>
+								<td><%= member.getMemberName() %></td>
 							</tr>
 							<tr>
-								<td>취소안내 내요오오오옹오오오오오옹 텍스트로만 작성 나중에</td>
-							</tr>
-							<tr>
-								<td>판매자 이름</td>
-							</tr>
-							<tr>
-								<td>판매자 이메일 또는 이메일</td>
+								<td style="width:150px; font-weight:bold; font-size:15px;">이메일</td>
+								<td><%= member.getEmail() %></td>
 							</tr>
 						</table>
+					</div>
 
-
-						<div align="center">
-
-							<button style="width: 150px; background: lightgray;">등록취소신청</button>
+					<div align="center">
+						<button class="all-btn" style="width:150px;" data-toggle="modal" data-target="#modal">등록취소신청</button>
+					</div>
+					
+					
+					
+					<div class="modal fade" id="modal" role="dialog">
+						<div class="modal-dialog">
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h2 class="modal-title">작가 등록 취소</h2>
+								</div>
+								<div class="modal-body" style="padding:0px 0px 50px 0px; text-align:center;">
+									<br><br><br><br><br>
+									<h3>정말 판매자 등록 취소를 하시겠습니까?</h3>
+									<button type="button" class="all-btn" style="width:130px;" onclick="deleteAuthor()">예</button> &nbsp; &nbsp; &nbsp; &nbsp;
+									<button type="button" class="all-btn" style="width:130px;"  data-dismiss="modal">아니요</button>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">돌아가기</button>
+								</div>
+							</div>
 						</div>
-
-					</form>
-
-
-
-
-
-
-
-
-
-
-
+					</div>
+					<script>
+						function deleteAuthor() {
+							location.href="<%=request.getContextPath()%>/deleteAuthor.wo";
+						}
+					</script>
 				</section>
 			</div>
 		</div>
 		<%@ include file="authorMenuBar.jsp" %>
 	</div>
+	
+	<div style="height:500px;"></div>
 			
 </body>
 </html>
