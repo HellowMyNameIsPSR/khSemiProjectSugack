@@ -13,6 +13,20 @@
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style>
+	.reqBrandPic{
+      background:yellow;
+      width: 150px;
+      height: 150px;
+         	display: inline-block;
+      
+   }
+   .reqDetail{
+   	display: inline-block;
+   }
+	
+</style>
+ 
 </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -28,8 +42,17 @@
 				</header>
 				<section id="contents">
 					<header class="main">
-						<div class="reqDetail">
+					<div class="allArea" style="width:100%">
+					
+						<div class="reqBrandPic"  style="background: red; border: 1px solid red; float:left; width:15%; height:155px;" >
+								
+							<img src="#<%-- <%=request.getContextPath()%>/uploadSalesImage/<%=hmap.get("changeName")%> --%>" style="width:100%;height:100%;">
+							
+						</div>				
+					
+						<div class="reqDetail" style="float:left; width:85%">
 						<input type="hidden" id="brandName" value="<%= a.getBrandName() %>" />
+						
 						<table>
 							<tr>
 								<td><h4><%= a.getApplyContent() %></h4></td>
@@ -45,11 +68,16 @@
 								</td>
 							</tr>
 						</table>
-						<textarea id="reqDetailText" cols="30" rows="10" style="resize: none;" readonly><%= a.getApplyContent() %></textarea>						
+						
 						</div>
-
-							<button id="accept" value="1차승인">승인</button>
-							<button id="deny" value="1차거부">거부</button>
+					</div>
+						<div>						
+							<textarea id="reqDetailText" cols="30" rows="10" style="resize: none;" readonly><%= a.getApplyContent() %></textarea>						
+						</div>
+						<div class="btns" style="align:center;text-align:center; margin-top:15px;">
+							<button id="accept" style="width:60px; height:40px;"value="1차승인">승인</button>
+							<button id="deny" style="width:60px; height:40px;" value="1차거부">거부</button>
+						</div>
 					</header>
 				</section>
 			</div>
