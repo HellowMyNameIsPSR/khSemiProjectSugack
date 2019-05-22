@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.semi.member.model.vo.Member"%>
+    <% String memberId = request.getParameter("memberId");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +43,7 @@
 				
 				</li>
 				<li>
-				    <span ><a href="authorPageDetail.jsp">스토리 글 작성</a></span>   
+				    <span ><a href="selectAuthorStory.au?memberId=<%=memberId%>">스토리 글 작성</a></span>
 				
 				</li>
 				
