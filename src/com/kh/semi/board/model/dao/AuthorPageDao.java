@@ -150,8 +150,8 @@ public class AuthorPageDao {
 				hmap.put("BCOUNT", rset.getInt("BCOUNT"));
 				hmap.put("DIVISON", rset.getInt("DIVISON"));
 				hmap.put("WORK_ID", rset.getInt("WORK_ID"));
-				hmap.put("MODIFY_DATE", rset.getDate("MODIFY_DATE"));
-				hmap.put("MATERIAL", rset.getString("MATERIAL"));
+				/*hmap.put("MODIFY_DATE", rset.getDate("MODIFY_DATE"));
+				hmap.put("MATERIAL", rset.getString("MATERIAL"));*/
 				
 				hmap.put("FILE_CODE", rset.getInt("FILE_CODE"));
 				hmap.put("ProOriginname", rset.getString("ORIGIN_NAME"));
@@ -208,8 +208,8 @@ public class AuthorPageDao {
 				b.setbCount(rset.getInt("BCOUNT"));
 				b.setDivision(rset.getInt("DIVISON"));
 				b.setWorkId(rset.getInt("WORK_ID"));
-				b.setModifyDate(rset.getDate("MODIFY_DATE"));
-				b.setMaterial(rset.getString("MATERIAL"));
+				/*b.setModifyDate(rset.getDate("MODIFY_DATE"));
+				b.setMaterial(rset.getString("MATERIAL"));*/
 				
 				at = new AuthorPageAttachmrnt();
 				

@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.semi.member.model.vo.Member"%>
 <% String memberId = request.getParameter("memberId");%>
+
+<%
+	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+%>
+<%-- <%
+   int memberIdcheck = Integer.parseInt(memberId);
+
+%> --%>
   
     
 <!DOCTYPE html>
@@ -28,7 +36,19 @@
 				<h2>Menu</h2>
 			</header>
 			<ul>
+			          
+			
+			     <%-- <%if (loginUser==null) { %> --%> 
+				 <%-- <% if(loginUser.getMemberId()==Integer.parseInt(memberId)){%> --%>
+				
+				 <%-- <%}else if((loginUser.getMemberId()==memberIdcheck)){%> --%>
 				<li><a href="views/tour/authorpageProEdit.jsp"><img alt="" src="/views/images/artist.jpg" style="width: 200px; height: 200px;">활동명</a></li>
+		         <li>
+				    <span ><a href="views/tour/authorPageDetail.jsp">스토리 글 작성</a></span>   
+				
+				</li>
+		         <%-- <%}else if(loginUser==null || (loginUser.getMemberId()!=memberIdcheck) || (loginUser.getMemberId()==memberIdcheck)){ %> --%>
+					
 				<li>
 					<span class="opener">작품갤러리</span>
 					<ul>
@@ -39,16 +59,14 @@
 				</li>
 				<li>
 					<span ><a href="comMent.au?num=<%=memberId %>">응원하기 </a></span>
+					  
 				
 				</li>
-				<li>      
+				<%-- <%} %> --%>
 				
-				</li>
-				<li>
-				    <span ><a href="views/tour/authorPageDetail.jsp">스토리 글 작성</a></span>   
+			   
 				
-				</li>
-				
+			  
 				<li> 
 				   
 					<span><a href="">관심작가 등록하기</a></span>
@@ -63,6 +81,7 @@
 				</li>
 				<li ><a href="views/tour/artistachieveMent.jsp">작가업적</a>
 			</ul>
+	
 		</nav>
 		<!-- Footer -->
 		<!-- <footer id="footer">
