@@ -9,6 +9,11 @@
 	AuthorPageAttachmrnt detailImg2 = fileList.get(1);
 	AuthorPageAttachmrnt detailImg3 = fileList.get(2);
 %>
+
+<%
+	Member loginUser_1 = (Member)request.getSession().getAttribute("loginUser");
+%>
+
 <!DOCTYPE html>
 
 <html lang="ko">
@@ -62,19 +67,22 @@
 	<nav></nav>
 	<div id="wrapper">
 		<div id=main>
-
-			<header id="header"> </header>
+	        <%@ include file="/views/main/mainMenubar.jsp"%> 
+			<header id="header"> 
+			
+			
+			</header>
 
 			<section>
 
 
-
+<%-- 
 
 				<aside>
 
-					<%-- <%@ include file="../common/userMenuBar.jsp"%> --%>
+					<%@ include file="../common/userMenuBar.jsp"%>
 
-				</aside>
+				</aside> --%>
 
 
 				<div style="width: 200px height: 200;" align="center">
@@ -87,7 +95,7 @@
 								<li data-target="#myCarousel" data-slide-to="1"></li>
 								<li data-target="#myCarousel" data-slide-to="2"></li>
 							</ol>
-
+							
 							<!-- Wrapper for slides -->
 							<div class="carousel-inner">
 								<div class="item active">
