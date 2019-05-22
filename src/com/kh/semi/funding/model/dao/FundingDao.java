@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import com.kh.semi.funding.model.vo.Category;
 import com.kh.semi.funding.model.vo.Funding;
+import com.kh.semi.funding.model.vo.SortFunding;
 import com.kh.semi.funding.model.vo.Work;
 import com.kh.semi.funding.model.vo.WorkPic;
 
@@ -149,6 +150,7 @@ public class FundingDao {
 		return result;
 	}
 
+
 	public ArrayList<HashMap<String, Object>> selectFunctionProList(Connection con) {
 		
 		Statement stmt = null;
@@ -234,13 +236,75 @@ public class FundingDao {
 				
 				list.add(hmap);
 			}
+
+	//등록한 펀딩 작품 중 조건에 맞는 행들을 최신순으로 정렬합니다.
+	public ArrayList<SortFunding> selectSortFunding(Connection con, int memberId, SortFunding sortFunding) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<SortFunding> list = null;
+		String query = prop.getProperty("selectSortFunding");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			pstmt.setString(2, sortFunding.getFunStatus());
+			rset = pstmt.executeQuery();
+			list = new ArrayList<SortFunding>();
+			if(rset != null) {
+				while(rset.next()) {
+					SortFunding sortFundingData = new SortFunding();
+					sortFundingData.setWorkId(rset.getInt("WORK_ID"));
+					sortFundingData.setWorkName(rset.getString("WORK_NAME"));
+					sortFundingData.setWrDate(rset.getString("WR_DATE"));
+					sortFundingData.setFcStart(rset.getString("FC_START"));
+					sortFundingData.setFcFinish(String.valueOf(rset.getString("FC_FINISH")));
+					sortFundingData.setFunStatus(rset.getString("FUN_STATUS"));
+					list.add(sortFundingData);
+				} //end while
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return list;
+	}
+
+	//펀딩 작품 정보를 조회합니다.
+	public ArrayList<HashMap<String, String>> selectFundContents(Connection con, int memberId, int workId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, String>> list = null;
+		String query = prop.getProperty("selectFundContents");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			pstmt.setInt(2, workId);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				HashMap<String, String> hmap = new HashMap<String, String>();
+				hmap.put("workId", String.valueOf(rset.getInt("WORK_ID")));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("minVoo", String.valueOf(rset.getInt("MIN_VOO")));
+				hmap.put("maxVoo", String.valueOf(rset.getInt("MAX_VOO")));
+				hmap.put("deliPrice", String.valueOf(rset.getInt("DELI_PRICE")));
+				hmap.put("fcStart", rset.getString("FC_START"));
+				hmap.put("fcFinish", rset.getString("FC_FINISH"));
+				hmap.put("deliDate", rset.getString("DELI_DATE"));
+				hmap.put("cooperation", rset.getString("COOPERATION"));
+				hmap.put("wrDate", rset.getString("WR_DATE"));
+				hmap.put("price", String.valueOf(rset.getInt("PRICE")));
+			} //end while
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+			close(rset);
 		}
 		return list;
-	
 	}
-}
+
+} //end class

@@ -34,24 +34,20 @@ public class UpdateMemberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		String password2 = request.getParameter("password2");
 		String phone = request.getParameter("phone");
-		String nickName = request.getParameter("nickName");
 		String gender = request.getParameter("gender");
 		String birthDate = request.getParameter("birthDate");
 		Date birth = null;
 		
-		if(!birthDate.equals("1999-01-01")) {
-			birth = Date.valueOf(birthDate);
-		}
-		
-		if(password != password2) {
-			request.setAttribute("msg", "비밀번호와 확인이 일치 하지 않습니다");
-			request.getRequestDispatcher("views/member/memberUpdateForm.jsp").forward(request, response);;
-		}
+
+		birth = Date.valueOf(birthDate);
+
 		
 		Member m = new Member();
+		m.setEmail(email);
 		m.setMemberId(memberId);
 		m.setPassword(password);
 		m.setPhone(phone);
@@ -59,11 +55,14 @@ public class UpdateMemberServlet extends HttpServlet {
 		m.setBirthDate(birth);
 		
 		Member loginUser = new MemberService().updateMember(m);
+		System.out.println(loginUser);
 		
 		if(loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
-			response.sendRedirect("views/member/memberUpdateForm.jsp");
+			response.getWriter().print("ok");
+		}else {
+			response.getWriter().print("fail");
 		}
 		
 		

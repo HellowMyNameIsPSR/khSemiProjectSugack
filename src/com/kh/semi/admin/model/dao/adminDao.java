@@ -1,5 +1,7 @@
 package com.kh.semi.admin.model.dao;
 
+import static com.kh.semi.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,13 +14,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
-
-import com.kh.semi.admin.model.dao.adminDao;
+import com.kh.semi.admin.model.vo.RequestMember;
 import com.kh.semi.admin.model.vo.SearchMember;
 import com.kh.semi.admin.model.vo.SearchProduct;
 import com.kh.semi.author.model.vo.Author;
-import com.kh.semi.member.model.vo.Member;
-import static com.kh.semi.common.JDBCTemplate.*;
 
 public class adminDao {
 	 private Properties prop = new Properties();
@@ -554,7 +553,7 @@ public class adminDao {
 		return list;
 	}
 
-	public Author selectReqMemOne(String authorName, Connection con) {
+	public RequestMember selectReqMemOne(String authorName, Connection con) {
 		
 		Properties prop = new Properties();
 		String fileName =  adminDao.class
@@ -570,7 +569,7 @@ public class adminDao {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		Author a = null;
+		RequestMember rm = null;
 		String query = prop.getProperty("reqMemDetailList");
 		
 
@@ -581,17 +580,18 @@ public class adminDao {
 			pstmt.setString(1, authorName);
 			
 			rset= pstmt.executeQuery();
-			a = new Author();
-			
-			
+			rm = new RequestMember();
+
 			while(rset.next()) {
-				a.setBrandName(rset.getString("AUTHOR_NAME"));
-				a.setApplyContent(rset.getString("APPLY_CONTENT"));
-				a.setApplyDate(rset.getDate("APPLY_DATE"));
-				a.setStaus(rset.getString("AUTHOR_STATUS"));
-				
-				
-				
+				rm.setBrandName(rset.getString("AUTHOR_NAME"));
+				rm.setApplyContent(rset.getString("APPLY_CONTENT"));
+				rm.setApplyDate(rset.getDate("APPLY_DATE"));
+				rm.setMemberId(rset.getInt("MEMBER_ID"));
+				rm.setEmail(rset.getString("EMAIL"));
+				rm.setMaterial(rset.getString("MATERIAL"));
+				rm.setApply1(rset.getString("APPLY_STAT1"));
+				rm.setApply2(rset.getString("APPLY_STAT2"));
+				rm.setName(rset.getString("MEMBER_NAME"));
 				
 			}
 			
@@ -603,11 +603,11 @@ public class adminDao {
 			close(pstmt);
 		}
 		
-		
-		return a;
+		System.out.println("Dao에서의 rm" + rm);
+		return rm;
 	}
 
-	public int reqDeny(Connection con, String apply1Stat, String brandName) {
+	public int reqDeny(Connection con, String apply1Stat, int memberId) {
 		Properties prop = new Properties();
 		String fileName =  adminDao.class
 				.getResource("/sql/admin/admin-normalquery.properties")
@@ -624,13 +624,13 @@ public class adminDao {
 		int result = 0;
 		
 		String query = prop.getProperty("reqDeny");
-		System.out.println("query" + query);
+		System.out.println("승인/거부 query" + query);
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			
 			pstmt.setString(1, apply1Stat);
-			pstmt.setString(2, brandName);
+			pstmt.setInt(2, memberId);
 			
 			
 			result = pstmt.executeUpdate();
@@ -641,7 +641,6 @@ public class adminDao {
 			close(pstmt);
 		}
 		
-		System.out.println("Dao에서 결과" + result);
 		
 		return result;
 	}
@@ -754,6 +753,81 @@ public class adminDao {
 		return list;
 	
 
+	}
+
+	public int reqDate(Connection con, int memberId) {
+		Properties prop = new Properties();
+		String fileName =  adminDao.class
+				.getResource("/sql/admin/admin-normalquery.properties")
+				.getPath();
+		
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("reqDate");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, memberId);
+			
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+				
+		return result;
+		
+		
+	}
+
+	public int reqDeny2(Connection con, String apply2Stat, int memberId) {
+		Properties prop = new Properties();
+		String fileName =  adminDao.class
+				.getResource("/sql/admin/admin-normalquery.properties")
+				.getPath();
+		
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("reqDeny2");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, apply2Stat);
+			pstmt.setInt(2, memberId);
+			
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+		
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.kh.semi.member.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,12 +35,16 @@ public class InsertMemberServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String phone = request.getParameter("phone");
 		String name = request.getParameter("name");
+		String birthDate = request.getParameter("birthDate");
+		
+		Date birth = Date.valueOf(birthDate);
 		
 		Member m = new Member();
 		m.setEmail(email);
 		m.setPassword(password);
 		m.setPhone(phone);
 		m.setMemberName(name);
+		m.setBirthDate(birth);
 		System.out.println(m);
 		
 		int result = new MemberService().insertMember(m);

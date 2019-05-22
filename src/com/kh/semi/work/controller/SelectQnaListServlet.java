@@ -50,10 +50,11 @@ public class SelectQnaListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
 		ArrayList<HashMap<String, Object>> list = new WorkService().selectQnaList(pi, memberId);
-	
+	//	System.out.println("리스트 !! " + list);
+	//	System.out.println("리스트 !! 사이즈" + list.size());
 		String page = "";
 		if(list != null) {
-			page="views/author/manageSaleExchange.jsp";
+			page="views/author/managePost.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		}else {

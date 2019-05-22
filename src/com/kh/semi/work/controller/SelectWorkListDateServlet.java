@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.work.model.service.WorkService;
 import com.kh.semi.work.model.vo.PageInfo;
 import com.kh.semi.work.model.vo.Work;
@@ -27,6 +28,8 @@ public class SelectWorkListDateServlet extends HttpServlet {
 		int startPage;			//한번에 표시될 페이지가 시작할 페이지
 		int endPage;			//한번에 표시될 페이지가 끝나는 페이지
 		
+		String memberId = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberId());
+		
 		currentPage = 1;
 		if(request.getParameter("currentPage") != null){
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -34,7 +37,7 @@ public class SelectWorkListDateServlet extends HttpServlet {
 		
 		limit = 10;
 		
-		int listCount = new WorkService().getListCount();
+		int listCount = new WorkService().getListCount(memberId);
 		
 		maxPage = (int)((double)listCount/limit + 0.9);
 		

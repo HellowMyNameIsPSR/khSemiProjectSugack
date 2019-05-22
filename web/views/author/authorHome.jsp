@@ -8,6 +8,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+ <script type="text/javascript"
+    src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript"
+    src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="//www.google.com/jsapi"></script>
+<style>
 <style>
 	.manageSaleTitle{
 		margin: 20px 0px 20px 0px;
@@ -265,8 +272,8 @@
 					
 					
 					<div class="middleSummary">
-						<div class="summaryDiv"  style="cursor:pointer; min-width:370px;" onClick = " location.href='saleStatistics.jsp'">
-							판매 매출 통계
+						<div class="summaryDiv" id="chart_div"  style="cursor:pointer; min-width:370px;" onClick = " location.href='saleStatistics.jsp'">
+							<h4>판매 매출 통계</h4>
 						</div>
 						<div class="summaryDiv" style="cursor:pointer; min-width:225px;" onClick = " location.href='saleStatistics.jsp'">
 							판매 현황
@@ -295,6 +302,30 @@
 		</div>
 		<%@ include file="authorMenuBar.jsp" %>
 	</div>
-			
+	<script>
+			google.charts.load('current', {'packages':['corechart']});
+			google.charts.setOnLoadCallback(chart);
+			function chart(){
+				var option = {
+						title:'월별 매출',
+						vAxis:{title:"원"},
+						hAxis:{title:"년월"},
+						legend: { position: "none" }
+						};
+				var chartData;
+				$.ajax({
+					url:"<%=request.getContextPath()%>/selectSalesForMonth.at",
+					async : false,
+					type:"get",
+					success:function(data){
+						console.log(data);
+						chartData = new google.visualization.DataTable(data);	
+					}
+				});
+				var chart = new google.visualization.ColumnChart(document.querySelector('#chart_div'));
+				chart.draw(chartData, option);
+			}
+
+		</script>		
 </body>
 </html>

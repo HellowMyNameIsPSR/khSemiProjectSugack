@@ -58,11 +58,13 @@
 							<input type="password" name="password" id="password" class="form-control">
 						</div>
 					</div>
+					
 					<br>
 					<div class="col-sm-3"></div>
 					<div class="col-sm-6">
 						<button type="submit" class="btn btn-primary btn-md btn-block">로그인</button>
 						<button type="reset" class="btn btn-default btn-md btn-block"> 취소 </button>
+						<button type="button" class="btn btn-primary btn-md btn-block" onclick="idPwdFind();">아이디/비밀번호 찾기</button>
 					</div>
 				</form>
 					
@@ -84,6 +86,11 @@
 			$("#password").focus();
 		}
 	});
+	
+	function idPwdFind(){
+		location.href="findIdAndPassword.jsp";
+	}
+	
 </script>	
 </body>
 </html>

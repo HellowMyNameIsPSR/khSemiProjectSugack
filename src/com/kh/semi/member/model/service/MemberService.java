@@ -8,9 +8,19 @@ import com.kh.semi.work.model.vo.WorkOption;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 
+import java.net.PasswordAuthentication;
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class MemberService {
 
@@ -218,6 +228,112 @@ public class MemberService {
 		close(con);
 		
 		return hmap;
+	}
+
+	public int sendMail(String email, String randomCode) {
+		String host = "smtp.naver.com";
+		String pass = "Wnffkdl!23";
+		String user = "dlwlgus1757@naver.com";
+		int result = 0;
+		Properties props = new Properties();
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", 587);
+		props.put("mail.smtp.auth", "true");
+		
+		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() { 
+			protected javax.mail.PasswordAuthentication getPasswordAuthentication() { 
+				return new javax.mail.PasswordAuthentication(user, pass); 
+				} 
+			});
+
+		try {
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(user));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+			
+			message.setSubject("수작에서 보낸 인증번호 입니다");
+			
+			message.setText("다음의 문자를 넣고 인증하기 버튼을 눌러주세요\n" + randomCode);
+			
+			Transport.send(message);
+			System.out.println("성공");
+			result = 1;
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return result;
+	}
+
+	public String selectEmail(String name, Date birthDate) {
+		Connection con = getConnection();
+		
+		String email = new MemberDao().selectEmail(con, name, birthDate);
+		
+		close(con);
+		
+		return email;
+	}
+
+	public int findPassword(Member m, String randomCode) {
+		Connection con = getConnection();
+		int result2 = 0;
+		int result3 = 0;
+		
+		int result = new MemberDao().findPassword(m, con);
+		
+		if(result > 0) {
+			result2 = sendPassword(m.getEmail(), randomCode);
+			if(result2 > 0) {
+				result3 = new MemberDao().updatePassword(con, m);
+				if(result3 > 0) {
+					commit(con);
+				}else {
+					rollback(con);
+				}
+			}			
+		}
+		
+		return result3;
+	}
+	
+	public int sendPassword(String email, String randomCode) {
+		String host = "smtp.naver.com";
+		String pass = "Wnffkdl!23";
+		String user = "dlwlgus1757@naver.com";
+		int result = 0;
+		Properties props = new Properties();
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", 587);
+		props.put("mail.smtp.auth", "true");
+		
+		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() { 
+			protected javax.mail.PasswordAuthentication getPasswordAuthentication() { 
+				return new javax.mail.PasswordAuthentication(user, pass); 
+				} 
+			});
+
+		try {
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(user));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+			
+			message.setSubject("수작에서 보낸 인증번호 입니다");
+			
+			message.setText("회원님의 임시 비밀번호는 : " + randomCode);
+			
+			Transport.send(message);
+			System.out.println("성공");
+			result = 1;
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return result;
 	}
 
 

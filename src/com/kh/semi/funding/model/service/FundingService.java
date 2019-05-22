@@ -9,6 +9,7 @@ import java.util.HashMap;
 import com.kh.semi.funding.model.dao.FundingDao;
 import com.kh.semi.funding.model.vo.Category;
 import com.kh.semi.funding.model.vo.Funding;
+import com.kh.semi.funding.model.vo.SortFunding;
 import com.kh.semi.funding.model.vo.Work;
 import com.kh.semi.funding.model.vo.WorkPic;
 
@@ -50,6 +51,7 @@ public class FundingService {
 		//return test;
 	}
 	
+
 	//펀딩상품 전체 리스트 조회
 	public ArrayList<HashMap<String, Object>> selectFundingProList() {
 		Connection con = getConnection();
@@ -66,7 +68,19 @@ public class FundingService {
 		Connection con = getConnection();
 		
 		ArrayList<HashMap<String,Object>> list = new FundingDao().selectFundingProDetailList(con,workId);
-		
+
+	//등록된 펀딩 작품 내역의 상태가 '대기' 상태 인 것을 최신 순으로 정렬합니다.
+	public ArrayList<SortFunding> selectSortFunding(int memberId, SortFunding sortFunding) {
+		Connection con = getConnection();
+		ArrayList<SortFunding> list = new FundingDao().selectSortFunding(con, memberId, sortFunding);
+		close(con);
+		return list;
+	}
+	
+	//펀딩 작품 정보를 조회합니다.
+	public ArrayList<HashMap<String, String>> selectFundContents(int memberId, int workId) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String, String>> list = new FundingDao().selectFundContents(con, memberId, workId);		
 		close(con);
 		return list;
 	} 

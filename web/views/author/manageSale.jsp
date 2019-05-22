@@ -7,7 +7,7 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-	%>
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +20,7 @@
 </head>
 <body class="is-preload">
 <!-- Wrapper -->
+	
 	<div id="wrapper">
 		<!-- Main -->
 		<div id="main">
@@ -78,12 +79,13 @@
 					<div class="manageSaleTable">
 						<table class="listTable">
 							<tr>
+								<td></td>
 								<th style="width:30px;"><strong>NO.</strong></th>
-								<th><strong>상품주문번호</strong></th>
-								<th><strong>결제 일시</strong></th>
+								<th style="width:90px;"><strong>주문번호</strong></th>
+								<th style="width:100px;"><strong>결제 일시</strong></th>
 								<th><strong>상품명</strong></th>
-								<th><strong>구매자명</strong></th>
-								<th><strong>배송상태</strong></th>
+								<th style="width:100px;"><strong>구매자명</strong></th>
+								<th style="width:100px;"><strong>배송상태</strong></th>
 							</tr>
 							<!-- <tr>
 								<td>0</td><td>OD_ID(ORDER_LIST)</td><td>PAY_DATE(PAYMENT)</td><td>WORK_NAME(WORK)</td><td>MEMBER_ID(MEMBER)</td><td>DELI_STATUS(DELIVERY)</td>
@@ -95,14 +97,28 @@
 								num++;
 							 %>
 							<tr>
+								<td style="padding:0px 0px 10px 15px; font-size:12px; text-align:left; width:30px;">
+									<input type="radio" id="<%= num %>" name="cid" value="">
+									<label for="<%= num %>" style=""></label>
+								</td>
 								<td><%= num %></td>
 								<td><%= hmap.get("odId") %></td>
 								<td><%= hmap.get("payDate") %></td>
 								<td><%= hmap.get("workName") %></td>
 								<td><%= hmap.get("memberId") %></td>
-								<td><%= hmap.get("deliStatus") %></td>
+								<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"><%= hmap.get("deliStatus") %></td>
 							</tr>
 							<% } %> 
+						</table>
+					</div>
+					
+					<div class="manageButton">
+						<table style="height:100%;">
+							<tr align="center">
+								<td width="150px;min-width:150px;">배송 처리</td>
+								<td><button id="waitBtn" class="all-btn"style="width:150px;">배송 중 처리</button></td>
+								<td><button id="completeBtn" class="all-btn"style="width:150px;">배송 완료 처리</button></td>
+							</tr>
 						</table>
 					</div>
 					

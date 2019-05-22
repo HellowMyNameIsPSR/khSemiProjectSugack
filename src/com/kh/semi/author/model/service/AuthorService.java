@@ -91,6 +91,50 @@ public class AuthorService {
 		}
 		close(con);
 		return result;
+	}
+
+	public ArrayList<Integer> selectSalesForMonth(int memberId) {
+		Connection con = getConnection();
+		
+		ArrayList<Integer> list = new AuthorDao().selectSalesForMonth(con, memberId);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList<String> getMonth(int memberId) {
+		Connection con = getConnection();
+		
+		ArrayList<String> month = new AuthorDao().getMonth(con, memberId);
+		
+		close(con);
+		
+		return month;
 	}	
 	
 } //end class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -17,23 +17,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <%@ include file="../assets/css/author.html" %>
-<style>
-	.modal-content{
-		margin-top:50%;
-		background: radial-gradient(white, #F6FFFF) fixed;
-	}
-	.modal-title{
-		text-align:center;
-	}
-	.model-table{
-		
-	}
-	.model-table tr>td{
-		font-size:15px;
-		border:2px solid lightgray;
-		background: radial-gradient(white, #E7F3FE);
-	}
-</style>
 </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -59,14 +42,14 @@
 								<tr>
 									<td class="menuA" onClick = "location.href='<%=request.getContextPath()%>/selectOrderList.wo'">주문조회</td>
 									<td class="menuA" onClick = "location.href='<%=request.getContextPath()%>/selectExchangeList.wo'">환불관리</td>
-									<td class="menuA" onClick = "location.href=''">교환관리</td>
+									<td class="menuA" onClick = "location.href=''">환불관리</td>
 									<td class="menuA" onClick = "location.href=''">취소관리</td>
 								</tr>
 							</table>
 						</div>
 					</nav>
 					<div class="manageSaleTitle">
-						<h2>교환관리</h2>
+						<h2>환불관리</h2>
 					</div>
 					
 
@@ -99,37 +82,39 @@
 							<tr>
 								<th style="width:40px;"><strong></strong></th>
 								<th style="width:40px;"><strong>NO.</strong></th>
-								<th><strong>상품주문번호</strong></th>
-								<th><strong>환불요청일</strong></th>
+								<th><strong>환불 코드</strong></th>
 								<th><strong>상품명</strong></th>
 								<th><strong>수량</strong></th>
+								<th><strong>환불요청일</strong></th>
 								<th><strong>구매자명</strong></th>
 								<th><strong>환불처리상태</strong></th>
-							<%
-								int num = 0;
-							 	for(int i = 0; i < list.size(); i++){
-							 		HashMap<String, Object> hmap = list.get(i);
-								num++;
-							 %>
-							<tr>
-								<td style="padding:0px 0px 10px 15px; font-size:12px; text-align:left; width:30px;">
-									<input type="radio" id="<%= num %>" name="cid" value="">
-									<label for="<%= num %>" style=""></label>
-								</td>
-								<td data-toggle="modal" data-target="#myModal<%= num %>"><%= num %></td>
-								<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("odId") %></td>
-								<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("refundEnddate") %></td>
-								<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("workName") %></td>
-								<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("count") %></td>
-								<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("memberName") %></td>
-								<td style="font-weight:bold; font-size:16px;"><%= hmap.get("refundDate") %></td>
-							</tr>
-							<script>
-								$("#waitBtn").click(function(){
-									$("#update").val('대기중');
-								}
-							</script>
-							<% } %> 
+								<tbody id="tbody">
+									<%
+										int num = 0;
+									 	for(int i = 0; i < list.size(); i++){
+									 		HashMap<String, Object> hmap = list.get(i);
+										num++;
+									 %>
+									<tr>
+										<td style="padding:0px 0px 10px 15px; font-size:12px; text-align:left; width:30px;">
+											<input type="radio" id="<%= num %>" name="cid" value="">
+											<label for="<%= num %>" style=""></label>
+										</td>
+										<td data-toggle="modal" data-target="#myModal<%= num %>"><%= num %></td>
+										<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("refundId") %></td>
+										<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("workName") %></td>
+										<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("count") %></td>
+										<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("refundEnddate") %></td>
+										<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("memberName") %></td>
+										<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"><%= hmap.get("refundDate") %></td>
+									</tr>
+									<!-- <script>
+										$("#waitBtn").click(function(){
+											$("#update").val('대기중');
+										}
+									</script> -->
+									<% } %> 
+								</tbody>
 						</table>
 					</div>
 					<%	int num1 = 0;
@@ -165,8 +150,8 @@
 											<td><%=hmap.get("refundEnddate")%></td>
 										</tr>
 										<tr>
-											<td style="font-weight:bold; font-size:17px;">주문번호</td>
-											<td><%=hmap.get("odId")%></td>
+											<td style="font-weight:bold; font-size:17px;">환불코드</td>
+											<td><%=hmap.get("refundId")%></td>
 											<td style="font-weight:bold; font-size:17px;">구매자명님</td>
 											<td><%=hmap.get("memberName")%></td>
 										</tr>
@@ -202,8 +187,110 @@
 					
 					
 					
+					
+					
+					
+					
+					<script>
+						$(function(){
+							$(".listTable td").mouseenter(function(){
+								$(this)
+									.parent()
+									.css({"background":"black", "cursor":"pointer"});
+							}).mouseout(function(){
+								$(this)
+									.parent()
+									.css({"background-color":"black"});
+							}).click(function(){
+								var num = $(this).parent().children().eq(1).text();
+								
+							});
+						})
+						
+						
+						
+						$("#searhDate").click(function(){
+								var startDate = $("#startDate").val();
+								var endDate = $("#endDate").val();
+								
+								console.log($("#startDate").val());
+								console.log($("#endDate").val());
+								
+								$.ajax({
+									url:"<%=request.getContextPath()%>/selectExchangeDate.wo",
+									data:{startDate: $("#startDate").val(), endDate: $("#endDate").val()},
+									type:"get",
+									success:function(data){
+										//console.log(data);
+										var num = 0;
+										$("#tbody").find("tr").remove();
+										$(".pagingArea1").hide();
+										$(".pagingArea2").show();
+										
+										
+										for(var i = 0; i < data.length; i++){
+											num++;
+											$("#tbody").append(
+												"<tr>" +
+													'<td style="padding:0px 0px 10px 15px; font-size:12px; text-align:left; width:30px;">' +
+														'<input type="radio"' + 'id="<%= num %>"'+ 'name="cid">'  +
+														'<label for="<%= num %>" style=""></label>'  +
+													'</td>'  +
+													'<td> ' + num + "</td>" +
+													'<td> ' + data[i].refundId + '</td>' + 
+													'<td> ' + data[i].workName + '</td>' + 
+													'<td> ' + data[i].count + '</td>' + 
+													'<td> ' + data[i].refundEnddate + ' </td>' + 
+													'<td> ' + data[i].memberName + '</td>' + 
+													'<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"> ' + data[i].refundDate + '</td>' + 
+												'</td>'
+											);
+										}
+										
+									}
+								});
+							});
+							
+							$("#searhName").on("click", function(){
+								var workName = $("#workName").val();
+								
+								//console.log($("#workName").val());
+								
+								$.ajax({
+									url:"<%=request.getContextPath()%>/selectName.wo",
+									data:{workName: $("#workName").val()},
+									type:"get",
+									success:function(data){
+										console.log(data);
+										var num = 0;
+										$("#tbody").find("tr").remove();
+										$(".pagingArea").remove();
+										
+										console.log(data[0].workId)
+										
+										for(var i = 0; i < data.length; i++){
+											num++;
+											$("#tbody").append(
+												"<tr>" +
+													"<td> " + num + "</td>" + 
+													"<td> " + data[i].workId + "</td>" + 
+													"<td> " + data[i].workName + "</td>" + 
+													"<td> " + data[i].price + "원 </td>" + 
+													"<td> " + data[i].wrDate + "</td>" + 
+												"</td>"
+											);
+											
+											
+										}
+										
+									}
+								});
+							});
+					</script>
+					
+							
 					<%-- 페이지 처리 --%>
-					<div class="pagingArea" align="center">
+					<div class="pagingArea1" align="center">
 						<button class="pagingBtn2" onclick="location.href='<%=request.getContextPath()%>/selectExchangeList.wo?currentPage=1'">
 							<span class="glyphicon glyphicon-chevron-left"></span>
 							<span class="glyphicon glyphicon-chevron-left"></span>
@@ -252,26 +339,59 @@
 						</button>
 						
 					</div>
+							
 
-					<script>
-						$(function(){
-							$(".listTable td").mouseenter(function(){
-								$(this)
-									.parent()
-									.css({"background":"black", "cursor":"pointer"});
-							}).mouseout(function(){
-								$(this)
-									.parent()
-									.css({"background-color":"black"});
-							}).click(function(){
-								var num = $(this).parent().children().eq(1).text();
-								
-							});
-						})
-					</script>
-
-
-
+					 <%-- 페이지 처리 --%>
+					<%--<div class="pagingArea" align="center">
+						<button class="pagingBtn2" onclick="location.href='<%=request.getContextPath()%>/selectExchangeDate.wo?currentPage=1'">
+							<span class="glyphicon glyphicon-chevron-left"></span>
+							<span class="glyphicon glyphicon-chevron-left"></span>
+						</button>
+						<% if(currentPage <= 1) {%>
+						<button class="pagingBtn2" disabled>
+							<span class="glyphicon glyphicon-chevron-left"></span>
+						</button>
+						<%}else{ %>
+						<button class="pagingBtn2" onclick="location.href='<%=request.getContextPath()%>/selectExchangeDate.wo?currentPage=<%=currentPage - 1%>'">
+							<span class="glyphicon glyphicon-chevron-left"></span>
+						</button>
+						<%} %>
+						
+						<%for(int p = startPage; p <= endPage; p++){
+							
+							if(p == currentPage) {%>
+							
+							<button class="pagingBtn" style="background-color:skyblue">
+								<%=p%>
+							</button>
+							
+							<%}else { %>
+							
+							<button class="pagingBtn" onclick="location.href='<%=request.getContextPath()%>/selectExchangeDate.wo?currentPage=<%=p%>'">
+								<%=p%>
+							</button>
+							
+							<%} %>
+							
+						<%} %>
+						
+						
+						<% if(currentPage >= maxPage) {%>
+						<button class="pagingBtn2" disabled>
+							<span class="glyphicon glyphicon-chevron-right"></span> 
+						</button>
+						<%}else { %>
+						<button class="pagingBtn2" onclick="location.href='<%=request.getContextPath()%>/selectExchangeDate.wo?currentPage=<%=currentPage + 1%>'">
+							<span class="glyphicon glyphicon-chevron-right"></span> 
+						</button>
+						<%} %>
+						<button class="pagingBtn2" onclick="location.href='<%=request.getContextPath()%>/selectExchangeDate.wo?currentPage=<%=maxPage%>'">
+							<span class="glyphicon glyphicon-chevron-right"></span> 
+							<span class="glyphicon glyphicon-chevron-right"></span> 
+						</button>
+						
+					</div>
+ --%>
 
 
 
@@ -282,7 +402,7 @@
 	</div>
 
 
-
+	<div style="height:400px;"></div>
 
 
 
