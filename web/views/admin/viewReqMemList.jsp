@@ -96,7 +96,7 @@
 				</section>
 			</div>
 		</div>
-		<%@ include file="adminMenubarServlet.jsp" %>
+		<%@ include file= "/views/admin/adminMenubar.jsp" %>
 	</div>
 	<script>
 	$(function(){

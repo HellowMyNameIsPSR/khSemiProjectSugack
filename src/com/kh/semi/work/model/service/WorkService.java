@@ -264,6 +264,42 @@ public class WorkService {
 		
 		return listCount;
 	}
+	public ArrayList<HashMap<String, Object>> selectReviewList(PageInfo pi, String memberId) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list  = new WorkDao().selectReviewList(con, pi, memberId);
+		
+		close(con);
+		
+		return list;
+	}
+	public int reviewListCount(String memberId) {
+		Connection con = getConnection();
+		
+		int listCount = new WorkDao().reviewListCount(con, memberId);
+		
+		close(con);
+		
+		return listCount;
+	}
+	public ArrayList<HashMap<String, Object>> selectExchangeDate(PageInfo pi, String memberId, String wrDate1, String wrDate2) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list  = new WorkDao().selectExchangeDate(con, pi, memberId, wrDate1, wrDate2);
+		
+		close(con);
+		
+		return list;
+	}
+	public int exchangeDateCount(String memberId, String wrDate1, String wrDate2) {
+		Connection con = getConnection();
+		
+		int listCount = new WorkDao().exchangeDateCount(con, memberId, wrDate1, wrDate2);
+		
+		close(con);
+		
+		return listCount;
+	}
 	
 
 	

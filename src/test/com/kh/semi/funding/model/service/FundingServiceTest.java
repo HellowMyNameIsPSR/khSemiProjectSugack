@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import com.kh.semi.funding.model.service.FundingService;
 import com.kh.semi.funding.model.vo.Funding;
+import com.kh.semi.funding.model.vo.SortFunding;
 import com.kh.semi.funding.model.vo.Work;
 import com.kh.semi.funding.model.vo.WorkPic;
 
@@ -20,10 +21,14 @@ public class FundingServiceTest {
 	private Work fundWork;
 	private ArrayList<WorkPic> fileList;
 	private Funding fund;
+	private SortFunding sortFunding;
 	
 	@Before
 	public void beforTest() {
 		fundingService = new FundingService();
+		
+		sortFunding  = new SortFunding();
+		sortFunding.setFunStatus("대기");
 		
 		fund = new Funding();
 		fund.setMaxVoo(100);
@@ -62,8 +67,15 @@ public class FundingServiceTest {
 		assertNotNull(fundingService.selectAuthortype(2));
 	}
 	
+	@Ignore
 	@Test
-	public void insertFundingWork() {
+	public void testIinsertFundingWork() {
 		assertEquals(fundingService.insertFundingWork(fundWork, fileList, fund), 1);
 	}
+	
+	@Test
+	public void testSelectSortFunding() {
+		assertNotNull(fundingService.selectSortFunding(2, sortFunding));
+	}
+	
 } //end class
