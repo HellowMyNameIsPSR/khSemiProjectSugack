@@ -3,7 +3,7 @@
 <%
 	Board b = (Board) request.getAttribute("board");
 	ArrayList<AuthorPageAttachmrnt> fileList = (ArrayList<AuthorPageAttachmrnt>) request
-			.getAttribute("fileList");
+ .getAttribute("fileList");
 
 	AuthorPageAttachmrnt detailImg1 = fileList.get(0);
 	AuthorPageAttachmrnt detailImg2 = fileList.get(1);
@@ -157,7 +157,7 @@
 			</section>
 
 		</div>
-		 <jsp:include page="/views/common/tourMenuBarServlet.jsp">
+		 <jsp:include page="/views/common/tourMenuBarServlet.jsp" flush="false">
 		 	<jsp:param name="memberId" value="<%= b.getMemberId() %>" />
 		 </jsp:include>
 	</div>
