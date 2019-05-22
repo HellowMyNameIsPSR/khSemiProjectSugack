@@ -4,6 +4,7 @@ import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.semi.funding.model.dao.FundingDao;
 import com.kh.semi.funding.model.vo.Category;
@@ -47,6 +48,27 @@ public class FundingService {
 		close(con);
 		return resultFundFile;
 		//return test;
+	}
+	
+	//펀딩상품 전체 리스트 조회
+	public ArrayList<HashMap<String, Object>> selectFundingProList() {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new FundingDao().selectFunctionProList(con);
+		System.out.println("FundingService: " + list);
+		close(con);
+		
+		return list;
+	}
+	
+	//펀딩상품 자세히보기
+	public ArrayList<HashMap<String, Object>> selectFundingProDetailList(int workId) {
+		
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String,Object>> list = new FundingDao().selectFundingProDetailList(con,workId);
+		
+		close(con);
+		return list;
 	} 
 
 } //end class

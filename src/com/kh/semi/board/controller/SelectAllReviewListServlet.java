@@ -1,29 +1,30 @@
-package com.kh.semi.product.controller;
+package com.kh.semi.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.semi.product.model.service.ProService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.kh.semi.board.model.service.ReviewService;
+import com.kh.semi.board.model.vo.Review;
 
 /**
- * Servlet implementation class SelectProductServlet
+ * Servlet implementation class SelectAllReviewListServlet
  */
-@WebServlet("/selectProduct.pro")
-public class SelectProductServlet extends HttpServlet {
+@WebServlet("/selectAllReview.bo")
+public class SelectAllReviewListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectProductServlet() {
+    public SelectAllReviewListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,22 +33,17 @@ public class SelectProductServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("프로덕트 서블릿 진입성공!");
-		ArrayList<HashMap<String,Object>> list = new ProService().selectProductList();
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html; charset=utf-8");
+		int workId = Integer.parseInt(request.getParameter("workId"));
+		ArrayList<Review> list = new ReviewService().selectAllReview(workId);
 		
-		System.out.println("SelectServlet에선 list : "+ list);
+		response.setContentType("application/json");
+		Gson gson= new GsonBuilder().setDateFormat("yyyy년-MM월-dd일").create();
+		gson.toJson(list, response.getWriter());
+		System.out.println("서블릿에서 보내주는가" + list);
 		
-		String page ="";
 		
-		if(list!=null) {
-			page = "views/product/products.jsp";
-			request.setAttribute("list", list);
-		}else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "상품게시판 조회 실패!");
-		}
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
 	}
 
 	/**

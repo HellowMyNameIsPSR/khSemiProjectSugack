@@ -6,6 +6,7 @@
 	 System.out.println("product detail에서 olist" + olist);
     System.out.println("product detail에서" + list);
     ProQna qna = (ProQna)request.getAttribute("qna"); 
+    
     HashMap<String, Object> work = (HashMap<String, Object>)list.get(0); 
     System.out.println("work: "+work);
     
@@ -36,7 +37,7 @@
    }
    
    .productDiv{
-      background:beige;
+      background:#D4ECFF;
       padding:15px;
       
    }
@@ -88,6 +89,7 @@
       background:gray;
       height:30%;
       
+      
    }
    
   
@@ -123,6 +125,15 @@ hr{
 
 .information{
    padding:30px;
+}
+
+#purchase{
+	background:white;
+	
+}
+
+#purchase:hover{
+	background:#80A8E8;
 }
 </style>
 </head>
@@ -210,7 +221,9 @@ hr{
 						} %>
 					</select>
 				<%} %>
-				<div style="background:lightgray;" id="countArea">
+				
+				
+				<div style="/* background:#FFECE7; */ margin-top:5px" id="countArea">
 				
 				<label>수량</label>
 				<button type="button" onclick="plus();">+</button>
@@ -222,7 +235,7 @@ hr{
 			
 			<%} else { %>
 			<label>옵션이 없습니다.</label>
-			<div style="background:lightgray;" id="countArea">	
+			<div id="countArea">	
 				<label>수량</label>
 				<button type="button" onclick="plus();">+</button>
 				<input type="number" style="width:50px;" id="ea" name="ea" value="1" readonly>
@@ -239,8 +252,8 @@ hr{
          <!-- <input type="image" src="../images/heart.png" style="width:80px; height:50px; border:2px solid pink; background:pink; border-radius:7px;"> -->
          <input type="image" src="views/images/shopping-basket.png" id="goBasket" style="width:70px; margin-left:5px;height:50px; border:2px solid lightblue; background:lightblue; border-radius:7px;">
          <!-- <input type="submit" value="구매하기" style="float:right; font-size:15px;width:170px; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"> -->
-         <button type="submit" class="all-btn"style="float:right; font-size:15px;width:170px; height:50px;/*  color:white;border:2px solid gray; background:gray; */ border-radius:7px;"
-               id="purchase">구매하기</button>
+         <button type="submit" style="float:right; font-size:16px;width:20%; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"id="purchase">구매하기</button>
+       <!--  <button type="submit" style="float:right; font-size:16px;width:20%; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"id="purchase">구매하기</button> -->
        </div>
 			</form>
 		</div>
@@ -271,6 +284,73 @@ hr{
 					$("#sum").append("원");
 
 				});
+				
+				var workId = <%=work.get("workId")%>;
+				$.ajax({
+					url:"<%=request.getContextPath()%>/selectAllReview.bo",
+					data:{workId:workId},
+					type:"post",
+					success:function(data){
+
+		              	
+		              	 $('#replySelectTable').html(data).trigger("create");
+		                  console.log(data);
+		              
+		                  console.log("성공");
+		                  var $replySelectTable = $("#replySelectTable");
+		                  $replySelectTable.html('');
+		                  
+		                 var $tr0 = $("<tr>");
+		                 // $tr0.css('width','300px');
+		                  var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"lightblue", "color": "gray"});
+		              	//var $td1 = $("<td>").text("후기내용").css("height", "50px");
+		              	var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"lightblue", "color": "gray"});
+		              	var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
+		              	var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
+		              	
+		           	 $tr0.append($td0);
+		   				$tr0.append($td1);
+		   				$tr0.append($td2);
+		   				$tr0.append($td3);
+		   				
+		   				$replySelectTable.append($tr0);
+		   				
+		   				
+		   				//ArrayList에 리뷰들이 등록되어있어서 each를 통해 반복문을 돌려서 값을 가져온다!
+		   				//HashMap은 key를 통해서 값을 가져온다!
+		   				  $.each(data, function(index, value){
+		   		               var $tr = $("<tr>").css("height","50px");
+		   		              
+		   		               var $writer = $("<td>").text(decodeURIComponent(value.writer));
+		   		               var $content = $("<td>").text(decodeURIComponent(value.content));
+		   		               var $starPoint= $("<td>").text(decodeURIComponent(value.starPoint));
+		   		             
+		   		               var $writeDate = $("<td>").text(decodeURIComponent(value.writeDate));
+		   		              //var $writeDate = $("<td>").text(date.format(value.writeDate));
+		   		              // var $writeDate2 = (date.format(value.writeDate));
+		   		               
+		   		               $tr.append($writer);
+		   		               $tr.append($content);
+		   		               $tr.append($starPoint);
+		   		               $tr.append($writeDate);
+		   		               $replySelectTable.append($tr)
+		   		               
+		   		               //등록과 동시에 작성 내용 지우기
+		   		               $('#reviewCon').val("");
+		   		               
+		   		            
+		   		               console.log(localStorage);
+		   				  })
+		   		        
+		                  
+						
+						
+					},error:function(){
+						alert("실패");
+					}
+				})
+			
+			
 			});
 		
 			$("#goBasket").click(function(){
@@ -357,6 +437,108 @@ hr{
         	 })
         	 <%}%>
          }
+        
+        $("#menu2").click(function(){
+        
+          
+           $.ajax({
+               url:"<%=request.getContextPath()%>/selectAllReview.bo?workId=<%=work.get("workId")%>",
+               data:{workId:workId},
+               type:"post",
+               success:function(data){
+              	
+              	 $('#replySelectTable').html(data).trigger("create");
+                  console.log(data);
+              
+                  console.log("성공");
+                  var $replySelectTable = $("#replySelectTable");
+                  $replySelectTable.html('');
+                  
+                 var $tr0 = $("<tr>");
+                 // $tr0.css('width','300px');
+                  var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"lightblue", "color": "gray"});
+              	//var $td1 = $("<td>").text("후기내용").css("height", "50px");
+              	var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"lightblue", "color": "gray"});
+              	var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
+              	var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
+              	
+           	 $tr0.append($td0);
+   				$tr0.append($td1);
+   				$tr0.append($td2);
+   				$tr0.append($td3);
+   				
+   				$replySelectTable.append($tr0);
+   				
+   				
+   				//ArrayList에 리뷰들이 등록되어있어서 each를 통해 반복문을 돌려서 값을 가져온다!
+   				//HashMap은 key를 통해서 값을 가져온다!
+   				  $.each(data, function(index, value){
+   		               var $tr = $("<tr>").css("height","50px");
+   		              
+   		               var $writer = $("<td>").text(value.writer);
+   		               var $content = $("<td>").text(value.content);
+   		               var $starPoint= $("<td>").text(value.starPoint);
+   		             
+   		               var $writeDate = $("<td>").text(value.writeDate);
+   		              //var $writeDate = $("<td>").text(date.format(value.writeDate));
+   		              // var $writeDate2 = (date.format(value.writeDate));
+   		               
+   		               $tr.append($writer);
+   		               $tr.append($content);
+   		               $tr.append($starPoint);
+   		               $tr.append($writeDate);
+   		               $replySelectTable.append($tr)
+   		               
+   		               //등록과 동시에 작성 내용 지우기
+   		               $('#reviewCon').val("");
+   		               
+   		              /*  localStorage.setItem('writer', $writer);
+   		               localStorage.getItem('writer'); */
+   		               console.log(localStorage);
+   				  })
+   		        
+                  /* for(var key in data){
+                  	
+                  	
+                  	var $tr = $("<tr>").css("width", "300px");
+                  	var $writerTd = $("<td>")
+                      .text(data[key].writer)
+                      .css("width", "100px");
+                  	
+                  	
+       				var $contentTd = $("<td>")
+                      .text(data[key].content)
+                      .css("width", "400px");
+       				
+       				
+       				var $starTd = $("<td>")
+                      .text(data[key].starPoint)
+                      .css("width", "200px");
+      				
+       				var $datdTd = $("<td>").text(data[key].writeDate).css("width", "200px");
+       				//$tr0.append($tr);
+       				
+       				
+       			
+       				$tr.append($writerTd);
+       				$tr.append($contentTd);
+       				$tr.append($starTd);
+       				$tr.append($dateTd);
+      				
+      				$replySelectTable.append($tr);
+      			    
+                  } */
+                  
+                  
+               },
+               error:function(){
+                  console.log("실패");
+               }
+              
+           });
+         
+        })
+        
       	  
      	 
           function addReview() {
@@ -482,7 +664,7 @@ hr{
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
       <h3>기본정보</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <p><%=work.get("workContent") %></p>
     </div>
     <div id="menu1" class="tab-pane fade">
       <h3>배송/판매/교환/환불</h3>

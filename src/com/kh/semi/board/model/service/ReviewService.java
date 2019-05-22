@@ -92,4 +92,15 @@ public class ReviewService {
 		return result;
 	}
 
+
+	//작품에 해당하는 모든 리뷰 조회하기
+	public ArrayList<Review> selectAllReview(int workId) {
+		
+		Connection con = getConnection();
+		ArrayList<Review> list = new ReviewDao().selectAllReview(con,workId);
+		
+		close(con);
+		return list;
+	}
+
 }
