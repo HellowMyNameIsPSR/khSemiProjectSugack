@@ -54,7 +54,6 @@
 </style>
 </head>
 <body>
-
 	<div class="outer">
 		<br>
 		<div>
@@ -103,7 +102,7 @@
 				<td>작성날짜</td>
 			</tr>
 			<% for(int i = 0; i < commentList.size(); i++) {%> 
-			<!-- 이름 -->
+			<!-- 이름 !-->
 			
 			<tr style="height:40px;">
 				<td><%= commentList.get(i).getWriter() %></td>

@@ -3,8 +3,8 @@ package com.kh.semi.funding.model.vo;
 import java.io.Serializable;
 
 public class Category implements Serializable{
-	private int cid; //카테고리 코드
-	private String category; //카테고리
+	private int cid; //카테고리 코드!
+	private String category; //카테고리!
 
 	public Category() {
 		// TODO Auto-generated constructor stub

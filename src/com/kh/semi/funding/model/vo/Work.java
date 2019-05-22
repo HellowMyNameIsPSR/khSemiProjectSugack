@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class Work implements Serializable{
-	private int workId; //작품코드
+	private int workId; //작품코드!
 	private String workName; //작품명
 	private String workContent; //작품설명
 	private int deliPrice; //배송비

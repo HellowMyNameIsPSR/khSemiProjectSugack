@@ -160,7 +160,7 @@ public class ProService {
 		return result;
 	}
 
-
+//
 	public HashMap<String, Object> selectCartBuyInfo(String[] bidArr, int memberId) {
 		Connection con = getConnection();
 		

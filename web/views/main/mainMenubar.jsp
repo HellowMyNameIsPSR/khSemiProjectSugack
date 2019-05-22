@@ -364,7 +364,7 @@
 			
 			
 			
-			 <!-- 네비 하단 --> 
+			 <!-- 네비 하단! --> 
 			<nav class="navbar navbar-bottom hidden-xs">
 				<div class="container bottom">
 					<div class="collapse navbar-collapse" id="myNav">

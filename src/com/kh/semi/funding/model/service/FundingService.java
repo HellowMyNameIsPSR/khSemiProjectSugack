@@ -60,7 +60,7 @@ public class FundingService {
 		return list;
 	}
 	
-	//펀딩상품 자세히보기
+	//펀딩상품 자세히보기!
 	public ArrayList<HashMap<String, Object>> selectFundingProDetailList(int workId) {
 		
 		Connection con = getConnection();

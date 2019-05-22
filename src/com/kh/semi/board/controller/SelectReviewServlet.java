@@ -16,7 +16,7 @@ import com.kh.semi.board.model.vo.Review;
 import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class SelectReviewServlet
+ * Servlet implementation class SelectReviewServlet!
  */
 @WebServlet("/selectReview.co")
 public class SelectReviewServlet extends HttpServlet {

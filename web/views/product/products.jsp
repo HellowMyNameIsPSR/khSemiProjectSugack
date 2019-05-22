@@ -17,7 +17,7 @@
  <style>
 	
     
-    /* Set black background color, white text and some padding */
+    /* Set black background color, white text and some padding */!
     footer {
       width:100%;
       background-color: #555;

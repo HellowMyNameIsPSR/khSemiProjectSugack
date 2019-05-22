@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="com.kh.semi.board.model.vo.*,java.util.*"%>
 <%
 	ArrayList<ProQna> list = (ArrayList<ProQna>)request.getAttribute("list");
-	/* System.out.println("boardQna에서");
+	/* System.out.println("boardQna에서");!
 	System.out.println(" list : " + list); */
 	//ProQna qna = (ProQna)request.getAttribute("qna");
 %>

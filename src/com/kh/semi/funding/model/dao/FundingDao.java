@@ -34,7 +34,7 @@ public class FundingDao {
 		} //end try
 	} //end constr
 
-	//카테고리 검색
+	//카테고리 검색!
 	public ArrayList<Category> selectCategoryAll(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;

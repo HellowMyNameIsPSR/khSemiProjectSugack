@@ -190,7 +190,7 @@ hr{
 		</div>
 
       </div>
-      <!-- /.col-lg-8 -->
+      <!-- /.col-lg-8 !-->
       <div class="col-sm-6 productDiv" style="height:450px">
         <!-- <h1 class="font-weight-light">Business Name or Tagline</h1>
         <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>

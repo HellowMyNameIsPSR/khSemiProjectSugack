@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.semi.product.model.service.ProService;
 
 /**
- * Servlet implementation class SelectProductServlet
+ * Servlet implementation class SelectProductServlet!
  */
 @WebServlet("/selectProduct.pro")
 public class SelectProductServlet extends HttpServlet {

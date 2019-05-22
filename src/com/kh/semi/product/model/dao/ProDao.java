@@ -128,7 +128,7 @@ public class ProDao {
 				System.out.println("Detaildao에서 : " + list);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// TODO Auto-generated catch block!!
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
