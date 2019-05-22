@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>수작 - 펀딩 작품 등록3</title>
+	<title>수작 - 2차펀딩작품등록</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -28,9 +28,12 @@
 						<h2>판매 작품등록</h2>
 					</header>
 					<!-- Contents area -->
-
 					<form id="salesInsert" action="" method="post">
-
+						<div class="listBox">
+							<div class="listTitle">
+								<h2></h2>
+							</div>
+						</div>
 						
 						<div class="listBox">
 							<div class="listTitle">
