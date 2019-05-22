@@ -160,7 +160,7 @@ hr{
 		    </ol>
 		
 		    <!-- Wrapper for slides -->
-		    <div class="carousel-inner">
+		    <div class="carousel-inner" style="margin-top:30px">
 		    <% for(int i=0; i<list.size(); i++){
    				HashMap<String,Object> hmap = list.get(i);
    				if(i == 0) {
@@ -191,7 +191,7 @@ hr{
 
       </div>
       <!-- /.col-lg-8 !-->
-      <div class="col-sm-6 productDiv" style="height:450px">
+      <div class="col-sm-6 productDiv" style="height:450px; margin-top:30px">
         <!-- <h1 class="font-weight-light">Business Name or Tagline</h1>
         <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
         <a class="btn btn-primary" href="#">Call to Action!</a> -->

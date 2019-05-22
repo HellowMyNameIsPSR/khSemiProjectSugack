@@ -10,7 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관심판매상품!</title>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 	.name{
 		width:100%;
@@ -59,7 +59,8 @@
 							 		</div>
 							 		
 							 		<div class="heart">
-							 			<img src="views/images/heart.png" onclick="delLike();" style="width:50px; height:50px; float:left;">
+							 			<input type="hidden" value="<%=hmap.get("workId") %>">
+							 			<img src="views/images/heart.png" class="delLike" style="width:50px; height:50px; float:left;">
 							 		</div>
 							 		<div>
 							 			<label id="price" style="margin-left:160px;"><%=hmap.get("price") %>원</label>
@@ -102,14 +103,15 @@
 					 %>
 					 <script>
 					 
-						function delLike(){
+					 $(function(){
+							$(".delLike").click(function(){
 							
 							var memberId = <%=loginUser2.getMemberId()%>;
-							var workId = <%=work.get("workId")%>;
-							
+							var workId =  $(this).parent().children().eq(0).val();
+							console.log(workId);
 						   
 							$.ajax({
-								url:"<%=request.getContextPath()%>/deleteLike.me?<%=work.get("workId")%>",
+								url:"<%=request.getContextPath()%>/deleteLike.me",
 								data:{memberId:memberId, workId:workId},
 								type:"post",
 								success:function(data){
@@ -122,8 +124,8 @@
 								}
 							})
 							console.log(workId);
-							
-						}
+							});
+						});
 					</script> 
 					
 					<!-- <div class="row">

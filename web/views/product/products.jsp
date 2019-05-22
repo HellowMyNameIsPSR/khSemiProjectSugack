@@ -115,7 +115,7 @@
  
 
 <div class="container">
-    <select style="width:100%; height:30px; margin-top:10px;">
+    <select id="order"style="width:100%; height:30px; margin-top:10px;">
 		<option value="pop">인기순</option>
 		<option value="new">최신순</option>
 		<option value="low">낮은가격순</option>
@@ -150,6 +150,20 @@
 
 
 <script>
+
+
+	$("#order").change(function(){
+		console.log($("#order option:selected").val());
+		
+		var order = ($("#order option:selected").val());
+		console.log(order);
+		
+		$.ajax({
+			
+		})
+		
+	});
+	
 	$(".mainImg").click(function(){
 		//해당 상세 페이지로 가기!
 	/*  location.href="views/product/productDetail.jsp";  */

@@ -132,12 +132,12 @@ hr{
       %>
      <div class="align-items-center my-5">
      
-      <div class="col-sm-6" >
+      <div class="col-sm-6" style="margin-top:30px" >
         <img class="img-fluid rounded mb-4 mb-lg-0" src="uploadFundingGoodsImg/<%=hmap.get("changeName") %>" style="width:100%; height:480px">
       </div>
    
       <!-- /.col-lg-8 -->
-      <div class="col-sm-6 productDiv" style="height:480px;">
+      <div class="col-sm-6 productDiv" style="height:480px; margin-top:30px">
         <!-- <h1 class="font-weight-light">Business Name or Tagline!</h1>
         <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
         <a class="btn btn-primary" href="#">Call to Action!</a> -->
