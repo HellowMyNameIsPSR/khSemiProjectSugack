@@ -97,6 +97,12 @@
 	</select>
  	</div>
   <div class="row">
+
+     <%if(loginUser != null && loginUser.getMemberType().equals("W")){ %>
+     <div><ul><a href="views/tour/authorpageProEdit.jsp">프로필 작성하기</a></ul></div>
+     <div><ul><a href="views/tour/authorPageDetail.jsp">스토리 작성하기</a></ul></div>
+     <%} %>
+  
   	<!-- <div class="col-sm-1"></div> -->
   	<% for(int i=0; i<list.size(); i++){
    				HashMap<String,Object> hmap = list.get(i);

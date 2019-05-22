@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.semi.board.model.vo.* ,java.util.*"%>
+	pageEncoding="UTF-8" import="com.kh.semi.board.model.vo.* ,java.util.*, com.kh.semi.member.model.vo.*"%>
 <%
 	Board b = (Board) request.getAttribute("board");
 	ArrayList<AuthorPageAttachmrnt> fileList = (ArrayList<AuthorPageAttachmrnt>) request
@@ -67,7 +67,7 @@
 	<nav></nav>
 	<div id="wrapper">
 		<div id=main>
-	        <%@ include file="/views/main/mainMenubar.jsp"%> 
+	        
 			<header id="header"> 
 			
 			
