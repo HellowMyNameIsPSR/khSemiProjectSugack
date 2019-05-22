@@ -24,15 +24,15 @@
 				<h2>Menu</h2>
 			</header>
 			<ul>
-				<li><a href="authorHome.jsp">HOME</a></li>
+				<li><a href="/sg/views/author/authorHome.jsp">HOME</a></li>
 				<li>
 					<span class="opener">판매 작품</span>
 					<ul>
 						<li><a href="/sg/views/author/enrollSaleGoods.jsp">판매 작품 등록</a>
 						<li><a onclick="manageSaleGoods()">판매 작품 관리</a>
 						<li><a onclick="manageSale()">판매 관리</a>
-						<li><a href="/sg/views/author/managePost.jsp">문의 / 리뷰 관리</a>
-						<li><a href="/sg/views/author/saleStatistics.jsp">판매 통계</a>
+						<li><a onclick="managePost()">문의 / 리뷰 관리</a>
+						<li><a onclick="manageReview()">판매 통계</a>
 					</ul> 
 					<script>
 						function manageSaleGoods() {
@@ -40,6 +40,12 @@
 						}
 						function manageSale() {
 							location.href="<%=request.getContextPath()%>/selectOrderList.wo";
+						}
+						function managePost() {
+							location.href="<%=request.getContextPath()%>/selectQnaList.wo";
+						}
+						function manageReview() {
+							location.href="<%=request.getContextPath()%>/selectReviewList.wo";
 						}
 					</script>
 				</li>

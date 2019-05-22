@@ -2,6 +2,7 @@ package com.kh.semi.work.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,17 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.work.model.service.WorkService;
 import com.kh.semi.work.model.vo.PageInfo;
-import com.kh.semi.work.model.vo.Work;
 
-@WebServlet("/selectDate.wo")
-public class SelectWorkListDateServlet extends HttpServlet {
+@WebServlet("/selectReviewList.wo")
+public class SelectReviewListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SelectWorkListDateServlet() {}
+    public SelectReviewListServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int currentPage;		//현재페이지를 표시할 변수
@@ -37,7 +36,7 @@ public class SelectWorkListDateServlet extends HttpServlet {
 		
 		limit = 10;
 		
-		int listCount = new WorkService().getListCount(memberId);
+		int listCount = new WorkService().reviewListCount(memberId);
 		
 		maxPage = (int)((double)listCount/limit + 0.9);
 		
@@ -50,46 +49,28 @@ public class SelectWorkListDateServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
-		String wrDate1 = request.getParameter("startDate");
-		String wrDate2 = request.getParameter("endDate");
-		
-		
-		ArrayList<Work> list = new WorkService().selectSalesDate(pi, wrDate1, wrDate2);
-		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		new Gson().toJson(list, response.getWriter());
-		
-		/*String page = "";
+		ArrayList<HashMap<String, Object>> list = new WorkService().selectReviewList(pi, memberId);
+	//	System.out.println("리스트 !! " + list);
+	//	System.out.println("리스트 !! 사이즈" + list.size());
+		String page = "";
 		if(list != null) {
-			page="views/author/manageSaleGoods.jsp";
+			page="views/author/managePostReview.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		}else {
 			System.out.println("오류 찾자");
 		}
-		request.getRequestDispatcher(page).forward(request, response);*/
-	}
+		request.getRequestDispatcher(page).forward(request, response);
 	
+	
+	
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
