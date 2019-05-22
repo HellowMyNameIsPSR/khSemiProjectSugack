@@ -10,19 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.member.model.service.MemberService;
-import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class InsertMemberServlet
+ * Servlet implementation class FindIdServlet
  */
-@WebServlet("/insertMember.me")
-public class InsertMemberServlet extends HttpServlet {
+@WebServlet("/idFind.me")
+public class FindIdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertMemberServlet() {
+    public FindIdServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,29 +30,21 @@ public class InsertMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String phone = request.getParameter("phone");
 		String name = request.getParameter("name");
-		String birthDate = request.getParameter("birthDate");
+		String birth = request.getParameter("birth");
+		Date birthDate = Date.valueOf(birth);
 		
-		Date birth = Date.valueOf(birthDate);
+		String email = new MemberService().selectEmail(name, birthDate);
 		
-		Member m = new Member();
-		m.setEmail(email);
-		m.setPassword(password);
-		m.setPhone(phone);
-		m.setMemberName(name);
-		m.setBirthDate(birth);
-		System.out.println(m);
 		
-		int result = new MemberService().insertMember(m);
-		
-		if(result > 0) {
-			response.sendRedirect("index.jsp");
+		if(email != null) {
+			String result = email.substring(0, 1) + "*" + email.substring(2, 3) + "**" + email.substring(5, 7) + "*" + email.substring(8, email.length());
+			response.getWriter().print(result);
 		}else {
-			
+			response.getWriter().print("fail");
 		}
+		
+		
 	}
 
 	/**
@@ -65,25 +56,3 @@ public class InsertMemberServlet extends HttpServlet {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -3,6 +3,7 @@ package com.kh.semi.member.model.dao;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -41,7 +42,8 @@ public class MemberDao {
 			pstmt.setString(1, m.getEmail());
 			pstmt.setString(2, m.getMemberName());
 			pstmt.setString(3, m.getPhone());
-			pstmt.setString(4, m.getPassword());
+			pstmt.setDate(4, m.getBirthDate());
+			pstmt.setString(5, m.getPassword());
 			
 			result = pstmt.executeUpdate();
 			
@@ -568,6 +570,87 @@ public class MemberDao {
 		}
 		
 		return olist;
+	}
+
+	public String selectEmail(Connection con, String name, Date birthDate) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String email = null;
+		
+		String query = prop.getProperty("selectEmail");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, name);
+			pstmt.setDate(2, birthDate);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				email = rset.getString("EMAIL");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return email;
+	}
+
+	public int findPassword(Member m, Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("findPassword");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, m.getMemberName());
+			pstmt.setDate(2, m.getBirthDate());
+			pstmt.setString(3, m.getEmail());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public int updatePassword(Connection con, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatePassword");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, m.getPassword());
+			pstmt.setString(2, m.getMemberName());
+			pstmt.setDate(3, m.getBirthDate());
+			pstmt.setString(4, m.getEmail());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 	

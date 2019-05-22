@@ -1,29 +1,25 @@
 package com.kh.semi.member.controller;
 
 import java.io.IOException;
-import java.sql.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.kh.semi.member.model.service.MemberService;
-import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class UpdateMemberServlet
+ * Servlet implementation class SendMailServlet
  */
-@WebServlet("/update.me")
-public class UpdateMemberServlet extends HttpServlet {
+@WebServlet("/sendMail.me")
+public class SendMailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateMemberServlet() {
+    public SendMailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,39 +28,21 @@ public class UpdateMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int memberId = Integer.parseInt(request.getParameter("memberId"));
 		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String password2 = request.getParameter("password2");
-		String phone = request.getParameter("phone");
-		String gender = request.getParameter("gender");
-		String birthDate = request.getParameter("birthDate");
-		Date birth = null;
+		String random = "1234567890abcdefghijklmnopqrstuvwxyz";
+		String randomCode = "";
+		for(int i = 0; i <= 10; i++) {
+			int num = (int)(Math.random() * random.length()) + 1;
+			randomCode += random.substring((num-1), num);
+		}
 		
-
-		birth = Date.valueOf(birthDate);
-
+		int result = new MemberService().sendMail(email, randomCode);
 		
-		Member m = new Member();
-		m.setEmail(email);
-		m.setMemberId(memberId);
-		m.setPassword(password);
-		m.setPhone(phone);
-		m.setGender(gender);
-		m.setBirthDate(birth);
-		
-		Member loginUser = new MemberService().updateMember(m);
-		System.out.println(loginUser);
-		
-		if(loginUser != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
-			response.getWriter().print("ok");
+		if(result > 0) {
+			response.getWriter().print(randomCode);			
 		}else {
 			response.getWriter().print("fail");
 		}
-		
 		
 	}
 
@@ -77,16 +55,6 @@ public class UpdateMemberServlet extends HttpServlet {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

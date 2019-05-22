@@ -256,4 +256,86 @@ public class AuthorDao {
 		return result;
 	}
 
+	public ArrayList<Integer> selectSalesForMonth(Connection con, int memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Integer> list = null;
+		
+		String query = prop.getProperty("selectSalesForMonth");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Integer>();
+			while(rset.next()) {
+				list.add(rset.getInt("SALES"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<String> getMonth(Connection con, int memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<String> list = null;
+		
+		String query = prop.getProperty("selectSalesForMonth");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<String>();
+			while(rset.next()) {
+				list.add(rset.getString("MONTH"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
 } //end class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

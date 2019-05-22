@@ -3,7 +3,7 @@
 <%	
     ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 	ArrayList<WorkOption> olist = (ArrayList<WorkOption>)request.getAttribute("olist");
-	 System.out.println("product detail에서 olist" + olist);
+	System.out.println("product detail에서 olist" + olist);
     System.out.println("product detail에서" + list);
     ProQna qna = (ProQna)request.getAttribute("qna"); 
     HashMap<String, Object> work = (HashMap<String, Object>)list.get(0); 
@@ -191,7 +191,7 @@ hr{
 		
 			<label>배송비 : </label>
 			<label id="deliPrice"><%=work.get("deliPrice") %>원</label>
-			<%-- <label><%=work.get("wcount") %>조회수!</label> --%>
+
 			<hr>
 		<form method="post" id="buy">
 			  <input type="hidden" id="workId" name="workId" value="<%=work.get("workId")%>">
@@ -352,7 +352,7 @@ hr{
         		 success:function(data){
         			 alert("관심상품 추가!");
         		 },error:function(){
-        			 alert("실패");
+        			 alert("실패");1
         		 }
         	 })
         	 <%}%>
@@ -526,8 +526,8 @@ hr{
     </div>
     
     <div id="menu3" class="tab-pane fade">
-   
-             <form id="qna" action="<%=request.getContextPath() %>/insertProQna.bo?workId=<%=work.get("workId")%>" method="post">
+    
+             <form id="qna" action="<%=request.getContextPath() %>/insertProQna.bo" method="post">
      		<h3>문의하기</h3>
                    <div class="qnaArea">
                      <div class="qnaTitle">
