@@ -21,7 +21,9 @@
 	<div class="inner">
 		<!-- Logo -->
 		<section class="alt">
-			<a href="../../index.jsp">LOGO</a>
+			<a href="../../index.jsp"><img
+			id="authorLogo" src="/sg/views/main/images/logo.png"
+			style="display: inline-block;width:150px;"></a>
 		</section>
 		<!-- Menu -->
 		<nav id="menu">

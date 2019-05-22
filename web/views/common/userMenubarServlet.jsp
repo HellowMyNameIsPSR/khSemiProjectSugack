@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<style>
 		<%@ include file="../assets/css/main.html" %>
+		<%@ include file="../assets/css/allCss.html"%>
 	</style>
 	<title></title>
 </head>
@@ -22,8 +23,7 @@
 		<section class="alt">
 			<a href="index.jsp"><img
 			id="authorLogo" src="/sg/views/main/images/logo.png"
-			style="display: inline-block; width:150px; height:100px;">
-		</a>
+			style="display: inline-block; width:150px;"></a>
 		</section>
 		<!-- Menu -->
 		<nav id="menu">
