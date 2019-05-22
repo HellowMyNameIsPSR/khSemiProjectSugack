@@ -709,7 +709,7 @@ hr{
     
     <div id="menu3" class="tab-pane fade">
     
-             <form id="qna" action="<%=request.getContextPath() %>/insertProQna.bo" method="post">
+             <form id="qna" action="<%=request.getContextPath() %>/insertProQna.bo?workId=<%=work.get("workId")%>" method="post">
      		<h3>문의하기</h3>
                    <div class="qnaArea">
                      <div class="qnaTitle">

@@ -236,6 +236,16 @@ public class FundingDao {
 				
 				list.add(hmap);
 			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
 
 	//등록한 펀딩 작품 중 조건에 맞는 행들을 최신순으로 정렬합니다.
 	public ArrayList<SortFunding> selectSortFunding(Connection con, int memberId, SortFunding sortFunding) {
