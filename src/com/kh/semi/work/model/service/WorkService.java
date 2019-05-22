@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.semi.member.model.dao.MemberDao;
+import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.work.model.dao.WorkDao;
 import com.kh.semi.work.model.vo.PageInfo;
 import com.kh.semi.work.model.vo.PicFile;
@@ -300,8 +302,23 @@ public class WorkService {
 		
 		return listCount;
 	}
-	
-
+	public Member deleteAuthor(Member m) {
+		Connection con = getConnection();
+		Member loginUser = null;
+		
+		int result = new WorkDao().deleteAuthor(con, m);
+		
+		if(result > 0) {
+			commit(con);
+			loginUser = new MemberDao().loginMember(con, m.getEmail(), m.getPassword());
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return loginUser;
+	}
 	
 	
 	
