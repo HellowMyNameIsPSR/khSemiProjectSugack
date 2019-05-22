@@ -84,11 +84,18 @@ public class FundingService {
 	}
 	
 	//펀딩 작품 정보를 조회합니다.
-	public ArrayList<HashMap<String, String>> selectFundContents(int memberId, int workId) {
+	public ArrayList<HashMap<String, Object>> selectFundContents(int memberId, int workId) {
 		Connection con = getConnection();
-		ArrayList<HashMap<String, String>> list = new FundingDao().selectFundContents(con, memberId, workId);		
+		ArrayList<HashMap<String, Object>> list = new FundingDao().selectFundContents(con, memberId, workId);		
 		close(con);
 		return list;
+	}
+	//펀딩 작품의 사진을 조회합니다.
+	public ArrayList<WorkPic> selectWorkPicFile(int memberId, int workId) {
+		Connection con = getConnection();
+		ArrayList<WorkPic> fileList = new FundingDao().selectWorkPicFile(con, memberId, workId);
+		close(con);
+		return fileList;
 	} 
 
 } //end class

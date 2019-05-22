@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.funding.model.vo.*"%>
+<%
+	ArrayList<HashMap<String, Object>> fundInfoList = 
+				(ArrayList<HashMap<String, Object>>) request.getAttribute("fundInfoList");
+	ArrayList<WorkPic> fileList = (ArrayList<WorkPic>) request.getAttribute("fileList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,13 +30,59 @@
 				</header>
 				<section id="contents">
 					<header class="main">
-						<h2>판매 작품등록</h2>
+						<h2>판매 작품 2차 등록</h2>
 					</header>
 					<!-- Contents area -->
 					<form id="salesInsert" action="" method="post">
 						<div class="listBox">
 							<div class="listTitle">
-								<h2></h2>
+								<h2>등록한 펀딩 정보 확인</h2>
+							</div>
+							<div class="listContents">
+							<div class="row">
+								<div class="col-sm-4">
+									<img src="<%= request.getContextPath() %>/uploadFundingGoodsImg/<%= fileList.get(0).getChangeName() %>"
+													 style="height:100%; width:100%;" id="fundImg" name="fundImg">
+								</div>
+								<div class="col-sm-8">
+									<div class="row">
+										
+									</div>
+									<div class="row">
+										<table>
+											<tr>
+												<td colspan="5">
+													<label class="form-control"><%= fundInfoList.get(0).get("workName") %></label>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2">
+													<label class="pull-left">목표 금액(원)</label>
+													<input type="text" class="form-control" value="<%= fundInfoList.get(0).get("minVoo") %>" readonly>
+												</td>
+												<td colspan="2">
+													<label class="pull-left">최대 목표 금액(원)</label>
+													<input type="text" class="form-control" value="<%= fundInfoList.get(0).get("maxVoo") %>" readonly>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<label class="pull-left">펀딩 일수</label>
+													<input type="text" class="form-control" value="<%= fundInfoList.get(0).get("funDate") %>" readonly>
+												</td>
+												<td colspan="2">
+													<label class="pull-left">시작일</label>
+													<input type="date" class="form-control" id="fcStart" name="fcStart">
+												</td>
+												<td colspan="2">
+													<label class="pull-left">종료일</label>
+													<input type="date" class="form-control" id="fcFinish" name="fcFinish" readonly>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
 							</div>
 						</div>
 						

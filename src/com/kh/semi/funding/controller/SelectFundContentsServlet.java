@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.funding.model.service.FundingService;
+import com.kh.semi.funding.model.vo.WorkPic;
 import com.kh.semi.member.model.vo.Member;
 
 /**
@@ -35,10 +36,16 @@ public class SelectFundContentsServlet extends HttpServlet {
 		int workId = Integer.parseInt(request.getParameter("workId"));
 		int memberId = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
 		
-		ArrayList<HashMap<String, String>> list = new FundingService()
+		ArrayList<HashMap<String, Object>> list = new FundingService()
 													.selectFundContents(memberId, workId);
 		if(list != null) {
 			System.out.println("정보를 성공적으로 가지고 왔습니다.");
+			ArrayList<WorkPic> fileList = new FundingService().selectWorkPicFile(memberId, workId);
+			if(fileList != null) {
+				request.setAttribute("fileList", fileList);
+				request.setAttribute("fundInfoList", list);
+				request.getRequestDispatcher("views/author/enrollFundingGoods2.jsp").forward(request, response);
+			} //end if
 		} else {
 			request.setAttribute("msg", "펀딩 작품 정보를 가져오지 못했습니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

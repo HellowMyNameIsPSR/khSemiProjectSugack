@@ -3,7 +3,7 @@ package com.kh.semi.funding.model.vo;
 import java.io.Serializable;
 
 public class WorkPic implements Serializable{
-	private int wpId;
+	private String wpId;
 	private String originName;
 	private String changeName;
 	private String filePath;
@@ -14,7 +14,7 @@ public class WorkPic implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public WorkPic(int wpId, String originName, String changeName, String filePath, String picType, int workId) {
+	public WorkPic(String wpId, String originName, String changeName, String filePath, String picType, int workId) {
 		super();
 		this.wpId = wpId;
 		this.originName = originName;
@@ -24,11 +24,11 @@ public class WorkPic implements Serializable{
 		this.workId = workId;
 	}
 
-	public int getWpId() {
+	public String getWpId() {
 		return wpId;
 	}
 
-	public void setWpId(int wpId) {
+	public void setWpId(String wpId) {
 		this.wpId = wpId;
 	}
 

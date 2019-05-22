@@ -281,10 +281,10 @@ public class FundingDao {
 	}
 
 	//펀딩 작품 정보를 조회합니다.
-	public ArrayList<HashMap<String, String>> selectFundContents(Connection con, int memberId, int workId) {
+	public ArrayList<HashMap<String, Object>> selectFundContents(Connection con, int memberId, int workId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<HashMap<String, String>> list = null;
+		ArrayList<HashMap<String, Object>> list = null;
 		String query = prop.getProperty("selectFundContents");
 		
 		try {
@@ -292,21 +292,23 @@ public class FundingDao {
 			pstmt.setInt(1, memberId);
 			pstmt.setInt(2, workId);
 			rset = pstmt.executeQuery();
+			list = new ArrayList<HashMap<String, Object>>();
 			while(rset.next()) {
-				HashMap<String, String> hmap = new HashMap<String, String>();
-				hmap.put("workId", String.valueOf(rset.getInt("WORK_ID")));
+				HashMap<String, Object> hmap = new HashMap<String, Object>();
+				hmap.put("workId", rset.getInt("WORK_ID"));
 				hmap.put("workName", rset.getString("WORK_NAME"));
-				hmap.put("minVoo", String.valueOf(rset.getInt("MIN_VOO")));
-				hmap.put("maxVoo", String.valueOf(rset.getInt("MAX_VOO")));
-				hmap.put("deliPrice", String.valueOf(rset.getInt("DELI_PRICE")));
+				hmap.put("minVoo", rset.getInt("MIN_VOO"));
+				hmap.put("maxVoo", rset.getInt("MAX_VOO"));
+				hmap.put("deliPrice", rset.getInt("DELI_PRICE"));
 				hmap.put("fcStart", rset.getString("FC_START"));
 				hmap.put("fcFinish", rset.getString("FC_FINISH"));
 				hmap.put("deliDate", rset.getString("DELI_DATE"));
 				hmap.put("cooperation", rset.getString("COOPERATION"));
 				hmap.put("wrDate", rset.getString("WR_DATE"));
-				hmap.put("price", String.valueOf(rset.getInt("PRICE")));
+				hmap.put("price", rset.getInt("PRICE"));
+				hmap.put("funDate", rset.getString("FUN_DATE"));
+				list.add(hmap);
 			} //end while
-
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -315,6 +317,38 @@ public class FundingDao {
 			close(rset);
 		}
 		return list;
+	}
+
+	//작품 정보 사진 조회
+	public ArrayList<WorkPic> selectWorkPicFile(Connection con, int memberId, int workId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectWorkPicFile");
+		ArrayList<WorkPic> fileList = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			pstmt.setInt(2, workId);
+			rset = pstmt.executeQuery();
+			fileList = new ArrayList<WorkPic>();
+			while(rset.next()) {
+				WorkPic wp = new WorkPic();
+				wp.setWpId(rset.getString("WP_ID"));
+				wp.setOriginName(rset.getString("ORIGIN_NAME"));
+				wp.setChangeName(rset.getString("CHANGE_NAME"));
+				wp.setFilePath(rset.getString("FILE_PATH"));
+				wp.setPicType(rset.getString("PIC_TYPE"));
+				wp.setWorkId(rset.getInt("WORK_ID"));
+				fileList.add(wp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return fileList;
 	}
 
 } //end class
