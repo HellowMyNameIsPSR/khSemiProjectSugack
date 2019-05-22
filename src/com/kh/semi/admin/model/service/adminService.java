@@ -236,6 +236,36 @@ public class adminService {
 		return result;
 	}
 
+
+
+	public String selectReqMemOnePic(String authorName) {
+		
+		Connection con = getConnection();
+		
+		String picPath = new adminDao().selectReqMemOnePicPath(authorName, con);
+		
+		close(con);
+		
+		
+		return picPath;
+		
+
+	}
+
+
+
+	public ArrayList<String> selectReqMemSecondPic(String authorName) {
+		
+		Connection con = getConnection();
+
+		
+		 ArrayList<String> selectReqMemSecondPic = new adminDao().selectReqMemSecondPic (authorName, con);
+		 
+			close(con);
+		
+		return selectReqMemSecondPic;
+	}
+
 		
 
 	

@@ -66,29 +66,29 @@
 				</td>
 			</tr>
 			<tr>
-				<td style="text-align:center; background: lightgray; border: 1px solid gray">검색</td>
+				<td style="text-align:center; background: lightgray; border: 1px solid gray">검색키워드</td>
 				<td>
 				<select name="sell" style="width: 60%;">
 				     <option value="fund">펀딩명</option>
 				     <option value="sellMember">작가명</option>
 				</select>
 				<td>
-				<input type="text" name="name" style="width: 40%;">
+				<input type="text" name="searchName" style="width: 40%;">
 				</td>				
 
 			</tr>
 			<tr>
 				<td style="text-align:center; background: lightgray; border: 1px solid gray">펀딩등록일</td>
-				<td colspan="3"><input type="date" name="fundDate" value=""> ~ <input type="date" name="funddate" value=""></td>
+				<td colspan="3"><input type="date" name="fundSetDateStart" value=""> ~ <input type="date" name="fundSetDateLast" value=""></td>
 			</tr>
 			<tr>
 				<td style="text-align:center; background: lightgray; border: 1px solid gray">펀딩마감일</td>
-				<td colspan="3"><input type="date" name="fundLastDate" value=""> ~ <input type="date" name="fundLastDate" value=""></td>
+				<td colspan="3"><input type="date" name="fundLastDateStart" value=""> ~ <input type="date" name="fundLastDateLast" value=""></td>
 			</tr>
 			<tr>
 				<td style="text-align:center; background: lightgray; border: 1px solid gray">펀딩진행률</td>
-				<td> <input type="text"; style="width: 40%;"></td>
-				<td> <input type="text";  style="width: 40%;"></td>
+				<td>최소 <input type="number"; name= "minNum" style="width: 40%;"> %</td>
+				<td>최대 <input type="number"; name= "maxNum" style="width: 40%;"> %</td>
 			</tr>
 		</table>
 		<button id="searchFunding" style="float:right">검색</button>
@@ -100,71 +100,16 @@
 			<tr style="background:lightgray;">
 				<td>선택</td>
 				<td>번호</td>
-				<td>분류</td>
+				<td>공예분류</td>
+				<td>작품유형</td>
+				<td>작가명</td>
 				<td>펀딩명</td>
-				<td>펀딩코드</td>
 				<td>펀딩등록일</td>
 				<td>펀딩마감일</td>
-				<td>펀딩진행률</td>
-				<td>작가명</td>
+				<td>펀딩진행률</td>			
 			</tr>
-			<tr>
-				<td><input type="checkbox"></td>
-				<td>1</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox"></td>
-				<td>2</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox"></td>
-				<td>3</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox"></td>
-				<td>4</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><input type="checkbox"></td>
-				<td>5</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-			</tr>
+			
 		</table>
-		<button onclick=delete();>삭제</button>
 		<br>
 			<div class="row" style="padding-left:400px">
 				<ul class="pagination justify-content-center">
@@ -176,7 +121,65 @@
 				</ul>
 			</div>
 	</div>
-	
+	<script>
+	$(function(){
+		$("#searchFunding").click(function(){
+			//검색할 조건값을 변수에 담아서 가져감
+			var material = $("select[name='material']option:selected").val();
+			var category = $("select[name='category'] option:selected").val();
+			var sellKeyword = $("select[name='sellKeyword'] option:selected").val();
+			var searchName = $("input[name='searchName']").val();
+			var minNum = $("input[name='minNum']").val();
+			var maxNum = $("input[name='maxNum']").val();
+			var fundSetDateStart = $("input[name='fundSetDateStart']").val();
+			var fundSetDateLast = $("input[name='fundSetDateLast']").val();
+			var fundLastDateStart = $("input[name='fundLastDateStart']").val();
+			var fundLastDateLast = $("input[name='fundLastDateLast']").val();
+			var searchFunding = {category:category, material:material, sellKeyword:sellKeyword, searchName:searchName,
+					minNum:minNum, maxNum:maxNum, fundSetDateStart:fundSetDateStart, fundSetDateLast:fundSetDateLast, fundLastDateStart:fundLastDateStart
+					, fundLastDateLast:fundLastDateLast}
+			
+			$.ajax({
+				url:"<%= request.getContextPath() %>/fundingSearch.ad",
+				data:searchProduct,
+				type:"get",
+				success:function(data){
+					//console.log(data);
+					$tableBody = $("#proInfoTable tbody");
+					
+					$tableBody.html('');
+					
+					$.each(data, function(index, value){
+						var $tr = $("<tr>");
+						var $noTd = $("<td>").text(index + 1);
+						var $productName = $("<td>").text(decodeURIComponent(value.productName));
+						var $authorName = $("<td>").text(decodeURIComponent(value.authorName));
+						var $material = $("<td>").text(decodeURIComponent(value.material));
+						var $productDate = $("<td>").text(value.productDate);
+						var $price = $("<td>").text(value.price);
+						var $category = $("<td>").text(decodeURIComponent(value.category));
+						
+						
+						$tr.append($noTd);
+						$tr.append($material);
+						$tr.append($category);
+						$tr.append($productName);
+						$tr.append($productDate);
+						$tr.append($authorName);
+						$tr.append($price);
+						$tableBody.append($tr); 
+						
+						
+					})
+				}
+			})
+			
+			
+			//form안에 없기 때문에 페이를 통쨰로 넘긴다
+			
+		});
+	})
+	</script>
 	
 </body>
 </html>
