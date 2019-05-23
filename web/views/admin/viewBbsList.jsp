@@ -42,43 +42,52 @@
 									<td>notice</td>
 									<td></td>
 									<td>
-										<button onclick="#">게시글보기 / 수정</button>
+										<button id="notice">게시글보기 / 수정</button>
 									</td>
 								</tr>
 								<tr>
 									<td>2</td>
-									<td>판매FAQ</td>
-									<td></td>
+									<td>상품FAQ</td>
+									<td>sellFAQ</td>
 									<td></td>
 									<td>
-										<button onclick="#">게시글보기 / 수정</button>
+										<button id="sellFAQ">게시글보기 / 수정</button>
 									</td>
-								</tr>
+								</tr>								
 								<tr>
 									<td>3</td>
-									<td>펀딩FAQ</td>
-									<td></td>
+									<td>주문/결제FAQ</td>
+									<td>BuyFAQ</td>
 									<td></td>
 									<td>
-										<button onclick="#">게시글보기 / 수정</button>
+										<button id="BuyFAQ">게시글보기 / 수정</button>
 									</td>
 								</tr>
 								<tr>
 									<td>4</td>
-									<td>구매FAQ</td>
-									<td></td>
+									<td>배송</td>
+									<td>Logistic</td>
 									<td></td>
 									<td>
-										<button onclick="#">게시글보기 / 수정</button>
+										<button id="Logistic">게시글보기 / 수정</button>
 									</td>
 								</tr>
 								<tr>
 									<td>5</td>
-									<td>이벤트</td>
-									<td></td>
+									<td>배송</td>
+									<td>Logistic</td>
 									<td></td>
 									<td>
-										<button onclick="#">게시글보기 / 수정</button>
+										<button id="refundFAQ">게시글보기 / 수정</button>
+									</td>
+								</tr>
+								<tr>
+									<td>6</td>
+									<td>이벤트</td>
+									<td>Event</td>
+									<td></td>
+									<td>
+										<button id="Event">게시글보기 / 수정</button>
 									</td>
 								</tr>
 							</table>
@@ -91,6 +100,38 @@
 		</div>
 		<%@ include file="adminMenubar.jsp" %>
 	</div>
+	<script>
+		$(function(){
+			$("#notice").click(function(){
+				location.href="<%= request.getContextPath()%>/ccNoticeBoard.bo"
+			})
+			$("#sellFAQ").click(function(){
+				location.href="<%= request.getContextPath()%>/views/customerCenter/customerCenterFaqGoods.jsp"
+
+			})
+			$("#Logistic").click(function(){
+				location.href="<%= request.getContextPath()%>/views/customerCenter/customerCenterNotice.jsp"
+
+			})
+			$("#BuyFAQ").click(function(){
+				location.href="<%= request.getContextPath()%>/views/customerCenter/customerCenterFaqOrder.jsp"
+
+			})
+			$("#refundFAQ").click(function(){
+				location.href="<%= request.getContextPath()%>/views/customerCenter/customerCenterFaqCancel.jsp"
+
+			})			
+			$("#Event").click(function(){
+				location.href="<%= request.getContextPath()%>/views/customerCenter/customerCenterEvent.jsp"
+
+			})
+			
+			
+			
+			
+			
+		});
+	</script>
 			
 </body>
 </html>

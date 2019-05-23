@@ -129,7 +129,7 @@
 	$(function(){
 		$("#searchFunding").click(function(){
 			//검색할 조건값을 변수에 담아서 가져감
-			var material = $("select[name='material']option:selected").val();
+			var material = $("select[name='material'] option:selected").val();
 			var category = $("select[name='category'] option:selected").val();
 			var sellKeyword = $("select[name='sellKeyword'] option:selected").val();
 			var searchName = $("input[name='searchName']").val();

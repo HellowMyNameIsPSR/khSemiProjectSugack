@@ -260,7 +260,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="<%= request.getContextPath() %>/views/customerCenter/customerCenterNotice.jsp">
+							<a href="<%= request.getContextPath() %>/ccNoticeBoard.bo">
 								<span class="glyphicon glyphicon-earphone"></span><br><span style="font-size:12px;">고객센터</span>
 							</a>
 						</li>
@@ -284,7 +284,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="<%= request.getContextPath() %>/views/customerCenter/customerCenterNotice.jsp">
+							<a href="<%= request.getContextPath() %>/ccNoticeBoard.bo">
 								<span class="glyphicon glyphicon-earphone middleIcon"></span><br>고객센터
 							</a>
 						</li>
@@ -310,7 +310,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="<%= request.getContextPath() %>/views/customerCenter/customerCenterNotice.jsp">
+							<a href="<%= request.getContextPath() %>/ccNoticeBoard.bo">
 								<span class="glyphicon glyphicon-earphone"></span><br><span style="font-size:12px;">고객센터</span>
 							</a>
 						</li>
@@ -335,7 +335,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="<%= request.getContextPath() %>/views/customerCenter/customerCenterNotice.jsp">
+							<a href="<%= request.getContextPath() %>/ccNoticeBoard.bo">
 								<span class="glyphicon glyphicon-earphone middleIcon"></span><br>고객센터
 							</a>
 						</li>
