@@ -312,7 +312,7 @@
 												'<td data-toggle="modal" data-target="#myModal' + num + '"> ' + data.list[key].title + '</td>' + 
 												'<td data-toggle="modal" data-target="#myModal' + num + '"> ' + data.list[key].memberName + ' </td>' + 
 												'<td data-toggle="modal" data-target="#myModal' + num + '"> ' + data.list[key].writeDate + '</td>' + 
-												'<td><button type="button" class="postBtn all-btn" style="height:30px;padding-top:0px;">바로가기</button></td>' + 
+												'<td><button type="button" class="postBtn all-btn" style="height:30px;;padding-top:0px;">바로가기</button></td>' + 
 											'</tr>'
 										);
 										$("#modalArea").append(

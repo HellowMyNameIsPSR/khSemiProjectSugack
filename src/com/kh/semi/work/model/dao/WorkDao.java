@@ -188,11 +188,11 @@ public class WorkDao {
 				pstmt.setString(2, workPic.get(i).getchangeName());
 				pstmt.setString(3, workPic.get(i).getfilePath());
 				
-				int type = 0;
-				if(i == 0) type = 0;
-				else type = 1;
+				String type = "saleRep";
+				if(i == 0) type = "saleRep";
+				else type = "saleDetail";
 				
-				pstmt.setInt(4, type);
+				pstmt.setString(4, type);
 				
 				result += pstmt.executeUpdate();
 			}
@@ -463,6 +463,8 @@ public class WorkDao {
 				hmap.put("payDate", rset.getDate("PAY_DATE"));
 				hmap.put("workName", rset.getString("WORK_NAME"));
 				hmap.put("memberId", rset.getString("MEMBER_NAME"));
+				hmap.put("deliCompany", rset.getString("DELI_COMPANY"));
+				hmap.put("invNum", rset.getInt("INV_NUM"));
 				hmap.put("deliStatus", rset.getString("DELI_STATUS"));
 				
 				list.add(hmap);
@@ -1469,6 +1471,30 @@ public class WorkDao {
 		return listCount;
 	}
 
+	public int updateDeli(Connection con, String memberId, String deliCompany, String invNum, String deliStatus, String odId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateDeli");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, deliCompany);
+			pstmt.setString(3, invNum);
+			pstmt.setString(4, deliStatus);
+			pstmt.setString(5, odId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 }
 

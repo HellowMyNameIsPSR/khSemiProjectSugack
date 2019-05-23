@@ -11,25 +11,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <%@ include file="../assets/css/author.html" %>
 <style>
-	
-	.deleteDiv{
-		background: radial-gradient(white, #F6FFFF) fixed;
-		border:2px solid lightgray;
-		box-shadow:2px 2px lightgray;
-		margin-botton:50px;
-		min-width:500px;
-	}
-	.deleteTable{
-		margin:0px 0px 0px 0px;
-		min-width:500px;
-	}
-	.deleteTable tr>td{
-		margin:0px 0px 0px 0px;
-		border:2px solid lightgray;
-		font-size:13px;
-		background: radial-gradient(white, #F6FFFF) fixed;
-		height:20px;
-	}
 	.all-btn{
 		margin-top:70px;
 	}
