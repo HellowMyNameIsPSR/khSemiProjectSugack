@@ -158,7 +158,7 @@
 
 		</div>
 		 <jsp:include page="/views/common/tourMenuBarServlet.jsp" flush="false">
-		 	<jsp:param name="memberId" value="<%= b.getMemberId() %>" />
+		 	<jsp:param name="Bno" value="<%= b.getBno() %>" />
 		 </jsp:include>
 	</div>
 	

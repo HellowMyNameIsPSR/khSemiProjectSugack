@@ -29,7 +29,7 @@ public class comMentServlet extends HttpServlet {
 		String page = "views/tour/comMent.jsp";
 		
 		request.setAttribute("memberId", request.getParameter("num"));
-		request.getRequestDispatcher(page).forward(request, response);
+	request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**
