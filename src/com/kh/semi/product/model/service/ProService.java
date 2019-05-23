@@ -134,7 +134,13 @@ public class ProService {
 		
 		if(result > 0) {
 			result2 = new ProDao().insertOrderList(con, oList);
-			commit(con);
+			ArrayList<OrderList> list = new ProDao().selectOrderId(con, oList);
+			if(list.size() > 0) {
+				int result3 = new ProDao().insertDelivery(list, con);
+				commit(con);
+			}else {
+				rollback(con);
+			}
 		}else {
 			rollback(con);
 		}
@@ -193,10 +199,10 @@ public class ProService {
 	}
 
 
-	public int insertPoint(int memberId, int point) {
+	public int insertPoint(int memberId, int point, String pid) {
 		Connection con = getConnection();
 		
-		int result = new ProDao().insertPoint(con, memberId, point);
+		int result = new ProDao().insertPoint(con, memberId, point, pid);
 		
 		if(result > 0) {
 			commit(con);
@@ -210,10 +216,10 @@ public class ProService {
 	}
 
 
-	public int insertMinusPoint(int mPoint, int memberId) {
+	public int insertMinusPoint(int mPoint, int memberId, String pid) {
 		Connection con = getConnection();
 		
-		int result = new ProDao().insertMinusPoint(con, mPoint, memberId);
+		int result = new ProDao().insertMinusPoint(con, mPoint, memberId, pid);
 		
 		if(result > 0) {
 			commit(con);
