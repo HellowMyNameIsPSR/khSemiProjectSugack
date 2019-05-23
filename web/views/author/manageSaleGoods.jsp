@@ -1,16 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.semi.work.model.vo.*"%>
 <%
-	ArrayList<Work> list = (ArrayList<Work>)request.getAttribute("list");
+	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-	System.out.println(currentPage);
-	System.out.println(maxPage);
-	System.out.println(startPage);
-	System.out.println(endPage);
 %>
 
 <!DOCTYPE html>
@@ -48,109 +44,27 @@
 						</div>
 						
 						<table class="inquiryTable" >
-							<tr>
-								<td>조회 기간</td>
-								<td>
-									<input id="startDate" name="startDate" type="date" style="margin-right:50px;" value="2019-01-01">
-									<span class="glyphicon glyphicon-minus"></span>
-									<input id="endDate" name="endDate" type="date" style="margin-left:50px;" value="2019-12-31">
-								</td>
-								<td>
-									<input onclick="searchDate(1)" type="button" value="검색" id="searhDate"  class="all-btn" style="width:150px; height:40px;">
-								</td>
-							</tr>
-							<tr>
-								<td>상품명 조회</td>
-								<td>
-									<input id="workName" name="workName" type="text" style="width:400px;">
-								</td>
-								<td >
-									<input type="button" value="검색" id="searhName"  class="all-btn" style="width:150px; height:40px;">
-								</td>
-							</tr>
-						</table>
-						<script>
-							function searchDate(){
-								var startDate = $("#startDate").val();
-								var endDate = $("#endDate").val();
-								
-								console.log($("#startDate").val());
-								console.log($("#endDate").val());
-								
-								$.ajax({
-									url:"<%=request.getContextPath()%>/selectDate.wo",
-									data:{startDate: $("#startDate").val(), endDate: $("#endDate").val()},
-									type:"get",
-									success:function(data){
-										//console.log(data);
-										var num = 0;
-										$("#tbody").find("tr").remove();
-										$(".pagingArea").children().remove();
-										
-										<button onclick="searchDate(1)"><<</button>
-										
-										
-										
-										console.log(data[0].workId)
-										
-										for(var i = 0; i < data.length; i++){
-											num++;
-											$("#tbody").append(
-												"<tr>" +
-													"<td> " + num + "</td>" +
-													"<td> " + data[i].workId + "</td>" + 
-													"<td> " + data[i].workName + "</td>" + 
-													"<td> " + data[i].price + "원 </td>" + 
-													"<td> " + data[i].wrDate + "</td>" + 
-												"</td>"
-											);
-										}
-										
-									}
-								});
-							});
-							
-							$("#searhName").on("click", function(){
-								var workName = $("#workName").val();
-								
-								//console.log($("#workName").val());
-								
-								$.ajax({
-									url:"<%=request.getContextPath()%>/selectName.wo",
-									data:{workName: $("#workName").val()},
-									type:"get",
-									success:function(data){
-										console.log(data);
-										var num = 0;
-										$("#tbody").find("tr").remove();
-										$(".pagingArea").remove();
-										var $btn = $("<button onclick='search()'>")
-										var $span = $("<span>")
-										$btn.append($span)
-										
-										
-										console.log(data[0].workId)
-										
-										for(var i = 0; i < data.length; i++){
-											num++;
-											$("#tbody").append(
-												"<tr>" +
-													"<td> " + num + "</td>" + 
-													"<td> " + data[i].workId + "</td>" + 
-													"<td> " + data[i].workName + "</td>" + 
-													"<td> " + data[i].price + "원 </td>" + 
-													"<td> " + data[i].wrDate + "</td>" + 
-												"</td>"
-											);
-										}
-										
-									}
-								});
-							});
-							
-						</script>
-						
-						
+						<tr>
+							<td>조회 기간</td>
+							<td>
+								<input id="startDate" name="startDate" type="date" style="margin-right:50px;" value="2019-01-01">
+								<span class="glyphicon glyphicon-minus"></span>
+								<input id="endDate" name="endDate" type="date" style="margin-left:50px;" value="2019-12-31">
+							</td>
+							<td>
+								<input onclick="searhDate(1)" type="button" value="검색" id="searhDate"  class="all-btn" style="width:150px; height:40px;">
+							</td>
+						</tr>
+						<tr>
+							<td>상품명 조회</td>
+							<td>
+								<input id="workName" name="workName" type="text" style="width:400px;">
+							</td>
+							<td >
+								<input onclick="searhName(1)" type="button" value="검색" id="searhName"  class="all-btn" style="width:150px; height:40px;">
+							</td>
+						</tr>
+					</table>
 						
 						<div class="manageSaleTable">
 							<table class="listTable">
@@ -165,17 +79,18 @@
 								<tbody id="tbody">
 									
 								 <%
-									int num = 0;
-								 	for(Work work : list){
-									num++;
+										int num = 0;
+									 	for(int i = 0; i < list.size(); i++){
+									 		HashMap<String, Object> hmap = list.get(i);
+										num++;
 								 %>
-								<tr>
-									<td><%= num %></td>
-									<td><%= work.getWorkId() %></td>
-									<td><%= work.getworkName() %></td>
-									<td><%= work.getPrice() %>원</td>
-									<td><%= work.getWrDate() %></td>
-								</tr>
+									<tr>
+										<td><%= num %></td>
+										<td><%= hmap.get("workId") %></td>
+										<td><%= hmap.get("workName") %></td>
+										<td><%= hmap.get("price") %>원</td>
+										<td><%= hmap.get("wrDate") %></td>
+									</tr>
 								<% } %> 
 								</tbody>
 							</table>
@@ -187,8 +102,6 @@
 								<span class="glyphicon glyphicon-chevron-left"></span>
 								<span class="glyphicon glyphicon-chevron-left"></span>
 							</button>
-							
-							
 							<button class="pagingBtn2" onclick="location.href='<%=request.getContextPath()%>/selectSale.wo?currentPage=1'">
 								<span class="glyphicon glyphicon-chevron-left"></span>
 								<span class="glyphicon glyphicon-chevron-left"></span>
@@ -253,6 +166,163 @@
 								location.href="<%=request.getContextPath()%>/selectListOne.wo?num=" + num;
 							});
 						})
+						
+						function searhDate(currentPage){
+							var startDate = $("#startDate").val();
+							var endDate = $("#endDate").val();
+							
+							console.log($("#startDate").val());
+							console.log($("#endDate").val());
+							
+							$.ajax({
+								url:"<%=request.getContextPath()%>/selectDate.wo",
+								data:{startDate: $("#startDate").val(), endDate: $("#endDate").val(), currentPage:currentPage},
+								type:"get",
+								success:function(data){
+									var currentPage = data.pi.currentPage;
+		                            var maxPage = data.pi.maxPage;
+		                            var startPage = data.pi.startPage;
+		                            var endPage = data.pi.endPage;
+		                            
+		                            $("#tbody").find("tr").remove();
+									$(".pagingArea").children().remove();
+									
+									var $paging = $(".pagingArea");
+									
+									var $firstBtn = ('<button class="pagingBtn2" onclick="searhDate(1)">' +
+													 '<span class="glyphicon glyphicon-chevron-left"><span class="glyphicon glyphicon-chevron-left">');
+		                        	$paging.append($firstBtn);
+		                        	
+		                        	if(currentPage <= 1){
+		                        		var $preBtn = (' <button class="pagingBtn2" disabled)>' +
+										 				'<span class="glyphicon glyphicon-chevron-left">&nbsp;');
+                   						$paging.append($preBtn);
+		                        	}else{
+		                        		var $preBtn = (' <button class="pagingBtn2" onclick="searhDate('+ (currentPage - 1) +')">' +
+						 								'<span class="glyphicon glyphicon-chevron-left">&nbsp;');
+   										$paging.append($preBtn);
+		                        	}
+		                        	
+		                        	for(var p = startPage; p <= endPage; p++){
+		                        		 if(p == currentPage){
+		                        			 $numBtn = $(' <button class="pagingBtn" style="background-color:skyblue">'+ p +'</button>').text(p);;
+		                        			 $paging.append($numBtn);
+		                        		 }else{
+		                        			 $numBtn = $(' <button class="pagingBtn" onclick="searhDate(' + p + ')">' + p).text(p);;
+		                        			 $paging.append($numBtn);
+		                        		 }
+		                        	}
+		                        	
+		                        	if(currentPage <= 1){
+		                        		var $nextBtn = (' <button class="pagingBtn2" disabled)>' +
+										 				'<span class="glyphicon glyphicon-chevron-right">&nbsp;');
+                   						$paging.append($nextBtn);
+		                        	}else{
+		                        		var $nextBtn = (' <button class="pagingBtn2" onclick="searhDate('+ (currentPage + 1) +')">' +
+						 								'<span class="glyphicon glyphicon-chevron-right">&nbsp;');
+   										$paging.append($nextBtn);
+		                        	}
+		                        	
+		                        	
+		                        	var $endBtn = (' <button class="pagingBtn2" onclick="searhDate('+ maxPage +')">' +
+									 '<span class="glyphicon glyphicon-chevron-right"><span class="glyphicon glyphicon-chevron-right">');
+               						$paging.append($endBtn);
+		                        	
+									var num = 0;
+									
+									for(var key in data.list){
+										num++;
+										$("#tbody").append(
+											"<tr>" +
+												'<td> ' + num + "</td>" +
+												'<td> ' + data.list[key].workId + '</td>' + 
+												'<td> ' + data.list[key].workName + '</td>' + 
+												'<td> ' + data.list[key].price + '</td>' + 
+												'<td> ' + data.list[key].wrDate + ' </td>' + 
+											'</td>'
+										);
+									}
+									
+								}
+							});
+						}
+						
+						
+						function searhName(currentPage){
+							var workName = $("#workName").val();
+							
+							$.ajax({
+								url:"<%=request.getContextPath()%>/selectName.wo",
+								data:{workName: $("#workName").val(), currentPage:currentPage},
+								type:"get",
+								success:function(data){
+									var currentPage = data.pi.currentPage;
+		                            var maxPage = data.pi.maxPage;
+		                            var startPage = data.pi.startPage;
+		                            var endPage = data.pi.endPage;
+		                            $("#tbody").find("tr").remove();
+									$(".pagingArea").children().remove();
+									
+									var $paging = $(".pagingArea");
+									
+									var $firstBtn = ('<button class="pagingBtn2" onclick="searhName(1)">' +
+													 '<span class="glyphicon glyphicon-chevron-left"><span class="glyphicon glyphicon-chevron-left">');
+		                        	$paging.append($firstBtn);
+		                        	
+		                        	if(currentPage <= 1){
+		                        		var $preBtn = (' <button class="pagingBtn2" disabled)>' +
+										 				'<span class="glyphicon glyphicon-chevron-left">&nbsp;');
+                   						$paging.append($preBtn);
+		                        	}else{
+		                        		var $preBtn = (' <button class="pagingBtn2" onclick="searhName('+ (currentPage - 1) +')">' +
+						 								'<span class="glyphicon glyphicon-chevron-left">&nbsp;');
+   										$paging.append($preBtn);
+		                        	}
+		                        	
+		                        	for(var p = startPage; p <= endPage; p++){
+		                        		 if(p == currentPage){
+		                        			 $numBtn = $(' <button class="pagingBtn" style="background-color:skyblue">'+ p +'</button>').text(p);;
+		                        			 $paging.append($numBtn);
+		                        		 }else{
+		                        			 $numBtn = $(' <button class="pagingBtn" onclick="searhName(' + p + ')">' + p).text(p);;
+		                        			 $paging.append($numBtn);
+		                        		 }
+		                        	}
+		                        	
+		                        	if(currentPage <= 1){
+		                        		var $nextBtn = (' <button class="pagingBtn2" disabled)>' +
+										 				'<span class="glyphicon glyphicon-chevron-right">&nbsp;');
+                   						$paging.append($nextBtn);
+		                        	}else{
+		                        		var $nextBtn = (' <button class="pagingBtn2" onclick="searhName('+ (currentPage + 1) +')">' +
+						 								'<span class="glyphicon glyphicon-chevron-right">&nbsp;');
+   										$paging.append($nextBtn);
+		                        	}
+		                        	
+		                        	
+		                        	var $endBtn = (' <button class="pagingBtn2" onclick="searhName('+ maxPage +')">' +
+									 '<span class="glyphicon glyphicon-chevron-right"><span class="glyphicon glyphicon-chevron-right">');
+               						$paging.append($endBtn);
+		                        	
+									var num = 0;
+									
+									for(var key in data.list){
+										num++;
+										$("#tbody").append(
+											"<tr>" +
+												'<td> ' + num + "</td>" +
+												'<td> ' + data.list[key].workId + '</td>' + 
+												'<td> ' + data.list[key].workName + '</td>' + 
+												'<td> ' + data.list[key].price + '</td>' + 
+												'<td> ' + data.list[key].wrDate + ' </td>' + 
+											'</tr>'
+										);
+									}
+									
+								}
+							});
+						}		
+						
 						
 					</script>
 					

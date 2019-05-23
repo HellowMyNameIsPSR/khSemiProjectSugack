@@ -113,15 +113,16 @@ public class InsertWorkSalesServlet extends HttpServlet {
 			String [] optionPrice = multiRequest.getParameterValues("optionPrice");
 			
 			ArrayList<WorkOption> workOption = new ArrayList<WorkOption>();
-			
-			for(int i = optionName.length - 1; i >= 0; i--) {
-				WorkOption opt = new WorkOption();
-				opt.setoName(optionName[i]);
-				opt.setoValue(optionVal[i]);
-				opt.setoPrice(Integer.parseInt(optionPrice[i]));
-				
-				workOption.add(opt);
-				System.out.println("옵션 서블렛 리스트 값 : " + workOption);
+			if(optionName != null) {
+				for(int i = optionName.length - 1; i >= 0; i--) {
+					WorkOption opt = new WorkOption();
+					opt.setoName(optionName[i]);
+					opt.setoValue(optionVal[i]);
+					opt.setoPrice(Integer.parseInt(optionPrice[i]));
+					
+					workOption.add(opt);
+					System.out.println("옵션 서블렛 리스트 값 : " + workOption);
+				}
 			}
 			
 			int result = new WorkService().insertSales(work, workPic, workOption);

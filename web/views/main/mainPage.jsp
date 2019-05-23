@@ -64,100 +64,105 @@
 	padding-left: 10px;
 	color: lightgray;
 }
+#myCarousel{
+	margin-top:10px;
+}
 </style>
 </head>
 <body>
-	
 	<%@ include file="mainMenubar.jsp" %>
 	
+		
+	<div class="container">
+		
 	<!-- 메인페이지 사진 -->
-	<div id="myCarousel" class="carousel slide" data-ride="carousel"
-		style="width: 100%;">
-		<ol class="carousel-indicators">
-			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-			<li data-target="#myCarousel" data-slide-to="1"></li>
-			<li data-target="#myCarousel" data-slide-to="2"></li>
-			<li data-target="#myCarousel" data-slide-to="3"></li>
-		</ol>
-
-		<div class="carousel-inner" align="center">
-			<div class="item active">
-				<img src="/sg/views/main/images/test1.png" alt="가죽">
-			</div>
-			<div class="item">
-				<img src="/sg/views/main/images/test1.png" alt="직물">
-			</div>
-			<div class="item">
-				<img src="/sg/views/main/images/test1.png" alt="가죽">
-			</div>
-			<div class="item">
-				<img src="/sg/views/main/images/test1.png" alt="직물">
-			</div>
-		</div>
-
-		<a class="left carousel-control leftMove" href="#myCarousel" data-slide="prev">
-			<span class="glyphicon glyphicon-chevron-left moveIcon"></span> 
-			<span class="sr-only">Previous</span>
-		</a> 
-		<a class="right carousel-control " href="#myCarousel" data-slide="next"> 
-			<span class="glyphicon glyphicon-chevron-right moveIcon"></span> 
-			<span class="sr-only">Next</span>
-		</a>
-	</div><!-- 메인페이지 사진 -->
-		
-		<div class="container">
-		
-		
-		
-		
+		<div id="myCarousel" class="carousel slide" data-ride="carousel"
+			style="width: 100%;">
+			<ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+				<li data-target="#myCarousel" data-slide-to="3"></li>
+			</ol>
 	
-		<h2 class="titleText" align="center">인기상품</h2>
-		<div class="container-fluid bg-3 text-center">
-			<div class="row">
-			<%-- <% for(int i = 0; i < 4; i++){ 
-					HashMap<String, Object> hmap = list.get(i);
-			%>
-				<div class="col-sm-3 col-xs-6">
-					<table class="workList">
-						<tr><td class="workTd" colspan="2" style="widt:150px; height:150px;">
-							<input type="hidden" value="<%= hmap.get("workId")%>">
-							<img src="<%=request.getContextPath()%>/uploadSalesImage/<%=hmap.get("changeName")%>" style="width:100%;height:100%;">
-						</td></tr>
-						<tr><td colspan="2" class="cFont"><%=hmap.get("category")%></td></tr>
-						<tr><td colspan="2" class="nFont"><%=hmap.get("workName")%></td></tr>
-						<tr>
-							<td class="lFont">좋아요</td>
-							<td><%=hmap.get("wCount")%><span style="color:red; text-align:right;"class="glyphicon glyphicon-heart"></span></td></tr>
-					</table>
-					<br>
+			<div class="carousel-inner" align="center">
+				<div class="item active">
+					<img src="/sg/views/main/images/test1.png" alt="가죽">
 				</div>
-			<% } %> --%>
-			</div>
-		</div>
-		<br>
-		<div class="container-fluid bg-3">
-			<div class="row">
-			<%-- <% for(int i = 4; i < 8; i++){ 
-					HashMap<String, Object> hmap = list.get(i);
-			%>
-				<div class="col-sm-3 col-xs-6 ">
-					<table class="workList">
-						<tr><td class="workTd" colspan="2" style="widt:150px; height:150px;">
-							<input type="hidden" value="<%= hmap.get("workId")%>">
-							<img src="<%=request.getContextPath()%>/uploadSalesImage/<%=hmap.get("changeName")%>" style="width:100%;height:100%;">
-						</td></tr>
-						<tr><td colspan="2" class="cFont"><%=hmap.get("category")%></td></tr>
-						<tr><td colspan="2" class="nFont"><%=hmap.get("workName")%></td></tr>
-						<tr>
-							<td class="lFont">좋아요</td>
-							<td><%=hmap.get("wCount")%><span style="color:red; text-align:right;"class="glyphicon glyphicon-heart"></span></td></tr>
-					</table>
-					<br>
+				<div class="item">
+					<img src="/sg/views/main/images/test1.png" alt="직물">
 				</div>
-			<% } %> --%>
+				<div class="item">
+					<img src="/sg/views/main/images/test1.png" alt="가죽">
+				</div>
+				<div class="item">
+					<img src="/sg/views/main/images/test1.png" alt="직물">
+				</div>
 			</div>
-		</div>
+	
+			<a class="left carousel-control leftMove" href="#myCarousel" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left moveIcon"></span> 
+				<span class="sr-only">Previous</span>
+			</a> 
+			<a class="right carousel-control " href="#myCarousel" data-slide="next"> 
+				<span class="glyphicon glyphicon-chevron-right moveIcon"></span> 
+				<span class="sr-only">Next</span>
+			</a>
+		</div><!-- 메인페이지 사진 -->
 		
+		
+		
+
+		<% if(list.size() < 8){ %>
+			<h1 align="center">상품이 없습니다</h1>
+		<% }else{ %>
+			<h2 class="titleText" align="center">인기상품</h2>
+			<div class="container-fluid bg-3 text-center">
+				<div class="row">
+				<% for(int i = 0; i < 4; i++){ 
+						HashMap<String, Object> hmap = list.get(i);
+				%>
+					<div class="col-sm-3 col-xs-6">
+						<table class="workList">
+							<tr><td class="workTd" colspan="2" style="widt:150px; height:150px;">
+								<input type="hidden" value="<%= hmap.get("workId")%>">
+								<img src="<%=request.getContextPath()%>/uploadSalesImage/<%=hmap.get("changeName")%>" style="width:100%;height:100%;">
+							</td></tr>
+							<tr><td colspan="2" class="cFont"><%=hmap.get("category")%></td></tr>
+							<tr><td colspan="2" class="nFont"><%=hmap.get("workName")%></td></tr>
+							<tr>
+								<td class="lFont">좋아요</td>
+								<td><%=hmap.get("wCount")%><span style="color:red; text-align:right;"class="glyphicon glyphicon-heart"></span></td></tr>
+						</table>
+						<br>
+					</div>
+				<% } %>
+				</div>
+			</div>
+			<br>
+			<div class="container-fluid bg-3">
+				<div class="row">
+				<% for(int i = 4; i < 8; i++){ 
+						HashMap<String, Object> hmap = list.get(i);
+				%>
+					<div class="col-sm-3 col-xs-6 ">
+						<table class="workList">
+							<tr><td class="workTd" colspan="2" style="widt:150px; height:150px;">
+								<input type="hidden" value="<%= hmap.get("workId")%>">
+								<img src="<%=request.getContextPath()%>/uploadSalesImage/<%=hmap.get("changeName")%>" style="width:100%;height:100%;">
+							</td></tr>
+							<tr><td colspan="2" class="cFont"><%=hmap.get("category")%></td></tr>
+							<tr><td colspan="2" class="nFont"><%=hmap.get("workName")%></td></tr>
+							<tr>
+								<td class="lFont">좋아요</td>
+								<td><%=hmap.get("wCount")%><span style="color:red; text-align:right;"class="glyphicon glyphicon-heart"></span></td></tr>
+						</table>
+						<br>
+					</div>
+				<% } %>
+				</div>
+			</div>
+		<% }%>
 		
 		<script>
 			$(function(){

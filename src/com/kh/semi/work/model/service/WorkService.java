@@ -91,25 +91,16 @@ public class WorkService {
 		return result;
 	}*/
 	//판매작품관리 리스트 보기용 메소드
-	public ArrayList<Work> selectSalesList(PageInfo pi, String memberId) {
+	public ArrayList<HashMap<String, Object>> selectSalesList(PageInfo pi, String memberId) {
 		Connection con = getConnection();
 		
-		ArrayList<Work> list = new WorkDao().selectSalesList(con, pi, memberId);
+		ArrayList<HashMap<String, Object>> list = new WorkDao().selectSalesList(con, pi, memberId);
 		
 		close(con);
 		
 		return list;
 	}
-	//페이징 메소드
-	public int getListCount(String memberId) {
-		Connection con = getConnection();
-		
-		int listCount = new WorkDao().getListCount(con, memberId);
-		
-		close(con);
-		
-		return listCount;
-	}
+	
 	
 	
 	public int insertContentsImage(ArrayList<PicFile> picFile) {
@@ -125,27 +116,6 @@ public class WorkService {
 		
 		close(con);
 		return result;
-	}
-	public ArrayList<Work> selectSalesDate(PageInfo pi, String wrDate1, String wrDate2) {
-		Connection con = getConnection();
-		
-		ArrayList<Work> list = new WorkDao().selectSalesDate(con, pi, wrDate1, wrDate2);
-		
-		close(con);
-		
-		
-		return list;
-	}
-	public ArrayList<Work> selectWorkName(String workName) {
-		Connection con = getConnection();
-		
-		
-		ArrayList<Work> list = new WorkDao().selectWorkName(con, workName);
-		
-		close(con);
-		
-		
-		return list;
 	}
 	public Work selectOne(int num) {
 		Connection con = getConnection();
@@ -319,7 +289,184 @@ public class WorkService {
 		
 		return loginUser;
 	}
+	public ArrayList<HashMap<String, Object>> selectExchangeName(PageInfo pi, String memberId, String workName) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list  = new WorkDao().selectExchangeName(con, pi, memberId, workName);
+		
+		close(con);
+		
+		return list;
+	}
+	public int exchangeNameCount(String memberId, String workName) {
+		Connection con = getConnection();
+		
+		int listCount = new WorkDao().exchangeNameCount(con, memberId, workName);
+		
+		close(con);
+		
+		return listCount;
+	}
+	public ArrayList<HashMap<String, Object>> selectOrderDate(PageInfo pi, String memberId, String wrDate1, String wrDate2) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list  = new WorkDao().selectOrderDate(con, pi, memberId, wrDate1, wrDate2);
+		
+		close(con);
+		
+		return list;
+	}
+	public int orderDateCount(String memberId, String wrDate1, String wrDate2) {
+		Connection con = getConnection();
+		
+		int listCount = new WorkDao().orderDateCount(con, memberId, wrDate1, wrDate2);
+		
+		close(con);
+		
+		return listCount;
+	}
+	public ArrayList<HashMap<String, Object>> selectOrderName(PageInfo pi, String memberId, String workName) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list  = new WorkDao().selectOrderName(con, pi, memberId, workName);
+		
+		close(con);
+		
+		return list;
+		
+		
+	}
+	public int orderNameCount(String memberId, String workName) {
+		Connection con = getConnection();
+		
+		int listCount = new WorkDao().orderNameCount(con, memberId, workName);
+		
+		close(con);
+		
+		return listCount;
+	}
+	public ArrayList<HashMap<String, Object>> selectSalesDate(PageInfo pi, String memberId, String wrDate1, String wrDate2) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list  = new WorkDao().selectSalesDate(con, pi, memberId, wrDate1, wrDate2);
+		
+		close(con);
+		
+		return list;
+	}
 	
+	//페이징 메소드
+	public int getListCount(String memberId) {
+		Connection con = getConnection();
+		
+		int listCount = new WorkDao().getListCount(con, memberId);
+		
+		close(con);
+		
+		return listCount;
+	}
+		
+	//페이징 메소드
+	public int getDateCount(String memberId, String wrDate1, String wrDate2) {
+		Connection con = getConnection();
+		
+		int listCount = new WorkDao().getDateCount(con, memberId, wrDate1, wrDate2);
+		
+		close(con);
+		
+		return listCount;
+	}
+	public ArrayList<HashMap<String, Object>> selectWorkName(PageInfo pi, String memberId, String workName) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list  = new WorkDao().selectWorkName(con, pi, memberId, workName);
+		
+		close(con);
+		
+		return list;
+		
+	}
+	public int WorkNameCount(String memberId, String workName) {
+		Connection con = getConnection();
+		
+		int listCount = new WorkDao().WorkNameCount(con, memberId, workName);
+		
+		close(con);
+		
+		return listCount;
+	}
+	public ArrayList<HashMap<String, Object>> selectQnaDate(PageInfo pi, String memberId, String wrDate1, String wrDate2) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list  = new WorkDao().selectQnaDate(con, pi, memberId, wrDate1, wrDate2);
+		
+		close(con);
+		
+		return list;
+	}
+	public int qnaDateCount(String memberId, String wrDate1, String wrDate2) {
+		Connection con = getConnection();
+		
+		int listCount = new WorkDao().qnaDateCount(con, memberId, wrDate1, wrDate2);
+		
+		close(con);
+		
+		return listCount;
+	}
+	public ArrayList<HashMap<String, Object>> selectQnaName(PageInfo pi, String memberId, String workName) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list  = new WorkDao().selectQnaName(con, pi, memberId, workName);
+		
+		close(con);
+		
+		return list;
+	}
+	public int qnaNameCount(String memberId, String workName) {
+		Connection con = getConnection();
+		
+		int listCount = new WorkDao().qnaNameCount(con, memberId, workName);
+		
+		close(con);
+		
+		return listCount;
+	}
+	public ArrayList<HashMap<String, Object>> selectReviewDate(PageInfo pi, String memberId, String wrDate1, String wrDate2) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list  = new WorkDao().selectReviewDate(con, pi, memberId, wrDate1, wrDate2);
+		
+		close(con);
+		
+		return list;
+	}
+	public int reviewDateCount(String memberId, String wrDate1, String wrDate2) {
+		Connection con = getConnection();
+		
+		int listCount = new WorkDao().reviewDateCount(con, memberId, wrDate1, wrDate2);
+		
+		close(con);
+		
+		return listCount;
+	}
+	public ArrayList<HashMap<String, Object>> selectReveiwName(PageInfo pi, String memberId, String workName) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list  = new WorkDao().selectReveiwName(con, pi, memberId, workName);
+		
+		close(con);
+		
+		return list;
+	}
+	public int reviewNameCount(String memberId, String workName) {
+		Connection con = getConnection();
+		
+		int listCount = new WorkDao().reviewNameCount(con, memberId, workName);
+		
+		close(con);
+		
+		return listCount;
+	}
 	
 	
 	
