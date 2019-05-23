@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import com.kh.semi.admin.model.dao.adminDao;
+import com.kh.semi.admin.model.vo.SearchFunding;
 import com.kh.semi.admin.model.vo.SearchMember;
 import com.kh.semi.admin.model.vo.SearchProduct;
 
@@ -158,6 +159,48 @@ public class QueryMake {
 		}
 		prop.setProperty("searchProduct", query);
 		System.out.println("searchProduct생산된 쿼리문" + query);
+		
+		
+		try {
+			prop.store(new FileWriter(fileName), "");
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}		
+		
+		
+	}
+
+	public void fundingQuery(SearchFunding sf) {
+		Properties prop = new Properties();
+		
+		String fileName = QueryMake.class
+		.getResource("/sql/admin/admin-query.properties")
+		.getPath();
+		
+		String query = "SELECT * FROM(SELECT W.WORK_ID, P.MATERIAL, C.CATEGORY, F.FC_FINISH, F.FC_START, A.AUTHOR_NAME, W.WORK_NAME, TRUNC(F.MAX_VOO / FS.FUND_PRICE) TOTAL FROM FUNDING F JOIN WORK W ON(W.WORK_ID = F.WORK_ID) JOIN CATEGORY C ON(C.CID = W.CID) JOIN PROTYPE P ON(P.TYPE_ID = W.TYPE_ID) JOIN AUTHOR A ON(W.MEMBER_ID = A.MEMBER_ID) JOIN FUS FS ON(F.WORK_ID = FS.WORK_ID))";
+		query += " WHERE P.MATERIAL = ? AND C.CATEGORY = ?";
+		
+		
+		
+		if(sf.getSearchName().equals("")) {
+			query += " AND W.WORK_NAME LIKE '%'";
+		}else {
+			if(sf.getSellKeyword().equals("펀딩명")) {
+				query += " AND W.WORK_NAME LIKE '%'||?||'%'";
+			}else {
+				query += " AND A.AUTHOR_NAME LIKE '%'||?||'%'";
+			}
+		}
+		
+		query += " AND FC_START >= ? AND FC_START < ? AND FC_FINISH >=? AND FC_FINISH < ? AND TOTAL >= ? AND TOTAL < ?";
+		
+		//query += " F.COOPERATION = ?"
+		
+		
+		prop.setProperty("searchFunding", query);
+		System.out.println("searchFunding생산된 쿼리문" + query);
 		
 		
 		try {

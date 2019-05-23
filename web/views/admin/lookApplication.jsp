@@ -12,17 +12,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>입점 신청 서류 확인</title>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <%@ include file="../assets/css/allCss.html" %>
+	<style>
 		h2{
 			text-align:center;
 		}
     	.readTable {
     		margin-left:auto; 
     		margin-right:auto; 
-    		margin:0 auto; 
     		text-align:center;
     		border-spacing:5px;
     		border-collapse:separate;
@@ -49,8 +52,9 @@
 	<div class="container-fluid bg-grey">
 	
 		<div class="row" >
-		
-			<table class="readTable" style="width:100%;">
+			<div class="pic">
+			
+			<table class="readTable" style="width:50%;">
 			<tr>
 				<td colspan="3">
 					<label class="form-control" style="background:#ccd9ff;">1차 입점 신청 내역</label>
@@ -58,9 +62,14 @@
 			</tr>
 			<tr>
 				<td rowspan="6">
-					<img src="<%= request.getContextPath() %>/uploadApply/<%= picPath %>" style="width:400px; height:400px">
+					<img src="<%= request.getContextPath() %>/uploadApply/<%= picPath %>" style="width:400px; height:300px">
 				</td>
 			</tr>
+			</table>
+			</div>
+			<div class="text">
+			
+			<table class="readTable" style="width:100%;">
 			<tr>
 				<td> <!--작가 이름 -->
 					<input type="hidden" id="memberId" value="<%= rm.getMemberId()%>"/>
@@ -88,7 +97,9 @@
 					<textarea class="form-control" id="comments" name="comments" rows="5" readonly><%= rm.getApplyContent() %></textarea>
 				</td>
 			</tr> 
-			<tr>
+			</table>
+			</div>
+			
 				<td colspan="2">
 					<table class="readTable" style="border:1px solid #b3b3cc; text-align:center; width:100%;">
 						<tr>
@@ -102,6 +113,7 @@
 						<tr>
 							<td>2차</td>
 							<td><%= rm.getApply2() %></td>
+							
 						</tr>
 						
 					</table>
@@ -135,7 +147,7 @@
 			      			<td colspan="2">
 			      				<label class="form-control">구매 안전 서비스 관리 이용 확인증</label>
 			      				<div style="background:yellow; width:400px; height:400px; margin-bottom:40px;">
-			      				<img src="<%= request.getContextPath() %>/uploadApply/<%= picPath2.get(2) %>" style="width:400px; height:400px">
+			      				<img src="<%= request.getContextPath() %>/uploadApply2/<%= picPath2.get(2) %>" style="width:400px; height:400px">
 			      				</div>
 			      			</td>
 			      		</tr>
@@ -145,7 +157,7 @@
 			      			<td colspan="2">
 			      				<label class="form-control">통신판매업 신고증</label>
 			      					<div style="background:yellow; width:400px; height:400px; margin-left:17px;">
-			      					<img src="<%= request.getContextPath() %>/uploadApply/<%= picPath2.get(1) %>" style="width:400px; height:400px">
+			      					<img src="<%= request.getContextPath() %>/uploadApply2/<%= picPath2.get(1) %>" style="width:400px; height:400px">
 			      				</div>
 			      			</td>
 			      			
@@ -154,7 +166,7 @@
 			      			<td colspan="2">
 			      				<label class="form-control">통신판매업 신고증</label>
 			      					<div style="background:yellow; width:400px; height:400px;">
-			      					<img src="<%= request.getContextPath() %>/uploadApply/<%= picPath2.get(0) %>" style="width:400px; height:400px">
+			      					<img src="<%= request.getContextPath() %>/uploadApply2/<%= picPath2.get(0) %>" style="width:400px; height:400px">
 			      				</div>
 			      			</td>
 			      		</tr>
@@ -197,7 +209,7 @@
 						type:"get",
 						success:function(data){
 							alert("승인 되었습니다");
-							location.reload();
+							location.href= "views/admin/adminHome.jsp";
 
 						}
 					})
@@ -222,7 +234,11 @@
 					type:"get",
 					success:function(data){
 						alert("거부처리 되었습니다");
-						location.reload();
+						//location.reload("views/admin/viewReqMemList.jsp");
+						//location.href= "views/admin/adminHome.jsp";
+						location.href= "views/admin/adminHome.jsp";
+
+						
 					}
 				})
 			       
@@ -242,6 +258,8 @@
 						success:function(data){
 							alert("승인 되었습니다");
 							location.reload();
+							//location.href= "views/admin/adminHome.jsp";
+
 
 						}
 					})

@@ -34,6 +34,7 @@ public class RequestMemberServlet extends HttpServlet {
 
 		
 		ArrayList<HashMap<String, Object>> list = new adminService().reqMemList();
+		ArrayList<HashMap<String, Object>> total = new adminService().totalList();
 		
 		String page = "";
 		
@@ -41,6 +42,7 @@ public class RequestMemberServlet extends HttpServlet {
 		if(list != null) {
 			page = "views/admin/viewReqMemList.jsp";
 			request.setAttribute("reqMemList", list);
+			request.setAttribute("reqTotal", total);
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "입점신청 불러오기 오류");

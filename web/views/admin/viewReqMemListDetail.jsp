@@ -18,11 +18,15 @@
       background:yellow;
       width: 150px;
       height: 150px;
-         	display: inline-block;
+      display: inline-block;
       
    }
    .reqDetail{
    	display: inline-block;
+   }
+   
+   .allArea{
+   	text-align:center;
    }
 	
 </style>
