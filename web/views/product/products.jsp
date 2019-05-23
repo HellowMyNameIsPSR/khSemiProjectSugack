@@ -3,6 +3,10 @@
     <%
     	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list"); 
     	System.out.println("list : " + list);
+    	
+    	
+    	ArrayList<HashMap<String, Object>> poplist = (ArrayList<HashMap<String, Object>>) request.getAttribute("poplist"); 
+    	System.out.println("poplist : " + poplist); 
     %>
 <!DOCTYPE html>
 <html>
@@ -117,17 +121,18 @@
 <div class="container">
     <select id="order"style="width:100%; height:30px; margin-top:10px;">
 		<option value="pop">인기순</option>
-		<option value="new">최신순</option>
+		<option value="new" selected>최신순</option>
 		<option value="low">낮은가격순</option>
 		<option value="high">높은가격순</option>
 	</select>
   <div class="row">
   	<!-- <div class="col-sm-1"></div> -->
   	<% for(int i=0; i<list.size(); i++){
-   				HashMap<String,Object> hmap = list.get(i);
-   				%>
+   			HashMap<String,Object> hmap = list.get(i);
+ 
+   	%>
 
-
+	   
    		<div class="col-sm-3 col-xs-6 mainImg">
    			<input type="hidden" value="<%=hmap.get("workId")%>">
 					<table class="workList">
@@ -151,18 +156,38 @@
 
 <script>
 
-
+ 
 	$("#order").change(function(){
 		console.log($("#order option:selected").val());
 		
 		var order = ($("#order option:selected").val());
-		console.log(order);
+		console.log(order); 
 		
-		$.ajax({
+		if($("#order").val()=='pop'){
+			alert("하이");
+					
+				$.ajax({
 			
-		})
+					url:"<%=request.getContextPath()%>/selectProListPop.pro",
+					type:"post",
+					success:function(data){
+						alert("성공");
+						
+						
+						
+					},error:function(){
+						
+						alert("실패!");	
+					}
+					
+				})
 		
-	});
+		}//else if
+	
+		
+		
+		
+	 }); 
 	
 	$(".mainImg").click(function(){
 		//해당 상세 페이지로 가기!

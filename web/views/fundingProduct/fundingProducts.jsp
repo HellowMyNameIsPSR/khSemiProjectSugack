@@ -3,6 +3,8 @@
 <%
    ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String,Object>>) request.getAttribute("list");
    System.out.println("fundingProducts.jsp: " + list);
+   
+   
 %>
 <!DOCTYPE html>
 <html>

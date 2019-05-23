@@ -227,6 +227,18 @@ public class ProService {
 
 
 	
+	//인기순 정렬
+	public ArrayList<HashMap<String, Object>> selectProductListPop() {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new ProDao().selectProductListPop(con);
+		close(con);
+		
+		System.out.println("인기순 정렬 Service : " + list);
+		return list;
+	}
+
+
+	
 
 }
 

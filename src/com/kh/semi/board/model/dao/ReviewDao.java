@@ -172,6 +172,7 @@ public class ReviewDao {
 				//r.setWriterId(rset.getInt("WRITER_ID"));
 				r.setWorkId(rset.getInt("WORK_ID"));
 				r.setWorkName(rset.getString("WORK_NAME"));
+				r.setWorkKind(rset.getString("WORK_KIND"));
 				System.out.println("r2 : " +  r);
 				list.add(r);
 				

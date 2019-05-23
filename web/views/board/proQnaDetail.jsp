@@ -69,8 +69,9 @@
 				<td colspan="5"><h2 align="center">문의내역 상세보기</h2></td>
 			</tr>
 			<tr>
-				<td style="width:120px;">상품명</td>
-				<td style="width:250px"><%=qna.getWorkId() %></td>
+				<td style="width:120px">상품명</td>
+				<td style="width:250px;"><%=qna.getWorkName() %></td>
+				
 				<td style="width:120px;">문의종류</td>
 				<td colspan="2" style="width:200px;"><%=qna.getCategory() %></td>
 			</tr>

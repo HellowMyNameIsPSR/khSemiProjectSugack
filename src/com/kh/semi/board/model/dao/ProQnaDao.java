@@ -134,6 +134,7 @@ public class ProQnaDao {
 				qna.setcategory(rset.getString("TITLE"));
 				qna.setWriteDate(rset.getDate("WRITE_DATE"));
 				qna.setWriter(rset.getString("MEMBER_NAME"));
+				qna.setWorkName(rset.getString("WORK_NAME"));
 				
 				
 			}

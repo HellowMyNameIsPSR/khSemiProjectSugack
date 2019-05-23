@@ -46,7 +46,7 @@
 							 	<%for(int i=0; i<list.size(); i++){
 							 			HashMap<String,Object> hmap = list.get(i);
 							 	%>
-							 <div class="col-sm-2 product" style="background-color:lavender; height:50%; margin-right:20px; margin-bottom:10px;">
+							 <div class="col-sm-2 product" style="background-color:lavender; height:50%; margin-bottom:30px;margin-left:20px;margin-right:20px;">
 							 	<div class="outer">
 
 							 		
