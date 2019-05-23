@@ -217,7 +217,8 @@ hr{
 					<select style="width:100%" class="option" name="option">
 						<option value="0"><%=olist.get(i).getoName() %></option>
 						<% for(int j = 0; j < list.size(); j++) { 
-							if(olist.get(i).getoName().equals(list.get(j).get("oname"))) {
+							if(olist.get(i).getoName().equals(list.get(j).get("oname")) && list.get(j).get("picType").equals("0")) {
+								System.out.println(list.get(j).get("opId"));
 						%>		
 							<option value="<%=list.get(j).get("opId")%>"><%=list.get(j).get("ovalue")%>(+<%=list.get(j).get("oprice") %>원)</option>
 						<% 
@@ -272,8 +273,7 @@ hr{
 						<%for(int i = 0; i < list.size(); i++) {%>
 							if($(this).val() == <%=list.get(i).get("opId")%>) {
 								optionValue +=  '<%=list.get(i).get("oname") + "=" + list.get(i).get("ovalue")%> , ';
-								optionPrice += <%=(Integer)list.get(i).get("oprice")%>
-								opId.push($(this).val());
+								optionPrice += <%=(Integer)list.get(i).get("oprice")%>;
 							}
 						<%}%>
 					});
@@ -361,7 +361,7 @@ hr{
 				var option = new Array();
 				$(".option").each(function(){
 					<%for(int i = 0; i < list.size(); i++) {%>
-						if($(this).val() == <%=list.get(i).get("opId")%>) {
+						if($(this).val() == <%=list.get(i).get("opId")%> && <%=list.get(i).get("picType").equals("0")%>) {
 							option.push($(this).val());
 						}
 					<%}%>

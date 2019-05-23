@@ -42,6 +42,7 @@ public class SelectCartListServlet extends HttpServlet {
 		
 		ArrayList<HashMap<String, Object>> list = new MemberService().selectCartList(loginUser.getMemberId());
 		ArrayList<WorkOption> olist = new MemberService().selectOptionList(loginUser.getMemberId());
+		System.out.println(olist);
 		
 		if(list.size() > 0) {
 			request.setAttribute("list", list);

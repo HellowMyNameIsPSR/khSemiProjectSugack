@@ -118,7 +118,7 @@ public class ProDao {
 				hmap.put("wcount", rset.getInt("WCOUNT"));
 				hmap.put("originName", rset.getString("ORIGIN_NAME"));
 				hmap.put("changeName", rset.getString("CHANGE_NAME"));
-				hmap.put("picType", rset.getInt("PIC_TYPE"));
+				hmap.put("picType", rset.getString("PIC_TYPE"));
 				hmap.put("opId", rset.getInt("OP_ID"));
 				hmap.put("oname", rset.getString("ONAME"));
 				hmap.put("oprice", rset.getInt("OPRICE"));
@@ -551,7 +551,6 @@ public class ProDao {
 		return result;
 	}
 
-	
 	//인기순 정렬
 	public ArrayList<HashMap<String, Object>> selectProductListPop(Connection con) {
 		Statement stmt = null;
@@ -600,6 +599,30 @@ public class ProDao {
 		
 		System.out.println("Prodao pop에서: " + list);
 		return list;
+  }
+}
+  
+	public int insertMinusPoint(Connection con, int mPoint, int memberId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertMinusPoint");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mPoint);
+			pstmt.setInt(2, memberId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

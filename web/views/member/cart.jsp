@@ -4,6 +4,7 @@
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)request.getAttribute("list");
 	ArrayList<WorkOption> olist = (ArrayList<WorkOption>)request.getAttribute("olist");
 	System.out.println("olist : " + olist);
+	System.out.println("list : " + list);
 	
 	int totalPrice = 0;
 	int totalProductPrice = 0;
@@ -82,7 +83,7 @@
 								<% for(int j = 0; j < olist.size(); j++) {
 									System.out.println((Integer)olist.get(j).getwId() + " + " + (Integer)list.get(i).get("bid"));
 								%>
-									<%if((Integer)olist.get(j).getwId() == (Integer)list.get(i).get("bid")) { 
+									<%if((int)olist.get(j).getwId() == (int)list.get(i).get("bid")) { 
 										 ovalue += (String)olist.get(j).getoName() + " : " + (String)olist.get(j).getoValue() + "/";
 										 oprice += (Integer)olist.get(j).getoPrice();
 									}else { 

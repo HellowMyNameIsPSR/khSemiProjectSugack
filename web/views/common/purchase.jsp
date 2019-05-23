@@ -6,6 +6,7 @@
 	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>)hmap.get("list");
 	ArrayList<WorkOption> olist = (ArrayList<WorkOption>)hmap.get("olist");
 	HashMap<String, Object> work = list.get(0);
+	
 	Address add1 = null;
 	Address add2 = null;
 	Address add3 = null;
@@ -31,7 +32,7 @@
 		totalDeliPrice += (Integer)list.get(i).get("deliPrice");
 		allWorkName += (String)list.get(i).get("workName");
 		 for(int j = 0; j < olist.size(); j++) {
-			if((Integer)olist.get(j).getwId() == (Integer)list.get(i).get("basketId")) { 
+			if((int)olist.get(j).getwId() == (int)list.get(i).get("basketId")) { 
 				totalOptionPrice += (Integer)olist.get(j).getoPrice();
 
 			}
@@ -156,9 +157,15 @@
 							</td>
 						
 						</tr>
-						
-						
-						
+						<tr>
+							<td colspan="2">
+								<label>적립금</label><br>
+								<label style="color:green"><%=hmap.get("point") %>원 사용가능</label>
+							</td>
+							<td>
+								<input type="number" id="point" value="0" max="<%=hmap.get("point") %>">
+							</td>
+						</tr>
 						<tr>
 							<td colspan="2">주문수량</td>
 							
@@ -174,7 +181,7 @@
 						<tr>
 							<td colspan="2" style="font-size:20px;">최종 결제금액</td>
 							
-							<td ><label style="font-size:20px; color:red;"><%=totalPrice + totalOptionPrice%>원</label></td>
+							<td ><label style="font-size:20px; color:red;" id="totalPrice"><%=totalPrice + totalOptionPrice%>원</label></td>
 							
 						</tr>
 						
@@ -201,7 +208,7 @@
 			        %>
 			        
 			        <% for(int j = 0; j < olist.size(); j++) {%>
-						<%if((Integer)olist.get(j).getwId() == (Integer)list.get(i).get("basketId")) { 
+						<%if((int)olist.get(j).getwId() == (int)list.get(i).get("basketId")) { 
 							 ovalue += (String)olist.get(j).getoName() + " : " + (String)olist.get(j).getoValue() + "/";
 							 oprice += (Integer)olist.get(j).getoPrice();
 							 System.out.println("ovalue = " + ovalue);
@@ -270,6 +277,17 @@
 	</div>
 	<%@ include file="../main/footer.jsp" %>
 		<script>
+			$("#point").change(function(){
+				var point = $(this).val();
+				if(point > <%=hmap.get("point") %>){
+					$(this).val(0);
+					$(this).focus();
+					alert("적립금이 부족합니다!!");
+				}else {
+				$("#totalPrice").text((<%=totalPrice + totalOptionPrice%> - point) + "원");	
+				}				
+			});
+		
 			$("#addChoice").change(function(){
 				var addChoice = $('#addChoice').val();
 				console.log(addChoice);
@@ -336,7 +354,7 @@
 			    pay_method : 'card',
 			    merchant_uid : '<%=(int)(Math.random()*100000)+1%>' + new Date().getTime(),
 			    name : '<%=(String)work.get("workName") %>외 <%=(Integer)list.size() - 1%>개의 상품',
-			    amount : <%=totalPrice + totalOptionPrice%>,
+			    amount : (<%=totalPrice + totalOptionPrice%> - $("#point").val()),
 			    buyer_email : '<%=loginUser.getEmail()%>',
 			    buyer_name : '<%=loginUser.getMemberName()%>',
 			    buyer_tel : '<%=loginUser.getPhone()%>',
@@ -382,17 +400,17 @@
 					} 
 
 					today = mm+dd+yyyy;
-					
+					var point = $("#point").val();
 					var bundleCode = today + (new Date().getTime() + '<%=(int)(Math.random()*100000)+1%>');
 					$.ajaxSettings.traditional = true;
 			        $.ajax({
 			        	url:"<%=request.getContextPath()%>/insertPayment.pro",
 			        	data:{pid:rsp.merchant_uid, payPrice:rsp.paid_amount, payMethod:rsp.pay_method, 
-			        		payStatus:rsp.status, applyNum:rsp.apply_num, bidArr:bidArr, bundleCode:bundleCode},
+			        		payStatus:rsp.status, applyNum:rsp.apply_num, bidArr:bidArr, bundleCode:bundleCode, point:point},
 			        	type:"post",
 			        	success:function(data){
 			        		alert(msg);
-			        		window.location.href = "index.jsp";
+			        		window.location.href = "<%=request.getContextPath()%>/myPage.me";
 			        	},
 			        	error:function(data){
 			        		alert("결제에 실패했습니다, 다시 시도해주세요");

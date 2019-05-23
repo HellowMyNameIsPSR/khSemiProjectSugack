@@ -107,10 +107,11 @@ public class WorkDao {
 	}
 
 	//판매작품관리 리스트 보기용 메소드
-	public ArrayList<Work> selectSalesList(Connection con, PageInfo pi, String memberId) {
+	public ArrayList<HashMap<String, Object>> selectSalesList(Connection con, PageInfo pi, String memberId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Work> list = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
 		
 		String query = prop.getProperty("selectSalesList");
 		
@@ -126,17 +127,16 @@ public class WorkDao {
 			
 			rset = pstmt.executeQuery();
 			
-			list = new ArrayList<Work>();
+			list = new ArrayList<HashMap<String, Object>>();
 			
 			while(rset.next()){
-				Work work = new Work();
-				
-				work.setWorkId(rset.getInt("WORK_ID"));
-				work.setworkName(rset.getString("WORK_NAME"));
-				work.setPrice(rset.getInt("PRICE"));
-				work.setWrDate(rset.getDate("WR_DATE"));
+				hmap = new HashMap<String, Object>();
+				hmap.put("workId", rset.getInt("WORK_ID"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("price", rset.getInt("WORK_ID"));
+				hmap.put("wrDate", rset.getDate("WR_DATE"));
 
-				list.add(work);
+				list.add(hmap);
 				
 			}
 			
@@ -254,84 +254,7 @@ public class WorkDao {
 		return workId;
 	}
 
-	public ArrayList<Work> selectSalesDate(Connection con, PageInfo pi, String wrDate1, String wrDate2) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Work> list = null;
-		
-		String query = prop.getProperty("selectSalesDate");
-		
-		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
-		int endRow = startRow + pi.getLimit() - 1;
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, wrDate1);
-			pstmt.setString(2, wrDate2);
-			pstmt.setInt(3, startRow);
-			pstmt.setInt(4, endRow);
-			
-			rset = pstmt.executeQuery();
-			
-			list = new ArrayList<Work>();
-			
-			while(rset.next()) {
-				Work work = new Work();
-				
-				work.setWorkId(rset.getInt("WORK_ID"));
-				work.setworkName(rset.getString("WORK_NAME"));
-				work.setPrice(rset.getInt("PRICE"));
-				work.setWrDate(rset.getDate("WR_DATE"));
-
-				list.add(work);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}
-
-	public ArrayList<Work> selectWorkName(Connection con, String workName) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Work> list = null;
-		String name = "%" + workName + "%";
-		
-		
-		String query = prop.getProperty("selectWorkName");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, name);
-			
-			rset = pstmt.executeQuery();
-			
-			list = new ArrayList<Work>();
-			
-			while(rset.next()) {
-				Work work = new Work();
-				
-				work.setWorkId(rset.getInt("WORK_ID"));
-				work.setworkName(rset.getString("WORK_NAME"));
-				work.setPrice(rset.getInt("PRICE"));
-				work.setWrDate(rset.getDate("WR_DATE"));
-
-				list.add(work);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-	}
+	
 
 	public Work selectOne(Connection con, int num) {
 		Work work = null;
@@ -883,6 +806,667 @@ public class WorkDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectExchangeName(Connection con, PageInfo pi, String memberId, String workName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		String name = "%" + workName + "%";
+		
+		String query = prop.getProperty("selectExchangeName");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, name);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()){
+				hmap = new HashMap<String, Object>();
+				hmap.put("refundId", rset.getInt("REFUND_ID"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("count", rset.getInt("COUNT"));
+				hmap.put("refundEnddate", rset.getDate("REFUND_ENDDATE"));
+				hmap.put("memberName", rset.getString("MEMBER_NAME"));
+				hmap.put("refundDate", rset.getString("REFUND_DATE"));
+				hmap.put("refundReason", rset.getString("REFUND_REASON"));
+				hmap.put("odId", rset.getInt("OD_ID"));
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int exchangeNameCount(Connection con, String memberId, String workName) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		String name = "%" + workName + "%";
+		
+		String query = prop.getProperty("exchangeNameCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, name);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectOrderDate(Connection con, PageInfo pi, String memberId,String wrDate1, String wrDate2) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectOrderDate");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, wrDate1);
+			pstmt.setString(3, wrDate2);
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()){
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("odId", rset.getInt("OD_ID"));
+				hmap.put("payDate", rset.getDate("PAY_DATE"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("memberId", rset.getString("MEMBER_NAME"));
+				hmap.put("deliStatus", rset.getString("DELI_STATUS"));
+				
+				list.add(hmap);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int orderDateCount(Connection con, String memberId, String wrDate1, String wrDate2) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("orderDateCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, wrDate1);
+			pstmt.setString(3, wrDate2);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectOrderName(Connection con, PageInfo pi, String memberId, String workName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		String name = "%" + workName + "%";
+		
+		String query = prop.getProperty("selectOrderName");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, name);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()){
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("odId", rset.getInt("OD_ID"));
+				hmap.put("payDate", rset.getDate("PAY_DATE"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("memberId", rset.getString("MEMBER_NAME"));
+				hmap.put("deliStatus", rset.getString("DELI_STATUS"));
+				
+				list.add(hmap);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public int orderNameCount(Connection con, String memberId, String workName) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		String name = "%" + workName + "%";
+		
+		String query = prop.getProperty("orderNameCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, name);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+	
+	public ArrayList<HashMap<String, Object>> selectSalesDate(Connection con, PageInfo pi, String memberId, String wrDate1, String wrDate2) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectSalesDate");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, wrDate1);
+			pstmt.setString(3, wrDate2);
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()){
+				hmap = new HashMap<String, Object>();
+				hmap.put("workId", rset.getInt("WORK_ID"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("price", rset.getInt("WORK_ID"));
+				hmap.put("wrDate", rset.getDate("WR_DATE"));
+
+				list.add(hmap);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int getDateCount(Connection con, String memberId, String wrDate1, String wrDate2) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("getDateCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, wrDate1);
+			pstmt.setString(3, wrDate2);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectWorkName(Connection con, PageInfo pi, String memberId, String workName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		String name = "%" + workName + "%";
+		
+		String query = prop.getProperty("selectWorkName");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, name);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()){
+				hmap = new HashMap<String, Object>();
+				hmap.put("workId", rset.getInt("WORK_ID"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("price", rset.getInt("WORK_ID"));
+				hmap.put("wrDate", rset.getDate("WR_DATE"));
+
+				list.add(hmap);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int WorkNameCount(Connection con, String memberId, String workName) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		String name = "%" + workName + "%";
+		
+		String query = prop.getProperty("WorkNameCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, name);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectQnaDate(Connection con, PageInfo pi, String memberId, String wrDate1, String wrDate2) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectQnaDate");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, wrDate1);
+			pstmt.setString(3, wrDate2);
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()){
+				hmap = new HashMap<String, Object>();
+				hmap.put("bno", rset.getInt("BNO"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("title", rset.getString("TITLE"));
+				hmap.put("memberName", rset.getString("MEMBER_NAME"));
+				hmap.put("writeDate", rset.getDate("WRITE_DATE"));
+				hmap.put("content", rset.getString("CONTENT"));
+				hmap.put("divison", rset.getInt("DIVISON"));
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int qnaDateCount(Connection con, String memberId, String wrDate1, String wrDate2) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("qnaDateCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, wrDate1);
+			pstmt.setString(3, wrDate2);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectQnaName(Connection con, PageInfo pi, String memberId, String workName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		String name = "%" + workName + "%";
+		
+		String query = prop.getProperty("selectQnaName");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, name);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()){
+				hmap = new HashMap<String, Object>();
+				hmap.put("bno", rset.getInt("BNO"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("title", rset.getString("TITLE"));
+				hmap.put("memberName", rset.getString("MEMBER_NAME"));
+				hmap.put("writeDate", rset.getDate("WRITE_DATE"));
+				hmap.put("content", rset.getString("CONTENT"));
+				hmap.put("divison", rset.getInt("DIVISON"));
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int qnaNameCount(Connection con, String memberId, String workName) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		String name = "%" + workName + "%";
+		
+		String query = prop.getProperty("qnaNameCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, name);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectReviewDate(Connection con, PageInfo pi, String memberId, String wrDate1, String wrDate2) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectReviewDate");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, wrDate1);
+			pstmt.setString(3, wrDate2);
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()){
+				hmap = new HashMap<String, Object>();
+				hmap.put("commentId", rset.getInt("COMMENT_ID"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("content", rset.getString("CONTENT"));
+				hmap.put("starPoint", rset.getString("STAR_POINT"));
+				hmap.put("memberName", rset.getString("MEMBER_NAME"));
+				hmap.put("writeDate", rset.getDate("WRITE_DATE"));
+				hmap.put("bno", rset.getInt("BNO"));
+				hmap.put("writerId", rset.getInt("WRITER_ID"));
+				hmap.put("workId", rset.getInt("WORK_ID"));
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int reviewDateCount(Connection con, String memberId, String wrDate1, String wrDate2) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("reviewDateCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, wrDate1);
+			pstmt.setString(3, wrDate2);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectReveiwName(Connection con, PageInfo pi, String memberId, String workName) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		String name = "%" + workName + "%";
+		
+		String query = prop.getProperty("selectReveiwName");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, name);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+		
+			while(rset.next()){
+				hmap = new HashMap<String, Object>();
+				hmap.put("commentId", rset.getInt("COMMENT_ID"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("content", rset.getString("CONTENT"));
+				hmap.put("starPoint", rset.getString("STAR_POINT"));
+				hmap.put("memberName", rset.getString("MEMBER_NAME"));
+				hmap.put("writeDate", rset.getDate("WRITE_DATE"));
+				hmap.put("bno", rset.getInt("BNO"));
+				hmap.put("writerId", rset.getInt("WRITER_ID"));
+				hmap.put("workId", rset.getInt("WORK_ID"));
+				
+				list.add(hmap);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int reviewNameCount(Connection con, String memberId, String workName) {
+		PreparedStatement pstmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		String name = "%" + workName + "%";
+		
+		String query = prop.getProperty("reviewNameCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(memberId));
+			pstmt.setString(2, name);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return listCount;
 	}
 
 

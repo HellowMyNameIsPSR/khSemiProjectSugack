@@ -496,6 +496,7 @@ public class MemberDao {
 				hmap.put("workName", rset.getString("WORK_NAME"));
 				hmap.put("bundleCode", rset.getString("BUNDLE_CODE"));
 				hmap.put("payDate", rset.getDate("PAY_DATE"));
+				hmap.put("odId", rset.getInt("OD_ID"));
 				list.add(hmap);
 			}
 			
@@ -692,6 +693,31 @@ public class MemberDao {
 		
 		
 		return list;
+	}
+
+	public int selectTotalPoint(Connection con, int memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("selectTotalPoint");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return result;
 	}
 
 	

@@ -41,7 +41,17 @@ public class InsertPaymentServlet extends HttpServlet {
 		String applyNum = request.getParameter("applyNum");
 		String bundleCode = request.getParameter("bundleCode");
 		String[] bidArr = request.getParameterValues("bidArr");
+		String minusPoint = request.getParameter("point");
 		int point = (int)(Integer.parseInt(payPrice) * 0.05);
+		System.out.println("minusPoint : " + minusPoint);
+		if(!minusPoint.equals("") || minusPoint != null) {
+			int mPoint = -(Integer.parseInt(minusPoint));
+			int result = new ProService().insertMinusPoint(mPoint, loginUser.getMemberId());
+			System.out.println(result);
+			if(result > 0) {
+				System.out.println("적립금 사용 성공!!!!");
+			}
+		}
 		
 		System.out.println(applyNum);
 		Payment pay = new Payment();

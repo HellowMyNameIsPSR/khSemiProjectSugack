@@ -12,8 +12,9 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지!!</title>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
 	.myPage{
 		display:block;
@@ -57,7 +58,7 @@
 								<th style="height:50px;  font-size:15px; text-align:center;">펀딩투자내역</th>
 							</tr>
 							<tr>
-								<td style="text-align:center;">_P</td>
+								<td style="text-align:center;"><%=hmap.get("totalPoint") %>원</td>
 								<td style=" text-align:center;"><%=blist.size() %>건</td>
 								<td style="text-align:center;">_건</td>
 								<td style=" text-align:center;">_건</td>
@@ -77,13 +78,14 @@
 					<th></th>
 					<th></th>
 				</tr>
+				<%for(int k = 0; k < orderList.size(); k++) {%>
 				<tr>
-				<%for(int k = 0; k < orderList.size(); k++) {
-					if(blist.get(i).equals((String)orderList.get(k).get("bundleCode"))){
+					<%if(blist.get(i).equals((String)orderList.get(k).get("bundleCode"))){
 						String ovalue = "";
 						int oprice = 0;
 				%>
-					<td><img src="uploadSalesImage/<%=orderList.get(k).get("changeName") %>" style="width:50px; height:50px;"></td>
+					<td><input type="hidden" value="<%=orderList.get(k).get("bid")%>">
+					<img src="uploadSalesImage/<%=orderList.get(k).get("changeName") %>" style="width:50px; height:50px;"></td>
 					<% for(int j = 0; j < olist.size(); j++) {
 						System.out.println((Integer)olist.get(j).getwId() + " + " + (Integer)orderList.get(k).get("bid"));
 					%>
@@ -103,8 +105,31 @@
 					</td>
 					<td id="price"><%=((((int)orderList.get(k).get("price") + oprice)  * (int)orderList.get(k).get("count")) + (int)orderList.get(k).get("deliPrice"))%></td>
 					<td id="btn">
-						<button>환불요청</button>
 						<button>교환요청</button>
+						<button type="button" data-toggle="modal" data-target="#myModal<%=k%>">환불요청</button>
+						<!-- Modal -->
+						<div id="myModal<%=k%>" class="modal fade" role="dialog">
+						  <div class="modal-dialog">
+						
+						    <!-- Modal content-->
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal">&times;</button>
+						        <h4 class="modal-title">환불요청</h4>
+						      </div>
+						      <div class="modal-body">
+						        <textarea class="form-control" rows="5" id="comment"></textarea>
+						      </div>
+						      <div class="modal-footer">
+						      	<input type="hidden" value="<%=orderList.get(k).get("odId")%>">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						        <button type="button" class="btn btn-default refund" data-dismiss="modal">보내기</button>
+						      </div>
+						    </div>
+						
+						  </div>
+						</div>
+
 					</td>
 				</tr>
 				<% }
@@ -125,6 +150,13 @@
 			</div>
 		</div>
 		
+		<script>
+			$(".refund").click(function(){
+				var bid = $(this).parent().children().eq(0).val();
+				var text = $(this).
+				console.log(bid);
+			});
+		</script>
 
  	
 </body>

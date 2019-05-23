@@ -113,11 +113,12 @@ public class ProService {
 		ArrayList<Address> addList = new MemberDao().addressList(con, memberId);
 		ArrayList<HashMap<String, Object>> list = new ProDao().selectBuyInfo(bid, con);
 		ArrayList<WorkOption> olist = new MemberDao().selectOptionList(memberId, con);
-		
+		int point = new MemberDao().selectTotalPoint(con, memberId);
 		HashMap<String, Object> buyInfo = new HashMap<String, Object>();
 		buyInfo.put("addList", addList);
 		buyInfo.put("list", list);
 		buyInfo.put("olist", olist);
+		buyInfo.put("point", point);
 		
 		close(con);
 		
@@ -167,11 +168,13 @@ public class ProService {
 		ArrayList<Address> addList = new MemberDao().addressList(con, memberId);
 		ArrayList<HashMap<String, Object>> list = new ProDao().selectCartBuyInfo(bidArr, con);
 		ArrayList<WorkOption> olist = new MemberDao().selectOptionList(memberId, con);
-		
+		int point = new MemberDao().selectTotalPoint(con, memberId);
 		HashMap<String, Object> buyInfo = new HashMap<String, Object>();
+		
 		buyInfo.put("addList", addList);
 		buyInfo.put("list", list);
 		buyInfo.put("olist", olist);
+		buyInfo.put("point", point);
 		
 		close(con);
 		
@@ -201,6 +204,22 @@ public class ProService {
 			rollback(con);
 		}
 		
+		close(con);
+		
+		return result;
+	}
+
+
+	public int insertMinusPoint(int mPoint, int memberId) {
+		Connection con = getConnection();
+		
+		int result = new ProDao().insertMinusPoint(con, mPoint, memberId);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
 		close(con);
 		
 		return result;
