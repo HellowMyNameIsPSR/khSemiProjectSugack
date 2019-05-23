@@ -36,26 +36,26 @@
 				<li>
 					<span class="opener">회원 관리</span>
 					<ul>
-						<li><a href="/views/admin/viewMemList.jsp">회원관리</a>
-						<li><a href="/views/admin/viewWithdrawalMemList.jsp">탈퇴회원관리</a>
-						<li><a href="/views/admin/viewBlackMemList.jsp">블랙리스트 관리</a>
-						<li><a href="/views/admin/viewSellMemList.jsp">판매자관리</a>
+						<li><a href="/sg/views/admin/viewMemList.jsp">회원관리</a>
+						<li><a href="/sg/views/admin/viewWithdrawalMemList.jsp">탈퇴회원관리</a>
+						<li><a href="/sg/views/admin/viewBlackMemList.jsp">블랙리스트 관리</a>
+						<li><a href="/sg/views/admin/viewSellMemList.jsp">판매자관리</a>
 					</ul>
 				</li>
 				<li>
 					<span class="opener">운영</span>
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/reqMemList.ad">입점신청관리</a>
-						<li><a href="/views/admin/viewQuestList.jsp">1:1문의관리</a>
-						<li><a href="/views/admin/viewMileList.jsp">적립금관리</a>
-						<li><a href="/views/admin/viewBbsList.jsp">고객센터관리</a>
+						<li><a href="/sg/views/admin/viewQuestList.jsp">1:1문의관리</a>
+						<li><a href="/sg/views/admin/viewMileList.jsp">적립금관리</a>
+						<li><a href="/sg/views/admin/viewBbsList.jsp">고객센터관리</a>
 					</ul>
 				</li>
 				<li><span class="opener">통계</span>
 					<ul>
-						<li><a href="/views/admin/adminSalesStatistics.jsp">매출관련통계</a>
-						<li><a href="/views/admin/adminMemberStatistics.jsp">회원관련통계</a>
-						<li><a href="/views/admin/adminAuthorStatistics.jsp">작가관련통계</a>
+						<li><a href="/sg/views/admin/adminSalesStatistics.jsp">매출관련통계</a>
+						<li><a href="/sg/views/admin/adminMemberStatistics.jsp">회원관련통계</a>
+						<li><a href="/sg/views/admin/adminAuthorStatistics.jsp">작가관련통계</a>
 					</ul>
 				</li>
 			</ul>

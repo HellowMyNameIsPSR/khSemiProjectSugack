@@ -180,17 +180,17 @@ public class QueryMake {
 		.getPath();
 		
 		String query = "SELECT * FROM(SELECT W.WORK_ID, P.MATERIAL, C.CATEGORY, F.FC_FINISH, F.FC_START, A.AUTHOR_NAME, W.WORK_NAME, TRUNC(F.MAX_VOO / FS.FUND_PRICE) TOTAL FROM FUNDING F JOIN WORK W ON(W.WORK_ID = F.WORK_ID) JOIN CATEGORY C ON(C.CID = W.CID) JOIN PROTYPE P ON(P.TYPE_ID = W.TYPE_ID) JOIN AUTHOR A ON(W.MEMBER_ID = A.MEMBER_ID) JOIN FUS FS ON(F.WORK_ID = FS.WORK_ID))";
-		query += " WHERE P.MATERIAL = ? AND C.CATEGORY = ?";
+		query += " WHERE MATERIAL = ? AND CATEGORY = ?";
 		
 		
 		
 		if(sf.getSearchName().equals("")) {
-			query += " AND W.WORK_NAME LIKE '%'";
+			query += " AND WORK_NAME LIKE '%'";
 		}else {
 			if(sf.getSellKeyword().equals("펀딩명")) {
-				query += " AND W.WORK_NAME LIKE '%'||?||'%'";
+				query += " AND WORK_NAME LIKE '%'||?||'%'";
 			}else {
-				query += " AND A.AUTHOR_NAME LIKE '%'||?||'%'";
+				query += " AND AUTHOR_NAME LIKE '%'||?||'%'";
 			}
 		}
 		
