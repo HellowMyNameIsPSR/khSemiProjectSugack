@@ -352,7 +352,7 @@
 			IMP.request_pay({
 			    pg : 'inicis', // version 1.1.0부터 지원b
 			    pay_method : 'card',
-			    merchant_uid : '<%=(int)(Math.random()*100000)+1%>' + new Date().getTime(),
+			    merchant_uid : '<%=(int)(Math.random()*1000)+1%>' + new Date().getTime(),
 			    name : '<%=(String)work.get("workName") %>외 <%=(Integer)list.size() - 1%>개의 상품',
 			    amount : (<%=totalPrice + totalOptionPrice%> - $("#point").val()),
 			    buyer_email : '<%=loginUser.getEmail()%>',
@@ -386,22 +386,9 @@
 						bidArr.push(<%=(int)list.get(i).get("basketId")%>);
 					<%}%>
 					
-					var today = new Date();
-					var dd = today.getDate();
-					var mm = today.getMonth()+1;
-					var yyyy = today.getFullYear();
-
-					if(dd<10) {
-					    dd='0'+dd
-					} 
-
-					if(mm<10) {
-					    mm='0'+mm
-					} 
-
-					today = mm+dd+yyyy;
+					
 					var point = $("#point").val();
-					var bundleCode = today + (new Date().getTime() + '<%=(int)(Math.random()*100000)+1%>');
+					var bundleCode = (new Date().getTime() + '<%=(int)(Math.random()*100000)+1%>');
 					$.ajaxSettings.traditional = true;
 			        $.ajax({
 			        	url:"<%=request.getContextPath()%>/insertPayment.pro",

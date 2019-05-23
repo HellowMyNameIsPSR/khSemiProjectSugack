@@ -526,7 +526,7 @@ public class ProDao {
 		return result;
 	}
 
-	public int insertPoint(Connection con, int memberId, int point) {
+	public int insertPoint(Connection con, int memberId, int point, String pid) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -536,6 +536,7 @@ public class ProDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, point);
 			pstmt.setInt(2, memberId);
+			pstmt.setString(3, pid);
 			
 			result = pstmt.executeUpdate();
 			
@@ -600,9 +601,9 @@ public class ProDao {
 		System.out.println("Prodao pop에서: " + list);
 		return list;
   }
-}
+
   
-	public int insertMinusPoint(Connection con, int mPoint, int memberId) {
+	public int insertMinusPoint(Connection con, int mPoint, int memberId, String pid) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -612,6 +613,7 @@ public class ProDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, mPoint);
 			pstmt.setInt(2, memberId);
+			pstmt.setString(3, pid);
 			
 			result = pstmt.executeUpdate();
 			
@@ -621,6 +623,68 @@ public class ProDao {
 		} finally {
 			close(pstmt);
 		}
+		
+		return result;
+	}
+
+	public ArrayList<OrderList> selectOrderId(Connection con, ArrayList<OrderList> oList) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<OrderList> list = null;
+		OrderList order = null;
+		
+		String query = prop.getProperty("selectOrderId");
+		
+		try {
+			list = new ArrayList<OrderList>();
+			for(int i = 0; i < oList.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, oList.get(i).getBasketId());
+				
+				rset = pstmt.executeQuery();
+				if(rset.next()) {
+					order = new OrderList();
+					order.setOdId(rset.getInt("OD_ID"));
+					order.setBundleCode(rset.getString("BUNDLE_CODE"));
+					list.add(order);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
+
+	public int insertDelivery(ArrayList<OrderList> list, Connection con) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		
+		String query = prop.getProperty("insertDelivery");
+		
+		try {
+			for(int i = 0; i < list.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, "배송준비");
+				pstmt.setInt(2, list.get(i).getOdId());
+				
+				result += pstmt.executeUpdate();	
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
 		
 		return result;
 	}

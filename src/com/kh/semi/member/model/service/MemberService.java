@@ -4,7 +4,9 @@ import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.member.model.vo.Address;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.member.model.vo.Point;
+import com.kh.semi.member.model.vo.Refund;
 import com.kh.semi.product.model.vo.Basket;
+import com.kh.semi.product.model.vo.Delivery;
 import com.kh.semi.work.model.vo.WorkOption;
 
 import static com.kh.semi.common.JDBCTemplate.*;
@@ -227,7 +229,6 @@ public class MemberService {
 		hmap.put("orderList", orderList);
 		hmap.put("olist", olist);
 		hmap.put("totalPoint", totalPoint);
-		
 		close(con);
 		
 		return hmap;
@@ -347,6 +348,22 @@ public class MemberService {
 		close(con);
 		
 		return list;
+	}
+
+	public int insertRefund(Refund ref) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().insertRefund(con, ref);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+ 		return result;
 	}
 
 
