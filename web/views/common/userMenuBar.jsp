@@ -36,7 +36,7 @@
 					<span class="opener">좋아요리스트</span>
 					<ul>
 						<li><a href="likeAuthor.jsp">관심작가</a></li>
-						<li><a href="likeFundingPro.jsp">관심 펀딩 상품</a></li>
+						<li><a href="<%=request.getContextPath()%>/selectFundLike.fund?mid=<%=loginUser.getMemberId()%>">관심 펀딩 상품</a></li>
 						<li><a href="<%=request.getContextPath()%>/selectLikeList.me?mid=<%=loginUser.getMemberId()%>">관심 판매상품</a></li>
 					</ul>
 				</li>

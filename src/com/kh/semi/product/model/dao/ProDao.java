@@ -585,6 +585,7 @@ public class ProDao {
 				hmap.put("changeName", rset.getString("CHANGE_NAME"));
 				hmap.put("wcount", rset.getInt("WCOUNT"));
 				hmap.put("category", rset.getString("CATEGORY"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
 				list.add(hmap);
 				
 			
@@ -600,7 +601,7 @@ public class ProDao {
 		System.out.println("Prodao pop에서: " + list);
 		return list;
   }
-}
+
   
 	public int insertMinusPoint(Connection con, int mPoint, int memberId) {
 		PreparedStatement pstmt = null;

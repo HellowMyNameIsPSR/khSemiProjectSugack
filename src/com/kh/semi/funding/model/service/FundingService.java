@@ -15,6 +15,7 @@ import com.kh.semi.funding.model.vo.Funding;
 import com.kh.semi.funding.model.vo.SortFunding;
 import com.kh.semi.funding.model.vo.Work;
 import com.kh.semi.funding.model.vo.WorkPic;
+import com.kh.semi.member.model.dao.LikeDao;
 
 public class FundingService {
 	//카테고리 조회
@@ -106,6 +107,47 @@ public class FundingService {
 		System.out.println("사진상세보기 Sevice: " + fileList);
 		close(con);
 		return fileList;
-	} 
-
+	}
+	
+	
+	//관심 펀딩상품 추가용 메소드
+	public int insertLike(int memberId, int workId) {
+		Connection con = getConnection();
+		
+		int result = new FundingDao().insertLike(con,memberId,workId);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
+	
+	
+	//자신이 관심펀딩 추가한 리스트 조회용 메소드
+	public ArrayList<HashMap<String, Object>> selectLikeList(int memberId) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new FundingDao().selectLikeList(con,memberId);
+		close(con);
+		
+		System.out.println("펀딩 dao에서 좋아요 : " + list);
+		return list;
+	}
+	
+	
+	
+	//관심펀딩 취소용 메소드
+	public int deleteLike(int memberId, int workId) {
+		Connection con = getConnection();
+		int result = new FundingDao().deleteLike(con,memberId, workId);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		return result;
+	}
 } //end class
