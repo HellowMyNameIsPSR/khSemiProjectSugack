@@ -140,7 +140,7 @@
 							$tr = $("<tr class='selectTr'>");
 							var $workIdTd = $("<td class='hideTd'>").text(fund.workId);
 							var $nameTd = $("<td>").text(decodeURIComponent(fund.workName));
-							var $wrDateTd = $("<td >").text(decodeURIComponent(fund.wrDate));
+							var $wrDateTd = $("<td>").text(decodeURIComponent(fund.wrDate));
 							var $fcStartTd = $("<td>").text(decodeURIComponent(fund.fcStart));
 							var $fcFinishTd = $("<td>").text(decodeURIComponent(fund.fcFinish));
 							var $funStatus = $("<td>").text(decodeURIComponent(fund.funStatus));
