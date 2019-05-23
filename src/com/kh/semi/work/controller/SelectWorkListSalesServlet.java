@@ -2,6 +2,7 @@ package com.kh.semi.work.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,7 +52,7 @@ public class SelectWorkListSalesServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
 		
-		ArrayList<Work> list = new WorkService().selectSalesList(pi, memberId);
+		ArrayList<HashMap<String, Object>> list = new WorkService().selectSalesList(pi, memberId);
 		
 		String page = "";
 		if(list != null) {

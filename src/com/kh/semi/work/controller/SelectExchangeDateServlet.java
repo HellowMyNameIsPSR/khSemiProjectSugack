@@ -54,19 +54,13 @@ public class SelectExchangeDateServlet extends HttpServlet {
 		
 		ArrayList<HashMap<String, Object>> list = new WorkService().selectExchangeDate(pi, memberId, wrDate1, wrDate2);
 		
-		/*int currentPage;		//현재페이지를 표시할 변수
-		int limit;				//현 페이지에 게시글이 몇개 보여질건지
-		int maxPage;			//전체 페이지에서 가장 마지막 페이지
-		int startPage;			//한번에 표시될 페이지가 시작할 페이지
-		int endPage;			//한번에 표시될 페이지가 끝나는 페이지
-*/		
+		HashMap<String,Object> hmap = new HashMap<String,Object>();
+		hmap.put("list", list);
+	    hmap.put("pi", pi);
 		
-		System.out.println("list !! " + list);
-		System.out.println("list size!!! " + list.size());
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		new Gson().toJson(list, response.getWriter());
-		new Gson().toJson(pi, response.getWriter());
+		new Gson().toJson(hmap, response.getWriter());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
