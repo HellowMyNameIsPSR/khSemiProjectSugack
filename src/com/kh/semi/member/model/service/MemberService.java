@@ -221,10 +221,12 @@ public class MemberService {
 		ArrayList<String> bundleList = new MemberDao().selectBundleCode(con, memberId);
 		ArrayList<HashMap<String, Object>> orderList = new MemberDao().selectOrderList(con, memberId);
 		ArrayList<WorkOption> olist = new MemberDao().selectBuyOptionList(memberId, con);
+		int totalPoint = new MemberDao().selectTotalPoint(con, memberId);
 		
 		hmap.put("blist", bundleList);
 		hmap.put("orderList", orderList);
 		hmap.put("olist", olist);
+		hmap.put("totalPoint", totalPoint);
 		
 		close(con);
 		
