@@ -727,6 +727,7 @@ public class MemberDao {
 		return result;
 	}
 
+
 	public int insertRefund(Connection con, Refund ref) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -752,7 +753,6 @@ public class MemberDao {
 	}
 
 	
-
 }
 
 

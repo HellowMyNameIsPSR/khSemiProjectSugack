@@ -467,8 +467,21 @@ public class WorkService {
 		
 		return listCount;
 	}
-	
-	
+
+	public int updateDeli(String memberId, String deliCompany, String invNum, String deliStatus, String odId) {
+		Connection con = getConnection();
+		
+		int result = new WorkDao().updateDeli(con, memberId, deliCompany, invNum, deliStatus, odId);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
 	
 	
 }

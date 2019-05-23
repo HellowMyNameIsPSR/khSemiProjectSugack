@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.work.model.vo.*"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.work.model.vo.*, com.kh.semi.member.model.vo.*"%>
 <% ArrayList<HashMap<String, Object>> list = 
 		(ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
@@ -7,6 +7,7 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+	Member member = (Member)request.getSession().getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
@@ -80,13 +81,15 @@
 					<div class="manageSaleTable">
 						<table class="listTable">
 							<tr>
-								<td></td>
 								<th style="width:30px;"><strong>NO.</strong></th>
 								<th style="width:90px;"><strong>주문번호</strong></th>
 								<th style="width:100px;"><strong>결제 일시</strong></th>
 								<th><strong>상품명</strong></th>
 								<th style="width:100px;"><strong>구매자명</strong></th>
+								<th style="width:100px;"><strong>택배사</strong></th>
+								<th style="width:100px;"><strong>송장번호</strong></th>
 								<th style="width:100px;"><strong>배송상태</strong></th>
+								<th style="width:100px;"><strong>배송정보 입력</strong></th>
 							</tr>
 							<tbody id="tbody">
 								<!-- <tr>
@@ -99,20 +102,82 @@
 									num++;
 								 %>
 								<tr>
-									<td style="padding:0px 0px 10px 15px; font-size:12px; text-align:left; width:30px;">
-										<input type="radio" id="<%= num %>" name="cid" value="">
-										<label for="<%= num %>" style=""></label>
-									</td>
 									<td><%= num %></td>
 									<td><%= hmap.get("odId") %></td>
 									<td><%= hmap.get("payDate") %></td>
 									<td><%= hmap.get("workName") %></td>
 									<td><%= hmap.get("memberId") %></td>
+									<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"><%= hmap.get("deliCompany") %></td>
+									<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"><%= hmap.get("invNum") %></td>
 									<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"><%= hmap.get("deliStatus") %></td>
+									<td><button data-toggle="modal" data-target="#myModal<%= num %>" type="button" class="postBtn all-btn" style="height:30px;width:80px;padding:0px 0px 0px 0px;;">바로가기</button></td>
 								</tr>
 								<% } %> 
 							</tbody>
 						</table>
+					</div>
+					
+					
+					
+					<div id="modalArea">
+					<%	int num1 = 0;
+						for(int i = 0; i < list.size(); i++){
+					 	HashMap<String, Object> hmap = list.get(i);
+					 	num1++;%>
+					<div class="modal fade" id="myModal<%=num1%>" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+							<form id="salesFrom" action="<%=request.getContextPath()%>/updateDeli.wo" method="post">
+								<input type="hidden" name="odId" value="<%=hmap.get("odId")%>">
+								<input type="hidden" name="invNum" value="<%=hmap.get("invNum")%>">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h2 class="modal-title">배송 정보 입력</h2>
+								</div>
+								<div class="modal-body">
+									<table class="model-table">
+										<tr>
+											<td style="font-weight:bold; width:100px; font-size:17px;">주문번호</td>
+											<td style="width:150px;"><%=hmap.get("odId")%></td>
+											<td style="font-weight:bold; width:100px; font-size:17px;">상품명</td>
+											<td><%=hmap.get("workName")%></td>
+										</tr>
+										<tr>
+											<td style="font-weight:bold; width:100px; font-size:17px;">택배사</td>
+											<td><input type="text" name="deliCompany" value="<%=hmap.get("deliCompany")%>"></td>
+											<td style="font-weight:bold; width:100px; font-size:17px;">송장번호</td>
+											<td><input type="text" name="deliCompany" value="<%=hmap.get("invNum")%>"></td>
+										</tr>
+										<tr>
+											<td>배송상태</td>
+											<td colspan="3">
+												<select name="deliStatus">
+												    <option value="배송전">배송전</option>
+												    <option value="배송중">배송중</option>
+												    <option value="배송 완료">완료</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td style="font-weight:bold; font-size:17px;">배송자</td>
+											<td><%= member.getMemberName() %> 님</td>
+											<td style="font-weight:bold; font-size:17px;">주문일</td>
+											<td><%=hmap.get("deliDate")%></td>
+										</tr>
+									</table>
+								</div>
+								<!-- <button type="submit" class="all-btn">등록하기</button> -->
+								</form>
+								<div class="modal-footer">
+									<button type="submit" class="btn btn-default"
+										data-dismiss="modal">등록하기</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<%
+						}
+					%> 
 					</div>
 					
 					<div class="manageButton">
@@ -125,26 +190,23 @@
 						</table>
 					</div>
 					
-					<%-- <script>
-						$(function(){
-							$(".listTable td").mouseenter(function(){
-								$(this)
-									.parent()
-									.css({"background":"black", "cursor":"pointer"});
-							}).mouseout(function(){
-								$(this)
-									.parent()
-									.css({"background-color":"black"});
-							}).click(function(){
-								var num = $(this).parent().children().eq(1).text();
-								console.log(num);
-								location.href="<%=request.getContextPath()%>/selectListOne.wo?num=" + num;
-							});
-						})
-						
-					</script> --%>
-					
 					<script>
+					<%-- $(function(){
+						$(".postBtn").mouseenter(function(){
+							$(this)
+								.parent()
+								//.css({"background":"black", "cursor":"pointer"});
+						}).mouseout(function(){
+							$(this)
+								.parent()
+								.css({"background-color":"black"});
+						}).click(function(){
+							var num = $(this).parent().parent().children().eq(1).text();
+							console.log(num);
+							location.href="<%=request.getContextPath()%>/selectOne.bo?num=" + num;
+						});
+					})
+					 --%>
 						
 					function searhDate(currentPage){
 							var startDate = $("#startDate").val();

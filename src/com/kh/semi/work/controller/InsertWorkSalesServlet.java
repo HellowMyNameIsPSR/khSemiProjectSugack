@@ -113,7 +113,7 @@ public class InsertWorkSalesServlet extends HttpServlet {
 			String [] optionPrice = multiRequest.getParameterValues("optionPrice");
 			
 			ArrayList<WorkOption> workOption = new ArrayList<WorkOption>();
-			if(optionName != null) {
+			if(optionName != null && optionVal != null && optionPrice != null) {
 				for(int i = optionName.length - 1; i >= 0; i--) {
 					WorkOption opt = new WorkOption();
 					opt.setoName(optionName[i]);

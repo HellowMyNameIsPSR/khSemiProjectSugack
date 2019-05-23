@@ -80,14 +80,6 @@
 	.priceBox tr td input {
 		width: 100%;
 	}
-	.searchBox {
-		display: none;
-	}
-	.searchTable tr {
-		background: white !important;
-		border: 1px solid lightgray;
-		display: block;
-	}
 	.checkBox {
 		border: 1px solid skyblue;
 		/* display: none; */
@@ -104,9 +96,6 @@
 		width:25%;
 		border-right:1px solid skyblue;
 		background: radial-gradient(white, #F6FFFF) fixed;
-	}
-	.searchBox tr td input {
-		border: none;
 	}
 	.all-btn{
 		width: 150px;
@@ -195,44 +184,12 @@
 					</header>
 					<!-- Contents area -->
 					<!-- 확인후 지우기 -->
-				 	
-				 	
-				 	
-				 	
-				 	
 					<form id="salesFrom" action="<%=request.getContextPath()%>/insertSale.wo" method="post" encType="multipart/form-data">
 						<div class="listBox">
 							<div class="listTitle">
 								<h2>카테고리</h2>
 							</div>
-							<div class="listContents">
-								<!-- <div>
-									<button type="button" class="all-btn" id="search">카테고리명검색</button>
-									<button type="button" class="all-btn" id="checked">카테고리명선택</button>
-								</div> -->
-								<div class="searchBox">
-									<table class="searchTable">
-										<tr>
-											<td><input type="text" placeholder="카테고리명 입력" name=""
-												style="width: 100%;"></td>
-											<td width="7%"><span class="glyphicon glyphicon-search"></span></td>
-										</tr>
-									</table>
-								</div>
-
-								<!-- <script>
-									$(function() {
-										$("#search").click(function() {
-											$(".searchBox").show();
-											$(".checkBox").hide()
-										});
-										$("#checked").click(function() {
-											$(".searchBox").hide();
-											$(".checkBox").show()
-										});
-									});
-								</script> -->
-
+							<div class="listContents" id="categoryArea">
 								<table class="checkBox">
 									<tr>
 										<td>
@@ -360,7 +317,7 @@
 									</tr>
 								</table>
 								<p class="subtext">※ 상품과 맞지 않는 카테고리에 등록할 경우 강제 이동되거나 판매중지,판매금지 될 수 있습니다.</p>
-								
+									
 							</div>
 						</div>
 
@@ -369,8 +326,8 @@
 							<div class="listTitle">
 								<h2>상품명</h2>
 							</div>
-							<div class="listContents">
-								<input name="workName" type="text" placeholder="상품명 입력" style="width: 100%;">
+							<div class="listContents" id="workNameArea">
+								<input id="workName" name="workName" type="text" placeholder="상품명 입력" style="width: 100%;">
 								<p class="subtext">※판매 상품과 직접 관련이 없는 다른 상품명 입력 시 관리자에 의해 판매금지될 수 있습니다.</p>
 							</div>
 						</div>
@@ -386,7 +343,7 @@
 									<tr>
 										<td style="width:100px">판매가</td>
 										<td style="width:250px;">
-											<input name="price" type="number" placeholder="숫자만 입력" value="0" style = "text-align:right;">
+											<input id="price" name="price" type="number" placeholder="숫자만 입력" value="0" style = "text-align:right;">
 										</td>
 										<td style="width:50`px">원</td>
 									</tr>
@@ -396,7 +353,7 @@
 									<tr>
 										<td>배송비</td>
 										<td>
-											<input name="deliPrice" type="number" placeholder="숫자만 입력" value="0" style = "text-align:right;">
+											<input id="deliPrice" name="deliPrice" type="number" placeholder="숫자만 입력" value="0" style = "text-align:right;">
 										</td>
 										<td>원</td>
 									</tr>
@@ -429,237 +386,8 @@
 
 							</div>
 						</div>
-						<script>salesFrom
-							$('#salesFrom').submit(function(event){
-								 $('.optionName00').each(function(){
-									 $(this).val($('.optionName0').val());
-								 });
-								 $('.optionName11').each(function(){
-									 $(this).val($('.optionName1').val());
-								 });
-								 $('.optionName22').each(function(){
-									 $(this).val($('.optionName2').val());
-								 });
-								 $('.optionName33').each(function(){
-									 $(this).val($('.optionName3').val());
-								 });
-								 $('.optionName44').each(function(){
-									 $(this).val($('.optionName4').val());
-								 });
-					        });
-						/* $('#submit').on("click",function () {
-							 $('.optionName00').each(function(){
-								 $(this).val($('.optionName0').val());
-							 });
-				        }); */
+						<script>
 							
-							var num = 0;
-							var cnt = 0;
-							var cnt1 = 0;
-							var cnt2 = 0;
-							var cnt3 = 0;
-							var cnt4 = 0;
-							var opCnt = 0;
-							
-							$(function(){
-									$(".openOption").on("click", function(){
-										console.log(opCnt);
-										if(opCnt <= 0){
-											opCnt++;
-											console.log(opCnt);
-											$(".optionBox").show()
-											$(".optionBox").append(
-												'<div class="optionDiv">' +
-													'<table class="optionTable0">' +
-														'<tr align="center">' +
-															'<td>옵션명</td>' +
-															'<td>옵션값</td>' +
-															'<td>추가비용</td>' +
-															'<td align="center">' +
-																'<span id="iconBox" class="glyphicon glyphicon-minus minus0">' +
-															'</span></td>' +
-															'<td align="center">' +
-																'<span id="iconBox"class="glyphicon glyphicon-plus plus0">' +
-															'</span></td>' +
-														'</tr>' +
-														'<tbody class="optiontbody">' +
-															'<tr align="center">' +
-																'<td>' +
-																	'<input type="text" value="fas" class="optionName0" name="optionName" placeholder="옵션명 입력">' +
-																'</td>' +
-																'<td>' +
-																	'<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +
-																'</td>' +
-																'<td>' +
-																	'<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +
-																'</td>' +
-																'<td colspan="2"></td>' +
-															'</tr>' +
-														'</tbody>' +
-													'</table>' +
-												'</div>'
-											);
-										}
-									});
-									
-								$(".closeOption").on("click", function(){
-									$(".optionBox").hide();
-									$(".optionDiv").remove();
-									$(".option").val(' ');
-									opCnt = 0;
-								});
-								
-								
-								//옵션갑 추가 삭제1
-								$(document).on("click",".plus0", function() {
-									cnt++;
-									$(".optiontbody:last").append(
-										'<tr align="center">' +
-											'<td> <input type="hidden" class="optionName00" type="text" " name="optionName" placeholder="옵션명 입력" val=""> </td>' +		
-											'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
-											'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
-											'<td colspan="2"></td>' +
-										'</tr>'
-									);
-								});
-								$(document).on("click", ".minus0", function(){
-									cnt--;
-									if(cnt < 0){
-										cnt = 0;
-									}else if(cnt >= 0){
-										$(".optiontbody tr:last").remove();
-									}
-								});
-								//옵션갑 추가 삭제2
-								$(document).on("click",".plus1", function() {
-									cnt1++;
-									$(".optiontbody1:last").append(
-										'<tr align="center">' +
-											'<td> <input type="hidden" class="optionName11" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
-											'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
-											'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
-											'<td colspan="2"></td>' +
-										'</tr>'
-									);
-								});
-								$(document).on("click", ".minus1", function(){
-									cnt1--;
-									if(cnt1 < 0){
-										cnt1 = 0;
-									}else if(cnt1 >= 0){
-										$(".optiontbody1 tr:last").remove();
-									}
-								});
-								//옵션갑 추가 삭제3
-								$(document).on("click",".plus2", function() {
-									cnt2++;
-									$(".optiontbody2:last").append(
-										'<tr align="center">' +
-											'<td> <input type="hidden" class="optionName22" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
-											'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
-											'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
-											'<td colspan="2"></td>' +
-										'</tr>'
-									);
-								});
-								$(document).on("click", ".minus2", function(){
-									cnt2--;
-									if(cnt2 < 0){
-										cnt2 = 0;
-									}else if(cnt2 >= 0){
-										$(".optiontbody2 tr:last").remove();
-									}
-								});
-								//옵션갑 추가 삭제4
-								$(document).on("click",".plus3", function() {
-									cnt3++;
-									$(".optiontbody3:last").append(
-										'<tr align="center">' +
-											'<td> <input type="hidden" class="optionName33" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
-											'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
-											'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
-											'<td colspan="2"></td>' +
-										'</tr>'
-									);
-								});
-								$(document).on("click", ".minus3", function(){
-									cnt3--;
-									if(cnt3 < 0){
-										cnt3 = 0;
-									}else if(cnt3 >= 0){
-										$(".optiontbody3 tr:last").remove();
-									}
-								});
-								//옵션갑 추가 삭제5
-								$(document).on("click",".plus4", function() {
-									cnt4++;
-									$(".optiontbody4:last").append(
-										'<tr align="center">' +
-											'<td> <input type="hidden" class="optionName44" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
-											'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
-											'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
-											'<td colspan="2"></td>' +
-										'</tr>'
-									);
-								});
-								
-								$(document).on("click", ".minus4", function(){
-									cnt4--;
-									if(cnt4 < 0){
-										cnt4 = 0;
-									}else if(cnt4 >= 0){
-										$(".optiontbody4 tr:last").remove();
-									}
-								});
-								
-								//옵션박스 추가 삭제
-										num=0;
-									$("#addBtn").on("click",function() {
-										num++;
-										if(opCnt <= 4){
-										opCnt++;
-										console.log("num : " + num);
-										$(".optionDiv").last().append(
-											'<table class="optionTable'+ num +'">' +
-												'<tr align="center">' +
-													'<td>옵션명</td>' +
-													'<td>옵션값</td>' +
-													'<td>추가비용</td>' +
-													'<td align="center">' +
-														'<span id="iconBox" class="glyphicon glyphicon-minus minus' + num + '"></span>' +
-													'</td>' +
-													'<td align="center">' +
-														'<span id="iconBox" class="glyphicon glyphicon-plus plus' + num + '"></span>' +
-													'</td>' +
-												'</tr>' +
-												'<tbody class="optiontbody' + num + '">' +
-													'<tr align="center">' +
-														'<td>' +
-															'<input type="text" class="optionName'+ num +'" name="optionName" placeholder="옵션명 입력">' +
-														'</td>' +		
-														'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
-														'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
-														'<td colspan="2"></td>' +
-													'</tr>' +
-												'</tbody>' +
-											'</table>'
-										);
-										}
-										//opCnt = 0;
-									});
-								$("#deleteBtn").on("click", function(){
-									opCnt--;
-									num--;
-									if(opCnt < 1){
-										console.log(opCnt);
-										opCnt = 1;
-										num = 0;
-									}else if(opCnt >= 1){
-										$(".optionDiv").children().last().remove();
-									}
-								});
-								
-							});
 						</script>
 
 
@@ -728,8 +456,19 @@
 							<input type="file" id="workImg3" name="workImg3" onchange="loadImg(this,4)">
 							<input type="file" id="workImg4" name="workImg4" onchange="loadImg(this,5)">
 						</div>
-						<script>
 						
+						
+						<!-- 상품상세설명 -->
+						<div class="listBox" style="height:100%; padding-botton:50px;">
+							<div class="listTitle">
+								<h2>상품상세설명</h2>
+							</div>
+							<div style="padding:30px 30px 30px 30px;">
+						 		<textarea name="workContent" id="summernote">내용</textarea>
+							</div>
+						</div>
+						
+						<script>
 						$(function(){
 							$("#fileArea").hide();
 							
@@ -780,40 +519,235 @@
 							
 							$(document).ready(function() {
 								$('html, body').animate({
-									scrollTop : $('.searchBox').offset().top
+									scrollTop : $('#header').offset().top
 								}, 'slow');
 							});
-						</script>
 						
 						
+						$('#salesFrom').submit(function(event){
+							 $('.optionName00').each(function(){
+								 $(this).val($('.optionName0').val());
+							 });
+							 $('.optionName11').each(function(){
+								 $(this).val($('.optionName1').val());
+							 });
+							 $('.optionName22').each(function(){
+								 $(this).val($('.optionName2').val());
+							 });
+							 $('.optionName33').each(function(){
+								 $(this).val($('.optionName3').val());
+							 });
+							 $('.optionName44').each(function(){
+								 $(this).val($('.optionName4').val());
+							 });
+				        });
+						var num = 0;
+						var cnt = 0;
+						var cnt1 = 0;
+						var cnt2 = 0;
+						var cnt3 = 0;
+						var cnt4 = 0;
+						var opCnt = 0;
 						
-						<!-- 상품상세설명 -->
-						<div class="listBox" style="height:100%; padding-botton:50px;">
-							<div class="listTitle">
-								<h2>상품상세설명</h2>
-							</div>
-							<div style="padding:30px 30px 30px 30px;">
-						 		<textarea name="workContent" id="summernote">내용</textarea>
-							</div>
-						</div>
-						
-						<script>
-					/*	$('#summernote').summernote({
-					        height : 400,
-					        onImageUpload : function(files, editor, welEditable) {
-					            sendFile(files[0], editor, welEditable);
-					        },
-					        lang : 'ko-KR'
-					        
-				        	callbacks: {
-								onImageUpload: function(files) {
-									//your upload process
-
+						$(function(){
+								$(".openOption").on("click", function(){
+									console.log(opCnt);
+									if(opCnt <= 0){
+										opCnt++;
+										console.log(opCnt);
+										$(".optionBox").show()
+										$(".optionBox").append(
+											'<div class="optionDiv">' +
+												'<table class="optionTable0">' +
+													'<tr align="center">' +
+														'<td>옵션명</td>' +
+														'<td>옵션값</td>' +
+														'<td>추가비용</td>' +
+														'<td align="center">' +
+															'<span id="iconBox" class="glyphicon glyphicon-minus minus0">' +
+														'</span></td>' +
+														'<td align="center">' +
+															'<span id="iconBox"class="glyphicon glyphicon-plus plus0">' +
+														'</span></td>' +
+													'</tr>' +
+													'<tbody class="optiontbody">' +
+														'<tr align="center">' +
+															'<td>' +
+																'<input type="text" value="fas" class="optionName0" name="optionName" placeholder="옵션명 입력">' +
+															'</td>' +
+															'<td>' +
+																'<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +
+															'</td>' +
+															'<td>' +
+																'<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +
+															'</td>' +
+															'<td colspan="2"></td>' +
+														'</tr>' +
+													'</tbody>' +
+												'</table>' +
+											'</div>'
+										);
+									}
+								});
+								
+							$(".closeOption").on("click", function(){
+								$(".optionBox").hide();
+								$(".optionDiv").remove();
+								$(".option").val(' ');
+								opCnt = 0;
+							});
+							
+							
+							//옵션갑 추가 삭제1
+							$(document).on("click",".plus0", function() {
+								cnt++;
+								$(".optiontbody:last").append(
+									'<tr align="center">' +
+										'<td> <input type="hidden" class="optionName00" type="text" " name="optionName" placeholder="옵션명 입력" val=""> </td>' +		
+										'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
+										'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
+										'<td colspan="2"></td>' +
+									'</tr>'
+								);
+							});
+							$(document).on("click", ".minus0", function(){
+								cnt--;
+								if(cnt < 0){
+									cnt = 0;
+								}else if(cnt >= 0){
+									$(".optiontbody tr:last").remove();
 								}
-
-							}
-					    });*/
-						
+							});
+							//옵션갑 추가 삭제2
+							$(document).on("click",".plus1", function() {
+								cnt1++;
+								$(".optiontbody1:last").append(
+									'<tr align="center">' +
+										'<td> <input type="hidden" class="optionName11" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
+										'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
+										'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
+										'<td colspan="2"></td>' +
+									'</tr>'
+								);
+							});
+							$(document).on("click", ".minus1", function(){
+								cnt1--;
+								if(cnt1 < 0){
+									cnt1 = 0;
+								}else if(cnt1 >= 0){
+									$(".optiontbody1 tr:last").remove();
+								}
+							});
+							//옵션갑 추가 삭제3
+							$(document).on("click",".plus2", function() {
+								cnt2++;
+								$(".optiontbody2:last").append(
+									'<tr align="center">' +
+										'<td> <input type="hidden" class="optionName22" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
+										'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
+										'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
+										'<td colspan="2"></td>' +
+									'</tr>'
+								);
+							});
+							$(document).on("click", ".minus2", function(){
+								cnt2--;
+								if(cnt2 < 0){
+									cnt2 = 0;
+								}else if(cnt2 >= 0){
+									$(".optiontbody2 tr:last").remove();
+								}
+							});
+							//옵션갑 추가 삭제4
+							$(document).on("click",".plus3", function() {
+								cnt3++;
+								$(".optiontbody3:last").append(
+									'<tr align="center">' +
+										'<td> <input type="hidden" class="optionName33" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
+										'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
+										'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
+										'<td colspan="2"></td>' +
+									'</tr>'
+								);
+							});
+							$(document).on("click", ".minus3", function(){
+								cnt3--;
+								if(cnt3 < 0){
+									cnt3 = 0;
+								}else if(cnt3 >= 0){
+									$(".optiontbody3 tr:last").remove();
+								}
+							});
+							//옵션갑 추가 삭제5
+							$(document).on("click",".plus4", function() {
+								cnt4++;
+								$(".optiontbody4:last").append(
+									'<tr align="center">' +
+										'<td> <input type="hidden" class="optionName44" type="text" name="optionName" placeholder="옵션명 입력"> </td>' +		
+										'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
+										'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
+										'<td colspan="2"></td>' +
+									'</tr>'
+								);
+							});
+							
+							$(document).on("click", ".minus4", function(){
+								cnt4--;
+								if(cnt4 < 0){
+									cnt4 = 0;
+								}else if(cnt4 >= 0){
+									$(".optiontbody4 tr:last").remove();
+								}
+							});
+							
+							//옵션박스 추가 삭제
+									num=0;
+								$("#addBtn").on("click",function() {
+									num++;
+									if(opCnt <= 4){
+									opCnt++;
+									console.log("num : " + num);
+									$(".optionDiv").last().append(
+										'<table class="optionTable'+ num +'">' +
+											'<tr align="center">' +
+												'<td>옵션명</td>' +
+												'<td>옵션값</td>' +
+												'<td>추가비용</td>' +
+												'<td align="center">' +
+													'<span id="iconBox" class="glyphicon glyphicon-minus minus' + num + '"></span>' +
+												'</td>' +
+												'<td align="center">' +
+													'<span id="iconBox" class="glyphicon glyphicon-plus plus' + num + '"></span>' +
+												'</td>' +
+											'</tr>' +
+											'<tbody class="optiontbody' + num + '">' +
+												'<tr align="center">' +
+													'<td>' +
+														'<input type="text" class="optionName'+ num +'" name="optionName" placeholder="옵션명 입력">' +
+													'</td>' +		
+													'<td>' + '<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +'</td>' +
+													'<td>' + '<input type="number" class="option" name="optionPrice" placeholder="추가비용 입력">' +'</td>' +
+													'<td colspan="2"></td>' +
+												'</tr>' +
+											'</tbody>' +
+										'</table>'
+									);
+									}
+									//opCnt = 0;
+								});
+							$("#deleteBtn").on("click", function(){
+								opCnt--;
+								num--;
+								if(opCnt < 1){
+									console.log(opCnt);
+									opCnt = 1;
+									num = 0;
+								}else if(opCnt >= 1){
+									$(".optionDiv").children().last().remove();
+								}
+							});
+							
+						});
 						$(document).ready(function() {
 						      $('#summernote').summernote({
 						        height: 400,
@@ -821,46 +755,66 @@
 						        maxHeight: null,
 						        focus: true,
 						         callbacks: {
-						        	 /*  onImageUpload: function(files, editor, welEditable) {
-						            for (var i = files.length - 1; i >= 0; i--) {
-						              sendFile(files[i], this);
-						            }
-						          }*/
 
 						        }
 						      });
 						    });
-						    
-						   /* function sendFile(file, el) {
-						      var form_data = new FormData();
-						      form_data.append('file', file);
-						      $.ajax({
-						        data: form_data,
-						        type: "POST",
-						        url: 'InsertContentsImageServlet.wo',
-						        cache: false,
-						        contentType: false,
-						        enctype: 'multipart/form-data',
-						        processData: false,
-						        success: function(url) {
-						          $(el).summernote('editor.insertImage', url);
-						          $('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
-						        }
-						      });
-						    }
-*/
-
-
+						
 				 		</script>
+				 		
+				 		
+				 		
 
 						
 						
 						<div align="center">
 							<button type="reset" class="all-btn" style="width:150px;">취소</button>
-							<button id="submit" type="submit" class="all-btn" style="width:150px;">등록하기</button>
+							<button id="saleGoods" type="submit" class="all-btn" style="width:150px;">등록하기</button>
 						</div>
 						
+						<script>
+							$("#saleGoods").click(function(){
+								var regData = true;
+								var category = $("input:radio[name=cid]:checked").val();
+								var workName = $("#workName").val();
+								var price = $("#price").val();
+								var deliPrice = $("#deliPrice").val();
+								var optionName = $("input:text[name=optionName]").val();
+								var optionval = $("input:text[name=optionVal]").val();
+								var optionPrice = $("input:text[name=optionPrice]").val();
+								var workImg = $("#workImg0").val();
+								var textarea = $("#summernote").val();
 
+								if(category == null || category == "" || category == "&nbsp;"){
+									regData = false;
+									alert("카테고리 값을 선택 해 주세요.");
+									$('html, body').animate({
+										scrollTop : $('#header').offset().top
+									}, 'slow');
+									regData = false;
+								}
+								if(workName == null || workName == "" || workName == "&nbsp;"){
+									regData = false;
+									alert("판매 작품 명을 입력해 주세요.");
+									$('html, body').animate({
+										scrollTop : $('input:radio[name=cid]').offset().top
+									}, 'slow');
+									return false;
+								}
+								if(price < 0){
+									regData = false;
+									alert("판매가격을 입력해 주세요.");
+									$('html, body').animate({
+										scrollTop : $('#workNameArea').offset().top
+									}, 'slow');
+									return false;
+								}
+
+
+								
+								return regData;
+							});
+						</script>
 
 
 

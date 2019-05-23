@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>수작 - 개인정보수정</title>
+<%@ include file="../assets/css/author.html" %>
 <style>
 	.authorInfo {
 		border:2px solid lightgray;
@@ -32,21 +33,22 @@
 			<div class="inner">
 				<!-- Header -->
 				<header id="header">
-					<a href="authorHome.jsp" class="logo">
-						<span class="glyphicon glyphicon-home"></span>
-						&nbsp;
-						<strong style="font-size:20px;">HOME</strong>
+					<a href="/sg/views/author/authorHome.jsp" class="logo"> <span
+						class="glyphicon glyphicon-home"></span> &nbsp; <strong
+						style="font-size: 20px;">HOME</strong>
 					</a>
 				</header>
 				<section id="contents">
 					<header class="main">
-						<h1>판매자 정보수정</h1>
+						<h2>판매자 정보수정</h2>
 					</header>
 					<!-- Contents area -->
-
 					<form id="updateAuthor" action="" method="post">
-
-						<table class="authorInfo">
+					<div class="manageSaleTitle" style="min-width:500px;">
+						<h2>판매자 정보수정</h2>
+					</div>
+					<div class="deleteDiv" style="margin-bottom:20px;">
+						<table class="deleteTable">
 							<tr>
 								<td colspan="2"><h2
 										style="margin: 0 auto; padding-left: 20px">판매자 정보</h2></td>
@@ -71,13 +73,13 @@
 								</td>
 							</tr>
 						</table>
+					</div>	
 						
 						
 						
 						
-						
-
-						<table class="authorInfo">
+					<div class="deleteDiv" style="margin-bottom:20px;">
+						<table class="deleteTable">
 							<tr>
 								<td colspan="2"><h2
 										style="margin: 0 auto; padding-left: 20px">정산관리</h2></td>
@@ -92,12 +94,12 @@
 							</tr>
 							
 						</table>
+					</div>
 						
 						
 						
-						
-
-						<table class="authorInfo">
+					<div class="deleteDiv" style="margin-bottom:20px;">
+						<table class="deleteTable">
 							<tr>
 								<td colspan="2"><h2
 										style="margin: 0 auto; padding-left: 20px">배송 정보</h2></td>
@@ -118,12 +120,12 @@
 								<td><button>주소수정</button> <br> <br>※주소 들어갈곳</td>
 							</tr>
 						</table>
-
+					</div>
 						<div align="center">
 							<button style="width: 150px;">취소</button>
 							<button style="width: 150px;">등록하기</button>
 						</div>
-
+		
 					</form>
 
 
