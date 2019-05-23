@@ -68,7 +68,7 @@
 			<tr>
 				<td style="text-align:center; background: lightgray; border: 1px solid gray">검색키워드</td>
 				<td>
-				<select name="sell" style="width: 60%;">
+				<select name="sellKeyword" style="width: 60%;">
 				     <option value="fund">펀딩명</option>
 				     <option value="sellMember">작가명</option>
 				</select>
@@ -96,19 +96,23 @@
 		<br>
 		<hr>
 		<h3>펀딩 조회 결과</h3>
-		<table class="table table-bordered" style="border:2px solid gray; text-align:center">
-			<tr style="background:lightgray;">
-				<td>선택</td>
-				<td>번호</td>
-				<td>공예분류</td>
-				<td>작품유형</td>
-				<td>작가명</td>
-				<td>펀딩명</td>
-				<td>펀딩등록일</td>
-				<td>펀딩마감일</td>
-				<td>펀딩진행률</td>			
-			</tr>
+		<table class="table table-bordered" id="fundInfoTable" style="border:2px solid gray; text-align:center">
+			<thead>
+				<tr style="background:lightgray;">
+					<td>번호</td>
+					<td>공예분류</td>
+					<td>작품유형</td>
+					<td>작가명</td>
+					<td>펀딩명</td>
+					<td>펀딩등록일</td>
+					<td>펀딩마감일</td>
+					<td>펀딩진행률</td>			
+				</tr>
+			</thead>
 			
+			<tbody>
+			
+			</tbody>
 		</table>
 		<br>
 			<div class="row" style="padding-left:400px">
@@ -141,32 +145,34 @@
 			
 			$.ajax({
 				url:"<%= request.getContextPath() %>/fundingSearch.ad",
-				data:searchProduct,
+				data:searchFunding,
 				type:"get",
 				success:function(data){
 					//console.log(data);
-					$tableBody = $("#proInfoTable tbody");
+					$tableBody = $("#fundInfoTable tbody");
 					
 					$tableBody.html('');
 					
 					$.each(data, function(index, value){
 						var $tr = $("<tr>");
 						var $noTd = $("<td>").text(index + 1);
-						var $productName = $("<td>").text(decodeURIComponent(value.productName));
-						var $authorName = $("<td>").text(decodeURIComponent(value.authorName));
 						var $material = $("<td>").text(decodeURIComponent(value.material));
-						var $productDate = $("<td>").text(value.productDate);
-						var $price = $("<td>").text(value.price);
 						var $category = $("<td>").text(decodeURIComponent(value.category));
+						var $fundName = $("<td>").text(decodeURIComponent(value.workName));
+						var $authorName = $("<td>").text(decodeURIComponent(value.authorName));
+						var $fundStarDay = $("<td>").text(value.fundStarDay);
+						var $fundLastDay = $("<td>").text(value.fundLastDay);
+						var $process = $("<td>").text(value.process);
 						
 						
 						$tr.append($noTd);
 						$tr.append($material);
 						$tr.append($category);
-						$tr.append($productName);
-						$tr.append($productDate);
 						$tr.append($authorName);
-						$tr.append($price);
+						$tr.append($fundName);
+						$tr.append($fundStarDay);
+						$tr.append($fundLastDay);
+						$tr.append($process);
 						$tableBody.append($tr); 
 						
 						

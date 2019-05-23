@@ -2,7 +2,11 @@
     pageEncoding="UTF-8" import="java.util.*, com.kh.semi.author.model.vo.*"%>
     <%
     	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("reqMemList");
-    	
+    java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy년MM월dd일");
+    String today = formatter.format(new java.util.Date());
+    
+
+ 
     %>
     
 <!DOCTYPE html>
@@ -13,6 +17,12 @@
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+ <style>
+ 	#reqListArea th{
+		
+		text-align:center;
+ 	}
+ </style>
 </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -32,7 +42,7 @@
 								<table class="stat" style="height:150px; width:800px; margin:auto; text-align:center; background: white;">
 									<tr>
 								 		<td><h3>입점신청현황</h3></td>
-								 		<td colspan="2">0000년00월00일</td>
+								 		<td colspan="2"><%= today %></td>
 								 		<td></td>
 								 	</tr>
 								 	<tr>
@@ -50,12 +60,12 @@
 							
 								 	</tr>
 								</table>
-								
+								<br><br><br>
 								<div class="row" style="height:40px; margin-top:0px; margin-left: 0; margin-right: auto;">
 									<h4>최근 신청 리스트(5건)</h4>
 								</div>
-						<table class="table table-bordered"	id="reqListArea" style="border: 2px solid gray; text-align: center">
-							<tr style="background: lightgray;">
+						<table class="table table-bordered"	id="reqListArea" style="border: 2px solid gray; text-align: center; margin:0 auto">
+							<tr style="background: lightgray; ">
 								<th>신청번호</th>
 								<th>점포명</th>
 								<th>회원아이디(이메일)</th>
@@ -74,21 +84,13 @@
 								<td><%= hmap.get("email")%></td>
 								<td><%= hmap.get("authorContent")%></td>
 								<td><%= hmap.get("applyDate")%></td>
-								<td><%= hmap.get("applyDate")%></td>
+								<td><%= hmap.get("remainDate")%>일</td>
 								<td><%= hmap.get("authorStatus")%></td>
 							<% } %>
 							</tr>
 							
 						</table>
-						<div class="row" style="padding-left: 400px">
-							<ul class="pagination justify-content-center">
-								<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">Next</a></li>
-							</ul>
-						</div>
+						
 							</div>
 						<!--  <h3><a href="viewReqMemListDetail.jsp">입점신청세부보기</a></h3> -->
 					</header>
@@ -108,6 +110,7 @@
 			var authorName = $(this).parent().children().eq(1).text();
 			console.log(authorName);
 			var list = $()
+		
 			
 			//form안에 없기 때문에 페이를 통쨰로 넘긴다
 			location.href="<%=request.getContextPath()%>/selectOneReqMem.ad?authorName=" + authorName;

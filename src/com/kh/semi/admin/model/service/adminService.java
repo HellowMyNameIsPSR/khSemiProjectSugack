@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.kh.semi.admin.model.dao.adminDao;
 import com.kh.semi.admin.model.vo.RequestMember;
+import com.kh.semi.admin.model.vo.SearchFunding;
 import com.kh.semi.admin.model.vo.SearchMember;
 import com.kh.semi.admin.model.vo.SearchProduct;
 import com.kh.semi.author.model.vo.Author;
@@ -182,14 +183,32 @@ public class adminService {
 
 
 
+
+	public ArrayList<SearchProduct> searchProduct(SearchProduct sp) {
+		Connection con = getConnection();
+		
+		ArrayList<SearchProduct> list = new adminDao().searchPro(con, sp);
+		System.out.println("Dao에서 result" + list);
+
+		
+		close(con);
+		
+		return list;
+	}
+	
 	public int reqDeny(String apply1Stat, int memberId) {
 		Connection con = getConnection();
 		
 		int result1 = new adminDao().reqDeny(con, apply1Stat, memberId);
+		int result2 = 0;
 		int result = 0;
 		
 		if(result1 > 0) {
-			result = new adminDao().reqDate(con, memberId);
+			result2 = new adminDao().reqDate(con, memberId);
+			if(result2 > 0) {
+				apply1Stat = "1차" + apply1Stat;
+				result = new adminDao().reqStatus(con, apply1Stat, memberId);
+			}
 			commit(con);
 		}else {
 			rollback(con);
@@ -203,28 +222,19 @@ public class adminService {
 
 
 
-	public ArrayList<SearchProduct> searchProduct(SearchProduct sp) {
-		Connection con = getConnection();
-		
-		ArrayList<SearchProduct> list = new adminDao().searchPro(con, sp);
-		System.out.println("Dao에서 result" + list);
-
-		
-		close(con);
-		
-		return list;
-	}
-
-
-
 	public int reqDeny2(String apply2Stat, int memberId) {
 		Connection con = getConnection();
 		
 		int result1 = new adminDao().reqDeny2(con, apply2Stat, memberId);
+		int result2 = 0;
 		int result = 0;
 		
 		if(result1 > 0) {
-			result = new adminDao().reqDate(con, memberId);
+			result2 = new adminDao().reqDate(con, memberId);
+			if(result2 > 0) {
+				apply2Stat = "2차" + apply2Stat;
+				result = new adminDao().reqStatus(con, apply2Stat, memberId);
+			}
 			commit(con);
 		}else {
 			rollback(con);
@@ -264,6 +274,38 @@ public class adminService {
 			close(con);
 		
 		return selectReqMemSecondPic;
+	}
+
+
+
+	public ArrayList<HashMap<String, Object>> totalList() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> total = new adminDao().totalReqList(con);
+		
+		
+		
+		close(con);
+		
+		return total;
+	}
+
+
+
+	public ArrayList<SearchFunding> searchFunding(SearchFunding sf) {
+		Connection con = getConnection();
+		
+		ArrayList<SearchFunding> list = new adminDao().searchFund(con, sf);
+		System.out.println("Dao에서 result" + list);
+
+		
+		close(con);
+		
+		return list;
+		
+		
+		
+		
 	}
 
 		

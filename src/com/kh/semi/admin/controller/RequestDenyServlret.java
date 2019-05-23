@@ -31,6 +31,8 @@ public class RequestDenyServlret extends HttpServlet {
 		 int result = 0;
 		 System.out.println("1차버튼 : " + apply1Stat);
 		 System.out.println("2차버튼 : " + apply2Stat);
+		 
+		
 
 
 		if(apply1Stat != null) {

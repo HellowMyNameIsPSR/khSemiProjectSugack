@@ -5,11 +5,8 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<!-- <link rel="stylesheet" href="../assets/css/main.css" /> -->
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-	<style>
-			<%@ include file="../assets/css/main.html" %>
-	</style>
+	<%@ include file="../assets/css/main.html" %>
+	<%@ include file="../assets/css/allCss.html" %>
 	<title></title>
 </head>
 <!-- Sidebar -->
@@ -17,15 +14,18 @@
 	<div class="inner">
 		<!-- Logo -->
 		<section class="alt">
-			<a href="../../index.jsp">LOGO</a>
+			<a href="<%=request.getContextPath()%>/selectImgList.wo"> <img
+			id="authorLogo" src="/sg/views/main/images/logo.png"
+			style="display: inline-block;">
+		</a>
 		</section>
 		<!-- Menu -->
 		<nav id="menu">
 			<header class="major">
-				<h2>Menu</h2>
+				<h2>관리자 메뉴</h2>
 			</header>
 			<ul>
-				<li><a href="adminHome.jsp">HOME</a></li>
+				<li><a href="/sg/views/admin/adminHome.jsp">HOME</a></li>
 				<li>
 					<span class="opener">상품 관리</span>
 					<ul>
@@ -64,19 +64,23 @@
 		<!-- Footer -->
 		<footer id="footer">
 			<ul class="contact">
-				<li class="fa-envelope-o">information@untitled.tld</li>
-				<li class="fa-phone">(000)000-000</li>
-				<li class="fa-home">1234 Somewhere Road #8524 <br>
-				Nashville, TN 00000-0000</li>
+				<li class="fa-envelope-o">poohsla@naver.com</li>
+				<li class="fa-phone">010-9141-6557</li>
+				<li class="fa-home">kh정보교육원 2층 C강의장 <br>
+				Gangname Seoul, Republic of Korea</li>
 			</ul>
-			<p class="copyright">&copy; Untitled. All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>
-			.Design:<a href="https://html5up.net">HTML5 UP</a>.</p>
+			<p class="copyright">&copy; 手作. All rights reserved. .</p>
 		</footer>
 	</div>
 </div>
 <!-- script -->
-<script src="../assets/js/jquery.min.js"></script>
+<!-- <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/browser.min.js"></script>
 <script src="../assets/js/breakpoints.min.js"></script>
 <script src="../assets/js/util.js"></script>
-<script src="../assets/js/main.js"></script>
+<script src="../assets/js/main.js"></script> -->
+<script src="<%= request.getContextPath() %>/views/assets/js/jquery.min.js"></script>
+<script src="<%= request.getContextPath() %>/views/assets/js/browser.min.js"></script>
+<script src="<%= request.getContextPath() %>/views/assets/js/breakpoints.min.js"></script>
+<script src="<%= request.getContextPath() %>/views/assets/js/util.js"></script>
+<script src="<%= request.getContextPath() %>/views/assets/js/main.js"></script>
