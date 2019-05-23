@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.kh.semi.board.model.vo.AuthorPageAttachmrnt;
 import com.kh.semi.board.model.vo.Board;
+import com.kh.semi.board.model.vo.authorComent;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 
@@ -315,6 +316,36 @@ public class AuthorPageDao {
 			close(pstmt);
 		}
 
+		return result;
+	}
+    
+	
+
+	public int insertauthorComent(Connection con, authorComent ac) {
+		
+		PreparedStatement pstmt = null; 
+		int result = 0 ; 
+		
+		String query = prop.getProperty("");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, ac.getCntent());
+			pstmt.setInt(2,ac.getBno());
+			pstmt.setInt(3, ac.getWriterId());
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		System.out.println("authorComent:" +result);
 		return result;
 	}
 }
