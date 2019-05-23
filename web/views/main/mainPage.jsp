@@ -112,7 +112,7 @@
 		
 		
 		
-		
+
 		<% if(list.size() < 8){ %>
 			<h1 align="center">상품이 없습니다</h1>
 		<% }else{ %>
