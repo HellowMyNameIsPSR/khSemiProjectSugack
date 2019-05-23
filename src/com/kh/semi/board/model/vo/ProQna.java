@@ -15,6 +15,7 @@ public class ProQna implements java.io.Serializable{
 	private Date modifyDate;
 	private String category;
 	private String writer;
+	private String workName;
 	
   
 	public ProQna() {}
@@ -24,7 +25,7 @@ public class ProQna implements java.io.Serializable{
 
 
 	public ProQna(int rowNum, int bno, int mid, String content, Date writeDate, int bCount, int division, int workId,
-			Date modifyDate, String category, String writer) {
+			Date modifyDate, String category, String writer, String workName) {
 		super();
 		this.rowNum = rowNum;
 		this.bno = bno;
@@ -37,6 +38,23 @@ public class ProQna implements java.io.Serializable{
 		this.modifyDate = modifyDate;
 		this.category = category;
 		this.writer = writer;
+		this.workName = workName;
+	}
+
+
+
+
+
+	public String getWorkName() {
+		return workName;
+	}
+
+
+
+
+
+	public void setWorkName(String workName) {
+		this.workName = workName;
 	}
 
 
@@ -169,15 +187,21 @@ public class ProQna implements java.io.Serializable{
 	}
 
 
-//d
+
 
 
 	@Override
 	public String toString() {
 		return "ProQna [rowNum=" + rowNum + ", bno=" + bno + ", mid=" + mid + ", content=" + content + ", writeDate="
 				+ writeDate + ", bCount=" + bCount + ", division=" + division + ", workId=" + workId + ", modifyDate="
-				+ modifyDate + ", category=" + category + ", writer=" + writer + "]";
+				+ modifyDate + ", category=" + category + ", writer=" + writer + ", workName=" + workName + "]";
 	}
+
+
+//d
+
+
+	
 
 
 	

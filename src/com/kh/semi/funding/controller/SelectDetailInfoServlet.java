@@ -2,7 +2,6 @@ package com.kh.semi.funding.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,21 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.semi.funding.model.service.FundingService;
+
 import com.kh.semi.funding.model.vo.WorkPic;
-import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class SelectFundContentsServlet
+ * Servlet implementation class SelectDetailInfoServlet
  */
-@WebServlet("/selectFundCon.fund")
-public class SelectFundContentsServlet extends HttpServlet {
+@WebServlet("/selectDetailServlet.fund")
+public class SelectDetailInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectFundContentsServlet() {
+    public SelectDetailInfoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,25 +34,26 @@ public class SelectFundContentsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int workId = Integer.parseInt(request.getParameter("workId"));
-		int memberId = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
-		
-		ArrayList<HashMap<String, Object>> list = new FundingService()
-													.selectFundContents(memberId, workId);
+		ArrayList<WorkPic> list = new FundingService().selectList(workId);
+		System.out.println("서블릿 파일리스트" + list);
+		String page = "";
 		if(list != null) {
-			System.out.println("정보를 성공적으로 가지고 왔습니다.");
-			ArrayList<WorkPic> fileList = new FundingService().selectWorkPicFile(memberId, workId);
-			if(fileList != null) {
-				request.setAttribute("fileList", fileList);
-				request.setAttribute("fundInfoList", list);
-				request.getRequestDispatcher("views/author/enrollFundingGoods2.jsp").forward(request, response);
-				
-			} //end if
+			/*request.setAttribute("imglist", list);
+	
+			page = "views/fundingProduct/fundingProductDetail.jsp";
+			System.out.println("서블릿까지 사진 가져오기 ");*/
+			
+			response.setContentType("application/json");
+		    new Gson().toJson(list, response.getWriter());
+
+
 		} else {
-			request.setAttribute("msg", "펀딩 작품 정보를 가져오지 못했습니다.");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		} //end if
-		
-	} //end method
+			System.out.println("펀딩상품 이미지 상세보기 실패!");
+			request.setAttribute("msg", "펀딩상품 이미지 상세보기 실패!");
+			page = "views/common/errorPage.jsp";
+		}
+		request.getRequestDispatcher(page).forward(request, response);;
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

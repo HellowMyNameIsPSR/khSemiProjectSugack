@@ -1,8 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.board.model.vo.*, com.kh.semi.funding.model.vo.WorkPic,java.text.SimpleDateFormat, com.kh.semi.work.model.vo.*, com.kh.semi.funding.model.vo.*"%>
     
  <%
     ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String,Object>>) request.getAttribute("list");
+ 	//ProQna qna = (ProQna)request.getAttribute("qna"); 
+ 
+ 	HashMap<String, Object> work = (HashMap<String, Object>)list.get(0); 
+ 	System.out.println("work: "+work);
+ 	
+ 	ArrayList<WorkPic> imglist = (ArrayList<WorkPic>) request.getAttribute("imglist");
+ 	System.out.println("imglist: " + imglist);
+
+    
  %>
 <!DOCTYPE html>
 <html>
@@ -173,7 +182,7 @@ hr{
     </div>
     
      </div>
-       <%} %>
+      
      </div>
     <hr>
        <div class="row information">
@@ -187,60 +196,286 @@ hr{
   <div class="tab-content">
     <div id="menu0" class="tab-pane fade in active">
       <h3>기본정보</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <p><%=hmap.get("workContent") %></p>
+      <div style="background:yellow; width:300px; height:300px;">
+      		<img src="<%=request.getContextPath()%>/uploadFundingGoodsImg/<%=hmap.get("changeName")%>">
+      </div>
     </div>
     <div id="menu1" class="tab-pane fade">
       <h3>배송/판매/교환/환불</h3>
       <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     </div>
+     <%} %>
+    
     <div id="menu2" class="tab-pane fade">
       <h3>별점 및 응원글</h3>
-      <div class="star" style="background:beige;  padding:10px; width:100%; height:150px;">
-         <textarea style="width:100%; height:80px;"></textarea>
+       <div class="star" style="background:beige;  padding:10px; width:100%; height:150px;">
+      <div id="review" <%-- action="<%=request.getContextPath() %>/insertReview.bo?workId=<%=work.get("workId")%>" method="post" --%>>
+         <textarea id="reviewCon"style="width:100%; height:80px;" name="content"></textarea>
          <select style="float:left; width:200px; height:40px;">
             <option>★★★★★ 아주좋아요</option>
             <option>★★★★☆ 마음에 들어요</option>
             <option>★★★☆☆ 보통이에요</option>
             <option>★★☆☆☆ 별로에요</option>
          </select>
-        <button style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;">리뷰등록하기</button>
+        <button onclick="addReview()" id="addReview" value="리뷰등록하기" style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;">리뷰등록하기</button> 
       </div>
       
     
     </div>
     
+    <div id="replySelectArea">
+         <table id="replySelectTable" border="3"align="center" style="width:100%; text-align:center; border:3px dashed gray; margin-top:30px;">
+         	
+         </table>
+     </div>
+     </div>
+    <script>
+    
+    $(function(){
+    	<%-- <%
+		Member loginUser2 = (Member)request.getSession().getAttribute("loginUser");
+	 	%>	
+    	var memberId = <%=loginUser2.getMemberId()%>;
+    	var workId = <%=work.get("workId")%>;
+    	$.ajax({
+    		url:"<%=request.getContextPath()%>/selectFundCon.fund",
+    		data:{workId:workId,memberId:memberId},
+    		type:"post",
+    		success:function(data){
+    			console.log("data"+data);
+    		}
+    	}) --%>
+    	var workId = <%=work.get("workId")%>;
+		$.ajax({
+			url:"<%=request.getContextPath()%>/selectDetailServlet.fund",
+			data:{workId:workId},
+			type:"post",
+			success:function(data){
+				for(var i in data) {
+					console.log("사진 : " + data[i]);
+				}
+			},error:function(){
+				alert("상세 사진 가져오기 실패");
+			}
+		})
+			
+        
+    	var workId = <%=work.get("workId")%>;
+		$.ajax({
+			url:"<%=request.getContextPath()%>/selectAllFundReview.bo",
+			data:{workId:workId},
+			type:"post",
+			success:function(data){
+
+              	
+              	 $('#replySelectTable').html(data).trigger("create");
+                  console.log(data);
+              
+                  console.log("성공");
+                  var $replySelectTable = $("#replySelectTable");
+                  $replySelectTable.html('');
+                  
+                 var $tr0 = $("<tr>");
+                 // $tr0.css('width','300px');
+                  var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"lightblue", "color": "gray"});
+              	//var $td1 = $("<td>").text("후기내용").css("height", "50px");
+              	var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"lightblue", "color": "gray"});
+              	var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
+              	var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
+              	
+           	 $tr0.append($td0);
+   				$tr0.append($td1);
+   				$tr0.append($td2);
+   				$tr0.append($td3);
+   				
+   				$replySelectTable.append($tr0);
+   				
+   				
+   				//ArrayList에 리뷰들이 등록되어있어서 each를 통해 반복문을 돌려서 값을 가져온다!
+   				//HashMap은 key를 통해서 값을 가져온다!
+   				  $.each(data, function(index, value){
+   		               var $tr = $("<tr>").css("height","50px");
+   		              
+   		               var $writer = $("<td>").text(decodeURIComponent(value.writer));
+   		               var $content = $("<td>").text(decodeURIComponent(value.content));
+   		               var $starPoint= $("<td>").text(decodeURIComponent(value.starPoint));
+   		             
+   		               var $writeDate = $("<td>").text(decodeURIComponent(value.writeDate));
+   		              //var $writeDate = $("<td>").text(date.format(value.writeDate));
+   		              // var $writeDate2 = (date.format(value.writeDate));
+   		               
+   		               $tr.append($writer);
+   		               $tr.append($content);
+   		               $tr.append($starPoint);
+   		               $tr.append($writeDate);
+   		               $replySelectTable.append($tr)
+   		               
+   		               //등록과 동시에 작성 내용 지우기
+   		               $('#reviewCon').val("");
+   		               
+   		            
+   		               console.log(localStorage);
+   				  })
+   		        
+                  
+				
+				
+			},error:function(){
+				alert("실패");
+			}
+		})
+      
+     
+    
+    }); //function의 끝
+    
+    function addReview() {
+  	  <%if(loginUser != null ){%>
+	  var writer = <%=loginUser.getMemberId()%>;
+    var workId = <%=work.get("workId") %>;
+    var content = $("#reviewCon").val();
+    var star = $(".star option:selected").text();
+    
+    console.log(content);
+    console.log(workId);
+  
+   $.ajax({
+       url:"<%=request.getContextPath()%>/insertFundReview.bo?workId=<%=work.get("workId")%>",
+       data:{writer:writer, workId:workId, content:content, star:star},
+       type:"post",
+       success:function(data){
+      	
+      	 $('#replySelectTable').html(data).trigger("create");
+          console.log(data);
+      
+          console.log("성공");
+          var $replySelectTable = $("#replySelectTable");
+          $replySelectTable.html('');
+          
+         var $tr0 = $("<tr>");
+         // $tr0.css('width','300px');
+          var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"lightblue", "color": "gray"});
+      	//var $td1 = $("<td>").text("후기내용").css("height", "50px");
+      	var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"lightblue", "color": "gray"});
+      	var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
+      	var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
+      	
+    $tr0.append($td0);
+			$tr0.append($td1);
+			$tr0.append($td2);
+			$tr0.append($td3);
+			
+			$replySelectTable.append($tr0);
+			
+			
+			//ArrayList에 리뷰들이 등록되어있어서 each를 통해 반복문을 돌려서 값을 가져온다!
+			//HashMap은 key를 통해서 값을 가져온다!
+			  $.each(data, function(index, value){
+	               var $tr = $("<tr>").css("height","50px");
+	              
+	               var $writer = $("<td>").text(decodeURIComponent(value.writer));
+	               var $content = $("<td>").text(decodeURIComponent(value.content));
+	               var $starPoint= $("<td>").text(decodeURIComponent(value.starPoint));
+	             
+	               var $writeDate = $("<td>").text(decodeURIComponent(value.writeDate));
+	              //var $writeDate = $("<td>").text(date.format(value.writeDate));
+	              // var $writeDate2 = (date.format(value.writeDate));
+	               
+	               $tr.append($writer);
+	               $tr.append($content);
+	               $tr.append($starPoint);
+	               $tr.append($writeDate);
+	               $replySelectTable.append($tr)
+	               
+	               //등록과 동시에 작성 내용 지우기
+	               $('#reviewCon').val("");
+	               
+	              /*  localStorage.setItem('writer', $writer);
+	               localStorage.getItem('writer'); */
+	               console.log(localStorage);
+			  })
+	        
+          /* for(var key in data){
+          	
+          	
+          	var $tr = $("<tr>").css("width", "300px");
+          	var $writerTd = $("<td>")
+              .text(data[key].writer)
+              .css("width", "100px");
+          	
+          	
+				var $contentTd = $("<td>")
+              .text(data[key].content)
+              .css("width", "400px");
+				
+				
+				var $starTd = $("<td>")
+              .text(data[key].starPoint)
+              .css("width", "200px");
+				
+				var $datdTd = $("<td>").text(data[key].writeDate).css("width", "200px");
+				//$tr0.append($tr);
+				
+				
+			
+				$tr.append($writerTd);
+				$tr.append($contentTd);
+				$tr.append($starTd);
+				$tr.append($dateTd);
+				
+				$replySelectTable.append($tr);
+			    
+          } */
+          
+          
+       },
+       error:function(){
+          console.log("실패");
+       }
+   });
+   <%}%>
+    }
+    </script>
+    
+    
+    
     <div id="menu3" class="tab-pane fade">
     
-    
-             <form id="salesInsert" action="" method="post">
+             <form id="qna" action="<%=request.getContextPath() %>/insertFundProQna.bo?workId=<%=work.get("workId")%>" method="post">
+     		<h3>문의하기</h3>
                    <div class="qnaArea">
                      <div class="qnaTitle">
-                        <h2>문의하기</h2>
+                       
                      </div>
                      <div class="qnaContents">
                            <table class="searchBox" style="width:100%;" >
                               <tr class="qna">
-                                 <td><label >문의 제목:</label></td>
+                                 <td><label>문의 종류:</label></td>
                                  
-                                 <td><input type="text" style="width:100%;"></td>
+                                 <!-- <td><input type="text" name="title" style="width:100%;"></td> -->
+                                 <td>
+                                    <select name="category" style="width:100%;">
+                                       <!-- <option value="10" id="product">상품문의</option>
+                                       <option value="20" id="delivery">배송문의</option>
+                                       <option value="30" id="change">교환/환불문의</option>
+                                       <option value="40" id="etc">기타문의</option> -->
+                                       
+                                       <option value="상품문의" id="product">상품문의</option>
+                                       <option value="배송문의" id="delivery">배송문의</option>
+                                       <option value="교환/환불문의" id="change">교환/환불문의</option>
+                                       <option value="기타문의" id="etc">기타문의</option>
+                                    </select>
+                                 </td>
                                  
                               </tr>
-                              <tr class="qna">
-                                 <td><label >작성자:</label></td>
-                                 <td><input type="text"
-                                    style="width: 100%;"></td>
-                              </tr>
-                              <tr class="qna">
-                                 <td><label>작성일:</label></td>
-                                 <td><input type="text"
-                                    style="width: 100%;"></td>
-                              </tr>
+                             
                               <tr class="qna">
                                  <td><label>내용:</label></td>
-                                 <td><textarea name="content" style="width:100%;"></textarea></td>
+                                 <td><textarea name="content" style="width:100%;" rows="7"></textarea></td>
                               </tr>
                               <tr class="qna">
-                                 <td colspan="2"><input type="submit" value="작성하기" id="qnaBtn" style="float:right;"></td>
+                                 <td colspan="2"><input type="submit" class="writeBtn"value="작성하기" id="qnaBtn" style="float:right;"></td>
                               </tr>
                            </table>
                         

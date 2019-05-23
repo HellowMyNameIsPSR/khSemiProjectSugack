@@ -96,6 +96,16 @@ public class FundingService {
 		ArrayList<WorkPic> fileList = new FundingDao().selectWorkPicFile(con, memberId, workId);
 		close(con);
 		return fileList;
+	}
+	
+	//펀딩 상세보기용 사진 리스트
+	public ArrayList<WorkPic> selectList(int workId) {
+		Connection con = getConnection();
+		ArrayList<WorkPic> fileList = new FundingDao().selectList(con,workId);
+		
+		System.out.println("사진상세보기 Sevice: " + fileList);
+		close(con);
+		return fileList;
 	} 
 
 } //end class

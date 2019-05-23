@@ -198,7 +198,7 @@ public class FundingDao {
 		return list;
 	}
 
-	
+	//펀딩상품 상세보기
 	public ArrayList<HashMap<String, Object>> selectFundingProDetailList(Connection con, int workId) {
 		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String,Object>> list = null;
@@ -348,6 +348,38 @@ public class FundingDao {
 			close(pstmt);
 			close(rset);
 		}
+		return fileList;
+	}
+
+	public ArrayList<WorkPic> selectList(Connection con, int workId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("selectFundingInfoImg");
+		ArrayList<WorkPic> fileList = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+		
+			pstmt.setInt(1, workId);
+			rset = pstmt.executeQuery();
+			fileList = new ArrayList<WorkPic>();
+			while(rset.next()) {
+				WorkPic wp = new WorkPic();
+				wp.setWpId(rset.getString("WP_ID"));
+				wp.setOriginName(rset.getString("ORIGIN_NAME"));
+				wp.setChangeName(rset.getString("CHANGE_NAME"));
+				wp.setFilePath(rset.getString("FILE_PATH"));
+				wp.setPicType(rset.getString("PIC_TYPE"));
+				wp.setWorkId(rset.getInt("WORK_ID"));
+				fileList.add(wp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		System.out.println("daoList" + fileList);
 		return fileList;
 	}
 

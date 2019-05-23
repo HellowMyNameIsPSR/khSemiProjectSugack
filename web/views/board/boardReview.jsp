@@ -94,10 +94,11 @@
 							<label> <%=review.getWriteDate() %></label>
 							<label style="font-size:20px">별점 </label>
 							<label><%=review.getStarPoint() %></label> --%>
-							
+							<label style="font-size:20px">리뷰종류  | <%=review.getWorkKind() %></label>
 							<label style="font-size:20px">작품명  | <%=review.getWorkName()%></label>
 							<label style="font-size:20px">작성날짜 | <%=review.getWriteDate() %></label>
 							<label style="font-size:20px">별점 | <%=review.getStarPoint() %> </label>
+							
 						</div>
 						</div>
 						<div class="row">

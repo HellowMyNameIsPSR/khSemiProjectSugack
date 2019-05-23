@@ -37,8 +37,10 @@
    }
    
    .productDiv{
-      background:#D4ECFF;
+      /* background:#D4ECFF; */
       padding:15px;
+      background:white;
+      border:5px solid #D4ECFF;
       
    }
    .img{
@@ -50,18 +52,18 @@
    img{
       width:400px;
    }
-   .qnaArea {
+   /* .qnaArea {
       border-left:2px solid lightgray;
       border-right:2px solid lightgray;
       border-bottom:2px solid lightgray;
       width:100%;
       height:100%;
       /* background:#F6F476; */
-      background:beige;
+      background:#BEE1EA;
       margin-right:10px;
       margin-bottom:10px;
     
-   }
+   } */
    .qnaTitle {
       border-bottom:1px solid lightgray;
       margin: 20px 0px 20px 0px;
@@ -71,7 +73,8 @@
       margin: 20px 15px 20px 15px;
       padding-left:20px;
       padding-right:20px;
-      border:1px solid lightgray;
+      border:2px solid lightgray;
+      background:beige;
    }
    .qnaContents div{
       margin: 20px 0px 20px 0px;
@@ -143,6 +146,7 @@ hr{
 </div>  -->
   <!-- Page Content -->
  <%@ include file="../main/mainMenubar.jsp" %>
+ <%@ include file="../assets/css/allCss.html" %>
   <div class="container ">
     <!-- Heading Row -->
     <div class="align-items-center my-5">
@@ -243,16 +247,16 @@ hr{
 			</div>
 			<hr>
 			<%} %>
-			<div class="totalPrice">
-				<p style="float:left; margin-top:10px; font-size:20px;">총가격: </p>
+			<div class="totalPrice" style="border:1px solid lightgray">
+				<p style="float:left; margin-top:10px; font-size:20px;">총 작품 금액 </p>
 				<p style="float:right; margin-top:10px; font-size:20px;" id='sum'></p><p style="float:right"></p>
 			</div>
 			<div class="btns" style="margin-top:5px;">
          <button onclick="likeBtn()" style="color:white; float:left;width:70px; height:50px; border:2px solid pink; background:pink; border-radius:7px; font-size:33px;">♡</button>
          <!-- <input type="image" src="../images/heart.png" style="width:80px; height:50px; border:2px solid pink; background:pink; border-radius:7px;"> -->
-         <input type="image" src="views/images/shopping-basket.png" id="goBasket" style="width:70px; margin-left:5px;height:50px; border:2px solid lightblue; background:lightblue; border-radius:7px;">
+         <input type="image" src="views/images/shopping4.png" id="goBasket" style="width:70px; margin-left:5px;height:50px; border:2px solid lightblue; background:lightblue; border-radius:7px;">
          <!-- <input type="submit" value="구매하기" style="float:right; font-size:15px;width:170px; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"> -->
-         <button type="submit" style="float:right; font-size:16px;width:20%; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"id="purchase">구매하기</button>
+         <button type="submit" style="float:right; font-size:16px;width:30%; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"id="purchase">구매하기</button>
        <!--  <button type="submit" style="float:right; font-size:16px;width:20%; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"id="purchase">구매하기</button> -->
        </div>
 			</form>
@@ -650,13 +654,13 @@ hr{
 		</script>
 	  <!--</div>-->
 	 <hr>
-	<div class="row information">
-	<ul class="nav nav-tabs">
+	<div class="row information" >
+	<ul class="nav nav-tabs" >
 
-    <li class="active"><a data-toggle="tab" href="#menu0">기본정보</a></li>
-    <li><a data-toggle="tab" href="#menu1">배송/판매/교환/환불</a></li>
-    <li><a data-toggle="tab" href="#menu2">별점 및 리뷰</a></li>
-    <li><a data-toggle="tab" href="#menu3">문의</a></li>
+    <li class="active" style="margin-top:50px"><a data-toggle="tab" href="#menu0">기본정보</a></li>
+    <li><a data-toggle="tab" href="#menu1" style="margin-top:50px">배송/판매/교환/환불</a></li>
+    <li><a data-toggle="tab" href="#menu2" style="margin-top:50px">별점 및 리뷰</a></li>
+    <li><a data-toggle="tab" href="#menu3" style="margin-top:50px">문의</a></li>
      </ul>
 
   <div class="tab-content">
@@ -669,7 +673,7 @@ hr{
       <p>Ut enim minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     </div>
     <div id="menu2" class="tab-pane fade">
-      <h3>별점 및 리뷰</h3>
+      <h3>별점 및 응원글</h3>
       
        <div class="star" style="background:beige;  padding:10px; width:100%; height:150px;">
       <div id="review" <%-- action="<%=request.getContextPath() %>/insertReview.bo?workId=<%=work.get("workId")%>" method="post" --%>>
@@ -708,24 +712,19 @@ hr{
     <div id="menu3" class="tab-pane fade">
     
              <form id="qna" action="<%=request.getContextPath() %>/insertProQna.bo?workId=<%=work.get("workId")%>" method="post">
-     		<h3>문의하기</h3>
+     		<h3 style="margin-left:13px">문의하기</h3>
                    <div class="qnaArea">
                      <div class="qnaTitle">
                        
                      </div>
-                     <div class="qnaContents">
+                     <div class="qnaContents" style="height:280px;padding:15px">
                            <table class="searchBox" style="width:100%;" >
                               <tr class="qna">
-                                 <td><label>문의 종류:</label></td>
+                                 <td><label style="font-size:14px">문의 종류:</label></td>
                                  
-                                 <!-- <td><input type="text" name="title" style="width:100%;"></td> -->
+                               
                                  <td>
                                     <select name="category" style="width:100%;">
-                                       <!-- <option value="10" id="product">상품문의</option>
-                                       <option value="20" id="delivery">배송문의</option>
-                                       <option value="30" id="change">교환/환불문의</option>
-                                       <option value="40" id="etc">기타문의</option> -->
-                                       
                                        <option value="상품문의" id="product">상품문의</option>
                                        <option value="배송문의" id="delivery">배송문의</option>
                                        <option value="교환/환불문의" id="change">교환/환불문의</option>
@@ -734,18 +733,9 @@ hr{
                                  </td>
                                  
                               </tr>
-                              <!-- <tr class="qna">
-                                 <td><label >작성자:</label></td>
-                                 <td><input type="text" name="writer"
-                                    style="width: 100%;"></td>
-                              </tr> -->
-                              <!-- <tr class="qna">
-                                 <td><label>작성일:</label></td>
-                                 <td><input type="text" name="writeDate"
-                                    style="width: 100%;"></td>
-                              </tr> -->
+                             
                               <tr class="qna">
-                                 <td><label>내용:</label></td>
+                                 <td><label style="font-size:14px">내용:</label></td>
                                  <td><textarea name="content" style="width:100%;" rows="7"></textarea></td>
                               </tr>
                               <tr class="qna">
@@ -759,47 +749,7 @@ hr{
                   </form>
    
   </div>
-  <!--   <div id="menu3" class="tab-pane fade">
-      <h3>문의</h3>
-         <form id="question" method="post">
-      <div class="quest" style="border:1px solid black;background:beige;padding:20px; width:60%; height:200px";>
-            <table align="center">
-               <tr>
-                  <td>제목 </td>
-                  <td colspan="3">
-                    <input type="text" size="50" name="title">
-                  </td>
-               </tr>
-           
-               <tr>
-                  <td>작성자 </td>
-                  <td>
-                    <input type="text" size="50" name="writer" >
-                  </td>
-               </tr>
-               <tr>
-                  <td>작성일</td>
-                  <td>
-                     <input type="date" name="date"  style="width:395px;">
-                   </td>
-               </tr>
-               <tr>
-                  <td>내용 </td>
-                  <td>
-                    <textarea name="content" style="width:395px;"></textarea>
-                    
-                  </td>
-               </tr>
-               
-            </table>
-            <br>
-            <div align="center">
-               <button onclick="complet();">작성완료</button>
-               <button onclick="deleteNotice();">삭제하기</button>
-            </div>
-         </form>
-      </div>
-     -->
+  
   </div>
   </div>
     
