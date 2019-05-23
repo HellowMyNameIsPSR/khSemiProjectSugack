@@ -586,6 +586,7 @@ public class ProDao {
 				hmap.put("changeName", rset.getString("CHANGE_NAME"));
 				hmap.put("wcount", rset.getInt("WCOUNT"));
 				hmap.put("category", rset.getString("CATEGORY"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
 				list.add(hmap);
 				
 			

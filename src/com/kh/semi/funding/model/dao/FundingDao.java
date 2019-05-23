@@ -151,6 +151,7 @@ public class FundingDao {
 	}
 
 
+	//펀딩 작품 리스트 조회용 메소드
 	public ArrayList<HashMap<String, Object>> selectFunctionProList(Connection con) {
 		
 		Statement stmt = null;
@@ -232,8 +233,15 @@ public class FundingDao {
 				hmap.put("wcount", rset.getInt("WCOUNT"));
 				hmap.put("originName", rset.getString("ORIGIN_NAME"));
 				hmap.put("changeName", rset.getString("CHANGE_NAME"));
-				
-				
+				hmap.put("filePath",rset.getString("FILE_PATH"));
+				hmap.put("fcFinish", rset.getDate("FC_FINISH"));
+				hmap.put("minVoo", rset.getInt("MIN_VOO"));
+				hmap.put("maxVoo", rset.getInt("MAX_VOO"));
+				hmap.put("deliDate", rset.getDate("DELI_DATE"));
+				hmap.put("cooper", rset.getString("COOPERATION"));
+				hmap.put("fcStart", rset.getDate("FC_START"));
+				hmap.put("funDate", rset.getInt("FUN_DATE"));
+				hmap.put("funStatus", rset.getString("FUN_STATUS"));
 				list.add(hmap);
 			}
 		} catch (SQLException e) {
@@ -381,6 +389,88 @@ public class FundingDao {
 		}
 		System.out.println("daoList" + fileList);
 		return fileList;
+	}
+
+	public int insertLike(Connection con, int memberId, int workId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertFundLike");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			pstmt.setInt(2, workId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectLikeList(Connection con, int memberId) {
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String,Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectFundLikeList");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<HashMap<String,Object>>();
+		
+			while(rset.next()) {
+				hmap = new HashMap<String,Object>();
+				hmap.put("workId", rset.getInt("WORK_ID"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("price", rset.getInt("PRICE"));
+				hmap.put("type", rset.getString("TYPE"));
+				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				
+				//hmap.put("memberId", rset.getInt(memberId));
+				
+				list.add(hmap);
+			}
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("펀딩 dao에서 좋아요 : " + list);
+		
+		return list;
+	}
+
+	public int deleteLike(Connection con, int memberId, int workId) {
+PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		String query = prop.getProperty("deleteFundLike");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			pstmt.setInt(2, workId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 } //end class

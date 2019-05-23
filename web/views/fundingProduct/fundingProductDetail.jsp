@@ -141,8 +141,8 @@ hr{
       %>
      <div class="align-items-center my-5">
      
-      <div class="col-sm-6" style="margin-top:30px" >
-        <img class="img-fluid rounded mb-4 mb-lg-0" src="uploadFundingGoodsImg/<%=hmap.get("changeName") %>" style="width:100%; height:480px">
+      <div class="col-sm-6" >
+        <img class="img-fluid rounded mb-4 mb-lg-0" src="uploadFundingGoodsImg/<%=hmap.get("changeName") %>" style="width:100%; height:480px; margin-top:30px">
       </div>
    
       <!-- /.col-lg-8 -->
@@ -172,7 +172,7 @@ hr{
             <p style="float:right; margin-top:10px; font-size:20px;">10000원</p>
          </div>
          <div class="btns" style="margin-top:5px; width:100%; height:50px;">
-         <button style="color:white; margin-left:55%; float:left;width:20%; height:50px; border:2px solid lightblue; background:lightblue; border-radius:7px; font-size:16px;">관심상품</button>
+         <button onclick="addLike()"style="color:white; margin-left:55%; float:left;width:20%; height:50px; border:2px solid lightblue; background:lightblue; border-radius:7px; font-size:16px;">관심상품</button>
          <!-- <input type="image" src="../images/heart.png" style="width:80px; height:50px; border:2px solid pink; background:pink; border-radius:7px;"> -->
          <button style="float:right; font-size:16px;width:20%; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"id="purchase">구매하기</button>
          </div>
@@ -197,8 +197,8 @@ hr{
     <div id="menu0" class="tab-pane fade in active">
       <h3>기본정보</h3>
       <p><%=hmap.get("workContent") %></p>
-      <div style="background:yellow; width:300px; height:300px;">
-      		<img src="<%=request.getContextPath()%>/uploadFundingGoodsImg/<%=hmap.get("changeName")%>">
+      <div style=" width:300px; height:300px; margin:0 auto;" class="detailImgs">
+      		
       </div>
     </div>
     <div id="menu1" class="tab-pane fade">
@@ -246,19 +246,41 @@ hr{
     			console.log("data"+data);
     		}
     	}) --%>
+    	
     	var workId = <%=work.get("workId")%>;
+    	
 		$.ajax({
 			url:"<%=request.getContextPath()%>/selectDetailServlet.fund",
 			data:{workId:workId},
 			type:"post",
 			success:function(data){
-				for(var i in data) {
-					console.log("사진 : " + data[i]);
+				
+				$div = $(".detailImgs");
+				for(var key in data){
+					var imgList = data[key];
+					//var $h2 = $("<h2>").text("TEST");
+					var $h2 = $("<h2>").text(imgList.workId);
+					var $changeName = $("<h2>").text(imgList.changeName);
+					var $img = $("<img>").attr("src", '<%= request.getContextPath() %>/uploadFundingGoodsImg/' + imgList.changeName);
+					$div.append($img);
+					/* $div.append($h2);
+					$div.append($changeName); */
 				}
+					//$img = $("<img>").attr("src", imgList.workId);
+					<%-- <img src='<%=request.getContextPath()%>/uploadFundingGoodsImg/<%=hmap.get("changeName")%>'>") --%>
+				/* 
+				$.each(data, function(index, value){
+					
+					var $workId = $(".detailImgs").text(value.workId);
+					console.log("시도해보자: "+ $workId);
+					
+				}) */
+				
+				
 			},error:function(){
 				alert("상세 사진 가져오기 실패");
 			}
-		})
+		});
 			
         
     	var workId = <%=work.get("workId")%>;
@@ -330,6 +352,23 @@ hr{
     
     }); //function의 끝
     
+    
+    function addLike(){
+    	 var memberId = <%=loginUser.getMemberId()%>;
+    	 var workId = <%=work.get("workId")%>; 
+    	 
+    	 $.ajax({
+    		 url:"<%=request.getContextPath()%>/insertFundLike.fund",
+    		 data:{memberId:memberId, workId:workId},
+    		 type:"post",
+    		 success:function(data){
+    			 alert("관심펀딩 상품 추가!");
+    		 },error:function(){
+    			 alert("실패");
+    		 }
+    	 })
+    }
+    
     function addReview() {
   	  <%if(loginUser != null ){%>
 	  var writer = <%=loginUser.getMemberId()%>;
@@ -361,7 +400,7 @@ hr{
       	var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
       	var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
       	
-    $tr0.append($td0);
+   		    $tr0.append($td0);
 			$tr0.append($td1);
 			$tr0.append($td2);
 			$tr0.append($td3);

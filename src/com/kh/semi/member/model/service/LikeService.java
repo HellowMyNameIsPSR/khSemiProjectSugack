@@ -44,7 +44,7 @@ public class LikeService {
 		}else {
 			rollback(con);
 		}
-		return 0;
+		return result;
 	}
 
 }
