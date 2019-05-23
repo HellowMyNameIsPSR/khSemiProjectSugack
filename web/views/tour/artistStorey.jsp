@@ -76,13 +76,22 @@
 			<section>
 
 
-<%-- 
+
 
 				<aside>
 
-					<%@ include file="../common/userMenuBar.jsp"%>
+					<ul>
+					<li>
+					<div class="col-sm-4">
+					<input class="Comment" type="hidden" value=<%=b.getBno()%>>
+					<a href=<%=request.getContextPath() %>/comMent.as?bno=<%=b.getBno()%>>응원하기</a>
+					</div></li>
+					
+					
+					
+					</ul>
 
-				</aside> --%>
+				</aside> 
 
 
 				<div style="width: 200px height: 200;" align="center">
@@ -157,10 +166,22 @@
 			</section>
 
 		</div>
-		 <jsp:include page="/views/common/tourMenuBarServlet.jsp" flush="false">
-		 	<jsp:param name="Bno" value="<%= b.getBno() %>" />
-		 </jsp:include>
+		
 	</div>
+	
+	<script>
+	$(".Comment").click(function(){ 
+	
+	
+		location.href="<%=request.getContextPath()%>/comMent.as?bno=<%=b.getBno()%>";
+		
+		
+		
+		
+	}); 
+	
+	
+	</script>	
 	
 </body>
 </html>

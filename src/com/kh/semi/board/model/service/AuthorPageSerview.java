@@ -10,6 +10,7 @@ import com.kh.semi.board.model.dao.AuthorPageDao;
 import com.kh.semi.board.model.dao.ProQnaDao;
 import com.kh.semi.board.model.vo.AuthorPageAttachmrnt;
 import com.kh.semi.board.model.vo.Board;
+import com.kh.semi.board.model.vo.authorComent;
 
 public class AuthorPageSerview {
 
@@ -125,5 +126,29 @@ public class AuthorPageSerview {
 		return hmap;
 
 	}
+
+	
+	//작가페이지 응원하기 댓글 생성 메소드 
+	public ArrayList<authorComent> insertauthorComent(authorComent ac) {
+		
+		Connection con = getConnection();
+		ArrayList<authorComent> acList = null;
+		
+		int result = new AuthorPageDao().insertauthorComent(con,ac);
+		
+		if(result>0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return acList;
+	}
+
+	
+
+	
 
 }

@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
-	.nav{
+	/* .nav{
 		margin-left: 250px;
 		font-size: 30px;
 		width: 50%;
@@ -22,10 +22,15 @@
 	p{
 	margin: 5px 0px 10px;
 	text-align:center;
-	}
+	} */
+	
+	
+	
 </style>
 </head>
 <body>
+	<%@ include file="../main/mainMenubar.jsp" %>
+
 	<div class="Topper" style="height:100px; background: lightgray; align: center">
 			<div style="text-align:center; float:left; height: 100px; width: 300px;">
 				<h2 style="color:white;">고객센터</h2>
@@ -62,7 +67,7 @@
 				</p>
 			</div>
 			<div class="tab-pane" id="tab3">
-				<p><a href="customerCenterNotice.jsp">공지사항</a>|<a href="customerCenterEvent.jsp">이벤트</a></p>
+				<p><a href="<%= request.getContextPath() %>/ccNoticeBoard.bo">공지사항</a>|<a href="customerCenterEvent.jsp">이벤트</a></p>
 			</div>
 		</div>
 	</div>

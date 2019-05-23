@@ -42,6 +42,11 @@ public class PurchaseProduct extends HttpServlet {
 		String text = request.getParameter("text");
 		String []opId = request.getParameterValues("option");
 		
+		if(loginUser == null) {
+			request.setAttribute("msg", "로그인 후 이용 가능합니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+		
 		int bid = 0;
 		
 		if(text == null) {

@@ -164,7 +164,7 @@
 		console.log(order); 
 		
 		if($("#order").val()=='pop'){
-			alert("하이");
+			console.log("하이");
 					
 				$.ajax({
 			

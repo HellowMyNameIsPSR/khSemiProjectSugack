@@ -1,16 +1,21 @@
-package com.kh.semi.author.controller;
+package com.kh.semi.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.board.model.service.AuthorPageSerview;
+import com.kh.semi.board.model.vo.authorComent;
+
 /**
  * Servlet implementation class comMentServlet
  */
-@WebServlet(name = "comMent.au", urlPatterns = { "/comMent.au" })
+@WebServlet("/comMent.as")
 public class comMentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,10 +31,23 @@ public class comMentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String page = "views/tour/comMent.jsp";
 		
-		request.setAttribute("memberId", request.getParameter("num"));
-	request.getRequestDispatcher(page).forward(request, response);
+		
+		
+		String bno = request.getParameter("bno");
+		
+		String Page= "views/tour/comMent.jsp";
+		
+		 request.setAttribute("bno", bno);
+		 request.getRequestDispatcher(Page).forward(request, response);
+		
+		
+		
+		
+		
+		
+		
+	
 	}
 
 	/**

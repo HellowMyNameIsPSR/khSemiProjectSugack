@@ -2,12 +2,12 @@
 	pageEncoding="UTF-8"
 	import="com.kh.semi.board.model.vo.* ,com.kh.semi.member.model.vo.Member"%>
 <%
-String member_Id = (String)request.getAttribute("memberId");
-
+/* String member_Id = (String)request.getAttribute("memberId"); */
+	String bno =(String)request.getAttribute("bno");
 %>
 <%
 	Member loginUser2 = (Member)request.getSession().getAttribute("loginUser");
-%>
+%> 
 
 <!DOCTYPE html>
 <html>
@@ -33,7 +33,7 @@ String member_Id = (String)request.getAttribute("memberId");
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -61,8 +61,8 @@ String member_Id = (String)request.getAttribute("memberId");
 							<p>관심 가는 작가 들에게 응원에 메세지를 남겨 주세요</p>
 							<p>Tip: 관련작가들이 성실이 댓글에 성실히 답해드려요</p>
 							<p>
-								가져온 멤버 Id :
-								<%=member_Id %></p>
+								가져온 멤버 bno : <%=bno %>
+								</p>
 
 
 						</div>
@@ -72,10 +72,10 @@ String member_Id = (String)request.getAttribute("memberId");
 								style="border: 1px solid black; width: 1100px; height: 200px;">
 
 								<div class="nick"
-									style="width: 100%; height: 50px; padding: 5px;"> <P><%=loginUser2.getMemberName()%></P></div> <!--작성자  -->
+									style="width: 100%; height: 50px; padding: 5px;"> <P></P></div> <!--작성자  -->
 								<div class="content"
 									style="border: 5px solid black; width: 900px; height: 100px; padding: 5px; margin-left: 20px;">
-									<textarea id="addReply" style="margin-top: 10px; width: 880px;"
+									<textarea id="Content" style="margin-top: 10px; width: 880px;"
 										placeholder="작가에게 응원하세요"></textarea>
 								</div>
 								<div class="btn"
@@ -90,9 +90,9 @@ String member_Id = (String)request.getAttribute("memberId");
 						<br>
 
 
+                             
 
-
-						<div class="row">
+						<div  class="row">
 							<div class="col" style="margin: 0 auto;">
 
 								<ul class="pagination">
@@ -120,32 +120,38 @@ String member_Id = (String)request.getAttribute("memberId");
 			</div>
 		</div>
 
-		<%@ include file="/views/common/tourMenuBarServlet.jsp"%>
-	</div>
-	<%-- <script > 
-		 $(function(){
-			 $("#addReply").click(function(){
-			 	var memberName = <%loginUser1.getMemberName()%>;
-			 
-			 	 
-			 	
-				 
-				 
-				 
-			 })
-			 
-			 
-		 })
 		
-		
-		
-		
-		
-		</script>
-		 
-		 
-		  --%>
-
+	</div> 
+	
+	<script>
+		$(function(){
+			$("#addReply").click(function(){
+				
+				
+				var writer = <%=loginUser2.getMemberId()%>;
+				var bno = <%=bno%>;
+				var content = $("#Content").val();
+				console.log(bno);
+				$.ajax({
+					url:"<%=request.getContextPath()%>/insertComment.as?num=<%=bno%>",
+					data:{writer:writer, bno:bno, content:content}, 
+					type:"post", 
+					success:function(data){
+						
+					}
+					
+				}) 
+				
+				
+			})
+			
+			
+		})
+	
+	
+	
+	</script>
+	
 
 
 

@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@ include file="../main/mainMenubar.jsp" %>
 	<h1 align="center"><%= msg %></h1>
 </body>
 </html>

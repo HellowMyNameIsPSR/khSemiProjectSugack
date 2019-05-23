@@ -5,7 +5,7 @@
 	ArrayList<String> blist = (ArrayList<String>)hmap.get("blist");
 	ArrayList<HashMap<String, Object>> orderList = (ArrayList<HashMap<String, Object>>)hmap.get("orderList");
 	ArrayList<WorkOption> olist = (ArrayList<WorkOption>)hmap.get("olist");
-	System.out.println(olist);
+	System.out.println(orderList);
 %>
 <!DOCTYPE html>
 <html>
@@ -77,6 +77,7 @@
 					<th></th>
 					<th></th>
 					<th></th>
+					<th></th>
 				</tr>
 				<%for(int k = 0; k < orderList.size(); k++) {%>
 				<tr>
@@ -87,7 +88,6 @@
 					<td><input type="hidden" value="<%=orderList.get(k).get("bid")%>">
 					<img src="uploadSalesImage/<%=orderList.get(k).get("changeName") %>" style="width:50px; height:50px;"></td>
 					<% for(int j = 0; j < olist.size(); j++) {
-						System.out.println((Integer)olist.get(j).getwId() + " + " + (Integer)orderList.get(k).get("bid"));
 					%>
 						<%if((Integer)olist.get(j).getwId() == (Integer)orderList.get(k).get("bid")) { 
 							 ovalue += (String)olist.get(j).getoName() + " : " + (String)olist.get(j).getoValue() + "/";
@@ -104,8 +104,9 @@
 						<%=orderList.get(k).get("count")%>
 					</td>
 					<td id="price"><%=((((int)orderList.get(k).get("price") + oprice)  * (int)orderList.get(k).get("count")) + (int)orderList.get(k).get("deliPrice"))%></td>
+					
+					<%if(orderList.get(k).get("refundStat") == null) {%>
 					<td id="btn">
-						<button>교환요청</button>
 						<button type="button" data-toggle="modal" data-target="#myModal<%=k%>">환불요청</button>
 						<!-- Modal -->
 						<div id="myModal<%=k%>" class="modal fade" role="dialog">
@@ -131,6 +132,15 @@
 						</div>
 
 					</td>
+					<%} else { %>
+						<td style="color:yellowgreen">환불<%= orderList.get(k).get("refundStat") %></td>
+					<%} %>
+					
+					<%if(orderList.get(k).get("deliStatus") != null) { %>
+						<td style="color:red"><%= orderList.get(k).get("deliStatus") %></td>
+					<%}else { %>
+						<td></td>
+					<%} %>
 				</tr>
 				<% }
 				} %> 
@@ -152,9 +162,23 @@
 		
 		<script>
 			$(".refund").click(function(){
-				var bid = $(this).parent().children().eq(0).val();
-				var text = $(this).
-				console.log(bid);
+				var oid = $(this).parent().children().eq(0).val();
+				var text = $(this).parent().parent().find(".modal-body").children().eq(0).val();
+				console.log(oid);
+				console.log(text);
+				$.ajax({
+					url:"<%=request.getContextPath()%>/inserRefund.me",
+					type:"post",
+					data:{oid:oid, text:text},
+					success:function(data){
+						if(data == "ok"){
+							alert("환불요청이 완료되었습니다.");
+							location.reload();
+						}else{
+							alert("환불요청에 실패했습니다");
+						}
+					}
+				});
 			});
 		</script>
 

@@ -46,7 +46,7 @@ public class InsertPaymentServlet extends HttpServlet {
 		System.out.println("minusPoint : " + minusPoint);
 		if(!minusPoint.equals("") || minusPoint != null) {
 			int mPoint = -(Integer.parseInt(minusPoint));
-			int result = new ProService().insertMinusPoint(mPoint, loginUser.getMemberId());
+			int result = new ProService().insertMinusPoint(mPoint, loginUser.getMemberId(), pid);
 			System.out.println(result);
 			if(result > 0) {
 				System.out.println("적립금 사용 성공!!!!");
@@ -75,10 +75,7 @@ public class InsertPaymentServlet extends HttpServlet {
 		if(result > 0) {
 			int result2 = new ProService().deleteBasket(oList);
 			if(result2 > 0) {
-				int result3 = new ProService().insertPoint(loginUser.getMemberId(), point);
-				if(result3 > 0) {
-					response.sendRedirect("index.jsp");									
-				}
+				int result3 = new ProService().insertPoint(loginUser.getMemberId(), point, pid);
 			}
 		}
 		

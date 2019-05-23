@@ -14,7 +14,9 @@ import java.util.Properties;
 import com.kh.semi.member.model.vo.Address;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.member.model.vo.Point;
+import com.kh.semi.member.model.vo.Refund;
 import com.kh.semi.product.model.vo.Basket;
+import com.kh.semi.product.model.vo.Delivery;
 import com.kh.semi.work.model.vo.WorkOption;
 
 import static com.kh.semi.common.JDBCTemplate.*;
@@ -497,6 +499,8 @@ public class MemberDao {
 				hmap.put("bundleCode", rset.getString("BUNDLE_CODE"));
 				hmap.put("payDate", rset.getDate("PAY_DATE"));
 				hmap.put("odId", rset.getInt("OD_ID"));
+				hmap.put("deliStatus", rset.getString("DELI_STATUS"));
+				hmap.put("refundStat", rset.getString("REFUND_STAT"));
 				list.add(hmap);
 			}
 			
@@ -715,11 +719,40 @@ public class MemberDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 
 		return result;
 	}
 
+
+	public int insertRefund(Connection con, Refund ref) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertRefund");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "대기");
+			pstmt.setString(2, ref.getReason());
+			pstmt.setInt(3, ref.getOdId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	
 }
 
 

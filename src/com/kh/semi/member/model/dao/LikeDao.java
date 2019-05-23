@@ -70,6 +70,7 @@ public class LikeDao {
 				hmap.put("workName", rset.getString("WORK_NAME"));
 				hmap.put("price", rset.getInt("PRICE"));
 				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("type", rset.getString("TYPE"));
 				//hmap.put("memberId", rset.getInt(memberId));
 				
 				list.add(hmap);

@@ -11,7 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
+import com.kh.semi.funding.model.vo.WorkPic;
 import com.kh.semi.product.model.service.ProService;
+import com.kh.semi.product.model.vo.Product;
 
 /**
  * Servlet implementation class SelectProListPopServlet
@@ -32,21 +38,28 @@ public class SelectProListPopServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<HashMap<String,Object>> list = new ProService().selectProductListPop();
+		
+		/*ArrayList<HashMap<String,Object>> list = new ProService().selectProductListPop();
 		
 		System.out.println("popServlet : "+ list);
 		
-		String page ="";
+		JSONArray result = new JSONArray();
 		
-		if(list!=null) {
-			page = "views/product/products.jsp";
-			request.setAttribute("poplist", list);
-		}else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "상품게시판 조회 실패!");
-		}
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
+		JSONObject prolist = null;
+
+		   for(int i=0; i<list.size();i++) {
+			   prolist = new JSONObject();
+			   HashMap<String, Object> hlist = list.get(i);
+
+			  
+			   prolist.put("wconent", hlist.getWorkContent());
+			   prolist.put("changeName", hlist.getChangeName());
+			   prolist.put("filePath", hlist.getFilePath());
+		   
+			   result.add(prolist);
+		   }
+		response.setContentType("application/json");
+	    new Gson().toJson(result, response.getWriter());*/
 	}
 
 	/**
