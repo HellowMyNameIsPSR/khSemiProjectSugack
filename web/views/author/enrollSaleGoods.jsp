@@ -429,7 +429,6 @@
 
 							</div>
 						</div>
-						<button type="button" id="testBtn" class="all-btn">카피 복사</button>
 						<script>salesFrom
 							$('#salesFrom').submit(function(event){
 								 $('.optionName00').each(function(){

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.semi.work.model.vo.*"%>
-<% ArrayList<HashMap<String, Object>> list = 
-		(ArrayList<HashMap<String, Object>>) request.getAttribute("list");
+<% ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
@@ -62,7 +61,7 @@
 								<input id="endDate" name="endDate" type="date" style="margin-left:50px;" value="2019-12-31">
 							</td>
 							<td>
-								<input type="button" value="검색" id="searhDate"  class="all-btn" style="width:150px; height:40px;">
+								<input onclick="searhDate(1)" type="button" value="검색" id="searhDate"  class="all-btn" style="width:150px; height:40px;">
 							</td>
 						</tr>
 						<tr>
@@ -71,7 +70,7 @@
 								<input id="workName" name="workName" type="text" style="width:400px;">
 							</td>
 							<td >
-								<input type="button" value="검색" id="searhName"  class="all-btn" style="width:150px; height:40px;">
+								<input onclick="searhName(1)" type="button" value="검색" id="searhName"  class="all-btn" style="width:150px; height:40px;">
 							</td>
 						</tr>
 					</table>
@@ -87,35 +86,37 @@
 								<th><strong>환불요청일</strong></th>
 								<th><strong>구매자명</strong></th>
 								<th><strong>환불처리상태</strong></th>
-								<tbody id="tbody">
-									<%
-										int num = 0;
-									 	for(int i = 0; i < list.size(); i++){
-									 		HashMap<String, Object> hmap = list.get(i);
-										num++;
-									 %>
-									<tr>
-										<td style="padding:0px 0px 10px 15px; font-size:12px; text-align:left; width:30px;">
-											<input type="radio" id="<%= num %>" name="cid" value="">
-											<label for="<%= num %>" style=""></label>
-										</td>
-										<td data-toggle="modal" data-target="#myModal<%= num %>"><%= num %></td>
-										<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("refundId") %></td>
-										<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("workName") %></td>
-										<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("count") %></td>
-										<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("refundEnddate") %></td>
-										<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("memberName") %></td>
-										<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"><%= hmap.get("refundDate") %></td>
-									</tr>
-									<!-- <script>
-										$("#waitBtn").click(function(){
-											$("#update").val('대기중');
-										}
-									</script> -->
-									<% } %> 
-								</tbody>
+							</tr>
+							<tbody id="tbody">
+								<%
+									int num = 0;
+								 	for(int i = 0; i < list.size(); i++){
+								 		HashMap<String, Object> hmap = list.get(i);
+									num++;
+								 %>
+								<tr>
+									<td style="padding:0px 0px 10px 15px; font-size:12px; text-align:left; width:30px;">
+										<input type="radio" id="<%= num %>" name="cid" value="">
+										<label for="<%= num %>" style=""></label>
+									</td>
+									<td data-toggle="modal" data-target="#myModal<%= num %>"><%= num %></td>
+									<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("refundId") %></td>
+									<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("workName") %></td>
+									<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("count") %></td>
+									<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("refundEnddate") %></td>
+									<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("memberName") %></td>
+									<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"><%= hmap.get("refundDate") %></td>
+								</tr>
+								<!-- <script>
+									$("#waitBtn").click(function(){
+										$("#update").val('대기중');
+									}
+								</script> -->
+								<% } %> 
+							</tbody>
 						</table>
 					</div>
+					<div id="modalArea">
 					<%	int num1 = 0;
 						for(int i = 0; i < list.size(); i++){
 					 	HashMap<String, Object> hmap = list.get(i);
@@ -166,7 +167,7 @@
 					<%
 						}
 					%> 
-
+					</div>
 					<div class="manageButton">
 						<table style="height:100%;">
 							<tr align="center">
@@ -177,17 +178,6 @@
 							</tr>
 						</table>
 					</div>
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
 					
 					
 					<script>
@@ -208,87 +198,212 @@
 						
 						
 						
-						$("#searhDate").click(function(){
-								var startDate = $("#startDate").val();
-								var endDate = $("#endDate").val();
-								
-								console.log($("#startDate").val());
-								console.log($("#endDate").val());
-								
-								$.ajax({
-									url:"<%=request.getContextPath()%>/selectExchangeDate.wo",
-									data:{startDate: $("#startDate").val(), endDate: $("#endDate").val()},
-									type:"get",
-									success:function(data){
-										//console.log(data);
-										var num = 0;
-										$("#tbody").find("tr").remove();
-										$(".pagingArea1").remove();
-										
-										
-										for(var i = 0; i < data.length; i++){
-											num++;
-											$("#tbody").append(
-												"<tr>" +
-													'<td style="padding:0px 0px 10px 15px; font-size:12px; text-align:left; width:30px;">' +
-														'<input type="radio"' + 'id="<%= num %>"'+ 'name="cid">'  +
-														'<label for="<%= num %>" style=""></label>'  +
-													'</td>'  +
-													'<td> ' + num + "</td>" +
-													'<td> ' + data[i].refundId + '</td>' + 
-													'<td> ' + data[i].workName + '</td>' + 
-													'<td> ' + data[i].count + '</td>' + 
-													'<td> ' + data[i].refundEnddate + ' </td>' + 
-													'<td> ' + data[i].memberName + '</td>' + 
-													'<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"> ' + data[i].refundDate + '</td>' + 
-												'</td>'
-											);
-										}
-										
-									}
-								});
-							});
+					function searhDate(currentPage){
+							var startDate = $("#startDate").val();
+							var endDate = $("#endDate").val();
 							
-							$("#searhName").on("click", function(){
-								var workName = $("#workName").val();
-								
-								//console.log($("#workName").val());
-								
-								$.ajax({
-									url:"<%=request.getContextPath()%>/selectName.wo",
-									data:{workName: $("#workName").val()},
-									type:"get",
-									success:function(data){
-										console.log(data);
-										var num = 0;
-										$("#tbody").find("tr").remove();
-										$(".pagingArea").remove();
-										
-										console.log(data[0].workId)
-										
-										for(var i = 0; i < data.length; i++){
-											num++;
-											$("#tbody").append(
-												"<tr>" +
-													"<td> " + num + "</td>" + 
-													"<td> " + data[i].workId + "</td>" + 
-													"<td> " + data[i].workName + "</td>" + 
-													"<td> " + data[i].price + "원 </td>" + 
-													"<td> " + data[i].wrDate + "</td>" + 
-												"</td>"
-											);
-											
-											
-										}
-										
+							console.log($("#startDate").val());
+							console.log($("#endDate").val());
+							
+							$.ajax({
+								url:"<%=request.getContextPath()%>/selectExchangeDate.wo",
+								data:{startDate: $("#startDate").val(), endDate: $("#endDate").val(), currentPage:currentPage},
+								type:"get",
+								success:function(data){
+									var currentPage = data.pi.currentPage;
+		                            var maxPage = data.pi.maxPage;
+		                            var startPage = data.pi.startPage;
+		                            var endPage = data.pi.endPage;
+		                            
+		                            $("#tbody").find("tr").remove();
+									$(".pagingArea").children().remove();
+									$("#modalArea").children().remove();
+									
+									var $paging = $(".pagingArea");
+									
+									var $firstBtn = ('<button class="pagingBtn2" onclick="searhDate(1)">' +
+													 '<span class="glyphicon glyphicon-chevron-left"><span class="glyphicon glyphicon-chevron-left">');
+		                        	$paging.append($firstBtn);
+		                        	
+		                        	if(currentPage <= 1){
+		                        		var $preBtn = (' <button class="pagingBtn2" disabled)>' +
+										 				'<span class="glyphicon glyphicon-chevron-left">&nbsp;');
+                   						$paging.append($preBtn);
+		                        	}else{
+		                        		var $preBtn = (' <button class="pagingBtn2" onclick="searhDate('+ (currentPage - 1) +')">' +
+						 								'<span class="glyphicon glyphicon-chevron-left">&nbsp;');
+   										$paging.append($preBtn);
+		                        	}
+		                        	
+		                        	for(var p = startPage; p <= endPage; p++){
+		                        		 if(p == currentPage){
+		                        			 $numBtn = $(' <button class="pagingBtn" style="background-color:skyblue">'+ p +'</button>').text(p);;
+		                        			 $paging.append($numBtn);
+		                        		 }else{
+		                        			 $numBtn = $(' <button class="pagingBtn" onclick="searhDate(' + p + ')">' + p).text(p);;
+		                        			 $paging.append($numBtn);
+		                        		 }
+		                        	}
+		                        	
+		                        	if(currentPage <= 1){
+		                        		var $nextBtn = (' <button class="pagingBtn2" disabled)>' +
+										 				'<span class="glyphicon glyphicon-chevron-right">&nbsp;');
+                   						$paging.append($nextBtn);
+		                        	}else{
+		                        		var $nextBtn = (' <button class="pagingBtn2" onclick="searhDate('+ (currentPage + 1) +')">' +
+						 								'<span class="glyphicon glyphicon-chevron-right">&nbsp;');
+   										$paging.append($nextBtn);
+		                        	}
+		                        	
+		                        	
+		                        	var $endBtn = (' <button class="pagingBtn2" onclick="searhDate('+ maxPage +')">' +
+									 '<span class="glyphicon glyphicon-chevron-right"><span class="glyphicon glyphicon-chevron-right">');
+               						$paging.append($endBtn);
+		                        	
+									var num = 0;
+									
+									for(var key in data.list){
+										num++;
+										$("#tbody").append(
+											"<tr>" +
+												'<td style="padding:0px 0px 10px 15px; font-size:12px; text-align:left; width:30px;">' +
+													'<input type="radio"' + 'id="' + num + '"'+ 'name="cid">'  +
+													'<label for="' + num + '" style=""></label>'  +
+												'</td>'  +
+												'<td data-toggle="modal" data-target="#myModal'+ num +'"> ' + num + "</td>" +
+												'<td data-toggle="modal" data-target="#myModal'+ num +'"> ' + data.list[key].refundId + '</td>' + 
+												'<td data-toggle="modal" data-target="#myModal'+ num +'"> ' + data.list[key].workName + '</td>' + 
+												'<td data-toggle="modal" data-target="#myModal'+ num +'"> ' + data.list[key].count + '</td>' + 
+												'<td data-toggle="modal" data-target="#myModal'+ num +'"> ' + data.list[key].refundEnddate + ' </td>' + 
+												'<td data-toggle="modal" data-target="#myModal'+ num +'"> ' + data.list[key].memberName + '</td>' + 
+												'<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"> ' + data.list[key].refundDate + '</td>' + 
+											'</tr>'
+										);
+										$("#modalArea").append(
+											'<div class="modal fade" id="myModal' + num + '" role="dialog"><div class="modal-dialog">' +
+											'<div class="modal-content"><div class="modal-header">' + 
+											'<button type="button" class="close" data-dismiss="modal">&times;</button>' +
+											'<h2 class="modal-title">환불 신청 사유</h2></div><div class="modal-body">' +
+											'<table class="model-table"><tr><td style="font-weight:bold; width:100px; font-size:17px;">상품명</td>' +
+											'<td colspan="3">' + data.list[key].workName + '</td></tr><tr></tr><tr>' +
+											'<td colspan="4" style="font-weight:bold; text-align:center; font-size:17px;">환불 사유</td></tr><tr>' +
+											'<td colspan="4" style="height:300px;">' + data.list[key].refundEnddate + '</td></tr><tr>' +
+											'<td style="font-weight:bold; font-size:17px;">수량</td><td>' + data.list[key].count + '개</td>' +
+											'<td style="font-weight:bold; font-size:17px;">환불 요청일</td><td>' + data.list[key].refundEnddate + '</td>' +
+											'</tr><tr><td style="font-weight:bold; font-size:17px;">환불코드</td><td>' + data.list[key].refundId + '</td>' +
+											'<td style="font-weight:bold; font-size:17px;">구매자명님</td><td>' + data.list[key].memberName + '</td></tr>' +
+											'</table></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">' +
+											'돌아가기</button></div></div></div></div>'
+										);
 									}
-								});
+									
+								}
 							});
+						}
+						
+						
+						function searhName(currentPage){
+							var workName = $("#workName").val();
+							
+							$.ajax({
+								url:"<%=request.getContextPath()%>/selectExchangeName.wo",
+								data:{workName: $("#workName").val(), currentPage:currentPage},
+								type:"get",
+								success:function(data){
+									var currentPage = data.pi.currentPage;
+		                            var maxPage = data.pi.maxPage;
+		                            var startPage = data.pi.startPage;
+		                            var endPage = data.pi.endPage;
+		                            $("#tbody").find("tr").remove();
+									$(".pagingArea").children().remove();
+									$("#modalArea").children().remove();
+									
+									var $paging = $(".pagingArea");
+									
+									var $firstBtn = ('<button class="pagingBtn2" onclick="searhName(1)">' +
+													 '<span class="glyphicon glyphicon-chevron-left"><span class="glyphicon glyphicon-chevron-left">');
+		                        	$paging.append($firstBtn);
+		                        	
+		                        	if(currentPage <= 1){
+		                        		var $preBtn = (' <button class="pagingBtn2" disabled)>' +
+										 				'<span class="glyphicon glyphicon-chevron-left">&nbsp;');
+                   						$paging.append($preBtn);
+		                        	}else{
+		                        		var $preBtn = (' <button class="pagingBtn2" onclick="searhName('+ (currentPage - 1) +')">' +
+						 								'<span class="glyphicon glyphicon-chevron-left">&nbsp;');
+   										$paging.append($preBtn);
+		                        	}
+		                        	
+		                        	for(var p = startPage; p <= endPage; p++){
+		                        		 if(p == currentPage){
+		                        			 $numBtn = $(' <button class="pagingBtn" style="background-color:skyblue">'+ p +'</button>').text(p);;
+		                        			 $paging.append($numBtn);
+		                        		 }else{
+		                        			 $numBtn = $(' <button class="pagingBtn" onclick="searhName(' + p + ')">' + p).text(p);;
+		                        			 $paging.append($numBtn);
+		                        		 }
+		                        	}
+		                        	
+		                        	if(currentPage <= 1){
+		                        		var $nextBtn = (' <button class="pagingBtn2" disabled)>' +
+										 				'<span class="glyphicon glyphicon-chevron-right">&nbsp;');
+                   						$paging.append($nextBtn);
+		                        	}else{
+		                        		var $nextBtn = (' <button class="pagingBtn2" onclick="searhName('+ (currentPage + 1) +')">' +
+						 								'<span class="glyphicon glyphicon-chevron-right">&nbsp;');
+   										$paging.append($nextBtn);
+		                        	}
+		                        	
+		                        	
+		                        	var $endBtn = (' <button class="pagingBtn2" onclick="searhName('+ maxPage +')">' +
+									 '<span class="glyphicon glyphicon-chevron-right"><span class="glyphicon glyphicon-chevron-right">');
+               						$paging.append($endBtn);
+		                        	
+									var num = 0;
+									
+									for(var key in data.list){
+										num++;
+										$("#tbody").append(
+											"<tr>" +
+												'<td style="padding:0px 0px 10px 15px; font-size:12px; text-align:left; width:30px;">' +
+													'<input type="radio"' + 'id="<%= num %>"'+ 'name="cid">'  +
+													'<label for="<%= num %>" style=""></label>'  +
+												'</td>'  +
+												'<td> ' + num + "</td>" +
+												'<td> ' + data.list[key].refundId + '</td>' + 
+												'<td> ' + data.list[key].workName + '</td>' + 
+												'<td> ' + data.list[key].count + '</td>' + 
+												'<td> ' + data.list[key].refundEnddate + ' </td>' + 
+												'<td> ' + data.list[key].memberName + '</td>' + 
+												'<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"> ' + data.list[key].refundDate + '</td>' + 
+											'</tr>'
+										);
+										
+										$("#modalArea").append(
+												'<div class="modal fade" id="myModal' + num + '" role="dialog"><div class="modal-dialog">' +
+												'<div class="modal-content"><div class="modal-header">' + 
+												'<button type="button" class="close" data-dismiss="modal">&times;</button>' +
+												'<h2 class="modal-title">환불 신청 사유</h2></div><div class="modal-body">' +
+												'<table class="model-table"><tr><td style="font-weight:bold; width:100px; font-size:17px;">상품명</td>' +
+												'<td colspan="3">' + data.list[key].workName + '</td></tr><tr></tr><tr>' +
+												'<td colspan="4" style="font-weight:bold; text-align:center; font-size:17px;">환불 사유</td></tr><tr>' +
+												'<td colspan="4" style="height:300px;">' + data.list[key].refundEnddate + '</td></tr><tr>' +
+												'<td style="font-weight:bold; font-size:17px;">수량</td><td>' + data.list[key].count + '개</td>' +
+												'<td style="font-weight:bold; font-size:17px;">환불 요청일</td><td>' + data.list[key].refundEnddate + '</td>' +
+												'</tr><tr><td style="font-weight:bold; font-size:17px;">환불코드</td><td>' + data.list[key].refundId + '</td>' +
+												'<td style="font-weight:bold; font-size:17px;">구매자명님</td><td>' + data.list[key].memberName + '</td></tr>' +
+												'</table></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">' +
+												'돌아가기</button></div></div></div></div>'
+											);
+									}
+									
+								}
+							});
+						}						
 					</script>
-					
 							
-					<%-- 페이지 처리 --%>
-					<div class="pagingArea1" align="center">
+					 <%-- 페이지 처리 --%>
+					<div class="pagingArea" align="center">
 						<button class="pagingBtn2" onclick="location.href='<%=request.getContextPath()%>/selectExchangeList.wo?currentPage=1'">
 							<span class="glyphicon glyphicon-chevron-left"></span>
 							<span class="glyphicon glyphicon-chevron-left"></span>
@@ -335,62 +450,9 @@
 							<span class="glyphicon glyphicon-chevron-right"></span> 
 							<span class="glyphicon glyphicon-chevron-right"></span> 
 						</button>
-						
 					</div>
-							
-
-					 <%-- 페이지 처리 --%>
-					<%--<div class="pagingArea" align="center">
-						<button class="pagingBtn2" onclick="location.href='<%=request.getContextPath()%>/selectExchangeDate.wo?currentPage=1'">
-							<span class="glyphicon glyphicon-chevron-left"></span>
-							<span class="glyphicon glyphicon-chevron-left"></span>
-						</button>
-						<% if(currentPage <= 1) {%>
-						<button class="pagingBtn2" disabled>
-							<span class="glyphicon glyphicon-chevron-left"></span>
-						</button>
-						<%}else{ %>
-						<button class="pagingBtn2" onclick="location.href='<%=request.getContextPath()%>/selectExchangeDate.wo?currentPage=<%=currentPage - 1%>'">
-							<span class="glyphicon glyphicon-chevron-left"></span>
-						</button>
-						<%} %>
-						
-						<%for(int p = startPage; p <= endPage; p++){
-							
-							if(p == currentPage) {%>
-							
-							<button class="pagingBtn" style="background-color:skyblue">
-								<%=p%>
-							</button>
-							
-							<%}else { %>
-							
-							<button class="pagingBtn" onclick="location.href='<%=request.getContextPath()%>/selectExchangeDate.wo?currentPage=<%=p%>'">
-								<%=p%>
-							</button>
-							
-							<%} %>
-							
-						<%} %>
-						
-						
-						<% if(currentPage >= maxPage) {%>
-						<button class="pagingBtn2" disabled>
-							<span class="glyphicon glyphicon-chevron-right"></span> 
-						</button>
-						<%}else { %>
-						<button class="pagingBtn2" onclick="location.href='<%=request.getContextPath()%>/selectExchangeDate.wo?currentPage=<%=currentPage + 1%>'">
-							<span class="glyphicon glyphicon-chevron-right"></span> 
-						</button>
-						<%} %>
-						<button class="pagingBtn2" onclick="location.href='<%=request.getContextPath()%>/selectExchangeDate.wo?currentPage=<%=maxPage%>'">
-							<span class="glyphicon glyphicon-chevron-right"></span> 
-							<span class="glyphicon glyphicon-chevron-right"></span> 
-						</button>
-						
-					</div>
- --%>
-
+					
+					
 
 
 				</section>

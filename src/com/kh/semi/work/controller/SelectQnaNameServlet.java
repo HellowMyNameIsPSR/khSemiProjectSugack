@@ -14,13 +14,12 @@ import com.google.gson.Gson;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.work.model.service.WorkService;
 import com.kh.semi.work.model.vo.PageInfo;
-import com.kh.semi.work.model.vo.Work;
 
-@WebServlet("/selectName.wo")
-public class SelectWorkListNameServlet extends HttpServlet {
+@WebServlet("/selectPostName.wo")
+public class SelectQnaNameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SelectWorkListNameServlet() {}
+    public SelectQnaNameServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int currentPage;		//현재페이지를 표시할 변수
@@ -39,7 +38,7 @@ public class SelectWorkListNameServlet extends HttpServlet {
 		
 		limit = 10;
 		
-		int listCount = new WorkService().WorkNameCount(memberId, workName);
+		int listCount = new WorkService().qnaNameCount(memberId, workName);
 		
 		maxPage = (int)((double)listCount/limit + 0.9);
 		
@@ -52,7 +51,7 @@ public class SelectWorkListNameServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, limit, maxPage, startPage, endPage);
 		
-		ArrayList<HashMap<String, Object>> list = new WorkService().selectWorkName(pi, memberId, workName);
+		ArrayList<HashMap<String, Object>> list = new WorkService().selectQnaName(pi, memberId, workName);
 		
 		HashMap<String,Object> hmap = new HashMap<String,Object>();
 		hmap.put("list", list);
@@ -61,6 +60,13 @@ public class SelectWorkListNameServlet extends HttpServlet {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(hmap, response.getWriter());
+	
+	
+	
+	
+	
+	
+	
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -68,14 +74,6 @@ public class SelectWorkListNameServlet extends HttpServlet {
 	}
 
 }
-
-
-
-
-
-
-
-
 
 
 
