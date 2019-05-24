@@ -326,7 +326,7 @@ public class AuthorPageDao {
 		PreparedStatement pstmt = null; 
 		int result = 0 ; 
 		
-		String query = prop.getProperty("");
+		String query = prop.getProperty("insertAuthorComment");
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, ac.getCntent());
@@ -347,5 +347,54 @@ public class AuthorPageDao {
 		
 		System.out.println("authorComent:" +result);
 		return result;
+	}
+
+	public ArrayList<authorComent> SelectComent(int bno, Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		authorComent ac = null; 
+		ArrayList<authorComent> list = null;
+		
+		String query = prop.getProperty("SelectauthorComent");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,bno);
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<authorComent>();
+			
+			while(rset.next()) {
+				ac = new authorComent();
+				ac.setCommentId(rset.getInt("COMMENT_ID"));//댓글코드
+				ac.setWriteDate(rset.getDate("WRITE_DATE"));//작성 날짜
+				ac.setCntent(rset.getString("CONTENT")); // 댓글 내용
+				ac.setBno(rset.getInt("BNO"));// 게시글 번호
+				ac.setWriterId(rset.getInt("WRITER_ID"));//작성자 
+                ac.setWriteLever(rset.getInt("WRITE_LEVEL"));//작성위치
+                ac.setWorkid(rset.getInt("WORK_ID")); //작품코드
+                ac.setEmail(rset.getString("EMAIL"));
+                
+                list.add(ac);
+                
+                
+				
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+	    System.out.println("댓글 Dao list:"+list);		
+				
+				
+		return list;
 	}
 }

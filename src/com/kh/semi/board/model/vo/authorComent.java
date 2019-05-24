@@ -11,18 +11,22 @@ public class authorComent {
 	private int WriteLever; //작성위치 
 	private int Workid; // 작품코드 
 	private int Bno; //게시글번호
+	private String email; // 작성자 닉네임
 	
 	 
-	public authorComent(int commentId, Date writeDate, String cntent, int writerId, int writeLever, int work_id,
-			int bno) {
+	
+
+	public authorComent(int commentId, Date writeDate, String cntent, int writerId, int writeLever, int workid, int bno,
+			String email) {
 		super();
 		CommentId = commentId;
 		WriteDate = writeDate;
 		Cntent = cntent;
 		WriterId = writerId;
 		WriteLever = writeLever;
-		Workid = work_id;
+		Workid = workid;
 		Bno = bno;
+		this.email = email;
 	}
 
 	public authorComent() {}
@@ -72,11 +76,22 @@ public class authorComent {
 		Bno = bno;
 	}
 
+	
+	
+
 	@Override
 	public String toString() {
 		return "authorComent [CommentId=" + CommentId + ", WriteDate=" + WriteDate + ", Cntent=" + Cntent
 				+ ", WriterId=" + WriterId + ", WriteLever=" + WriteLever + ", Workid=" + Workid + ", Bno=" + Bno
-				+ "]";
+				+ ", email=" + email + "]";
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	

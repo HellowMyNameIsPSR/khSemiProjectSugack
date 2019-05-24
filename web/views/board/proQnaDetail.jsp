@@ -5,6 +5,9 @@
 		ProQna qna =(ProQna) request.getAttribute("qna");
 		System.out.println("proQnaDetail : "+qna);
 		
+		
+		
+		
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		
 		ArrayList<ProQnaComment> commentList = (ArrayList<ProQnaComment>)request.getAttribute("list");
