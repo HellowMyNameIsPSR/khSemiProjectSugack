@@ -40,7 +40,7 @@
       /* background:#D4ECFF; */
       padding:15px;
       background:white;
-      border:5px solid #D4ECFF;
+    /*   border:5px solid #D4ECFF; */
       
    }
    .img{
@@ -52,7 +52,7 @@
    img{
       width:400px;
    }
-   /* .qnaArea {
+   /* /* .qnaArea {
       border-left:2px solid lightgray;
       border-right:2px solid lightgray;
       border-bottom:2px solid lightgray;
@@ -63,18 +63,18 @@
       margin-right:10px;
       margin-bottom:10px;
     
-   } */
+   } */ */
    .qnaTitle {
       border-bottom:1px solid lightgray;
       margin: 20px 0px 20px 0px;
-      padding-left:20px;
+      margin-left:150px;
    }
    .qnaContents {
       margin: 20px 15px 20px 15px;
       padding-left:20px;
       padding-right:20px;
       border:2px solid lightgray;
-      background:beige;
+      
    }
    .qnaContents div{
       margin: 20px 0px 20px 0px;
@@ -138,6 +138,10 @@ hr{
 #purchase:hover{
 	background:#80A8E8;
 }
+
+#btn:hover{
+	background:blue;
+}
 </style>
 </head>
 <body>
@@ -200,13 +204,13 @@ hr{
         <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
         <a class="btn btn-primary" href="#">Call to Action!</a> -->
       
-        <h4><%=work.get("workName") %></h4>
-			<p id="price"><%=work.get("price") %>원</p>
+        <h2><%=work.get("workName") %></h2>
+			
 			<hr>
-		
-			<label>배송비 : </label>
-			<label id="deliPrice"><%=work.get("deliPrice") %>원</label>
-
+			<h4 id="price">판매가격&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=work.get("price") %>원</h4>
+			<h4>배송비&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=work.get("deliPrice") %>원  </h4>
+			<label id="deliPrice"></label>
+	
 			<hr>
 		<form method="post" id="buy">
 			  <input type="hidden" id="workId" name="workId" value="<%=work.get("workId")%>">
@@ -214,7 +218,7 @@ hr{
 			<label>옵션선택</label>
 			<br>
 				<% for(int i = 0; i < olist.size(); i++) { %>
-					<select style="width:100%" class="option" name="option">
+					<select style="width:50%" class="option" name="option">
 						<option value="0"><%=olist.get(i).getoName() %></option>
 						<% for(int j = 0; j < list.size(); j++) { 
 							if(olist.get(i).getoName().equals(list.get(j).get("oname")) && list.get(j).get("picType").equals("0")) {
@@ -228,9 +232,9 @@ hr{
 				<%} %>
 				
 				
-				<div style="/* background:#FFECE7; */ margin-top:5px" id="countArea">
+				<div style= "float:right;" id="countArea"  >
 				
-				<label>수량</label>
+				<label style=" margin-left:-130px;">수량</label>
 				<button type="button" onclick="plus();">+</button>
 				<input type="number" style="width:50px;" id="ea" name="ea" value="1" readonly>
 				<button type="button" onclick="minus();">-</button>
@@ -253,12 +257,11 @@ hr{
 				<p style="float:right; margin-top:10px; font-size:20px;" id='sum'></p><p style="float:right"></p>
 			</div>
 			<div class="btns" style="margin-top:5px;">
-         <button onclick="likeBtn()" style="color:white; float:left;width:70px; height:50px; border:2px solid pink; background:pink; border-radius:7px; font-size:33px;">♡</button>
+			 <button type="submit" style="float:left; font-size:16px;width:30%; height:60px; color:white;border:2px solid black; background:black;"id="purchase">구매하기</button>
+         	 <button onclick="likeBtn()" id="btn" style="color:black;border:2px solid lightgray; background:white;margin-right:15px;float:right;width:30%; height:60px;  font-size:16px;">관심상품 담기</button>
          <!-- <input type="image" src="../images/heart.png" style="width:80px; height:50px; border:2px solid pink; background:pink; border-radius:7px;"> -->
-         <input type="image" src="views/images/shopping4.png" id="goBasket" style="width:70px; margin-left:5px;height:50px; border:2px solid lightblue; background:lightblue; border-radius:7px;">
-         <!-- <input type="submit" value="구매하기" style="float:right; font-size:15px;width:170px; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"> -->
-         <button type="submit" style="float:right; font-size:16px;width:30%; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"id="purchase">구매하기</button>
-       <!--  <button type="submit" style="float:right; font-size:16px;width:20%; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"id="purchase">구매하기</button> -->
+         <button id="goBasket" class="btn" style="width:30%; margin-left:15px;height:60px; color:black;background:white;border:2px solid lightgray;font-size:16px;text-align:center">장바구니 담기</button>
+         
        </div>
 			</form>
 		</div>
@@ -675,7 +678,7 @@ hr{
     <div id="menu2" class="tab-pane fade">
       <h3>별점 및 응원글</h3>
       
-       <div class="star" style="background:beige;  padding:10px; width:100%; height:150px;">
+       <div class="star" style="  padding:10px; width:100%; height:150px; border:2px solid lightgray">
       <div id="review" <%-- action="<%=request.getContextPath() %>/insertReview.bo?workId=<%=work.get("workId")%>" method="post" --%>>
          <textarea id="reviewCon"style="width:100%; height:80px;" name="content"></textarea>
          <select name="star" style="float:left; width:200px; height:40px;">
@@ -686,7 +689,7 @@ hr{
             <option value="★★☆☆☆">★★☆☆☆ 별로에요</option>
          </select>
          <button onclick="addReview()" id="addReview" value="리뷰등록하기" style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;">리뷰등록하기</button> 
-        <!-- <button id="addReview" style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;">리뷰등록하기</button>   -->
+        <!-- <button id="addReview" style=" float:right; width:150px; height:40px; :gray; color:white; border:1px solid gray;">리뷰등록하기</button>   -->
      <!--  <input type="submit" value="리뷰 등록하기" id="addReview" style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;"> -->
       </div>
       </div>
@@ -712,18 +715,18 @@ hr{
     <div id="menu3" class="tab-pane fade">
     
              <form id="qna" action="<%=request.getContextPath() %>/insertProQna.bo?workId=<%=work.get("workId")%>" method="post">
-     		<h3 style="margin-left:13px">문의하기</h3>
+     		<h3>문의하기</h3>
                    <div class="qnaArea">
                      <div class="qnaTitle">
                        
                      </div>
-                     <div class="qnaContents" style="height:280px;padding:15px">
+                     <div class="qnaContents" style="height:280px;padding:25px">
                            <table class="searchBox" style="width:100%;" >
                               <tr class="qna">
-                                 <td><label style="font-size:14px">문의 종류:</label></td>
+                                 <td><label style="font-size:14px;">문의 종류:</label></td>
                                  
                                
-                                 <td>
+                                 <td >
                                     <select name="category" style="width:100%;">
                                        <option value="상품문의" id="product">상품문의</option>
                                        <option value="배송문의" id="delivery">배송문의</option>
@@ -735,17 +738,17 @@ hr{
                               </tr>
                              
                               <tr class="qna">
-                                 <td><label style="font-size:14px">내용:</label></td>
+                                 <td><label style="font-size:16px;">내용:</label></td>
                                  <td><textarea name="content" style="width:100%;" rows="7"></textarea></td>
                               </tr>
                               <tr class="qna">
-                                 <td colspan="2"><input type="submit" class="writeBtn"value="작성하기" id="qnaBtn" style="float:right;"></td>
+                                 <td colspan="2"> <input type="submit" class="writeBtn"value="작성하기" id="qnaBtn" style="width:100%; margin-top:15px"></td>
                               </tr>
                            </table>
                         
                         </div>
                      </div>
-                     
+                   
                   </form>
    
   </div>
