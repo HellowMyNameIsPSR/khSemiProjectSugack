@@ -2,6 +2,10 @@
     pageEncoding="UTF-8" import="java.util.*, com.kh.semi.member.model.vo.*"%>
 <%
 	ArrayList<Point> list = (ArrayList<Point>)request.getAttribute("list");
+	int totalPoint = 0; 
+	for(int i = 0; i < list.size(); i++) {
+	totalPoint += list.get(i).getPoint();
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -41,18 +45,19 @@
 									<td>내용</td>
 									<td>총 적립금</td>
 								</tr>
-								<% for(int i = 0; i < list.size(); i++) {
-									int totalPoint = 0; 
-									totalPoint += list.get(i).getPoint();
+								<% 
+									for(int i = 0; i < list.size(); i++) {
 								%>
-								 <tr style="text-align:center;">
-									<td><%=list.get(i).getpDate() %></td>
-									<td><%=list.get(i).getPoint() %></td>
-									<%if(list.get(i).getpLocation().equals("PAYED")) {%>
-									<td>상품 구매</td>
-									<%} %>
-									<td><%= totalPoint %></td>
-								</tr>
+									<%if(list.get(i).getPoint() != 0) {%>
+										 <tr style="text-align:center;">
+											<td><%=list.get(i).getpDate() %></td>
+											<td><%=list.get(i).getPoint() %></td>
+											<%if(list.get(i).getpLocation().equals("PAYED")) {%>
+											<td>상품 구매</td>
+											<%} %>
+											<td><%=totalPoint %></td>
+										</tr>
+									<%} totalPoint -= list.get(i).getPoint(); %>
 								<%} %>
 							</table>
 						</div>

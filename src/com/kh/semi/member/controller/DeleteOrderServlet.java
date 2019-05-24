@@ -1,9 +1,6 @@
 package com.kh.semi.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.member.model.service.MemberService;
-import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class MyPageServlet
+ * Servlet implementation class DeleteOrderServlet
  */
-@WebServlet("/myPage.me")
-public class MyPageServlet extends HttpServlet {
+@WebServlet("/deleteOrder.me")
+public class DeleteOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageServlet() {
+    public DeleteOrderServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +28,12 @@ public class MyPageServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		HashMap<String, Object> hmap = new MemberService().selectOrderList(loginUser.getMemberId());
+		int odId = Integer.parseInt(request.getParameter("odId"));
 		
-		if(hmap != null) {
-			request.setAttribute("hmap", hmap);
-			request.getRequestDispatcher("views/member/myPage.jsp").forward(request, response);
+		int result = new MemberService().deleteOrder(odId);
+		
+		if(result > 0) {
+			response.getWriter().print("ok");
 		}
 		
 	}

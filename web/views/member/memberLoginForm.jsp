@@ -63,7 +63,7 @@
 					<div class="col-sm-3"></div>
 					<div class="col-sm-6">
 						<button type="submit" class="btn btn-primary btn-md btn-block">로그인</button>
-						<button type="reset" class="btn btn-default btn-md btn-block"> 취소 </button>
+						<button type="reset" class="btn btn-default btn-md btn-block" onclick="location.href='memberJoinForm.jsp'"> 회원가입 </button>
 						<button type="button" class="btn btn-primary btn-md btn-block" onclick="idPwdFind();">아이디/비밀번호 찾기</button>
 					</div>
 				</form>

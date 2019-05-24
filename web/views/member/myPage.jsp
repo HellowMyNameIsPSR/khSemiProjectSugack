@@ -6,6 +6,12 @@
 	ArrayList<HashMap<String, Object>> orderList = (ArrayList<HashMap<String, Object>>)hmap.get("orderList");
 	ArrayList<WorkOption> olist = (ArrayList<WorkOption>)hmap.get("olist");
 	System.out.println(orderList);
+	int refundCount = 0;
+	for(int i = 0; i < orderList.size(); i++) {
+		if(orderList.get(i).get("refundStat") != null) {
+			refundCount++;
+		}
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -54,13 +60,13 @@
 							<tr>
 								<th style="height:50px; font-size:15px; text-align:center;">적립금</th>
 								<th style="height:50px;  font-size:15px; text-align:center;" >주문내역</th>
-								<th style="height:50px;  font-size:15px; text-align:center;">취소/환불확인</th>
+								<th style="height:50px;  font-size:15px; text-align:center;">환불내역</th>
 								<th style="height:50px;  font-size:15px; text-align:center;">펀딩투자내역</th>
 							</tr>
 							<tr>
 								<td style="text-align:center;"><%=hmap.get("totalPoint") %>원</td>
 								<td style=" text-align:center;"><%=blist.size() %>건</td>
-								<td style="text-align:center;">_건</td>
+								<td style="text-align:center;"><%=refundCount %>건</td>
 								<td style=" text-align:center;">_건</td>
 							</tr>
 						</table>
@@ -76,8 +82,8 @@
 					<th></th>
 					<th></th>
 					<th></th>
-					<th></th>
-					<th></th>
+					<th>주문일 :</th>
+					<th><%=orderList.get(i).get("payDate") %></th>
 				</tr>
 				<%for(int k = 0; k < orderList.size(); k++) {%>
 				<tr>
@@ -107,7 +113,7 @@
 					
 					<%if(orderList.get(k).get("refundStat") == null) {%>
 					<td id="btn">
-						<button type="button" data-toggle="modal" data-target="#myModal<%=k%>">환불요청</button>
+						<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal<%=k%>">환불요청</button>
 						<!-- Modal -->
 						<div id="myModal<%=k%>" class="modal fade" role="dialog">
 						  <div class="modal-dialog">
@@ -116,14 +122,19 @@
 						    <div class="modal-content">
 						      <div class="modal-header">
 						        <button type="button" class="close" data-dismiss="modal">&times;</button>
-						        <h4 class="modal-title">환불요청</h4>
+						        <h3 class="modal-title">환불요청</h3><br>
+						        <label style="color:red">
+						        	*수제품 특성상 불량품이 아니면 환불이 불가능할 수 있습니다. <br>
+						        	환불사유를 거짓으로 작성시 불이익이 있을 수 있습니다.
+						        </label>
+						        
 						      </div>
 						      <div class="modal-body">
 						        <textarea class="form-control" rows="5" id="comment"></textarea>
 						      </div>
 						      <div class="modal-footer">
 						      	<input type="hidden" value="<%=orderList.get(k).get("odId")%>">
-						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						        <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
 						        <button type="button" class="btn btn-default refund" data-dismiss="modal">보내기</button>
 						      </div>
 						    </div>
@@ -136,8 +147,16 @@
 						<td style="color:yellowgreen">환불<%= orderList.get(k).get("refundStat") %></td>
 					<%} %>
 					
-					<%if(orderList.get(k).get("deliStatus") != null) { %>
+					<% String deliStatus = (String)orderList.get(k).get("deliStatus");
+					if(orderList.get(k).get("deliStatus") != null) { %>
+						<%if(!deliStatus.equals("배송완료")) {%>
 						<td style="color:red"><%= orderList.get(k).get("deliStatus") %></td>
+						<%}else { %>
+						<td style="color:red">
+							<input type="hidden" value="<%=orderList.get(k).get("odId")%>">
+							<button class="confirm btn btn-primary btn-xs">배송완료</button>
+						</td>
+						<%} %> 
 					<%}else { %>
 						<td></td>
 					<%} %>
@@ -161,6 +180,26 @@
 		</div>
 		
 		<script>
+			$(".confirm").click(function(){
+				if(confirm("구매확정을 하시겠습니까?")){
+					var odId = $(this).parent().children().eq(0).val();
+					$.ajax({
+						url:"<%=request.getContextPath()%>/deleteOrder.me",
+						type:"post",
+						data:{odId:odId},
+						success:function(data){
+							if(data == "ok"){
+								alert("구매가 확정되었습니다!");
+							}else {
+								alert("배송중이거나 환불요청중입니다!");
+							}
+						}
+					});
+				}else{
+					alert("취소되었습니다");
+				}
+			});
+
 			$(".refund").click(function(){
 				var oid = $(this).parent().children().eq(0).val();
 				var text = $(this).parent().parent().find(".modal-body").children().eq(0).val();
