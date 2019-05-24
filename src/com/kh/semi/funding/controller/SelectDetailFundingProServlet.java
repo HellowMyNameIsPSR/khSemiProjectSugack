@@ -38,7 +38,7 @@ public class SelectDetailFundingProServlet extends HttpServlet {
 		ArrayList<HashMap<String,Object>> list = new FundingService().selectFundingProDetailList(workId);
 		
 		
-String page ="";
+		String page ="";
 		
 		if(list!=null) {
 			page = "views/fundingProduct/fundingProductDetail.jsp";

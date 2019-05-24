@@ -365,6 +365,7 @@ public class MemberDao {
 				cart.put("deliPrice", rset.getInt("DELI_PRICE"));
 				cart.put("authorName", rset.getString("MEMBER_NAME"));
 				cart.put("workName", rset.getString("WORK_NAME"));
+				cart.put("workType", rset.getString("WORK_KIND"));
 				list.add(cart);
 			}
 			

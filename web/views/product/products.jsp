@@ -206,7 +206,7 @@
 	
 	
 	
-	 function heartyn(){
+	<%--  function heartyn(){
 		
 		/* var ctn = 2;
 		
@@ -227,8 +227,8 @@
 		<%if(loginUser != null ){%>
    		 var memberId = <%=loginUser.getMemberId()%>;
    	 	 var workId = <%=work.get("workId")%>;
-   	 <%--  var price = <%=work.get("price")%>;
-   	 var deliPrice =<%=work.get("deliPrice")%>; --%>
+   	  var price = <%=work.get("price")%>;
+   	 var deliPrice =<%=work.get("deliPrice")%>;
    	 
    	 $.ajax({
    		 url:"<%=request.getContextPath()%>/insertLike.me?<%=work.get("workId")%>",
@@ -243,7 +243,7 @@
    	 <%}%>
 			
 		
-	}  
+	}   --%>
 </script>	
 
 </body>

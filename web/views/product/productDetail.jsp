@@ -207,9 +207,9 @@ hr{
         <h2><%=work.get("workName") %></h2>
 			
 			<hr>
-			<h4 id="price">판매가격&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=work.get("price") %>원</h4>
-			<h4>배송비&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=work.get("deliPrice") %>원  </h4>
-			<label id="deliPrice"></label>
+			<h4>판매가격&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="price"><%=work.get("price") %>원</label></h4>
+			<h4>배송비&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label id="deliPrice"><%=work.get("deliPrice") %>원</label>  </h4>
+			
 	
 			<hr>
 		<form method="post" id="buy">
