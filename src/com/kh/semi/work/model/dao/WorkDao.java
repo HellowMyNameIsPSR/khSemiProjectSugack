@@ -81,10 +81,6 @@ public class WorkDao {
 				pstmt.setInt(2, workOption.get(i).getoPrice());
 				pstmt.setString(3, workOption.get(i).getoValue());
 				
-				System.out.println("상품Id : " + workOption.get(i).getwId());
-				System.out.println("옵션명 : " + workOption.get(i).getoName());
-				System.out.println("옵션가격 : " + workOption.get(i).getoPrice());
-				System.out.println("옵션값 : " + workOption.get(i).getoValue());
 				
 				result += pstmt.executeUpdate();
 			}
@@ -102,7 +98,6 @@ public class WorkDao {
 			close(pstmt);
 		}
 		
-		System.out.println("옵션 dao 값 : " + result);
 		return result;
 	}
 
@@ -416,7 +411,6 @@ public class WorkDao {
 				hmap.put("filePath", rset.getString("FILE_PATH"));
 				
 				hmap.put("category", rset.getString("CATEGORY"));
-				System.out.println("da0 hmap : " + hmap.size());
 				list.add(hmap);
 			}
 			
@@ -428,7 +422,6 @@ public class WorkDao {
 			close(stmt);
 			close(rset);
 		}
-		System.out.println("dao : " + list.size());
 		return list;
 	}
 
@@ -443,8 +436,6 @@ public class WorkDao {
 		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
 		int endRow = startRow + pi.getLimit() - 1;
 		
-		System.out.println("스타트 : " + startRow);
-		System.out.println("엔드 : " + endRow);
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -533,9 +524,10 @@ public class WorkDao {
 				hmap.put("refundId", rset.getInt("REFUND_ID"));
 				hmap.put("workName", rset.getString("WORK_NAME"));
 				hmap.put("count", rset.getInt("COUNT"));
-				hmap.put("refundEnddate", rset.getDate("REFUND_ENDDATE"));
+				hmap.put("refundPrice", rset.getInt("REFUND_PRICE"));
+				hmap.put("refundDate", rset.getDate("REFUND_DATE"));
 				hmap.put("memberName", rset.getString("MEMBER_NAME"));
-				hmap.put("refundDate", rset.getString("REFUND_DATE"));
+				hmap.put("refundStat", rset.getString("REFUND_STAT"));
 				hmap.put("refundReason", rset.getString("REFUND_REASON"));
 				hmap.put("odId", rset.getInt("OD_ID"));
 				
@@ -745,9 +737,10 @@ public class WorkDao {
 				hmap.put("refundId", rset.getInt("REFUND_ID"));
 				hmap.put("workName", rset.getString("WORK_NAME"));
 				hmap.put("count", rset.getInt("COUNT"));
-				hmap.put("refundEnddate", rset.getDate("REFUND_ENDDATE"));
+				hmap.put("refundPrice", rset.getInt("REFUND_PRICE"));
+				hmap.put("refundDate", rset.getDate("REFUND_DATE"));
 				hmap.put("memberName", rset.getString("MEMBER_NAME"));
-				hmap.put("refundDate", rset.getString("REFUND_DATE"));
+				hmap.put("refundStat", rset.getString("REFUND_STAT"));
 				hmap.put("refundReason", rset.getString("REFUND_REASON"));
 				hmap.put("odId", rset.getInt("OD_ID"));
 				
@@ -838,9 +831,10 @@ public class WorkDao {
 				hmap.put("refundId", rset.getInt("REFUND_ID"));
 				hmap.put("workName", rset.getString("WORK_NAME"));
 				hmap.put("count", rset.getInt("COUNT"));
-				hmap.put("refundEnddate", rset.getDate("REFUND_ENDDATE"));
+				hmap.put("refundPrice", rset.getInt("REFUND_PRICE"));
+				hmap.put("refundDate", rset.getDate("REFUND_DATE"));
 				hmap.put("memberName", rset.getString("MEMBER_NAME"));
-				hmap.put("refundDate", rset.getString("REFUND_DATE"));
+				hmap.put("refundStat", rset.getString("REFUND_STAT"));
 				hmap.put("refundReason", rset.getString("REFUND_REASON"));
 				hmap.put("odId", rset.getInt("OD_ID"));
 				
@@ -914,6 +908,8 @@ public class WorkDao {
 				hmap.put("payDate", rset.getDate("PAY_DATE"));
 				hmap.put("workName", rset.getString("WORK_NAME"));
 				hmap.put("memberId", rset.getString("MEMBER_NAME"));
+				hmap.put("deliCompany", rset.getString("DELI_COMPANY"));
+				hmap.put("invNum", rset.getInt("INV_NUM"));
 				hmap.put("deliStatus", rset.getString("DELI_STATUS"));
 				
 				list.add(hmap);
@@ -987,6 +983,8 @@ public class WorkDao {
 				hmap.put("payDate", rset.getDate("PAY_DATE"));
 				hmap.put("workName", rset.getString("WORK_NAME"));
 				hmap.put("memberId", rset.getString("MEMBER_NAME"));
+				hmap.put("deliCompany", rset.getString("DELI_COMPANY"));
+				hmap.put("invNum", rset.getInt("INV_NUM"));
 				hmap.put("deliStatus", rset.getString("DELI_STATUS"));
 				
 				list.add(hmap);
@@ -1471,7 +1469,7 @@ public class WorkDao {
 		return listCount;
 	}
 
-	public int updateDeli(Connection con, String memberId, String deliCompany, String invNum, String deliStatus, String odId) {
+	public int updateDeli(Connection con, String memberId, String deliCompany, int invNum, String deliStatus, String odId) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -1481,7 +1479,7 @@ public class WorkDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, memberId);
 			pstmt.setString(2, deliCompany);
-			pstmt.setString(3, invNum);
+			pstmt.setInt(3, invNum);
 			pstmt.setString(4, deliStatus);
 			pstmt.setString(5, odId);
 			
@@ -1496,28 +1494,193 @@ public class WorkDao {
 		return result;
 	}
 
+	public int updateExchage(Connection con, String refundStat, String refundId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateExchage");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, refundStat);
+			pstmt.setString(2, refundId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int orderCountBefore(Connection con, String memberId) {
+		PreparedStatement pstmt = null;
+		int beforeCount = 0;
+		ResultSet rset = null;
+		String before = "%전%";
+		
+		String query = prop.getProperty("orderCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, before);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				beforeCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return beforeCount;
+	}
+
+	public int orderCountIng(Connection con, String memberId) {
+		PreparedStatement pstmt = null;
+		int ingCount = 0;
+		ResultSet rset = null;
+		String before = "%중%";
+		
+		String query = prop.getProperty("orderCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, before);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				ingCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return ingCount;
+	}
+
+	public int orderCountAfter(Connection con, String memberId) {
+		PreparedStatement pstmt = null;
+		int afterCount = 0;
+		ResultSet rset = null;
+		String before = "%완%";
+		
+		String query = prop.getProperty("orderCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, before);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				afterCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return afterCount;
+	}
+
+	public int exchangeCountBefore(Connection con, String memberId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		ResultSet rset = null;
+		String before = "%요%";
+		
+		String query = prop.getProperty("exchangeCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, before);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int exchangeCountIng(Connection con, String memberId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		ResultSet rset = null;
+		String before = "%승%";
+		
+		String query = prop.getProperty("exchangeCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, before);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int exchangeCountAfter(Connection con, String memberId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		ResultSet rset = null;
+		String before = "%완%";
+		
+		String query = prop.getProperty("exchangeCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, before);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
