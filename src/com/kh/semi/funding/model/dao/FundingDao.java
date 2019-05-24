@@ -520,7 +520,7 @@ PreparedStatement pstmt = null;
 	public int insertFUS(ArrayList<HashMap<String, Object>> fus, Connection con) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
+		//int
 		String query = prop.getProperty("insertFUS");
 		
 		try {
