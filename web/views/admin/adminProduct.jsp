@@ -15,6 +15,11 @@
  .container {
  	width: 80%;
  }
+ 
+ #proInfoTable th{
+ 	background: skyblue;
+ 	text-align: center;
+ 	}
 </style>
 </head>
 <body>
@@ -22,9 +27,9 @@
 	<div class="container">
 
 		<h3>판매상품조회</h3>
-		<table class="table table-bordered" style="border:2px solid gray; ">
+		<table class="table table-bordered" style="border:1px solid gray; ">
 			<tr>
-				<td style="text-align:center; background: lightgray; border: 1px solid gray; width: 200px;">상품분류</td>
+				<td style="text-align:center; background: skyblue; border: 1px solid white; width: 300px;">상품분류</td>
 				<td>
 					<select id="productType">
 						<option value="귀금속">귀금속</option>
@@ -67,15 +72,15 @@
 				</td>
 			</tr>
 			<tr>
-				<td style="text-align:center; background: lightgray; border: 1px solid gray; width: 200px">작가명</td>
+				<td style="text-align:center; background: skyblue; border: 1px solid white;; width: 300px">작가명</td>
 				<td colspan="3"><input type="text" name="authorName"/></td>
 			</tr>
 			<tr>
-				<td style="text-align:center; background: lightgray; border: 1px solid gray; width: 200px">상품명</td>
+				<td style="text-align:center; background: skyblue; border: 1px solid white; width: 250px">상품명</td>
 				<td colspan="3"><input type="text" name="productName" /></td>
 			</tr>
 			<tr>
-				<td style="text-align:center; background: lightgray; border: 1px solid gray; width: 200px">상품등록일</td>
+				<td style="text-align:center; background: skyblue; border: 1px solid white; width: 250px">상품등록일</td>
 					<td><input type="date" name="proStart" style="width:300px;"/></td>
 						<td style="width:30px;"><label style="font-size:15px; text-align:center;">~</label></td>
 						<td style="width:500px;">
@@ -83,28 +88,28 @@
 					</td>
 			</tr>
 			<tr>
-				<td style="text-align:center; background: lightgray; border: 1px solid gray; width: 200px">판매가</td>
+				<td style="text-align:center; background: skyblue; border: 1px solid white; width: 250px">판매가</td>
 				<td><input type="text" name="productValLow" style="width:150px; align:center"></td>
 				<td>~</td>				
 				<td><input type="text" name="productValHigh" style="width:150px; align:center"></td>
 				 
 			</tr>
 		</table>
-		<button id="searchProduct" style="float:right">검색</button>
+		<button id="searchProduct" class="btn" style="float:right; background: skyblue; color: white;">검색</button>
 	
 		<br>
 		<hr>
 		<h3>판매상품 조회 결과</h3>
-		<table class="table table-bordered" id="proInfoTable" style="border:2px solid gray; text-align:center">
+		<table class="table table-bordered" id="proInfoTable" style="border:2px solid white; text-align:center">
 		<thead>
 		<tr style="background:lightgray; width:150px">
-			<td>번호</td>
-			<td>공예유형</td>
-			<td>상품유형</td>
-			<td>상품명</td>
-			<td>상품등록일</td>
-			<td>판매자명</td>
-			<td>판매가격</td>
+			<th>번호</th>
+			<th>공예유형</th>
+			<th>상품유형</th>
+			<th>상품명</th>
+			<th>상품등록일</th>
+			<th>판매자명</th>
+			<th>판매가격</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -113,7 +118,6 @@
 		
 		</table>
 		
-		<button style="float:right">삭제</button>
 		<br>
 			<div class="row" style="padding-left:270px">
 				<ul class="pagination justify-content-center">

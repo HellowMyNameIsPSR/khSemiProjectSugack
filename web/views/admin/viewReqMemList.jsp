@@ -4,7 +4,7 @@
     	ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("reqMemList");
     java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy년MM월dd일");
     String today = formatter.format(new java.util.Date());
-    
+    int i = 0;
 
  
     %>
@@ -75,8 +75,9 @@
 								<th>상태</th>
 
 							</tr>
-							<% for(int i = 0; i < 5; i++){ 
-								HashMap<String,Object> hmap = list.get(i);
+							<% for(int j = 0; j < list.size() && j < 5; j++){ 
+								HashMap<String,Object> hmap = list.get(j);
+								
 							%>
 							<tr>
 								<td><%= i + 1 %></td>

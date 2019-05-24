@@ -30,6 +30,7 @@ public class CcenterNoticeBoardServlet extends HttpServlet {
 		
 		String page = "";
 		
+		
 		System.out.println("서블릿들어옴");
 		
 		if(list != null) {

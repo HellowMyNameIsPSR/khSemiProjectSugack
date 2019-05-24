@@ -8,25 +8,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/cCenterNoticeInsert.bo")
-public class cCenterNoticeInsertServlet extends HttpServlet {
+@WebServlet("/cCenterEvent.bo")
+public class cCenterEventServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
-    public cCenterNoticeInsertServlet() {
+    public cCenterEventServlet() {
         super();
-       
+        // TODO Auto-generated constructor stub
     }
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("공지사항 인서트");
+		
+		String sNum = request.getParameter("num");
+		
+		
+		System.out.println("받아오나?" + sNum);
+		
 		
 	}
 
-	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

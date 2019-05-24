@@ -20,8 +20,8 @@
 
 
 <body>
-	<div class="container">
 	<%@ include file = "cutomerCenterMenubar.jsp" %>
+	<div class="container">
 	
 		<table class="table table-bordered" style="border:2px solid gray; text-align:center">
 		<tr style="background:lightgray;">

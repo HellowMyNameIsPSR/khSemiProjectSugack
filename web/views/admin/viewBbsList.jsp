@@ -11,6 +11,13 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<style>
+	#admincCenter{
+		text-align:center;
+		
+	}
+	
+	</style>
 </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -28,8 +35,8 @@
 					<header class="main">
 						<h3>고객센터 관리</h3>
 						<div>
-							<table>
-								<tr>
+							<table id="admincCenter">
+								<tr style="background: skyblue;">
 									<td>번호</td>
 									<td>게시판제목</td>
 									<td>게시판아이디</td>
@@ -74,8 +81,8 @@
 								</tr>
 								<tr>
 									<td>5</td>
-									<td>배송</td>
-									<td>Logistic</td>
+									<td>교환/환불FAQ</td>
+									<td>refund</td>
 									<td></td>
 									<td>
 										<button id="refundFAQ">게시글보기 / 수정</button>

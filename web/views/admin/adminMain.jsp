@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    pageEncoding="UTF-8" import="java.util.*"%>
+    
+    <%
+    java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy년MM월dd일");
+    String today = formatter.format(new java.util.Date());
+    
+    %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -25,9 +31,9 @@
 </style>
 </head>
 <body>
-
+	<h2>운영자 님 환영합니다!</h2>
 <div class="container">
-	<div class="main-1">
+	<!--! <div class="main-1">
 	<h3>날짜</h3>
 	<br>
 	<h4>오늘의 할일</h4>
@@ -50,10 +56,8 @@
 		 		<td>0명</td>
 		 	</tr>
 		</table>
-	</div>
-	<br>
-	<hr>
-	<div class=main-2>
+	</div> -->
+	<!--   <div class=main-2>
 		<h3>이번주 내홈페이지 통계</h3>
 		<table class="table table-bordered" style="border:2px solid gray; height: 150px; width: 800px; margin:auto; text-align:center">
 			<tr style="background:lightgray;">
@@ -104,8 +108,9 @@
 	</div>
 	<br>
 	<hr>
+	-->
 	<div class="main-3">
-		<h3>오늘의 통계</h3>
+		<h3>오늘(<%= today %>)의 통계</h3>
 		<div id="chart_div" style="width:900px; height:300px;"></div>
 		<div id="chart_div2" style="width:900px; height:300px;"></div>
 		

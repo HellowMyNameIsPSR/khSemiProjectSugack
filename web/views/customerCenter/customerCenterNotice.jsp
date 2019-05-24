@@ -36,7 +36,7 @@
 <body>
 <%@ include file = "cutomerCenterMenubar.jsp" %>
 	<div class="container">	
-	
+		<h2>공지사항</h2>
 		<table id="noticeBoard" class="table table-striped table-hover">
 			<thead>
 				<tr>
@@ -63,7 +63,7 @@
 		</table>
 		<hr />
 		<% if(loginUser != null && loginUser.getMemberType().equals("A")){ %>
-		<button class="btn primary" style="float:right">작성하기</button>
+		<button id="write" class="btn primary" style="float:right">작성하기</button>
 		<% } %>
 	</div>
 	<script>
@@ -78,7 +78,14 @@
 			location.href="<%=request.getContextPath()%>/cCenterNoticeDetail.bo?num=" + num;
 			
 		});
+		$("#write").click(function(){
+			location.href="<%= request.getContextPath()%>/views/customerCenter/customerCenterNoticeWrite.jsp";
+			
+		})
 	})
+	
+
+
 	
 	</script>
 	
