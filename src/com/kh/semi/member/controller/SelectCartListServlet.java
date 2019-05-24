@@ -35,16 +35,19 @@ public class SelectCartListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		ArrayList<HashMap<String, Object>> list = null;
+		ArrayList<WorkOption> olist = null;
+		
 		if(loginUser == null) {
 			request.setAttribute("msg", "로그인이 필요합니다");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}else {
+			list = new MemberService().selectCartList(loginUser.getMemberId());			
+			olist = new MemberService().selectOptionList(loginUser.getMemberId());
 		}
 		
-		ArrayList<HashMap<String, Object>> list = new MemberService().selectCartList(loginUser.getMemberId());
-		ArrayList<WorkOption> olist = new MemberService().selectOptionList(loginUser.getMemberId());
-		System.out.println(olist);
 		
-		if(list.size() > 0) {
+		if(list != null) {
 			request.setAttribute("list", list);
 			request.setAttribute("olist", olist);
 			request.getRequestDispatcher("views/member/cart.jsp").forward(request, response);

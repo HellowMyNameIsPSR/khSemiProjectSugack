@@ -366,6 +366,26 @@ public class MemberService {
  		return result;
 	}
 
+	public int deleteOrder(int odId) {
+		Connection con = getConnection();
+		
+		int check = new MemberDao().checkOrder(odId, con);
+		int result = 0;
+		
+		if(check > 0) {
+			result = new MemberDao().deleteOrder(con, odId);
+			if(result > 0) {
+				commit(con);				
+			}
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
 
 }
 

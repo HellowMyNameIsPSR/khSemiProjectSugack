@@ -31,7 +31,7 @@
 				<h2>Menu</h2>
 			</header>
 			<ul>
-				<li><a href="views/board/myPage.jsp">주문내역</a></li>
+				<li><a href="<%=request.getContextPath()%>/myPage.me">주문내역</a></li>
 				<li>
 					<span class="opener">좋아요리스트</span>
 					<ul>

@@ -752,6 +752,57 @@ public class MemberDao {
 		return result;
 	}
 
+	public int checkOrder(int odId, Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("checkOrder");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, odId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int deleteOrder(Connection con, int odId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteOrder");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, odId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	
 }
 
