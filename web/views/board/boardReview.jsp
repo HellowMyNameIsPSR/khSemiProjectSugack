@@ -84,12 +84,13 @@
 					<div class="outer" style="margin-bottom:140px;">
 					
 						<div class="row">
-						<!-- <div class="img">
-							<img src="../images/tvxq.jpg" style="width:100px; height:100px;">
-						</div> -->
+						
 						<div class="proName">
-							
-							<label style="font-size:20px" class="type">리뷰종류  | <%=review.getWorkKind() %></label>
+							<%if(review.getWorkKind().equals("fund")) { %>
+								<label style="font-size:20px" class="type">리뷰종류  | 펀딩상품 </label>
+							<%}else if(review.getWorkKind().equals("SALES")){ %>
+								<label style="font-size:20px" class="type">리뷰종류  | 판매상품 </label>
+							<%} %>
 							<label style="font-size:20px">작품명  | <%=review.getWorkName()%></label>
 							<label style="font-size:20px">작성날짜 | <%=review.getWriteDate() %></label>
 							<label style="font-size:20px">별점 | <%=review.getStarPoint() %> </label>
@@ -106,15 +107,13 @@
 						</div>
 						<div class="Btn" style="float:right;  margin-right:30px; margin-top:30px;" >
 								<input type="hidden" value="<%=review.getWorkId()%>">
-								<button class="update all-btn btns">수정하기</button>
+								
+								
 								
 								<button class="delete btns all-btn">삭제하기</button>
 								
 						</div>
-						<!-- <div class="btn">
-							<input type="submit" value="수정하기">
-							
-						</div> -->
+						
 						
 					</div>
 				<%} %>
@@ -122,13 +121,8 @@
 		<%
 			Member loginUser2 = (Member)request.getSession().getAttribute("loginUser");
 		 %>	
-		 <%--<% for(Review review : list){ --%> 
-		<%-- <!-- <% for(int i = 0; i < list.size(); i++) { %>   -->  --%>			
+				
 		<script>
-			<%-- function proName(){
-				//alert("배고파");
-				 location.href="<%=request.getContextPath()%>/selectProDetail.pro?workId=<%=review.getWorkId()%>";
-			} --%>
 			
 
 			

@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관심판매상품!</title>
+<link href="https://fonts.googleapis.com/css?family=Poor+Story&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 	.name{
@@ -46,24 +47,22 @@
 							 	<%for(int i=0; i<list.size(); i++){
 							 			HashMap<String,Object> hmap = list.get(i);
 							 	%>
-							 <div class="col-sm-2 product" style="background-color:lavender; height:50%; margin-bottom:30px;margin-left:20px;margin-right:20px;">
+							  <div class="col-sm-2 product" style="background-color:white; border:2px solid lightgray; height:400px; margin-bottom:30px;margin-left:50px;margin-right:20px;">
 							 	<div class="outer">
-
-							 		
-							 		
-							 		<div class="img" style="width:230px; margin-top:20px; margin-left:5px;">
-							 			<img src="uploadFundingGoodsImg/<%=hmap.get("changeName") %>" style="width:200px; height:200px;">
+							 		<div class="img" style="width:280px; margin-top:20px; margin-left:5px;">
+							 			<img src="uploadFundingGoodsImg/<%=hmap.get("changeName") %>" s style="width:250px; height:200px; border:2px solid lightgray">
 							 		</div>
+							 
 							 		<div class="productName">
-							 			<label style="margin-left:20px; margin-top:10px;" ><%=hmap.get("workName") %></label>
+							 			<label style="margin-left:20%; margin-top:10px; font-family: 'Poor Story', cursive; font-size:25px"><%=hmap.get("workName") %></label>
 							 		</div>
 							 		
 							 		<div class="heart">
 							 			<input type="hidden" value="<%=hmap.get("workId") %>">
-							 			<img src="views/images/heart.png" class="delLike" style="width:50px; height:50px; float:left;">
+							 			<img src="views/images/heart.png" class="delLike" style="width:30px; height:30px; float:left;">
 							 		</div>
 							 		<div>
-							 			<label id="price" style="margin-left:160px;"><%=hmap.get("price") %>원</label>
+							 			<label id="price" style="margin-left:65%; font-size:15px"><%=hmap.get("price") %>원</label>
 							 		</div>
 							 		
 							 		<br><br><br>

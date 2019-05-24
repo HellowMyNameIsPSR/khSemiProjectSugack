@@ -172,6 +172,7 @@ public class FundingDao {
 				hmap.put("workId", rset.getInt("WORK_ID"));
 				hmap.put("workName", rset.getString("WORK_NAME"));
 				hmap.put("workContent", rset.getString("WORK_CONTENT"));
+				hmap.put("wcount", rset.getInt("WCOUNT"));
 				hmap.put("deliPrice", rset.getInt("DELI_PRICE"));
 				hmap.put("wrDate", rset.getDate("RS_DATE"));
 				hmap.put("rsDate", rset.getDate("RS_DATE"));
@@ -517,6 +518,226 @@ PreparedStatement pstmt = null;
 		return result;
 	}
 
+	public int updateCount(Connection con, int workId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1,workId);
+			pstmt.setInt(2,workId);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("update" + result);
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectProductListLow(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectFundListLow");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				hmap.put("workId", rset.getInt("WORK_ID"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("workContent", rset.getString("WORK_CONTENT"));
+				hmap.put("deliPrice", rset.getInt("DELI_PRICE"));
+				hmap.put("wrDate", rset.getDate("RS_DATE"));
+				hmap.put("rsDate", rset.getDate("RS_DATE"));
+				hmap.put("maxCount", rset.getInt("MAX_COUNT"));
+				hmap.put("csDate", rset.getDate("RS_DATE"));
+				hmap.put("workKind", rset.getString("WORK_KIND"));
+				hmap.put("memberId", rset.getInt("MEMBER_ID"));
+				hmap.put("price", rset.getInt("PRICE"));
+				hmap.put("cid", rset.getInt("CID"));
+				hmap.put("typeId", rset.getInt("TYPE_ID"));
+				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("wcount", rset.getInt("WCOUNT"));
+				hmap.put("category", rset.getString("CATEGORY"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				list.add(hmap);
+				
+			
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		System.out.println("Fundingdao low에서: " + list);
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectProductListPop(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectFundListPop");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				hmap.put("workId", rset.getInt("WORK_ID"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("workContent", rset.getString("WORK_CONTENT"));
+				hmap.put("deliPrice", rset.getInt("DELI_PRICE"));
+				hmap.put("wrDate", rset.getDate("RS_DATE"));
+				hmap.put("rsDate", rset.getDate("RS_DATE"));
+				hmap.put("maxCount", rset.getInt("MAX_COUNT"));
+				hmap.put("csDate", rset.getDate("RS_DATE"));
+				hmap.put("workKind", rset.getString("WORK_KIND"));
+				hmap.put("memberId", rset.getInt("MEMBER_ID"));
+				hmap.put("price", rset.getInt("PRICE"));
+				hmap.put("cid", rset.getInt("CID"));
+				hmap.put("typeId", rset.getInt("TYPE_ID"));
+				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("wcount", rset.getInt("WCOUNT"));
+				hmap.put("category", rset.getString("CATEGORY"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				list.add(hmap);
+				
+			
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectProductListNew(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectFundListNew");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				hmap.put("workId", rset.getInt("WORK_ID"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("workContent", rset.getString("WORK_CONTENT"));
+				hmap.put("deliPrice", rset.getInt("DELI_PRICE"));
+				hmap.put("wrDate", rset.getDate("RS_DATE"));
+				hmap.put("rsDate", rset.getDate("RS_DATE"));
+				hmap.put("maxCount", rset.getInt("MAX_COUNT"));
+				hmap.put("csDate", rset.getDate("RS_DATE"));
+				hmap.put("workKind", rset.getString("WORK_KIND"));
+				hmap.put("memberId", rset.getInt("MEMBER_ID"));
+				hmap.put("price", rset.getInt("PRICE"));
+				hmap.put("cid", rset.getInt("CID"));
+				hmap.put("typeId", rset.getInt("TYPE_ID"));
+				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("wcount", rset.getInt("WCOUNT"));
+				hmap.put("category", rset.getString("CATEGORY"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				list.add(hmap);
+				
+			
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectProductListHigh(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectFundListHigh");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				hmap.put("workId", rset.getInt("WORK_ID"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("workContent", rset.getString("WORK_CONTENT"));
+				hmap.put("deliPrice", rset.getInt("DELI_PRICE"));
+				hmap.put("wrDate", rset.getDate("RS_DATE"));
+				hmap.put("rsDate", rset.getDate("RS_DATE"));
+				hmap.put("maxCount", rset.getInt("MAX_COUNT"));
+				hmap.put("csDate", rset.getDate("RS_DATE"));
+				hmap.put("workKind", rset.getString("WORK_KIND"));
+				hmap.put("memberId", rset.getInt("MEMBER_ID"));
+				hmap.put("price", rset.getInt("PRICE"));
+				hmap.put("cid", rset.getInt("CID"));
+				hmap.put("typeId", rset.getInt("TYPE_ID"));
+				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("wcount", rset.getInt("WCOUNT"));
+				hmap.put("category", rset.getString("CATEGORY"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				list.add(hmap);
+				
+			
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+
+		return list;
+	}
 	//펀딩 작품 세부 페이지(작가홈에서)로 가기 위해 데이터를 가져온다.
 	public ArrayList<HashMap<String, Object>> selectUserFundingProDetail(Connection con, int workId, int memberId) {
 		PreparedStatement pstmt = null;

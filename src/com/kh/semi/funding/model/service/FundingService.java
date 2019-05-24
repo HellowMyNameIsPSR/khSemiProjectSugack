@@ -17,6 +17,7 @@ import com.kh.semi.funding.model.vo.SortFunding;
 import com.kh.semi.funding.model.vo.Work;
 import com.kh.semi.funding.model.vo.WorkPic;
 import com.kh.semi.member.model.dao.LikeDao;
+import com.kh.semi.product.model.dao.ProDao;
 
 public class FundingService {
 	//카테고리 조회
@@ -68,13 +69,19 @@ public class FundingService {
 	}
 	
 	//펀딩상품 자세히보기!
-	public ArrayList<HashMap<String, Object>> selectFundingProDetailList(int workId) {
-		
-		Connection con = getConnection();
-		
-		ArrayList<HashMap<String,Object>> list = new FundingDao().selectFundingProDetailList(con,workId);
-		close(con);
-		return list;
+		public ArrayList<HashMap<String, Object>> selectFundingProDetailList(int workId) {
+			
+			Connection con = getConnection();
+			ArrayList<HashMap<String,Object>> list = null;
+			
+			int result = new FundingDao().updateCount(con,workId);
+			
+			if(result>0) {
+				list = new FundingDao().selectFundingProDetailList(con,workId);
+			}
+			close(con);
+			return list;
+
 	}
 	
 	//등록된 펀딩 작품 내역의 상태가 '대기' 상태 인 것을 최신 순으로 정렬합니다.
@@ -166,6 +173,38 @@ public class FundingService {
 		} //end if
 		close(con);
 		return resultAuthorAcc;
+	}
+	public ArrayList<HashMap<String, Object>> selectProductListLow() {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new FundingDao().selectProductListLow(con);
+		close(con);
+		
+		System.out.println("펀딩 낮은가격순 정렬 Service : " + list);
+		return list;
+	}
+	public ArrayList<HashMap<String, Object>> selectProductListPop() {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new FundingDao().selectProductListPop(con);
+		close(con);
+		
+		
+		return list;
+	}
+	public ArrayList<HashMap<String, Object>> selectProductListNew() {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new FundingDao().selectProductListNew(con);
+		close(con);
+		
+		
+		return list;
+	}
+	public ArrayList<HashMap<String, Object>> selectProductListHigh() {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new FundingDao().selectProductListHigh(con);
+		close(con);
+		
+		return list;
+	}
 	} //end method
 	
 	public ArrayList<HashMap<String, Object>> selectUserFundingProDetail(int workId, int memberId, String status) {
