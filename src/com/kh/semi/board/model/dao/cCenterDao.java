@@ -35,7 +35,7 @@ public class cCenterDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		System.out.println("Dao들어옴");
+		System.out.println("Dao들s어옴");
 
 		
 		

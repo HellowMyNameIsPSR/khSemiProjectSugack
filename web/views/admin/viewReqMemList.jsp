@@ -113,7 +113,7 @@
 			var list = $()
 		
 			
-			//form안에 없기 때문에 페이를 통쨰로 넘긴다
+			//form안에 없기 때문에 페이를 통쨰로 넘긴다dsd
 			location.href="<%=request.getContextPath()%>/selectOneReqMem.ad?authorName=" + authorName;
 		});
 	})

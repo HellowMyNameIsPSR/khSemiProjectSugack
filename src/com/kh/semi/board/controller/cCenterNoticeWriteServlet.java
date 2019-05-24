@@ -44,7 +44,7 @@ public class cCenterNoticeWriteServlet extends HttpServlet {
 		String view = "";
 		
 		if(result > 0) {
-			System.out.println("공지사항 성공!!!!");
+			
 			
 			response.sendRedirect("ccNoticeBoard.bo?id=" + divison);
 					

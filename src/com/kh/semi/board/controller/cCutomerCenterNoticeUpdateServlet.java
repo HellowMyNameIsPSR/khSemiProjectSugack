@@ -25,7 +25,7 @@ public class cCutomerCenterNoticeUpdateServlet extends HttpServlet {
 		int bno = Integer.parseInt(request.getParameter("bno"));
 				
 		
-		System.out.println("업데이트 서블릿에서 받았다 bno :" + bno);
+		System.out.println("업데이트 서블릿에서 받았다 ssbno :" + bno);
 		
 	}
 

@@ -142,7 +142,7 @@
 				var id = "14"
 
 				location.href="<%= request.getContextPath()%>/ccNoticeBoard.bo?id=" + id;
-
+				
 			})
 			
 			

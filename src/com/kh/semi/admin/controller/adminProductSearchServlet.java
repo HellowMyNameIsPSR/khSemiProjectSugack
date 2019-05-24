@@ -41,8 +41,7 @@ public class adminProductSearchServlet extends HttpServlet {
 		String proLast = request.getParameter("proLast");
 		String prov1 = request.getParameter("productValLow");
 		String prov2 = request.getParameter("productValHigh");
-		System.out.println("서블릿에서 먼저 닿은 카테고리" + category);
-		System.out.println("상품유형" + productType);
+	
 		
 		if(prov1.equals("") || prov2.equals("")) {
 			prov1 = "0";

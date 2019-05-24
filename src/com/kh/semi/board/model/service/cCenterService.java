@@ -24,7 +24,7 @@ public class cCenterService {
 
 	public Board selectOne(int num) {
 		Connection con = getConnection();
-		System.out.println("서비스 들어옴");
+		System.out.println("서비스 들d어옴");
 
 		Board b = new cCenterDao().selectOne(num, con);
 		

@@ -32,7 +32,7 @@ public class cCenterNoticeBoardServlet extends HttpServlet {
 		
 		ArrayList<Board> list = new cCenterService().noticeList(divison);
 		
-		System.out.println("받아온 아이디" + divison);
+		
 		
 		String page = "";
 		

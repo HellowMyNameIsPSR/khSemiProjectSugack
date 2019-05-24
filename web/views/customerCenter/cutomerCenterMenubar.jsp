@@ -38,7 +38,7 @@
 							<td><a id="Logistic">배송문의</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>						
 							<td><a id="refundFAQ">교환/환불</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 							<td><a id="BuyFAQ">주문/결제</a>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-							<td><a id="sellFAQ">상품문의</a></td>
+							<td><a id="sellFAQ"> 상품문의</a></td>
 						</tr>
 					</table>
 			</div>

@@ -71,7 +71,7 @@
 			<tbody>
 				
 				<tr>					
-					<td colspan = "6">내용</td>					
+					<td colspan = "6"> 내용</td>					
 				</tr>
 				<tr>		
 					<td colspan = "6"><%= b.getContent() %></td>					

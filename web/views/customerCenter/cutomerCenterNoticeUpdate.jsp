@@ -98,7 +98,7 @@
 		<div align="center">
 		
 		<button id="updateF" class="btn primary" style="float:right; background: skyblue;">수정완료</button>
-		<button id="cancel" class="btn primary" style="float:right; background: skyblue;">목록으로</button>
+		<button id="cancel" class="btn primary" style="float:right; background: skyblue;"> 목록으로</button>
 		</div>
 		
 		<% } %>

@@ -42,7 +42,7 @@
 				<!-- Header -->
 				<header id="header">
 					<a href="/sg/views/admin/adminHome.jsp" class="logo">
-						Admin<strong>HOME</strong>
+						Admins<strong>HOME</strong>
 					</a>
 				</header>
 				<section id="contents">
