@@ -13,11 +13,13 @@
 <head>
 <meta charset="UTF-8">
 <title>나의 문의글 내역!</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <style>
 	.name{
 		width:100%;
 		font-size:30px;
 	}
+	
 </style>
 </head>
 <body>
@@ -40,8 +42,8 @@
 					<div class="container">
 					
 						<div class="table">
-							<table id="listArea">
-								<tr style="text-align:center;">
+							<table id="listArea" class="table-hover">
+								<tr style="text-align:center; ">
 									<td>번호</td>
 									<td></td>
 									<td>문의종류</td>

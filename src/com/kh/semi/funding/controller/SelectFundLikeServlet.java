@@ -43,7 +43,7 @@ public class SelectFundLikeServlet extends HttpServlet {
 	         
 	      }else {
 	      
-	         request.setAttribute("msg", "등록된 관심상품이 없습니다!");
+	         request.setAttribute("msg", "등록된 관심 펀딩상품이 없습니다!");
 	         request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 	      }
 	}

@@ -28,13 +28,7 @@
     }
     
     /* On small screens, set height to 'auto' for sidenav and grid */
-    /* @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height:auto;} 
-    } */
+ 
     .navdiv{
        height:200px;
        background:black;
@@ -46,18 +40,11 @@
        height:70%;
     }
     
-    .col-sm-4{
-       /* margin-left:30px;
-       margin-right:30px;
-       margin-bottom:23px; */
-       /* height:100%; */
-       
-       
-    }
+  
     
     .row{
        margin-top:30px;
-       /* margin:10px; */
+     
        
     }
     .content{
@@ -123,7 +110,7 @@
 	</select>
 
   <div class="row">
-     <!-- <div class="col-sm-1"></div>@ -->
+    
      
       <%for (int i=0; i<list.size(); i++){ 
          HashMap<String,Object> hmap = list.get(i);

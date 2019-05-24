@@ -51,7 +51,7 @@
 								</tr>
 							</table>
 							<br>
-							<input type="submit"value="탈퇴를 진행하시겠습니까?" style="float:right; margin-top:10px;">
+							<input type="submit"value="탈퇴를 진행하시겠습니까?" style="float:right; margin-top:10px; background:gray; color:white; width:30%; height:50px">
 						</div>
 						
 					</div>
