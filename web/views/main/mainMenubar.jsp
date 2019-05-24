@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="com.kh.semi.member.model.vo.Member"%>
 <%
 	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+	String id = "10";
 %>
 <!DOCTYPE html>
 <html>
@@ -260,7 +261,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="<%= request.getContextPath() %>/ccNoticeBoard.bo">
+							<a name="cCenter">
 								<span class="glyphicon glyphicon-earphone"></span><br><span style="font-size:12px;">고객센터</span>
 							</a>
 						</li>
@@ -284,7 +285,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="<%= request.getContextPath() %>/ccNoticeBoard.bo">
+							<a name="cCenter">
 								<span class="glyphicon glyphicon-earphone middleIcon"></span><br>고객센터
 							</a>
 						</li>
@@ -310,7 +311,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="<%= request.getContextPath() %>/ccNoticeBoard.bo">
+							<a name="cCenter">
 								<span class="glyphicon glyphicon-earphone"></span><br><span style="font-size:12px;">고객센터</span>
 							</a>
 						</li>
@@ -335,7 +336,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="<%= request.getContextPath() %>/ccNoticeBoard.bo">
+							<a name="cCenter">
 								<span class="glyphicon glyphicon-earphone middleIcon"></span><br>고객센터
 							</a>
 						</li>
@@ -455,6 +456,14 @@
 		function goAuthorPage(){
 			location.href='<%=request.getContextPath()%>/selectAuthorPage.tn';
 		}
+		$(function(){
+			$('[name="cCenter"]').click(function(){
+				var id = "10";
+				location.href="<%= request.getContextPath()%>/ccNoticeBoard.bo?id=" + id;
+			})
+			
+			
+		})
 		
 		
 		

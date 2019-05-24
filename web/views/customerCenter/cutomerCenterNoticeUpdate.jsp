@@ -31,18 +31,20 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <%@ include file="../assets/css/allCss.html" %>
     <style>
+    	
     	#noticeBoard {
     	border: 1px solid black;
     	}
     	
     		#noticeBoard th{
     		background: skyblue;
-		
+			vertical-align: middle;
 		text-align:center;
  	}
- 	#noticeBoard th td {
- 			text-align:center;
- 	
+ 	#noticeBoard tr td {
+ 			
+ 					vertical-align: middle;
+ 		
  	}
  	
     
@@ -52,16 +54,24 @@
 <body>
 	<%@ include file = "cutomerCenterMenubar.jsp" %>
 	<div class="container">	
-		<h2><%= dTitle %></h2>
+		<h2><%= dTitle %> 수정</h2>
+		<form id="updateNotice">
 		<table id="noticeBoard" class="table table-striped table-hover">
 			<thead>
 				<tr>
 					<th>제목</th>
-					<td colspan = "5"><%= b.getTitle() %></td>
+					<td colspan = "5">
+					
+					<input type="text" size="50" name="title" value="<%= b.getTitle() %>"/>
+					<input type="hidden" name="bNo" value="<%= b.getBno() %>"/>
+					
+					</td>
 				</tr>
 				<tr>
-					<th>날짜</th>
-					<td><%= b.getWriteDate() %></td>
+					<th>작성일</th>
+					<td>
+					<input type="date" name="date" value="<%= b.getWriteDate() %>">
+					</td>
 					<th>작성자</th>
 					<td>운영자</td>
 					<th>조회수</th>
@@ -74,7 +84,9 @@
 					<td colspan = "6">내용</td>					
 				</tr>
 				<tr>		
-					<td colspan = "6"><%= b.getContent() %></td>					
+					<td colspan = "6">
+					<textarea name="content" cols="150" rows="10" style="resize:none;"><%= b.getContent() %></textarea>
+					</td>					
 				</tr>
 			
 			</tbody>
@@ -83,33 +95,23 @@
 
 		<hr />
 		<% if(loginUser != null && loginUser.getMemberType().equals("A")){ %>
-		<button id="update" class="btn primary" style="float:right; background: skyblue;">수정하기</button>
-		<p></p>
-		<button id="delete" class="btn primary" style="float:right; background: skyblue;">삭제하기</button>
+		<div align="center">
+		
+		<button id="updateF" class="btn primary" style="float:right; background: skyblue;">수정완료</button>
+		<button id="cancel" class="btn primary" style="float:right; background: skyblue;">목록으로</button>
+		</div>
 		
 		<% } %>
-	</div>
-	
 	<script>
-		$(function(){
-			$("#update").click(function(){
+		
+		function complete(){
+			$("#updateNotice").attr("action", "<%= request.getContextPath()%>/cCutomerCenterNoticeUpdate.bo?bNo=" + <%= bno%>);
 			
-				location.href="<%= request.getContextPath()%>/cCenterNoticeSelect.bo?bNo=" + <%= b.getBno() %>;
-			})
-			$("#delete").click(function(){
-				if(confirm("정말 삭제하시겠습니까 ?") == true){
-					
-					alert("글이 삭제 되었습니다.");
-					history.back();
-				}else{
-					return;
-				}
-			})
-			
-		})
-	
-	
+			}
+
 	</script>
+	</form>
+	</div>
 	
 </body>
 </html>

@@ -80,7 +80,7 @@
 								
 							%>
 							<tr>
-								<td><%= i + 1 %></td>
+								<td><%= j + 1 %></td>
 								<td><%= hmap.get("authorName") %></td>
 								<td><%= hmap.get("email")%></td>
 								<td><%= hmap.get("authorContent")%></td>

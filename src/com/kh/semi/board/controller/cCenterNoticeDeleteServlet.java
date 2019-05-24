@@ -7,24 +7,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-@WebServlet("/cCenterEvent.bo")
-public class cCenterEventServlet extends HttpServlet {
+/**
+ * Servlet implementation class cCenterNoticeDeleteServlet
+ */
+@WebServlet("/cCenterNoticeDelete.bo")
+public class cCenterNoticeDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public cCenterEventServlet() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public cCenterNoticeDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String sNum = request.getParameter("num");
-		
-		
-		System.out.println("받아오나?" + sNum);
-		
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

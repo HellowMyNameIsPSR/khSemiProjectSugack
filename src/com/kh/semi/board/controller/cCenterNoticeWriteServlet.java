@@ -46,7 +46,7 @@ public class cCenterNoticeWriteServlet extends HttpServlet {
 		if(result > 0) {
 			System.out.println("공지사항 성공!!!!");
 			
-			response.sendRedirect("ccNoticeBoard.bo");
+			response.sendRedirect("ccNoticeBoard.bo?id=" + divison);
 					
 		}else {
 			request.setAttribute("msg", "게시글 작성 실패!");
