@@ -103,6 +103,7 @@ public class FundingService {
 	public ArrayList<WorkPic> selectWorkPicFile(int memberId, int workId) {
 		Connection con = getConnection();
 		ArrayList<WorkPic> fileList = new FundingDao().selectWorkPicFile(con, memberId, workId);
+		System.out.println("service : " + fileList.size());
 		close(con);
 		return fileList;
 	}
@@ -170,6 +171,7 @@ public class FundingService {
 				rollback(con);
 			} //end if
 		} //end if
+		close(con);
 		return resultAuthorAcc;
 	}
 	public ArrayList<HashMap<String, Object>> selectProductListLow() {
@@ -203,4 +205,24 @@ public class FundingService {
 		
 		return list;
 	}
+	} //end method
+	
+	public ArrayList<HashMap<String, Object>> selectUserFundingProDetail(int workId, int memberId, String status) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String, Object>> list = null;
+		if(status.equals("진행중")) { //진행 중이면 펀딩 현황도 같이 검색
+			list = new FundingDao().selectUserFundingProDetail(con, workId, memberId);
+		} else { //아니라면 펀딩 정보와 사진만 검색
+			list = new FundingDao().selectUserFundingProDetail2(con, workId, memberId);
+		}
+				
+		if(list != null) {
+			System.out.println("service(성공) : " + list);
+		} else {
+			System.out.println("service(실패) : " + list);
+		}		
+		close(con);
+		return list;
+	} //end method
+	
 } //end class

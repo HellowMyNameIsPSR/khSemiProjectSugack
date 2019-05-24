@@ -13,6 +13,30 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	<%@ include file="stylesheet/eroll.html" %>
 	<%@ include file="../assets/css/author.html" %>
+	<style>
+		.listTable {
+			margin:0px 0px 0px 0px;
+			border:2px solid darkgray;
+			box-shadow:2px 2px lightgray;
+			min-width:750px;
+		}
+		.listTable tr>td{
+			border:1px solid darkgray;
+			font-size:13px;
+			text-align:center;
+			background: radial-gradient(white, #F6FFFF) fixed;
+			height:20px;
+		}
+		.listTable tr>th{
+			border:1px solid darkgray;
+			font-size:13px;
+			text-align:center;
+			background:lightgray;
+			padding-top:7px;
+			padding-botton:7px;
+			height:20px;
+		}
+	</style>
 </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -47,7 +71,7 @@
 					<hr>
 					
 					<div class="row">          
-						  <table class="table table-bordered" id="selectFundGoodsTable">
+						  <table class="table table-bordered listTable" id="selectFundGoodsTable">
 						  	<thead>
 						      <tr>
 						        <th>작품명</th>
@@ -75,15 +99,16 @@
 				success : function(data) {
 					console.log(data);
 					$tableBody = $("#selectFundGoodsTable tbody");
+					var ca = /\+/g;
 					for(var key in data){
 						var fund = data[key];
 						var $tr = $("<tr class='selectTr'>");
-						var $workIdTd = $("<td class='hideTd'>").text(fund.workId);
-						var $nameTd = $("<td>").text(decodeURIComponent(fund.workName));
-						var $wrDateTd = $("<td >").text(decodeURIComponent(fund.wrDate));
-						var $fcStartTd = $("<td>").text(decodeURIComponent(fund.fcStart));
-						var $fcFinishTd = $("<td>").text(decodeURIComponent(fund.fcFinish));
-						var $funStatus = $("<td>").text(decodeURIComponent(fund.funStatus));
+						var $workIdTd = $("<td class='hideTd'>").text((fund.workId));
+						var $nameTd = $("<td>").text(decodeURIComponent(fund.workName.replace(ca," ")));
+						var $wrDateTd = $("<td >").text(decodeURIComponent(fund.wrDate.replace(ca," ")));
+						var $fcStartTd = $("<td>").text(decodeURIComponent(fund.fcStart.replace(ca," ")));
+						var $fcFinishTd = $("<td>").text(decodeURIComponent(fund.fcFinish.replace(ca," ")));
+						var $funStatus = $("<td>").text(decodeURIComponent(fund.funStatus.replace(ca," ")));
 						
 						$tr.append($workIdTd);
 						$tr.append($nameTd);
@@ -96,6 +121,10 @@
 					$(".hideTd").hide();
 					$(".selectTr").click(function(){
 						console.log($(this).children(".hideTd").text());
+						var workId = $(this).children(".hideTd").text();
+						alert("test");
+						location.href = "<%= request.getContextPath() %>/selectManyInfo.fund?workId=" + workId 
+						+ "&&status=" + status;
 					}); 
 				},
 				error : function(data) {
@@ -131,6 +160,7 @@
 				case 4: status = "승인"; break;
 				case 5: status = "출시예정"; break;
 			}
+			var ca = /\+/g;
 			$.ajax({
 				url : "<%= request.getContextPath() %>/selectSortFund.fund",
 				type : "post",
@@ -144,11 +174,11 @@
 							var fund = data[key];
 							$tr = $("<tr class='selectTr'>");
 							var $workIdTd = $("<td class='hideTd'>").text(fund.workId);
-							var $nameTd = $("<td>").text(decodeURIComponent(fund.workName));
-							var $wrDateTd = $("<td>").text(decodeURIComponent(fund.wrDate));
-							var $fcStartTd = $("<td>").text(decodeURIComponent(fund.fcStart));
-							var $fcFinishTd = $("<td>").text(decodeURIComponent(fund.fcFinish));
-							var $funStatus = $("<td>").text(decodeURIComponent(fund.funStatus));
+							var $nameTd = $("<td>").text(decodeURIComponent(fund.workName.replace(ca," ")));
+							var $wrDateTd = $("<td>").text(decodeURIComponent(fund.wrDate.replace(ca," ")));
+							var $fcStartTd = $("<td>").text(decodeURIComponent(fund.fcStart.replace(ca," ")));
+							var $fcFinishTd = $("<td>").text(decodeURIComponent(fund.fcFinish.replace(ca," ")));
+							var $funStatus = $("<td>").text(decodeURIComponent(fund.funStatus.replace(ca," ")));
 							
 							$tr.append($workIdTd);
 							$tr.append($nameTd);
@@ -166,8 +196,10 @@
 							if(status == "승인"){
 								//alert("2차 등록 화면으로 넘어감");		
 								location.href = "<%= request.getContextPath() %>/selectFundCon.fund?workId=" + workId;
-							} else{
-								location.href = "<%= request.getContextPath() %>/views/author/fundingProductDetail.jsp";
+							} else {
+								alert("test");
+								location.href = "<%= request.getContextPath() %>/selectManyInfo.fund?workId=" + workId 
+										+ "&&status=" + status;
 							} //end if
 						});
 					}			
