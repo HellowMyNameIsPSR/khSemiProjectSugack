@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.kh.semi.funding.model.dao.FundingDao;
 import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.member.model.vo.Address;
 import com.kh.semi.member.model.vo.Member;
@@ -79,6 +80,7 @@ public class ProService {
 			commit(con);
 			bid = new ProDao().selectOnePurchase(con);
 			int result2 = new ProDao().insertBasketOption(con, bid, i);
+		
 			commit(con);
 		}else {
 			rollback(con);
@@ -135,6 +137,11 @@ public class ProService {
 		if(result > 0) {
 			result2 = new ProDao().insertOrderList(con, oList);
 			ArrayList<OrderList> list = new ProDao().selectOrderId(con, oList);
+			ArrayList<HashMap<String, Object>> fus = new ProDao().selectWid(con, oList);
+			if(fus.size() > 0) {
+				int result4 = new FundingDao().insertFUS(fus, con);
+			}
+			
 			if(list.size() > 0) {
 				int result3 = new ProDao().insertDelivery(list, con);
 				commit(con);

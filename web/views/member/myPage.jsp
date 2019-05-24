@@ -72,8 +72,15 @@
 						</table>
 					</div>
 				</header>
-				
+				<br><br>
 				<section id="contents">
+				<h2>주문내역</h2>
+				<hr>
+				<%if(blist.size() == 0)  {%>
+					<br><br>
+					<h2 align="center" style="color:gray">주문내역이 없습니다</h2>
+					<div align="center"><button class="btn btn-info btn-lg" onclick="goPurchase();">구매하러 가기</button></div>
+				<%}else { %>
 				<% for(int i = 0; i < blist.size(); i++) { %>
 			<table>
 				<tr style="height:50px; font-size:18px;">
@@ -83,7 +90,7 @@
 					<th></th>
 					<th></th>
 					<th>주문일 :</th>
-					<th><%=orderList.get(i).get("payDate") %></th>
+					<th><%-- <%=orderList.get(i).get("payDate") %> --%></th>
 				</tr>
 				<%for(int k = 0; k < orderList.size(); k++) {%>
 				<tr>
@@ -165,6 +172,7 @@
 				} %> 
 			</table>
 				<% } %>
+				<%} %>
 					<!-- Contents area -->
 				</section>
 						
@@ -180,6 +188,10 @@
 		</div>
 		
 		<script>
+			function goPurchase(){
+				location.href="<%=request.getContextPath()%>/selectProduct.pro";
+			}
+		
 			$(".confirm").click(function(){
 				if(confirm("구매확정을 하시겠습니까?")){
 					var odId = $(this).parent().children().eq(0).val();

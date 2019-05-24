@@ -219,7 +219,11 @@
 			          <li class="list-group-item">
 			          	<div>
 			          		<h5><%=list.get(i).get("authorName") %>작가님 작품</h5>
+			          		<%if(list.get(i).get("workType").equals("SALES")) {%>
 							<img src="uploadSalesImage/<%=list.get(i).get("changeName") %>" style="width:50px; height:50px;">
+							<%}else { %>
+							<img src="uploadFundingGoodsImg/<%=list.get(i).get("changeName") %>" style="width:50px; height:50px;">
+							<%} %>
 							<label><%=list.get(i).get("workName") %>/<%=ovalue %></label>
 							<div>
 								<label>수량 : <%=list.get(i).get("count") %>개</label>
@@ -366,10 +370,10 @@
 			    	
 			        var msg = '결제가 완료되었습니다.';
 			        
-			        /* msg += '고유ID : ' + rsp.imp_uid;
+			        /* /* msg += '고유ID : ' + rsp.imp_uid;
 			        msg += '상점 거래ID : ' + rsp.merchant_uid;
 			        msg += '결제 금액 : ' + rsp.paid_amount;
-			        msg += '카드 승인번호 : ' + rsp.apply_num; */
+			        msg += '카드 승인번호 : ' + rsp.apply_num; */ */
 			        
 			    	
 			    	<%-- $.ajax({
@@ -382,13 +386,14 @@
 					)}; --%>
 			        
 					var bidArr = new Array();
-					<%for(int i = 0; i < list.size(); i++) {%>
-						bidArr.push(<%=(int)list.get(i).get("basketId")%>);
+					<%for(int j = 0; j < list.size(); j++) {%>
+						bidArr.push(<%=(int)list.get(j).get("basketId")%>);
 					<%}%>
 					
 					
 					var point = $("#point").val();
 					var bundleCode = (new Date().getTime() + '<%=(int)(Math.random()*100000)+1%>');
+					
 					$.ajaxSettings.traditional = true;
 			        $.ajax({
 			        	url:"<%=request.getContextPath()%>/insertPayment.pro",

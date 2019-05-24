@@ -10,7 +10,8 @@
  	
  	ArrayList<WorkPic> imglist = (ArrayList<WorkPic>) request.getAttribute("imglist");
  	System.out.println("imglist: " + imglist);
-
+	
+ 	 
     
  %>
 <!DOCTYPE html>
@@ -147,35 +148,41 @@ hr{
    
       <!-- /.col-lg-8 -->
       <div class="col-sm-6 productDiv" style="height:480px; margin-top:30px">
+     
         <!-- <h1 class="font-weight-light">Business Name or Tagline!</h1>
         <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
         <a class="btn btn-primary" href="#">Call to Action!</a> -->
         <h5><%=hmap.get("workName") %></h5>
-         <h5>기본가격: <%=hmap.get("price") %>원</h5>
+         <h5>기본가격: <label id="price"><%=hmap.get("price") %></label>원</h5>
          <hr>
-         <h4>주문D-Day</h4>
+         <h4>~<%=hmap.get("fcFinish") %>까지 </h4>
+         <hr>
          <h4>모금액(원)</h4>
-         <h4>최소주문수량</h4>
-         <h4>최대주문수량</h4>
-         <h4>발송예정일은 2019년 12월 24일 | 배송비:3000원</h4>
+
+         <h4>발송예정일은 <%=hmap.get("deliDate") %> <br> 배송비:<label id="deliPrice"><%=hmap.get("deliPrice") %></label>원</h4>
          <hr>
-         <!-- <h5>옵션선택</h5>
-         <select id="sel1"style="width:350px; height:20px;">
-            <option value="op1">옵션1</option>
-            <option value="op2">옵션2</option>
-         </select> -->
-         
-         <hr>
-         
-         <div class="totalPrice" style="margin-top:20px;">
-            <p style="float:left; margin-top:10px; font-size:20px;">총가격: </p>
-            <p style="float:right; margin-top:10px; font-size:20px;">10000원</p>
-         </div>
-         <div class="btns" style="margin-top:5px; width:100%; height:50px;">
-         <button onclick="addLike()"style="color:white; margin-left:55%; float:left;width:20%; height:50px; border:2px solid lightblue; background:lightblue; border-radius:7px; font-size:16px;">관심상품</button>
-         <!-- <input type="image" src="../images/heart.png" style="width:80px; height:50px; border:2px solid pink; background:pink; border-radius:7px;"> -->
-         <button style="float:right; font-size:16px;width:20%; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"id="purchase">구매하기</button>
-         </div>
+         <form method="post" id="buy">
+         	 <input type="hidden" id="workId" name="workId" value="<%=work.get("workId")%>">
+			<div id="countArea">	
+					<label>수량</label>
+					<button type="button" onclick="plus();">+</button>
+					<input type="number" style="width:50px;" id="ea" name="ea" value="1" readonly>
+					<button type="button" onclick="minus();">-</button>
+			</div>
+        
+	         <hr>
+	         
+	         <div class="totalPrice" style="margin-top:20px;">
+	            <p style="float:left; margin-top:10px; font-size:20px;">총가격: </p>
+	            <p style="float:right; margin-top:10px; font-size:20px;" id="sum"></p>
+	         </div>
+	         <div class="btns" style="margin-top:5px; width:100%; height:50px;">
+	         <button type="button" onclick="addLike()"style="color:white; margin-left:55%; float:left;width:20%; height:50px; border:2px solid lightblue; background:lightblue; border-radius:7px; font-size:16px;">관심상품</button>
+	         <!-- <input type="image" src="../images/heart.png" style="width:80px; height:50px; border:2px solid pink; background:pink; border-radius:7px;"> -->
+	         <button style="float:right; font-size:16px;width:20%; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"id="purchase">구매하기</button>
+	         <button type="button" id="goBasket" class="btn" style="width:30%; margin-left:15px;height:60px; color:black;background:white;border:2px solid lightgray;font-size:16px;text-align:center">장바구니 담기</button>
+	         </div>
+     	</form>
      
     
       <!-- /.col-md-4 -->
@@ -232,9 +239,85 @@ hr{
      </div>
     <script>
     
+    
+    
+    function plus(){
+		document.getElementById("ea").value = (parseInt(document.getElementById("ea").value)+1);
+		var deliPrice = parseInt($("#deliPrice").text());
+		var price = parseInt($("#price").text());
+		var ea = parseInt($("#ea").val());
+		var sum = deliPrice + (price * ea);
+		
+		$("#sum").text(sum);
+		$("#sum").append("원");
+	}
+	function minus(){
+		document.getElementById("ea").value = (parseInt(document.getElementById("ea").value)-1);	
+		var deliPrice = parseInt($("#deliPrice").text());
+		var price = parseInt($("#price").text());
+		var ea = parseInt($("#ea").val());
+		var sum = deliPrice + (price * ea);
+		
+		$("#sum").text(sum);
+		$("#sum").append("원");
+	}
+    
     $(function(){
+
+    	<% if (("#deliPrice")!=null){ %>
+		var deliPrice = parseInt($("#deliPrice").text());
+		var price = parseInt($("#price").text());
+		var ea = parseInt($("#ea").val());
+		var sum = deliPrice + (price * ea);
+		
+		$("#sum").text(sum);
+		$("#sum").append("원");
+		
+		<% } %>
     	
+    	$("#goBasket").click(function(){
+			var workId = $("#workId").val();
+			var ea = parseInt($("#ea").val());
+			var text = "ajax";
+			
+			$.ajaxSettings.traditional = true;
+			$.ajax({
+				url:"<%=request.getContextPath()%>/fundingPurchase.fund",
+				data:{workId:workId, ea:ea, text:text},
+				type:"post",
+				success:function(data){
+					if(data == "ok"){
+					alert("장바구니에 작품이 담겼습니다.");							
+					}
+				},
+				error:function(data){
+					alert("로그인후 이용하세요");
+				}
+			});
+		});
+	
+		
+		
+		
+		$("#purchase").click(function(){
+				$("#buy").attr("action", "<%=request.getContextPath()%>/fundingPurchase.fund");
+				<%-- location.href="<%=request.getContextPath()%>/purchase.pro?ea=" + ea + "&workId=<%=work.get("workId")%>"; --%>
+		});
     	
+    	<%-- <%
+		Member loginUser2 = (Member)request.getSession().getAttribute("loginUser");
+	 	%>	
+    	var memberId = <%=loginUser2.getMemberId()%>;
+    	var workId = <%=work.get("workId")%>;
+    	$.ajax({
+    		url:"<%=request.getContextPath()%>/selectFundCon.fund",
+    		data:{workId:workId,memberId:memberId},
+    		type:"post",
+    		success:function(data){
+    			console.log("data"+data);
+    		}
+    	}) --%>
+
     	var workId = <%=work.get("workId")%>;
     	
 		$.ajax({
@@ -254,15 +337,15 @@ hr{
 					/* $div.append($h2);
 					$div.append($changeName); */
 				}
-					//$img = $("<img>").attr("src", imgList.workId);
-					<%-- <img src='<%=request.getContextPath()%>/uploadFundingGoodsImg/<%=hmap.get("changeName")%>'>") --%>
+					<%-- //$img = $("<img>").attr("src", imgList.workId);
+					<img src='<%=request.getContextPath()%>/uploadFundingGoodsImg/<%=hmap.get("changeName")%>'>")
 				/* 
 				$.each(data, function(index, value){
 					
 					var $workId = $(".detailImgs").text(value.workId);
 					console.log("시도해보자: "+ $workId);
 					
-				}) */
+				}) */ --%>
 				
 				
 			},error:function(){

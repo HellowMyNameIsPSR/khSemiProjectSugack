@@ -516,6 +516,33 @@ PreparedStatement pstmt = null;
 			close(pstmt);
 		}
 		return result;
+    
+	}
+
+
+	public int insertFUS(ArrayList<HashMap<String, Object>> fus, Connection con) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		//int
+		String query = prop.getProperty("insertFUS");
+		
+		try {
+			for(int i = 0; i < fus.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, (int)fus.get(i).get("wid"));
+				pstmt.setInt(2, (int)fus.get(i).get("wid"));
+				pstmt.setInt(3, (int)fus.get(i).get("mid"));
+				pstmt.setInt(4, (int)fus.get(i).get("wid"));
+				pstmt.setInt(5, (int)fus.get(i).get("wid"));
+				
+				result += pstmt.executeUpdate();
+			}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+      	return result;
 	}
 
 	public int updateCount(Connection con, int workId) {
@@ -530,12 +557,14 @@ PreparedStatement pstmt = null;
 			pstmt.setInt(2,workId);
 			
 			result = pstmt.executeUpdate();
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
+
 		System.out.println("update" + result);
 		return result;
 	}
@@ -815,4 +844,18 @@ PreparedStatement pstmt = null;
 		return list;
 	} //end method
 
+
 } //end class
+
+
+
+
+
+
+
+
+
+
+
+
+

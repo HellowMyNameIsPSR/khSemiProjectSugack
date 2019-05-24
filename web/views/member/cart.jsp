@@ -62,6 +62,7 @@
 							</tr> -->
 							<tr style="height:50px; font-size:18px;">
 								<th><input type="checkbox" id="selectAll"><label for="selectAll"></label></th>
+								<th>구분</th>
 								<th>이미지</th>
 								<th>상품정보</th>
 								<th>수량</th>
@@ -79,7 +80,13 @@
 								<td>
 									<input type="checkbox" id="select<%=i%>" class="select" name="select" value="<%=list.get(i).get("bid")%>"><label for="select<%=i%>"></label>
 								</td>
+								<%if(list.get(i).get("workType").equals("SALES")) {%>
+								<td>일반상품</td>
 								<td><img src="uploadSalesImage/<%=list.get(i).get("changeName") %>" style="width:50px; height:50px;"></td>
+								<%}else { %>
+								<td>펀딩상품</td>
+								<td><img src="uploadFundingGoodsImg/<%=list.get(i).get("changeName") %>" style="width:50px; height:50px;"></td>
+								<%} %>
 								<% for(int j = 0; j < olist.size(); j++) {
 									System.out.println((Integer)olist.get(j).getwId() + " + " + (Integer)list.get(i).get("bid"));
 								%>

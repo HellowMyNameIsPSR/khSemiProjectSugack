@@ -288,6 +288,7 @@ public class ProDao {
 				buyInfo.put("deliPrice", rset.getInt("DELI_PRICE"));
 				buyInfo.put("authorName", rset.getString("MEMBER_NAME"));
 				buyInfo.put("changeName", rset.getString("CHANGE_NAME"));
+				buyInfo.put("workType", rset.getString("WORK_KIND"));
 				list.add(buyInfo);
 			}
 			
@@ -405,6 +406,7 @@ public class ProDao {
 					buyInfo.put("deliPrice", rset.getInt("DELI_PRICE"));
 					buyInfo.put("authorName", rset.getString("MEMBER_NAME"));
 					buyInfo.put("changeName", rset.getString("CHANGE_NAME"));
+					buyInfo.put("workType", rset.getString("WORK_KIND"));
 					list.add(buyInfo);
 				}
 				
@@ -837,6 +839,42 @@ public class ProDao {
 		}
 		
 		System.out.println("Prodao High에서: " + list);
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectWid(Connection con, ArrayList<OrderList> oList) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectWid");
+		
+		try {
+			list = new ArrayList<HashMap<String, Object>>();
+			for(int i = 0; i < oList.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, oList.get(i).getBasketId());
+				
+				rset = pstmt.executeQuery();
+				if(rset.next()) {
+					hmap = new HashMap<String, Object>();
+					hmap.put("wid", rset.getInt("WID"));
+					hmap.put("price", rset.getInt("PRICE"));
+					hmap.put("mid", rset.getInt("MID"));
+					list.add(hmap);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
 		return list;
 	}
 
