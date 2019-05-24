@@ -29,12 +29,14 @@
 		border:2px solid lightgray;
 		box-shadow:2px 2px lightgray;
 		width:400px;
+		cursor:pointer;
+		margin-bottom:40px;
 	}
 	.summaryTable{
 		width:100%;
 		height:100%;
-	}
-	.summaryTable tr{
+		margin:0px 0px 0px 0px;
+		
 	}
 	.summaryTable tr>td{
 		height:20px;
@@ -46,13 +48,18 @@
 		border:2px solid lightgray;
 		box-shadow:2px 2px lightgray;
 		background: radial-gradient(white, #F6FFFF) fixed;
-	}
-	.postList{
+		cursor:pointer;
+		width:400px;
+		height:313px;
+		margin-bottom:30px;
 	}
 	.postList tr>td{
 		background: radial-gradient(white, #F6FFFF) fixed;
 		font-size:14px;
 		border:1px solid lightgray;
+	}
+	.menuTitle{
+		background:linear-gradient(to bottom, #F7FBFF, #CFE8FE) !important;
 	}
 </style>
 </head>
@@ -70,46 +77,46 @@
 					</a>
 				</header>
 				<section id="contents">
-					<header class="main">
+					<header class="main" style="margin-bottom:50px;">
 						<h2>판매자 HOME</h2>
 					</header>
 					<!-- Contents area -->
 					<table class="homeTalbe">
 						<tr>
 							<td>
-								<div class="topSmmary" align="center">
+								<div class="topSmmary" align="center" onclick="orderList()">
 									<table class="summaryTable">
 										<tr style="background: white;">
-											<td rowspan="3">주문배송조회</td>
+											<td rowspan="3" style="font-weight:bold;vertical-align:middle;font-size:15px;width:180px;text-align:center;">주문배송조회</td>
 											<td>배송전</td>
-											<td id="before"></td>
+											<td id="before" style="font-weight:bold;color:skyblue;"></td>
 										</tr>
 										<tr style="background: white;">
 											<td>배송중</td>
-											<td id="ing"></td>
+											<td id="ing" style="font-weight:bold;color:skyblue;"></td>
 										</tr>
 										<tr style="background: white;">
 											<td>배송완료</td>
-											<td id="after"></td>
+											<td id="after" style="font-weight:bold;color:skyblue;"></td>
 										</tr>
 									</table>
 								</div>
 							</td>
 							<td>
-								<div class="topSmmary" align="center">
+								<div class="topSmmary" align="center" onclick="exchangeList()">
 									<table class="summaryTable">
 										<tr style="background: white;">
-											<td rowspan="3">환불조회</td>
+											<td rowspan="3" style="font-weight:bold;vertical-align:middle;font-size:15px;width:180px;text-align:center;">환불조회</td>
 											<td>환불 요청</td>
-											<td id="before2"></td>
+											<td id="before2" style="font-weight:bold;color:skyblue;"></td>
 										</tr>
 										<tr style="background: white;">
 											<td>환불 승인 요청</td>
-											<td id="ing2"></td>
+											<td id="ing2" style="font-weight:bold;color:skyblue;"></td>
 										</tr>
 										<tr style="background: white;">
 											<td>환불 완료</td>
-											<td id="after2"></td>
+											<td id="after2" style="font-weight:bold;color:skyblue;"></td>
 										</tr>
 									</table>
 								</div>
@@ -117,27 +124,46 @@
 						</tr>
 						<tr>
 							<td>
-								<h4>판매 매출 통계</h4>
-								<div class="summaryDiv" id="chart_div"  style="cursor:pointer;width:400px;height:313px;" onClick = " location.href='saleStatistics.jsp'"></div>
+								<h3>판매 매출 통계</h3>
+								<div class="summaryDiv" id="chart_div" onClick = " location.href='saleStatistics.jsp'">
+								
+								
+								
+								
+								지현이형 여기닥 부탁부탁
+								
+								
+								
+								</div>
 							</td>
 							<td>
-								<h4>공지사항</h4>
-								<div class="summaryDiv" style="width:400px;height:313px;"></div>
+								<h3>공지사항</h3>
+								<div class="summaryDiv" onclick="ccNoticeBoard()">
+									<table class="postList"  style="margin:0px 0px 0px 0px">
+										<tr align="center">
+											<td class="menuTitle"> NO.</td>
+											<td class="menuTitle" colspan="2"><strong>공지사항</strong></td>
+										</tr>
+										<tbody id="tbody2">
+										
+										</tbody>
+									</table>
+								</div>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<h4>펀딩 매출 통계</h4>
-								<div class="summaryDiv" style="cursor:pointer;width:400px;height:313px;"  onClick = " location.href='fundingStatistics.jsp'"></div>
+								<h3>펀딩 매출 통계</h3>
+								<div class="summaryDiv" onClick=" location.href='fundingStatistics.jsp'"></div>
 							</td>
 							<td>
-								<h4>최근 문의</h4>
-								<div class="summaryDiv" style="width:400px;height:313px;">
-									<table class="postList">
-										<tr align="center">
-											<td style="width:50px;"></td>
-											<td><strong>상품명</strong></td>
-											<td style="width:100px;"><strong>문의 제목</strong></td>
+								<h3>최근 문의</h3>
+								<div class="summaryDiv" onclick="qnaList()">
+									<table class="postList"  style="margin:0px 0px 0px 0px">
+										<tr align="center" style="">
+											<td class="menuTitle" style="width:50px;"><strong>NO.</strong></td>
+											<td class="menuTitle"><strong>상품명</strong></td>
+											<td class="menuTitle" style="width:100px;"><strong>문의 제목</strong></td>
 										</tr>
 										<tbody id="tbody">
 										
@@ -154,6 +180,20 @@
 		<%@ include file="authorMenuBar.jsp" %>
 	</div>
 	<script>
+		function orderList() {
+			location.href="<%=request.getContextPath()%>/selectOrderList.wo";
+		}
+		function exchangeList() {
+			location.href="<%=request.getContextPath()%>/selectExchangeList.wo";
+		}
+		function ccNoticeBoard() {
+			location.href="<%=request.getContextPath()%>/ccNoticeBoard.bo";
+		}
+		function qnaList() {
+			location.href="<%=request.getContextPath()%>/selectQnaList.wo";
+		}
+		
+		
 		$(document).ready(function() {
 			var num = 0;
 			$.ajax({
@@ -166,7 +206,7 @@
 							"<tr>" +
 								'<td style="text-align:center;">' + num + '</td>' + 
 								'<td>' + data.list[key].workName + '</td>' + 
-								'<td>' + data.list[key].title + '</td>' +
+								'<td style="text-align:center;">>' + data.list[key].title + '</td>' +
 							'</tr>'
 						);
 					}
@@ -190,9 +230,24 @@
 					$("#after2").append(data[2] + '건');
 				}
 			});
+			$.ajax({
+				url:"<%=request.getContextPath()%>/selectNoticeMainList.wo",
+				type:"get",
+				success:function(data){
+					for(var key in data){
+						num++;
+						if(key <6){
+							$("#tbody2").append(
+								"<tr>" +
+									'<td style="text-align:center; width:50px;">' + num + '</td>' + 
+									'<td>' + data[key].title + '</td>' +
+								"</tr >"
+							);
+						}
+					}
+				}
+			});
 		});
-	</script>
-	<script>
 		google.charts.load('current', {'packages':['corechart']});
 		google.charts.setOnLoadCallback(chart);
 		function chart(){

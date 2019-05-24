@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.semi.member.model.dao.MemberDao;
+import com.kh.semi.member.model.vo.Address;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.work.model.dao.WorkDao;
 import com.kh.semi.work.model.vo.PageInfo;
@@ -502,6 +503,7 @@ public class WorkService {
 		int after = new WorkDao().orderCountAfter(con, memberId);
 		
 		ArrayList<Integer> list = new ArrayList<Integer>();
+		
 		list.add(before);
 		list.add(ing);
 		list.add(after);
@@ -526,7 +528,35 @@ public class WorkService {
 		
 		return list;
 	}
-	
+	public int insertAddress(Address add) {
+		Connection con = getConnection();
+		int result = 0;
+		
+		int result1 =new WorkDao().deleteAdress(con, add);
+		
+		if(result1 > 0) {
+			int result2 = new WorkDao().insertAddress(con, add);
+			if(result1 > 0 && result2 > 0 ) {
+				commit(con);
+				result = 1;
+			}else {
+				rollback(con);
+				result = 0;
+			}
+		}
+		close(con);
+		
+		return result;
+	}
+	public Address selectWorkAddress(String memberId) {
+		Connection con = getConnection();
+		
+		Address Address = new WorkDao().selectWorkAddress(con, memberId);
+		
+		close(con);
+		
+		return Address;
+	}
 	
 }
 
