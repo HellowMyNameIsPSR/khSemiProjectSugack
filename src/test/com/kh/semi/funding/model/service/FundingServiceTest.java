@@ -105,9 +105,15 @@ public class FundingServiceTest {
 	public void testSelectWorkPicFile() {
 		assertNotNull(fundingService.selectWorkPicFile(2, 47));
 	}
-	
+	@Ignore
 	@Test
 	public void testUpdateFundingAndAuthoAcc() {
 		assertEquals(fundingService.updateFundingAndInsertAcc(fund, authorAcc), 1);
 	}
+	
+	@Test
+	public void testSelectUserFundingProDetail() {
+		assertNotNull(fundingService.selectUserFundingProDetail(17907, 8502, "대기"));
+	}
+	
 } //end class
