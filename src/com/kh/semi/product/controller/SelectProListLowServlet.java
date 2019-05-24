@@ -4,32 +4,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import com.google.gson.Gson;
-import com.kh.semi.funding.model.vo.WorkPic;
 import com.kh.semi.product.model.service.ProService;
-import com.kh.semi.product.model.vo.Product;
 
 /**
- * Servlet implementation class SelectProListPopServlet
+ * Servlet implementation class SelectProListLowServlet
  */
-@WebServlet("/selectProListPop.pro")
-public class SelectProListPopServlet extends HttpServlet {
+@WebServlet("/selectProListLow.pro")
+public class SelectProListLowServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectProListPopServlet() {
+    public SelectProListLowServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,10 +31,9 @@ public class SelectProListPopServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ArrayList<HashMap<String,Object>> list = new ProService().selectProductListLow();
 		
-		ArrayList<HashMap<String,Object>> list = new ProService().selectProductListPop();
-		
-		System.out.println("popServlet : "+ list);
+		System.out.println("listServlet : "+ list);
 		
 		if(list != null) {
 			request.setAttribute("list", list);
@@ -50,29 +42,6 @@ public class SelectProListPopServlet extends HttpServlet {
 			request.setAttribute("msg", "알수없는 오류");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-		
-		/*JSONArray result = new JSONArray();
-		
-		JSONObject prolist = null;
-
-		   for(int i=0; i<list.size();i++) {
-			   prolist = new JSONObject();
-			   HashMap<String, Object> hlist = list.get(i);
-
-			  
-			   prolist.put("workContent", hlist.get("workContent"));
-			   prolist.put("workName", hlist.get("workName"));
-			   prolist.put("price", hlist.get("price"));
-			   prolist.put("category", hlist.get("category"));
-			   prolist.put("filePath", hlist.get("filePath"));
-			   prolist.put("changeName", hlist.get("changeName"));
-			   
-			  
-		   
-			   result.add(prolist);
-		   }
-		response.setContentType("application/json");
-	    new Gson().toJson(result, response.getWriter());*/
 	}
 
 	/**

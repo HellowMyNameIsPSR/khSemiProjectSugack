@@ -5,8 +5,8 @@
     	System.out.println("list : " + list);
     	
     	
-    	ArrayList<HashMap<String, Object>> poplist = (ArrayList<HashMap<String, Object>>) request.getAttribute("poplist"); 
-    	System.out.println("poplist : " + poplist); 
+    	/* ArrayList<HashMap<String, Object>> poplist = (ArrayList<HashMap<String, Object>>) request.getAttribute("poplist"); 
+    	System.out.println("poplist : " + poplist);  */
     %>
 <!DOCTYPE html>
 <html>
@@ -120,8 +120,9 @@
 
 <div class="container">
     <select id="order"style="width:100%; height:30px; margin-top:10px;">
+    	<option value="not" disabled selected></option>
 		<option value="pop">인기순</option>
-		<option value="new" selected>최신순</option>
+		<option value="new">최신순</option>
 		<option value="low">낮은가격순</option>
 		<option value="high">높은가격순</option>
 	</select>
@@ -142,8 +143,8 @@
 						<tr><td colspan="2" class="cFont"><%=hmap.get("category")%></td></tr>
 						<tr><td colspan="2" class="nFont"><%=hmap.get("workName")%></td></tr>
 						<tr>
-							<td class="lFont">좋아요</td>
-							<td><span style="margin-left:-130px; color:red; text-align:right;"class="glyphicon glyphicon-heart"></span></td></tr>
+							<td class="lFont">조회수</td>
+							<td><span style="margin-left:-130px; color:red; text-align:right;"class="glyphicon glyphicon-heart"><%=hmap.get("wcount")%></span></td></tr>
 					</table>
 					<br>
 				</div>
@@ -166,23 +167,17 @@
 		if($("#order").val()=='pop'){
 			console.log("하이");
 					
-				$.ajax({
+				location.href="<%=request.getContextPath()%>/selectProListPop.pro";
 			
-					url:"<%=request.getContextPath()%>/selectProListPop.pro",
-					type:"post",
-					success:function(data){
-						alert("성공");
-						
-						
-						
-					},error:function(){
-						
-						alert("실패!");	
-					}
-					
-				})
+				
 		
-		}//else if
+		}else if($("#order").val()=='low'){
+			    location.href="<%=request.getContextPath()%>/selectProListLow.pro";
+		}else if($("#order").val()=='new'){
+				location.href="<%=request.getContextPath()%>/selectProListNew.pro";
+		}else if($("#order").val()=='high'){
+				location.href="<%=request.getContextPath()%>/selectProListHigh.pro";
+		}
 	
 		
 		

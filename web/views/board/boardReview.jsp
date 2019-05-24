@@ -20,7 +20,7 @@
 		border:1px solid lightgray;
 		width:80%;
 		height:420px;
-		background:#AEE0FF;
+		background:white;
 		margin-left:10px;
 		padding:5px;
 		padding-left:10px;
@@ -88,13 +88,8 @@
 							<img src="../images/tvxq.jpg" style="width:100px; height:100px;">
 						</div> -->
 						<div class="proName">
-							<%-- <label style="font-size:20px">작품명 </label>
-							<label> <%=review.getWorkName()%></label>
-							<label style="font-size:20px">작성날짜</label>
-							<label> <%=review.getWriteDate() %></label>
-							<label style="font-size:20px">별점 </label>
-							<label><%=review.getStarPoint() %></label> --%>
-							<label style="font-size:20px">리뷰종류  | <%=review.getWorkKind() %></label>
+							
+							<label style="font-size:20px" class="type">리뷰종류  | <%=review.getWorkKind() %></label>
 							<label style="font-size:20px">작품명  | <%=review.getWorkName()%></label>
 							<label style="font-size:20px">작성날짜 | <%=review.getWriteDate() %></label>
 							<label style="font-size:20px">별점 | <%=review.getStarPoint() %> </label>
@@ -138,6 +133,9 @@
 
 			
 			$(function(){
+			
+			
+				
 				
 				
 			

@@ -243,6 +243,39 @@ public class ProService {
 		return list;
 	}
 
+	//낮은가격순 정렬
+	public ArrayList<HashMap<String, Object>> selectProductListLow() {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new ProDao().selectProductListLow(con);
+		close(con);
+		
+		System.out.println("낮은가격순 정렬 Service : " + list);
+		return list;
+		
+	}
+
+
+	//최신순 정렬
+	public ArrayList<HashMap<String, Object>> selectProductListNew() {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new ProDao().selectProductListNew(con);
+		close(con);
+		
+		System.out.println("최신순 정렬 Service : " + list);
+		return list;
+	}
+
+
+	//높은 가격순 정렬
+	public ArrayList<HashMap<String, Object>> selectProductListHigh() {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new ProDao().selectProductListHigh(con);
+		close(con);
+		
+		System.out.println("높은가격순  정렬 Service : " + list);
+		return list;
+	}
+
 
 	
 
