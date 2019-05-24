@@ -4,9 +4,12 @@
 
 <%
    
-	Member loginUser2 = (Member) request.getSession().getAttribute("loginUser");
+    int bno = (int)request.getAttribute("bno");
+    int memberId = (int)request.getAttribute("memberId");
+    Member loginUser2 = (Member) request.getSession().getAttribute("loginUser");
 	ArrayList<authorComent> list = (ArrayList<authorComent>) request.getAttribute("list");
-	int bno = (int)list.get(0).getBno();
+	
+	
 %>
 
 
@@ -85,19 +88,19 @@
 
 
 					<div class="container">
-
+			
+			
 
 						<div>
 							<p>관심 가는 작가 들에게 응원에 메세지를 남겨 주세요</p>
 							<p>Tip: 관련작가들이 성실이 댓글에 성실히 답해드려요</p>
 							<p>
-								<%--  가져온 멤버 bno :
-								<%=list.get(0).getBno() %>  --%>
+							
 							</p>
 
 
 						</div>
-						
+						<%if(loginUser2!=null){ %>
 						
 						    <div class="row"
 								style="border: 1px solid black; width: 1100px; height: 200px;">
@@ -119,6 +122,7 @@
 								</div>
 
 							</div>
+						<%-- <%}else if(loginUser2==null || loginUser2!=null){ %>	 --%>
 						    
 
 						  
@@ -127,8 +131,6 @@
 						      for(authorComent ac : list){ 
 						      %>
 						      
-						          
-						          
 						
                               
                               <div class="row"
@@ -155,27 +157,45 @@
 						      	
 							}%>
                               						
-                                              
+                        <%}else{ %>        
+							
+							  <%if(list.size() >0){ 
+						      int num = 1;
+						      for(authorComent ac : list){ 
+						      %>
+						      
+						
+                              
+                              <div class="row"
+								style="border: 1px solid black; width: 1100px; height: 200px;">
+
+								<div class="nick"
+									style="width: 100%; height: 50px; padding: 5px;">
+									<P><%= ac.getEmail()%></P>
+								</div>
+								 
+								<div class="content"
+									style="border: 5px solid black; width: 900px; height: 100px; padding: 5px; margin-left: 20px;">
+									<p><%=ac.getCntent() %></p>
+								</div>
+								<!-- <div class="btn"
+									style="float: right; width: 120px; height: 100px; margin-left: 10px;">
+									<button id="addReply" style="width: 100px; height: 100px;">등록</button>
+								</div>
+
+ -->							</div> 
+							
+							<%   num++;
+							   }
+						      	
+							}%>
+							
 							
 					
+						<%} %>
 
-
-
-						<div class="row">
-							<div class="col" style="margin: 0 auto;">
-
-								<ul class="pagination">
-									<li class="page-item"><a class="page-link" href="#"><</a></li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">4</a></li>
-									<li class="page-item"><a class="page-link" href="#">5</a></li>
-									<li class="page-item"><a class="page-link" href="#">></a></li>
-								</ul>
-							</div>
-						</div>
-
+					
+						
 
 
 
@@ -192,7 +212,7 @@
 		</div>
 
 
-	</div>
+	</div> 
 	
 	
 	<div id="sidebar" >
@@ -207,31 +227,33 @@
 				<h2>Menu</h2>
 			</header>
 			<ul>
-				<li><a href="views/member/myPage.jsp">주문내역</a></li>
+				<li><a href="<%=request.getContextPath()%>/selectAuthorStory.au?memberId=<%=memberId%>&bno=<%=bno%>">작가스토리</a></li>
+				<li><a href="<%=request.getContextPath()%>/comMent.as?bno=<%=bno%>&memberId=<%=memberId%>"> 응원하기</a></li>
+				
 				<li>
-					<span class="opener">좋아요리스트</span>
+					<span class="opener"> 핀메상품</span>
 					<ul>
-						<li><a href="views/member/likeAuthor.jsp">관심작가</a>
-						<li><a href="views/member/likeFundingPro.jsp">관심 펀딩 상품</a>
-						<li><a href="likePro.jsp">관심 판매상품</a>
+						<li><a href="views/member/likeAuthor.jsp">펀딩상품</a>
+						<li><a href="views/member/likeFundingPro.jsp">판매상품</a>
+						<li><a href="likePro.jsp">판매예정상품</a>
 					</ul>
 				</li>
-				<li>
+				<!-- <li>
 					<span class="opener">게시글관리</span>
 					<ul>
 						<li><a href="views/member/boardReview.jsp">응원글 및 리뷰</a>
 						<li><a href="views/member/boardQna.jsp">문의</a>
 					</ul>
 				</li>
-				<li><a href="views/member/boardPoint.jsp">적립금 사용 내역</a></li>
-				<li>
+				<li><a href="views/member/boardPoint.jsp">적립금 사용 내역</a></li> -->
+				<%-- <li>
 					<span class="opener">개인정보</span>
 					<ul>
 						<li><a href="views/member/modifyMe.jsp">개인정보 수정</a>
-						<%-- <li><a href="<%=request.getContextPath()%>/addressList.me?num=<%=loginUser.getMemberId()%>">내 주소 관리</a> --%>
+						<li><a href="<%=request.getContextPath()%>/addressList.me?num=<%=loginUser.getMemberId()%>">내 주소 관리</a>
 						<li><a href="views/member/withDrawal.jsp">회원 탈퇴</a>
 					</ul>
-				</li>
+				</li> --%>
 				
 			</ul>
 		</nav>
@@ -240,7 +262,9 @@
 	</div>
 </div>
 	</div>
-
+	<%-- <%}else{} %> --%>
+	
+<%if(loginUser2!=null){ %>
 	<script>
 		$(function(){
 			$("#addReply").click(function(){
@@ -255,7 +279,12 @@
 					data:{writer:writer, bno:bno, content:content}, 
 					type:"post", 
 					success:function(data){
-						console.log(data);
+						if(data == "ok") {
+							alert("댓글 작성이 완료되었습니다");
+							location.reload();
+						}else {
+							console.log("FAIL");
+						}
 					}
 					
 				}) 
@@ -269,7 +298,8 @@
 	
 	
 	</script>
-	 
+	<%}%>
+	  
 <script src="views/assets/js/jquery.min.js"></script>
 <script src="views/assets/js/browser.min.js"></script>
 <script src="views/assets/js/breakpoints.min.js"></script>

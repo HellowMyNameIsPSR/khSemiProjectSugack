@@ -32,12 +32,13 @@ public class SelectAuthorStoryServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 작가 스토리 페이지로 연결 
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		int bno= Integer.parseInt(request.getParameter("bno"));
 		
 		
 		
 		System.out.println("서블릿 memberId:"+memberId);
 		
-		HashMap<String,Object> hmap =new AuthorPageSerview().selectAuthorStory(memberId);
+		HashMap<String,Object> hmap =new AuthorPageSerview().selectAuthorStory(memberId,bno);
 		
 		Board b = (Board) hmap.get("board");
 		

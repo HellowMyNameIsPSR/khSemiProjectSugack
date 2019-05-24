@@ -104,10 +104,10 @@ public class AuthorPageSerview {
 		return b;
 	}*/
 
-	public HashMap<String, Object> selectAuthorStory(int memberId) {
+	public HashMap<String, Object> selectAuthorStory(int memberId, int bno) {
 		
 		Connection con = getConnection();
-		HashMap<String,Object> hmap = new AuthorPageDao().selectAuthorStory(con, memberId);
+		HashMap<String,Object> hmap = new AuthorPageDao().selectAuthorStory(con, memberId,bno);
 		
 		System.out.println("memberId:(서비스)"+memberId);
 		System.out.println("hmap: 서비스:"+hmap);
@@ -146,11 +146,11 @@ public class AuthorPageSerview {
 		return result;
 	}
 
-	public ArrayList<authorComent> SelectAuthorComent(int bno) {
+	public ArrayList<authorComent> SelectAuthorComent(int bno, int memberId) {
 	
 		Connection con = getConnection();
 		
-		ArrayList<authorComent> list = new AuthorPageDao().SelectComent(bno ,con);
+		ArrayList<authorComent> list = new AuthorPageDao().SelectComent(bno ,con ,memberId);
 			
 		System.out.println("댓글서비스 list" +list);
 		
