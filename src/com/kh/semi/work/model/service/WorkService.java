@@ -61,7 +61,6 @@ public class WorkService {
 		
 		int result3 = new WorkDao().insertOption(con, workOption);
 		
-		System.out.println("옵션 서비스 값 : " + result3);
 		if(result1 > 0 && result2 == workPic.size() && result3 == workOption.size()) {
 			commit(con);
 			result = 1;
@@ -176,7 +175,6 @@ public class WorkService {
 		
 		ArrayList<HashMap<String, Object>> list = 
 				new WorkDao().selectImageList(con);
-		System.out.println("service : " + list.size());
 		close(con);
 		
 		
@@ -468,7 +466,7 @@ public class WorkService {
 		return listCount;
 	}
 
-	public int updateDeli(String memberId, String deliCompany, String invNum, String deliStatus, String odId) {
+	public int updateDeli(String memberId, String deliCompany, int invNum, String deliStatus, String odId) {
 		Connection con = getConnection();
 		
 		int result = new WorkDao().updateDeli(con, memberId, deliCompany, invNum, deliStatus, odId);
@@ -481,6 +479,52 @@ public class WorkService {
 		close(con);
 		
 		return result;
+	}
+	public int updateExchage(String refundStat, String refundId) {
+		Connection con = getConnection();
+		
+		int result = new WorkDao().updateExchage(con, refundStat, refundId);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
+	}
+	public ArrayList<Integer> orderCount(String memberId) {
+		Connection con = getConnection();
+		
+		int before = new WorkDao().orderCountBefore(con, memberId);
+		int ing = new WorkDao().orderCountIng(con, memberId);
+		int after = new WorkDao().orderCountAfter(con, memberId);
+		
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		list.add(before);
+		list.add(ing);
+		list.add(after);
+		
+		close(con);
+		
+		return list;
+	}
+	public ArrayList<Integer> exchangeCount(String memberId) {
+		Connection con = getConnection();
+		
+		int before = new WorkDao().exchangeCountBefore(con, memberId);
+		int ing = new WorkDao().exchangeCountIng(con, memberId);
+		int after = new WorkDao().exchangeCountAfter(con, memberId);
+		
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		list.add(before);
+		list.add(ing);
+		list.add(after);
+		
+		close(con);
+		
+		return list;
 	}
 	
 	

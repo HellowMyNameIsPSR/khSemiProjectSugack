@@ -41,7 +41,6 @@
 								<tr>
 									<td class="menuA" onClick = "location.href='<%=request.getContextPath()%>/selectOrderList.wo'">주문조회</td>
 									<td class="menuA" onClick = "location.href='<%=request.getContextPath()%>/selectExchangeList.wo'">환불관리</td>
-									<td class="menuA" onClick = "location.href=''">교환관리</td>
 								</tr>
 							</table>
 						</div>
@@ -78,14 +77,15 @@
 					<div class="manageSaleTable">
 						<table class="listTable">
 							<tr>
-								<th style="width:40px;"><strong></strong></th>
 								<th style="width:40px;"><strong>NO.</strong></th>
-								<th><strong>환불 코드</strong></th>
+								<th style="width:100px;"><strong>환불 코드</strong></th>
 								<th><strong>상품명</strong></th>
-								<th><strong>수량</strong></th>
-								<th><strong>환불요청일</strong></th>
-								<th><strong>구매자명</strong></th>
-								<th><strong>환불처리상태</strong></th>
+								<th style="width:50px;"><strong>수량</strong></th>
+								<th style="width:80px;"><strong>가격</strong></th>
+								<th style="width:150px;"><strong>구매자</strong></th>
+								<th style="width:150px;"><strong>환불요청일</strong></th>
+								<th style="width:150px;"><strong>처리상태</strong></th>
+								<th style="width:120px;"><strong>환불요청</strong></th>
 							</tr>
 							<tbody id="tbody">
 								<%
@@ -95,17 +95,15 @@
 									num++;
 								 %>
 								<tr>
-									<td style="padding:0px 0px 10px 15px; font-size:12px; text-align:left; width:30px;">
-										<input type="radio" id="<%= num %>" name="cid" value="">
-										<label for="<%= num %>" style=""></label>
-									</td>
-									<td data-toggle="modal" data-target="#myModal<%= num %>"><%= num %></td>
-									<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("refundId") %></td>
-									<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("workName") %></td>
-									<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("count") %></td>
-									<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("refundEnddate") %></td>
-									<td data-toggle="modal" data-target="#myModal<%= num %>"><%= hmap.get("memberName") %></td>
-									<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"><%= hmap.get("refundDate") %></td>
+									<td><%= num %></td>
+									<td><%= hmap.get("refundId") %></td>
+									<td><%= hmap.get("workName") %></td>
+									<td><%= hmap.get("count") %></td>
+									<td><%= hmap.get("refundPrice") %></td>
+									<td><%= hmap.get("memberName") %></td>
+									<td><%= hmap.get("refundDate") %></td>
+									<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"><%= hmap.get("refundStat") %></td>
+									<td><button data-toggle="modal" data-target="#myModal<%= num %>" type="button" class="postBtn all-btn" style="height:30px;width:80px;padding:0px 0px 0px 0px;;">바로가기</button></td>
 								</tr>
 								<!-- <script>
 									$("#waitBtn").click(function(){
@@ -125,42 +123,53 @@
 						<div class="modal-dialog">
 							<!-- Modal content-->
 							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h2 class="modal-title">환불 신청 사유</h2>
-								</div>
-								<div class="modal-body">
-									<table class="model-table">
-										<tr>
-											<td style="font-weight:bold; width:100px; font-size:17px;">상품명</td>
-											<td colspan="3"><%=hmap.get("workName")%></td>
-										</tr>
-										<tr>
-										</tr>
-										<tr>
-											<td colspan="4" style="font-weight:bold; text-align:center; font-size:17px;">환불 사유</td>
-										</tr>
-										<tr>
-											<td colspan="4" style="height:300px;"><%=hmap.get("refundReason")%></td>
-										</tr>
-										<tr>
-											<td style="font-weight:bold; font-size:17px;">수량</td>
-											<td><%=hmap.get("count")%> 개</td>
-											<td style="font-weight:bold; font-size:17px;">환불 요청일</td>
-											<td><%=hmap.get("refundEnddate")%></td>
-										</tr>
-										<tr>
-											<td style="font-weight:bold; font-size:17px;">환불코드</td>
-											<td><%=hmap.get("refundId")%></td>
-											<td style="font-weight:bold; font-size:17px;">구매자명님</td>
-											<td><%=hmap.get("memberName")%></td>
-										</tr>
-									</table>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal">돌아가기</button>
-								</div>
+								<form id="salesFrom"action="<%=request.getContextPath()%>/updateExchange.wo"method="post">
+									<input type="hidden" name="refundId" value="<%=hmap.get("refundId")%>">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h2 class="modal-title">환불 신청 사유</h2>
+									</div>
+									<div class="modal-body">
+										<table class="model-table">
+											<tr>
+												<td style="font-weight:bold; width:100px; font-size:17px;">상품명</td>
+												<td colspan="3"><%=hmap.get("workName")%></td>
+											</tr>
+											<tr>
+											</tr>
+											<tr>
+												<td colspan="4" style="font-weight:bold; text-align:center; font-size:17px;">환불 사유</td>
+											</tr>
+											<tr>
+												<td colspan="4" style="height:300px;"><%=hmap.get("refundReason")%></td>
+											</tr>
+											<tr>
+												<td style="font-weight:bold; font-size:17px;">수량</td>
+												<td><%=hmap.get("count")%> 개</td>
+												<td style="font-weight:bold; font-size:17px;">환불 요청일</td>
+												<td><%=hmap.get("refundDate")%></td>
+											</tr>
+											<tr>
+												<td style="font-weight:bold; font-size:17px;">환불코드</td>
+												<td><%=hmap.get("refundId")%></td>
+												<td style="font-weight:bold; font-size:17px;">구매자명님</td>
+												<td><%=hmap.get("memberName")%></td>
+											</tr>
+											<tr>
+												<td colspan="1" style="font-weight:bold; font-size:17px;">환불 요청</td>
+												<td colspan="3">
+													<select name="refundStat">
+															<option value="환불 승인 요청">환불 승인 요청</option>
+															<option value="환불 거절">환불 거절</option>
+													</select>
+												</td>
+											</tr>
+										</table>
+									</div>
+									<div class="modal-footer">
+										<button type="submit" class="btn btn-default" >신청하기</button>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -266,17 +275,15 @@
 										num++;
 										$("#tbody").append(
 											"<tr>" +
-												'<td style="padding:0px 0px 10px 15px; font-size:12px; text-align:left; width:30px;">' +
-													'<input type="radio"' + 'id="' + num + '"'+ 'name="cid">'  +
-													'<label for="' + num + '" style=""></label>'  +
-												'</td>'  +
-												'<td data-toggle="modal" data-target="#myModal'+ num +'"> ' + num + "</td>" +
-												'<td data-toggle="modal" data-target="#myModal'+ num +'"> ' + data.list[key].refundId + '</td>' + 
-												'<td data-toggle="modal" data-target="#myModal'+ num +'"> ' + data.list[key].workName + '</td>' + 
-												'<td data-toggle="modal" data-target="#myModal'+ num +'"> ' + data.list[key].count + '</td>' + 
-												'<td data-toggle="modal" data-target="#myModal'+ num +'"> ' + data.list[key].refundEnddate + ' </td>' + 
-												'<td data-toggle="modal" data-target="#myModal'+ num +'"> ' + data.list[key].memberName + '</td>' + 
-												'<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"> ' + data.list[key].refundDate + '</td>' + 
+												'<td> ' + num + "</td>" +
+												'<td> ' + data.list[key].refundId + '</td>' + 
+												'<td> ' + data.list[key].workName + '</td>' + 
+												'<td> ' + data.list[key].count + '</td>' + 
+												'<td> ' + data.list[key].refundPrice + '</td>' + 
+												'<td> ' + data.list[key].memberName + '</td>' + 
+												'<td> ' + data.list[key].refundDate + '</td>' + 
+												'<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"> ' + data.list[key].refundStat + '</td>' + 
+												'<td><button data-toggle="modal" data-target="#myModal<'+num+'" type="button" class="postBtn all-btn" style="height:30px;width:80px;padding:0px 0px 0px 0px;;">바로가기</button></td>'+ 
 											'</tr>'
 										);
 										$("#modalArea").append(
@@ -364,37 +371,34 @@
 									for(var key in data.list){
 										num++;
 										$("#tbody").append(
-											"<tr>" +
-												'<td style="padding:0px 0px 10px 15px; font-size:12px; text-align:left; width:30px;">' +
-													'<input type="radio"' + 'id="<%= num %>"'+ 'name="cid">'  +
-													'<label for="<%= num %>" style=""></label>'  +
-												'</td>'  +
+												"<tr>" +
 												'<td> ' + num + "</td>" +
 												'<td> ' + data.list[key].refundId + '</td>' + 
 												'<td> ' + data.list[key].workName + '</td>' + 
 												'<td> ' + data.list[key].count + '</td>' + 
-												'<td> ' + data.list[key].refundEnddate + ' </td>' + 
+												'<td> ' + data.list[key].refundPrice + '</td>' + 
 												'<td> ' + data.list[key].memberName + '</td>' + 
-												'<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"> ' + data.list[key].refundDate + '</td>' + 
+												'<td> ' + data.list[key].refundDate + '</td>' + 
+												'<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"> ' + data.list[key].refundStat + '</td>' + 
+												'<td><button data-toggle="modal" data-target="#myModal<%= num %>" type="button" class="postBtn all-btn" style="height:30px;width:80px;padding:0px 0px 0px 0px;;">바로가기</button></td>'+ 
 											'</tr>'
 										);
 										
 										$("#modalArea").append(
-												'<div class="modal fade" id="myModal' + num + '" role="dialog"><div class="modal-dialog">' +
-												'<div class="modal-content"><div class="modal-header">' + 
-												'<button type="button" class="close" data-dismiss="modal">&times;</button>' +
-												'<h2 class="modal-title">환불 신청 사유</h2></div><div class="modal-body">' +
-												'<table class="model-table"><tr><td style="font-weight:bold; width:100px; font-size:17px;">상품명</td>' +
-												'<td colspan="3">' + data.list[key].workName + '</td></tr><tr></tr><tr>' +
-												'<td colspan="4" style="font-weight:bold; text-align:center; font-size:17px;">환불 사유</td></tr><tr>' +
-												'<td colspan="4" style="height:300px;">' + data.list[key].refundEnddate + '</td></tr><tr>' +
-												'<td style="font-weight:bold; font-size:17px;">수량</td><td>' + data.list[key].count + '개</td>' +
-												'<td style="font-weight:bold; font-size:17px;">환불 요청일</td><td>' + data.list[key].refundEnddate + '</td>' +
-												'</tr><tr><td style="font-weight:bold; font-size:17px;">환불코드</td><td>' + data.list[key].refundId + '</td>' +
-												'<td style="font-weight:bold; font-size:17px;">구매자명님</td><td>' + data.list[key].memberName + '</td></tr>' +
-												'</table></div><div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">' +
-												'돌아가기</button></div></div></div></div>'
-											);
+											'<div class="modal fade" id="myModal' + num + '" role="dialog"><div class="modal-dialog">' +
+											'<div class="modal-content"><form id="salesFrom"action="<%=request.getContextPath()%>/updateExchange.wo"method="post">' +
+											'<input type="hidden" name="refundId" value="' + data.list[key].refundId + '"><div class="modal-header">' +
+											'<button type="button" class="close" data-dismiss="modal">&times;</button><h2 class="modal-title">환불 신청 사유</h2></div>' +
+											'<div class="modal-body"><table class="model-table"><tr><td style="font-weight:bold; width:100px; font-size:17px;">상품명</td>' +
+											'<td colspan="3">' + data.list[key].workName + '</td></tr><tr></tr><tr><td colspan="4" style="font-weight:bold; text-align:center; font-size:17px;">환불 사유</td>' +
+											'</tr><tr><td colspan="4" style="height:300px;">' + data.list[key].refundReason + '</td></tr><tr>' +
+											'<td style="font-weight:bold; font-size:17px;">수량</td><td>' + data.list[key].count + ' 개</td><td style="font-weight:bold; font-size:17px;">환불 요청일</td>' +
+											'<td>' + data.list[key].refundDate + '</td></tr><tr><td style="font-weight:bold; font-size:17px;">환불코드</td><td>' + data.list[key].refundId + '</td>' +
+											'<td style="font-weight:bold; font-size:17px;">구매자명님</td><td>' + data.list[key].memberName + '</td></tr><tr>' +
+											'<td colspan="1" style="font-weight:bold; font-size:17px;">환불 요청</td><td colspan="3"><select name="refundStat">' +
+											'<option value="환불 승인 요청">환불 승인 요청</option><option value="환불 거절">환불 거절</option></select></td></tr></table></div><div class="modal-footer">' +
+											'<button type="submit" class="btn btn-default" >신청하기</button></div></form></div></div></div>'
+										);
 									}
 									
 								}

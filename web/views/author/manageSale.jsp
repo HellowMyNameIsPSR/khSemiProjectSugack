@@ -45,7 +45,6 @@
 								<tr>
 									<td class="menuA" onClick = "location.href='<%=request.getContextPath()%>/selectOrderList.wo'">주문조회</td>
 									<td class="menuA" onClick = "location.href='<%=request.getContextPath()%>/selectExchangeList.wo'">환불관리</td>
-									<td class="menuA" onClick = "location.href=''">교환관리</td>
 								</tr>
 							</table>
 						</div>
@@ -116,70 +115,67 @@
 							</tbody>
 						</table>
 					</div>
-					
-					
-					
+
+
+
 					<div id="modalArea">
-					<%	int num1 = 0;
-						for(int i = 0; i < list.size(); i++){
-					 	HashMap<String, Object> hmap = list.get(i);
-					 	num1++;%>
-					<div class="modal fade" id="myModal<%=num1%>" role="dialog">
-						<div class="modal-dialog">
-							<div class="modal-content">
-							<form id="salesFrom" action="<%=request.getContextPath()%>/updateDeli.wo" method="post">
-								<input type="hidden" name="odId" value="<%=hmap.get("odId")%>">
-								<input type="hidden" name="invNum" value="<%=hmap.get("invNum")%>">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h2 class="modal-title">배송 정보 입력</h2>
-								</div>
-								<div class="modal-body">
-									<table class="model-table">
-										<tr>
-											<td style="font-weight:bold; width:100px; font-size:17px;">주문번호</td>
-											<td style="width:150px;"><%=hmap.get("odId")%></td>
-											<td style="font-weight:bold; width:100px; font-size:17px;">상품명</td>
-											<td><%=hmap.get("workName")%></td>
-										</tr>
-										<tr>
-											<td style="font-weight:bold; width:100px; font-size:17px;">택배사</td>
-											<td><input type="text" name="deliCompany" value="<%=hmap.get("deliCompany")%>"></td>
-											<td style="font-weight:bold; width:100px; font-size:17px;">송장번호</td>
-											<td><input type="text" name="deliCompany" value="<%=hmap.get("invNum")%>"></td>
-										</tr>
-										<tr>
-											<td>배송상태</td>
-											<td colspan="3">
-												<select name="deliStatus">
-												    <option value="배송전">배송전</option>
-												    <option value="배송중">배송중</option>
-												    <option value="배송 완료">완료</option>
-												</select>
-											</td>
-										</tr>
-										<tr>
-											<td style="font-weight:bold; font-size:17px;">배송자</td>
-											<td><%= member.getMemberName() %> 님</td>
-											<td style="font-weight:bold; font-size:17px;">주문일</td>
-											<td><%=hmap.get("deliDate")%></td>
-										</tr>
-									</table>
-								</div>
-								<!-- <button type="submit" class="all-btn">등록하기</button> -->
-								</form>
-								<div class="modal-footer">
-									<button type="submit" class="btn btn-default"
-										data-dismiss="modal">등록하기</button>
+						<%
+							int num1 = 0;
+							for (int i = 0; i < list.size(); i++) {
+								HashMap<String, Object> hmap = list.get(i);
+								num1++;
+						%>
+						<div class="modal fade" id="myModal<%=num1%>" role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<form id="salesFrom"action="<%=request.getContextPath()%>/updateDeli.wo"method="post">
+										<input type="hidden" name="odId" value="<%=hmap.get("odId")%>">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+											<h2 class="modal-title">배송 정보 입력</h2>
+										</div>
+										<div class="modal-body">
+											<table class="model-table">
+												<tr>
+													<td style="font-weight: bold; width: 100px; font-size: 17px;">주문번호</td>
+													<td style="width: 150px;"><%=hmap.get("odId")%></td>
+													<td style="font-weight: bold; width: 100px; font-size: 17px;">상품명</td>
+													<td><%=hmap.get("workName")%></td>
+												</tr>
+												<tr>
+													<td style="font-weight: bold; width: 100px; font-size: 17px;">택배사</td>
+													<td><input type="text" name="deliCompany" value="<%=hmap.get("deliCompany")%>"></td>
+													<td style="font-weight: bold; width: 100px; font-size: 17px;">송장번호</td>
+													<td><input type="text" name="invNum" value="<%=hmap.get("invNum")%>"></td>
+												</tr>
+												<tr>
+													<td>배송상태</td>
+													<td colspan="3"><select name="deliStatus">
+															<option value="배송전">배송전</option>
+															<option value="배송중">배송중</option>
+															<option value="배송 완료">배송 완료</option>
+													</select></td>
+												</tr>
+												<tr>
+													<td style="font-weight: bold; font-size: 17px;">배송자</td>
+													<td><%=member.getMemberName()%> 님</td>
+													<td style="font-weight: bold; font-size: 17px;">주문일</td>
+													<td><%=hmap.get("deliDate")%></td>
+												</tr>
+											</table>
+										</div>
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-default" >등록하기</button>
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>
+						<%
+							}
+						%>
 					</div>
-					<%
-						}
-					%> 
-					</div>
-					
+
 					<div class="manageButton">
 						<table style="height:100%;">
 							<tr align="center">
@@ -214,6 +210,7 @@
 							
 							console.log($("#startDate").val());
 							console.log($("#endDate").val());
+							$("#modalArea").children().remove();
 							
 							$.ajax({
 								url:"<%=request.getContextPath()%>/selectOrderDate.wo",
@@ -275,18 +272,37 @@
 										num++;
 										$("#tbody").append(
 											"<tr>" +
-												'<td style="padding:0px 0px 10px 15px; font-size:12px; text-align:left; width:30px;">' +
-													'<input type="radio"' + 'id="<%= num %>"'+ 'name="cid">'  +
-													'<label for="<%= num %>" style=""></label>'  +
 												'</td>'  +
 												'<td> ' + num + "</td>" +
 												'<td> ' + data.list[key].odId + '</td>' + 
 												'<td> ' + data.list[key].payDate + '</td>' + 
 												'<td> ' + data.list[key].workName + '</td>' + 
 												'<td> ' + data.list[key].memberId + ' </td>' + 
-												'<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"> ' + data.list[key].deliStatus + '</td>' + 
+												'<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"> ' + data.list[key].deliCompany + ' </td>' + 
+												'<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"> ' + data.list[key].invNum + ' </td>' + 
+												'<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"> ' + data.list[key].deliStatus + ' </td>' + 
+												'<td><button data-toggle="modal" data-target="#myModal<%= num %>" type="button" class="postBtn all-btn" style="height:30px;width:80px;padding:0px 0px 0px 0px;;">바로가기</button></td>'+
 											'</tr>'
 										);
+										<%-- $("#modalArea").append(
+											'<div class="modal fade" id="myModal'+num+'" role="dialog"><div class="modal-dialog">' +
+											'<div class="modal-content"><form id="salesFrom"action="<%=request.getContextPath()%>/updateDeli.wo"method="post">' +
+											'<input type="hidden" name="odId" value="' + data.list[key].odId + '"><div class="modal-header">'+
+											'<button type="button" class="close" data-dismiss="modal">&times;</button><h2 class="modal-title">배송 정보 입력</h2>' +
+											'</div><div class="modal-body"><table class="model-table"><tr>' +
+											'<td style="font-weight: bold; width: 100px; font-size: 17px;">주문번호</td>' +
+											'<td style="width: 150px;">' + data.list[key].odId + '</td><td style="font-weight: bold; width: 100px; font-size: 17px;">상품명</td>' +
+											'<td>' + data.list[key].workName + '</td></tr><tr><td style="font-weight: bold; width: 100px; font-size: 17px;">택배사</td>' +
+											'<td><input type="text" name="deliCompany" value="' + data.list[key].deliCompany + '"></td>' +
+											'<td style="font-weight: bold; width: 100px; font-size: 17px;">송장번호</td>' +
+											'<td><input type="text" name="invNum" value="' + data.list[key].invNum + '"></td></tr><tr>' +
+											'<td>배송상태</td><td colspan="3"><select name="deliStatus"><option value="배송전">배송전</option>' +
+											'<option value="배송중">배송중</option><option value="배송 완료">완료</option></select></td>' +
+											'</tr><tr><td style="font-weight: bold; font-size: 17px;">배송자</td><td> <%=member.getMemberName()%> 님</td>' +
+											'<td style="font-weight: bold; font-size: 17px;">주문일</td><td>' + data.list[key].payDate + '</td>' +
+											'</tr></table<button type="submit" class="all-btn">등록하기</button></div></form>' +
+											'<div class="modal-footer"><button class="btn btn-default" data-dismiss="modal">등록하기</button></div></div></div></div>'
+										); --%>
 									}
 									
 								}
@@ -355,17 +371,17 @@
 									for(var key in data.list){
 										num++;
 										$("#tbody").append(
-												"<tr>" +
-												'<td style="padding:0px 0px 10px 15px; font-size:12px; text-align:left; width:30px;">' +
-													'<input type="radio"' + 'id="<%= num %>"'+ 'name="cid">'  +
-													'<label for="<%= num %>" style=""></label>'  +
+											"<tr>" +
 												'</td>'  +
 												'<td> ' + num + "</td>" +
 												'<td> ' + data.list[key].odId + '</td>' + 
 												'<td> ' + data.list[key].payDate + '</td>' + 
 												'<td> ' + data.list[key].workName + '</td>' + 
 												'<td> ' + data.list[key].memberId + ' </td>' + 
-												'<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"> ' + data.list[key].deliStatus + '</td>' + 
+												'<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"> ' + data.list[key].deliCompany + ' </td>' + 
+												'<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"> ' + data.list[key].invNum + ' </td>' + 
+												'<td style="font-weight:bold; font-size:16px;color:#FF8D8D;"> ' + data.list[key].deliStatus + ' </td>' + 
+												'<td><button data-toggle="modal" data-target="#myModal<%= num %>" type="button" class="postBtn all-btn" style="height:30px;width:80px;padding:0px 0px 0px 0px;;">바로가기</button></td>' +
 											'</tr>'
 										);
 									}
