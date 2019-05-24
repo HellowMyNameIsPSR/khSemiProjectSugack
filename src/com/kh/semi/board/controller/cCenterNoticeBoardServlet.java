@@ -14,21 +14,53 @@ import com.kh.semi.board.model.service.cCenterService;
 import com.kh.semi.board.model.vo.Board;
 
 
-@WebServlet("/cCenterFaqOrder.bo")
-public class cCenterFaqOrderServlet extends HttpServlet {
+@WebServlet("/ccNoticeBoard.bo")
+public class cCenterNoticeBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    public cCenterFaqOrderServlet() {
+       
+   
+    public cCenterNoticeBoardServlet() {
         super();
+        
     }
 
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Board> list = new cCenterService().FaqOrderList();
+		
+		
+		int divison = Integer.parseInt(request.getParameter("id"));
+		
+		ArrayList<Board> list = new cCenterService().noticeList(divison);
+		
+		
 		
 		String page = "";
 		
-		if(list != null) {
+		
+		System.out.println("서블릿들어옴");
+		
+		if(list != null  && divison == 10) {
+			page = "views/customerCenter/customerCenterNotice.jsp";
+			request.setAttribute("list", list);
+			
+		}else if(list != null  && divison == 11){
+			page = "views/customerCenter/customerCenterFaqGoods.jsp";
+			request.setAttribute("list", list);
+			
+		}else if(list != null  && divison == 12){
 			page = "views/customerCenter/customerCenterFaqOrder.jsp";
+			request.setAttribute("list", list);
+			
+		}else if(list != null  && divison == 13){
+			page = "views/customerCenter/customerCenterFaqDeliv.jsp";
+			request.setAttribute("list", list);
+			
+		}else if(list != null  && divison == 14){
+			page = "views/customerCenter/customerCenterEvent.jsp";
+			request.setAttribute("list", list);
+			
+		}else if(list != null  && divison == 15){
+			page = "views/customerCenter/customerCenterFaqCancel.jsp";
 			request.setAttribute("list", list);
 			
 		}else {

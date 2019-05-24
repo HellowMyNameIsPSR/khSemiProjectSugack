@@ -41,7 +41,7 @@
 							<option value="12">주문/결제FAQ</option>
 							<option value="13">배송관련</option>
 							<option value="14">이벤트</option>
-							<option value="15">교환환불FAQ</option>
+							<option value="15"> 교환환불FAQ</option>
 						</select>
 					</td>
 				</tr>

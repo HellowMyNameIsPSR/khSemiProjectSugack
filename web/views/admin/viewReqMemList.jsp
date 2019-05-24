@@ -80,7 +80,7 @@
 								
 							%>
 							<tr>
-								<td><%= i + 1 %></td>
+								<td><%= j + 1 %></td>
 								<td><%= hmap.get("authorName") %></td>
 								<td><%= hmap.get("email")%></td>
 								<td><%= hmap.get("authorContent")%></td>
@@ -113,7 +113,7 @@
 			var list = $()
 		
 			
-			//form안에 없기 때문에 페이를 통쨰로 넘긴다
+			//form안에 없기 때문에 페이를 통쨰로 넘긴다dsd
 			location.href="<%=request.getContextPath()%>/selectOneReqMem.ad?authorName=" + authorName;
 		});
 	})

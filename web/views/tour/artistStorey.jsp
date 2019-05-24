@@ -164,33 +164,20 @@
 			</header>
 			<ul>
 				<li> <input class="Comment" type="hidden" value=<%=b.getBno()%>> 
-				<a href=<%=request.getContextPath() %>/comMent.as?bno=<%=b.getBno()%>> 응원하기</a>  
+				<a href="<%=request.getContextPath() %>/comMent.as?bno=<%=b.getBno()%>&memberId=<%=b.getMemberId()%>"> 응원하기</a>  
 				</li>
 				<li>
-					<span class="opener">좋아요리스트</span>
+					<span class="opener"> 핀메상품</span>
 					<ul>
-						<li><a href="views/member/likeAuthor.jsp">관심작가</a>
-						<li><a href="views/member/likeFundingPro.jsp">관심 펀딩 상품</a>
-						<li><a href="likePro.jsp">관심 판매상품</a>
+						<li><a href="views/member/likeAuthor.jsp">펀딩상품</a>
+						<li><a href="views/member/likeFundingPro.jsp">판매상품</a>
+						<li><a href="likePro.jsp">판매예정상품</a>
 					</ul>
 				</li>
-				<li>
-					<span class="opener">게시글관리</span>
-					<ul>
-						<li><a href="views/member/boardReview.jsp">응원글 및 리뷰</a>
-						<li><a href="views/member/boardQna.jsp">문의</a>
-					</ul>
-				</li>
-				<li><a href="views/member/boardPoint.jsp">적립금 사용 내역</a></li>
-				<li>
-					<span class="opener">개인정보</span>
-					<ul>
-						<li><a href="views/member/modifyMe.jsp">개인정보 수정</a>
-						
-						<li><a href="views/member/withDrawal.jsp">회원 탈퇴</a>
-					</ul>
-				</li>
-				<li><a href="#">고객센터</a>
+				<li><a href="<%=request.getContextPath()%>/selectAuthorStory.au?memberId=<%=b.getMemberId()%>&bno=<%=b.getBno()%>">작가스토리</a></li>	
+				
+				
+			
 			</ul>
 		</nav>
 		<!-- Footer -->
@@ -203,19 +190,17 @@
 		
 	</div>
 	
-	<script>
+<%-- 	<script>
 	$(".Comment").click(function(){ 
 	
-	
-		location.href="<%=request.getContextPath()%>/comMent.as?bno=<%=b.getBno()%>";
-		
+		location.href="<%=request.getContextPath()%>/comMent.as?bno=<%=b.getBno()%> +"&memberId=" +<%=b.getMemberId()%>
 		
 		
 		
 	}); 
 	
 	
-	</script>	
+	</script>	 --%>
 	
 	<script src="views/assets/js/jquery.min.js"></script>
 <script src="views/assets/js/browser.min.js"></script>

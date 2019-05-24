@@ -82,10 +82,10 @@
 								<th><strong>상품명</strong></th>
 								<th style="width:50px;"><strong>수량</strong></th>
 								<th style="width:80px;"><strong>가격</strong></th>
-								<th style="width:150px;"><strong>구매자</strong></th>
-								<th style="width:150px;"><strong>환불요청일</strong></th>
-								<th style="width:150px;"><strong>처리상태</strong></th>
-								<th style="width:120px;"><strong>환불요청</strong></th>
+								<th style="width:100px;"><strong>구매자</strong></th>
+								<th style="width:100px;"><strong>환불요청일</strong></th>
+								<th style="width:140px;"><strong>처리상태</strong></th>
+								<th style="width:100px;"><strong>환불요청</strong></th>
 							</tr>
 							<tbody id="tbody">
 								<%

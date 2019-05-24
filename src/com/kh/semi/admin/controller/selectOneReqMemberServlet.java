@@ -34,7 +34,6 @@ public class selectOneReqMemberServlet extends HttpServlet {
 		RequestMember rm = new adminService().selectReqMemOne(authorName);
 		picPath = new adminService().selectReqMemOnePic(authorName);
 		ArrayList<String> pic2 = new adminService().selectReqMemSecondPic(authorName);
-		System.out.println("서블릿에서의 2차입점 사진" + pic2);
 		
 		
 		

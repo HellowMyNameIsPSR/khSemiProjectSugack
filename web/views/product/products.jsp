@@ -165,7 +165,7 @@
 		console.log(order); 
 		
 		if($("#order").val()=='pop'){
-			console.log("하이");
+			
 					
 				location.href="<%=request.getContextPath()%>/selectProListPop.pro";
 			
@@ -206,6 +206,7 @@
 	
 	
 	
+
 	<%--  function heartyn(){
 		
 		/* var ctn = 2;
@@ -244,6 +245,7 @@
 			
 		
 	}   --%>
+
 </script>	
 
 </body>

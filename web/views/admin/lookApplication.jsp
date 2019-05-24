@@ -42,7 +42,7 @@
 				<!-- Header -->
 				<header id="header">
 					<a href="/sg/views/admin/adminHome.jsp" class="logo">
-						Admin<strong>HOME</strong>
+						Admins<strong>HOME</strong>
 					</a>
 				</header>
 				<section id="contents">
@@ -123,8 +123,8 @@
 		
 		</div>
 		<div class="btns" style="align:center;text-align:center; margin-top:15px;">
-				<button id="accept" style="width:60px; height:40px;"value="승인">승인</button>
-				<button id="deny" style="width:60px; height:40px;" value="거부">거부</button>
+				<button class="btn" id="accept" style="width:60px; height:40px; background: skyblue"value="승인">승인</button>
+				<button class="btn" id="deny" style="width:60px; height:40px; background: skyblue" value="거부">거부</button>
 			</div>
 			<% if(rm.getApply1().equals("승인")) { %>
 			<% for(int j = 0; j < picPath2.size(); j++){ %>
@@ -169,8 +169,8 @@
 			      	
 		</div>
 		<div class="btns" style="align:center;text-align:center; margin-top:15px;">
-				<button id="accept2" class="btn" style="color: white; background: skyblue;" value="승인">승인</button>
-				<button id="deny2" class="btn"  style="color: white; background: skyblue;" value="거부">거부</button>
+				<button id="accept2" class="btn" style="background: skyblue;" value="승인">승인</button>
+				<button id="deny2" class="btn"  style="background: skyblue;" value="거부">거부</button>
 			</div>
 						<% } %>
 						<% } %>

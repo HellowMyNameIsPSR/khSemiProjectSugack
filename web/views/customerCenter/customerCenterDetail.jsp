@@ -16,6 +16,7 @@
 		}else if(b.getDivision() == 15){
 			dTitle = "교환환불FAQ";
 		}	
+		int bno = b.getBno();
     
     %>
 <!DOCTYPE html>
@@ -51,7 +52,7 @@
 <body>
 	<%@ include file = "cutomerCenterMenubar.jsp" %>
 	<div class="container">	
-		<h2>공지사항</h2>
+		<h2><%= dTitle %></h2>
 		<table id="noticeBoard" class="table table-striped table-hover">
 			<thead>
 				<tr>
@@ -70,7 +71,7 @@
 			<tbody>
 				
 				<tr>					
-					<td colspan = "6">내용</td>					
+					<td colspan = "6"> 내용</td>					
 				</tr>
 				<tr>		
 					<td colspan = "6"><%= b.getContent() %></td>					
@@ -90,7 +91,22 @@
 	</div>
 	
 	<script>
-		
+		$(function(){
+			$("#update").click(function(){
+			
+				location.href="<%= request.getContextPath()%>/cCenterNoticeSelect.bo?bNo=" + <%= b.getBno() %>;
+			})
+			$("#delete").click(function(){
+				if(confirm("정말 삭제하시겠습니까 ?") == true){
+					
+					alert("글이 삭제 되었습니다.");
+					history.back();
+				}else{
+					return;
+				}
+			})
+			
+		})
 	
 	
 	</script>

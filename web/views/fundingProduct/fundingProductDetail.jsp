@@ -263,6 +263,7 @@ hr{
 	}
     
     $(function(){
+
     	<% if (("#deliPrice")!=null){ %>
 		var deliPrice = parseInt($("#deliPrice").text());
 		var price = parseInt($("#price").text());
@@ -316,7 +317,7 @@ hr{
     			console.log("data"+data);
     		}
     	}) --%>
-    	
+
     	var workId = <%=work.get("workId")%>;
     	
 		$.ajax({
@@ -424,6 +425,7 @@ hr{
     
     
     function addLike(){
+    	<%if(loginUser != null ){%>
     	 var memberId = <%=loginUser.getMemberId()%>;
     	 var workId = <%=work.get("workId")%>; 
     	 
@@ -436,7 +438,9 @@ hr{
     		 },error:function(){
     			 alert("실패");
     		 }
-    	 })
+    	 })<%}else{%>
+ 	 		alert("로그인 후, 이용해 주세요!");
+   		 <%}%>
     }
     
     function addReview() {

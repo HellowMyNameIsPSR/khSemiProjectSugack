@@ -10,11 +10,11 @@ import com.kh.semi.board.model.vo.Board;
 
 public class cCenterService {
 	
-	public ArrayList<Board> noticeList() {
+	public ArrayList<Board> noticeList(int divison) {
 		Connection con = getConnection();
 		System.out.println("서비스 들어옴");
 
-		ArrayList<Board> list = new cCenterDao().noticeList(con);
+		ArrayList<Board> list = new cCenterDao().noticeList(con, divison);
 		
 		close(con);
 		
@@ -24,7 +24,7 @@ public class cCenterService {
 
 	public Board selectOne(int num) {
 		Connection con = getConnection();
-		System.out.println("서비스 들어옴");
+		System.out.println("서비스 들d어옴");
 
 		Board b = new cCenterDao().selectOne(num, con);
 		

@@ -177,7 +177,7 @@ public class AuthorPageDao {
 		return list;
 	}
 
-	public HashMap<String, Object> selectAuthorStory(Connection con, int memberId) {
+	public HashMap<String, Object> selectAuthorStory(Connection con, int memberId, int bno) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -349,7 +349,7 @@ public class AuthorPageDao {
 		return result;
 	}
 
-	public ArrayList<authorComent> SelectComent(int bno, Connection con) {
+	public ArrayList<authorComent> SelectComent(int bno, Connection con, int memberId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset =null;
 		authorComent ac = null; 

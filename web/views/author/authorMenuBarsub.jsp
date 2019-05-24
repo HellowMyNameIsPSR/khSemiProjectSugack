@@ -26,7 +26,7 @@
 			<ul>
 				<li><a href="authorHome.jsp">HOME</a></li>
 				<li>
-					<<span class="opener">판매 작품</span>
+					<span class="opener">판매 작품</span>
 					<ul>
 						<li><a href="/sg/views/author/enrollSaleGoods.jsp">판매 작품 등록</a>
 						<li><a onclick="manageSaleGoods()">판매 작품 관리</a>

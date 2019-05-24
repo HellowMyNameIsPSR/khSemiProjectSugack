@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import org.eclipse.jdt.internal.compiler.ast.ReturnStatement;
 
+import com.kh.semi.member.model.vo.Address;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.work.model.vo.PageInfo;
 import com.kh.semi.work.model.vo.PicFile;
@@ -1677,6 +1678,87 @@ public class WorkDao {
 		
 		return result;
 	}
+
+	public int insertAddress(Connection con, Address add) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAddress");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, add.getAddress());
+			pstmt.setInt(2, add.getMemberId());
+			pstmt.setString(3, add.getPhone1());
+			pstmt.setString(4, add.getPhone2());
+			pstmt.setString(5, add.getAddressName());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int deleteAdress(Connection con, Address add) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteAdress");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, add.getMemberId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Address selectWorkAddress(Connection con, String memberId) {
+		Address Address = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				Address = new Address();
+				Address.setAddress(rset.getString("ADDRESS"));
+				Address.setPhone1(rset.getString("PHONE1"));
+				Address.setPhone2(rset.getString("PHONE2"));
+				Address.setAddressName(rset.getString("ADDRESS_NAME"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return Address;
+	}
+
 
 
 
