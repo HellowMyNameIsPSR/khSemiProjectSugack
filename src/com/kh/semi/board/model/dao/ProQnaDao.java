@@ -72,7 +72,7 @@ public class ProQnaDao {
 
 
 	//게시글 리스트 조회
-	public ArrayList<ProQna> selesctList(Connection con, int memberId) {
+	public ArrayList<ProQna> selectList(Connection con, int memberId) {
 		ArrayList<ProQna> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

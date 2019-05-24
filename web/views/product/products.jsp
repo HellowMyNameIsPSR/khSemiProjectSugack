@@ -165,7 +165,7 @@
 		console.log(order); 
 		
 		if($("#order").val()=='pop'){
-			console.log("하이");
+			
 					
 				location.href="<%=request.getContextPath()%>/selectProListPop.pro";
 			
@@ -206,44 +206,7 @@
 	
 	
 	
-	 function heartyn(){
-		
-		/* var ctn = 2;
-		
-			if(ctn%2==0){
-				
-				heart.src="../images/emptyheart.png";
-				alert("관심상품 취소");
-			
-			}else{
-				
-				heart.src="../images/fullheart.png";
-				
-				
-			}
-			
-			ctn++; */
-		<% HashMap<String, Object> work = (HashMap<String, Object>)list.get(0); %>
-		<%if(loginUser != null ){%>
-   		 var memberId = <%=loginUser.getMemberId()%>;
-   	 	 var workId = <%=work.get("workId")%>;
-   	 <%--  var price = <%=work.get("price")%>;
-   	 var deliPrice =<%=work.get("deliPrice")%>; --%>
-   	 
-   	 $.ajax({
-   		 url:"<%=request.getContextPath()%>/insertLike.me?<%=work.get("workId")%>",
-   		 data:{memberId:memberId, workId:workId/* , price:price, deliPrice:deliPrice */},
-   		 type:"post",
-   		 success:function(data){
-   			 alert("관심상품 추가!");
-   		 },error:function(){
-   			 alert("실패");
-   		 }
-   	 })
-   	 <%}%>
-			
-		
-	}  
+	
 </script>	
 
 </body>

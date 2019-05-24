@@ -59,11 +59,11 @@
       width:100%;
       height:100%;
       /* background:#F6F476; */
-      background:#BEE1EA;
+    /*   background:#BEE1EA;
       margin-right:10px;
       margin-bottom:10px;
     
-   } */ */
+   } */
    .qnaTitle {
       border-bottom:1px solid lightgray;
       margin: 20px 0px 20px 0px;
@@ -309,13 +309,13 @@ hr{
 		                  
 		                 var $tr0 = $("<tr>");
 		                 // $tr0.css('width','300px');
-		                  var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"lightblue", "color": "gray"});
+		                  var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"black", "color": "white"});
 		              	//var $td1 = $("<td>").text("후기내용").css("height", "50px");
-		              	var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"lightblue", "color": "gray"});
-		              	var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
-		              	var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
+		              	var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"black", "color": "white"});
+		              	var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"black", "color": "white"});
+		              	var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"black", "color": "white"});
 		              	
-		           	 $tr0.append($td0);
+		           		$tr0.append($td0);
 		   				$tr0.append($td1);
 		   				$tr0.append($td2);
 		   				$tr0.append($td3);
@@ -442,6 +442,8 @@ hr{
         			 alert("실패");1
         		 }
         	 })
+        	 <%}else{%>
+        	 	alert("로그인 후, 이용해 주세요!");
         	 <%}%>
          }
         
@@ -498,44 +500,11 @@ hr{
    		               
    		               //등록과 동시에 작성 내용 지우기
    		               $('#reviewCon').val("");
-   		               
-   		              /*  localStorage.setItem('writer', $writer);
-   		               localStorage.getItem('writer'); */
+   		             
    		               console.log(localStorage);
    				  })
    		        
-                  /* for(var key in data){
-                  	
-                  	
-                  	var $tr = $("<tr>").css("width", "300px");
-                  	var $writerTd = $("<td>")
-                      .text(data[key].writer)
-                      .css("width", "100px");
-                  	
-                  	
-       				var $contentTd = $("<td>")
-                      .text(data[key].content)
-                      .css("width", "400px");
-       				
-       				
-       				var $starTd = $("<td>")
-                      .text(data[key].starPoint)
-                      .css("width", "200px");
-      				
-       				var $datdTd = $("<td>").text(data[key].writeDate).css("width", "200px");
-       				//$tr0.append($tr);
-       				
-       				
-       			
-       				$tr.append($writerTd);
-       				$tr.append($contentTd);
-       				$tr.append($starTd);
-       				$tr.append($dateTd);
-      				
-      				$replySelectTable.append($tr);
-      			    
-                  } */
-                  
+                
                   
                },
                error:function(){
@@ -597,8 +566,7 @@ hr{
  		               var $starPoint= $("<td>").text(decodeURIComponent(value.starPoint));
  		             
  		               var $writeDate = $("<td>").text(decodeURIComponent(value.writeDate));
- 		              //var $writeDate = $("<td>").text(date.format(value.writeDate));
- 		              // var $writeDate2 = (date.format(value.writeDate));
+ 		             
  		               
  		               $tr.append($writer);
  		               $tr.append($content);
@@ -608,43 +576,11 @@ hr{
  		               
  		               //등록과 동시에 작성 내용 지우기
  		               $('#reviewCon').val("");
- 		               
- 		              /*  localStorage.setItem('writer', $writer);
- 		               localStorage.getItem('writer'); */
+ 		             
  		               console.log(localStorage);
  				  })
  		        
-                /* for(var key in data){
-                	
-                	
-                	var $tr = $("<tr>").css("width", "300px");
-                	var $writerTd = $("<td>")
-                    .text(data[key].writer)
-                    .css("width", "100px");
-                	
-                	
-     				var $contentTd = $("<td>")
-                    .text(data[key].content)
-                    .css("width", "400px");
-     				
-     				
-     				var $starTd = $("<td>")
-                    .text(data[key].starPoint)
-                    .css("width", "200px");
-    				
-     				var $datdTd = $("<td>").text(data[key].writeDate).css("width", "200px");
-     				//$tr0.append($tr);
-     				
-     				
-     			
-     				$tr.append($writerTd);
-     				$tr.append($contentTd);
-     				$tr.append($starTd);
-     				$tr.append($dateTd);
-    				
-    				$replySelectTable.append($tr);
-    			    
-                } */
+             
                 
                 
              },
@@ -672,8 +608,8 @@ hr{
       <p><%=work.get("workContent") %></p>
     </div>
     <div id="menu1" class="tab-pane fade">
-      <h3>배송/판매/교환/환불</h3>
-      <p>Ut enim minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <h3 style=" margin-top:50px">배송/판매/교환/환불</h3>
+     <img src="views/images/delinfo.PNG" style="width:100%;">
     </div>
     <div id="menu2" class="tab-pane fade">
       <h3>별점 및 응원글</h3>
@@ -689,8 +625,7 @@ hr{
             <option value="★★☆☆☆">★★☆☆☆ 별로에요</option>
          </select>
          <button onclick="addReview()" id="addReview" value="리뷰등록하기" style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;">리뷰등록하기</button> 
-        <!-- <button id="addReview" style=" float:right; width:150px; height:40px; :gray; color:white; border:1px solid gray;">리뷰등록하기</button>   -->
-     <!--  <input type="submit" value="리뷰 등록하기" id="addReview" style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;"> -->
+      
       </div>
       </div>
 <br>
@@ -759,65 +694,8 @@ hr{
       <!-- /.col-md-4 -->
     
 </div>
-	 </div>
-	 
-   
-<!-- <script>
-   $(function(){
-      
-       
-       //최선
-          $("#sel1").change(function(){
-            $(".selectOpt").append($("#sel1 option:selected").text());
-       });
-      
-          $("#sel2").change(function(){
-            $(".selectOpt").append($("#sel2 option:selected").text());
-       });
-             
-       //최선12
-        /* $("#sel1").change(function(){
-            $(".selectOpt").append($("#sel1 option:selected").text());
-       })   */
-      
-       
-      
-       
-   });
-</script> -->
-<!-- <div class="container">
-  <div class="row">
-   <div class="proDiv">
-      <div class="img col-sm-5">
-         <img src="../images/tvxq.jpg">
-      </div>
-      <div class="col-sm-2"></div>
-      <div class="shortInfo col-sm-5">
-         <h5>품명 및 모델명</h5>
-         <h5>기본가격</h5>
-         <hr>
-         <h5>배송비:3000원</h5>
-         <hr>
-         <h5>옵션선택</h5>
-         <select style="width:350px; height:20px;">
-            <option value="op1">옵션1</option>
-            <option value="op2">옵션2</option>
-         </select>
-         <select style="width:350px; height:20px;">
-            <option value="op1">옵션1</option>
-            <option value="op2">옵션2</option>
-         </select>
-         <hr>
-         <div class="selectOpt" style="width:350px; height:100px; background:black; margin-top:70px;">   
-         </div>
-         <div class="totalPrice">
-            <h4>총가격:</h4>
-            <p style="float:right; margin-top:-30px; font-size:15px;">10000원</p>
-         </div>
-      </div>
-     </div>
-   </div>
-  </div> -->
+	    
+
 
 </body>
 </html>

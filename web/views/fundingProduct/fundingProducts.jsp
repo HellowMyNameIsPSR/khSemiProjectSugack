@@ -114,12 +114,13 @@
 <div class="container">
 
 
-    <select style="width:100%; height:30px; margin-top:10px;">
-      <option value="pop">인기순</option>
-      <option value="new">최신순</option>
-      <option value="low">낮은가격순</option>
-      <option value="high">높은가격순</option>
-   </select>
+    <select id="order"style="width:100%; height:30px; margin-top:10px;">
+    	<option value="not" disabled selected></option>
+		<option value="pop">인기순</option>
+		<option value="new">최신순</option>
+		<option value="low">낮은가격순</option>
+		<option value="high">높은가격순</option>
+	</select>
 
   <div class="row">
      <!-- <div class="col-sm-1"></div>@ -->
@@ -135,10 +136,10 @@
                      <img class="fundImg" src="<%=request.getContextPath()%>/uploadFundingGoodsImg/<%=hmap.get("changeName")%>" style="width:100%;height:100%;">
                   </td></tr>
                   <tr><td colspan="2" class="cFont"><%=hmap.get("category")%></td></tr>
-                  <tr><td colspan="2" class="nFont"><%=hmap.get("memberName") %></td></tr>
+                  <tr><td colspan="2" class="nFont"><%=hmap.get("workName") %></td></tr>
                   <tr>
-                     <td class="lFont">좋아요</td>
-                     <td><span style="margin-left:-130px; color:red; text-align:right;"class="glyphicon glyphicon-heart"></span></td></tr>
+                     <td class="lFont">조회수</td>
+                     <td><span style="margin-left:-130px; color:red; text-align:right;"class="glyphicon glyphicon-heart"><%=hmap.get("wcount")%></span></td></tr>
                </table>
                <br>
             </div>
@@ -155,6 +156,33 @@
       var workId = $(this).children().val();
       location.href="<%=request.getContextPath()%>/selectFundingProDetail.pro?workId="+ workId; 
    });
+   
+   
+   $("#order").change(function(){
+		console.log($("#order option:selected").val());
+		
+		var order = ($("#order option:selected").val());
+		console.log(order); 
+		
+		if($("#order").val()=='pop'){
+			console.log("하이");
+					
+				location.href="<%=request.getContextPath()%>/selectFundListPop.fund";
+			
+				
+		
+		}else if($("#order").val()=='low'){
+			    location.href="<%=request.getContextPath()%>/selectFundListLow.fund";
+		}else if($("#order").val()=='new'){
+				location.href="<%=request.getContextPath()%>/selectFundListNew.fund";
+		}else if($("#order").val()=='high'){
+				location.href="<%=request.getContextPath()%>/selectFundListHigh.fund";
+		}
+	
+		
+		
+		
+	 }); 
 </script>
 
 </body>
