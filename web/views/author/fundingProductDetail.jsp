@@ -1,128 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*,
+				 com.kh.semi.funding.model.vo.*,
+				 com.kh.semi.member.model.vo.*" %>
+<%-- <%
+	Member loginUser = (Member) request.getSession().getAttribute("loginUser");
+	ArrayList<HashMap<String, Object>> fundInfoList = 
+				(ArrayList<HashMap<String, Object>>) request.getAttribute("fundInfoList");
+	ArrayList<WorkPic> fileList = (ArrayList<WorkPic>) request.getAttribute("fileList");
+%> --%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>펀딩상품 자세히 보기</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script>
-	$(function(){
-		$("#applyProject").click(function(){
-			alert("프로젝트 신청서 모달 띄워짐");
-		});
-	});
-</script>
-<style>
-	.navdiv{
-		height:200px;
-		background:black;
-	}
-	
-	.container{
-		background:yellow;
-	}
-	
-	.productDiv{
-		background:beige;
-		padding:15px;
-	}
-	.img{
-		float:left;
-		padding:20px;
-		width:430px;
-		background:green;
-	}
-	img{
-		width:400px;
-	}
-
-/* .shortInfo{
-	margin-left:40px;
-	width:400px;
-	height:550px;
-	padding:25px;
-	margin-right:100px;
-	background:white;
-	margin-top:23px;
-} */
-
-hr{
-	border:1px solid gray;
-}
-
-.totalPrice{
-	/* margin-top:10px;
-	
-	float:right; */
-	width:100%;
-	height:50px;
-	background:orange;
-	}
-.totalPrice>h4{
-	
-	margin-top:15px;
-}
-input[type:image]{
-	border:1px solid black;
-} 
-
-.information{
-	padding:30px;
-}
-
-
-.qnaArea {
-		border:2px solid lightgray;
-		margin: 20px 0px 20px 0px;
-		box-shadow:2px 2px lightgray;
-		width:80%;
-		height:100%;
-		background:beige;
-		margin:0 auto;
-		margin-top:20px;
-	}
-	.qnaTitle {
-		border-bottom:1px solid lightgray;
-		margin: 20px 0px 20px 0px;
-		padding-left:20px;
-	}
-	.qnaContents {
-		margin: 20px 0px 20px 0px;
-		padding-left:20px;
-		padding-right:20px;
-		
-	}
-	.qnaContents div{
-		margin: 20px 0px 20px 0px;
-	}
-	
-	.qna{
-		height:40px;
-	}
-	
-	#qnaBtn{
-		width:30%;
-		padding:5px;
-		color:white;
-		border:2px solid gray; 
-		background:gray;
-		
-		
-	}
-</style>
+	<meta charset="UTF-8">
+	<title>수작 - 2차펀딩작품등록</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>	
+	<%@ include file="stylesheet/eroll.html" %>
+	<style>
+		.btn-default{
+			margin-bottom:0px;
+			border:0px;
+		}
+	</style>
 </head>
 <body class="is-preload">
-<div id="wrapper">
+<!-- Wrapper -->
+	<div id="wrapper">
 		<!-- Main -->
 		<div id="main">
 			<div class="inner">
@@ -135,148 +41,200 @@ input[type:image]{
 				</header>
 				<section id="contents">
 					<header class="main">
+						<h2>판매 작품 2차 등록</h2>
 					</header>
-  <!-- Page Content -->
-  <div class="container">
-
-    <!-- Heading Row -->
-    <div class="row align-items-center my-5">
-      <div class="col-sm-6 " >
-        <img class="img-fluid rounded mb-4 mb-lg-0" src="../images/tvxq.jpg" style="width:100%;">
-      </div>
-      <!-- /.col-lg-8 -->
-      <div class="col-sm-6 productDiv">
-        <h5>품명 및 모델명</h5>
-			<h5>기본가격</h5>
-			<hr>
-			<h5>주문D-Day</h5>
-			<h5>현재주문량(%)</h5>
-			<h5>최소주문수량</h5>
-			<h5>최대주문수량</h5>
-			<h5>배송예정일은 2019년 12월 24일 | 배송비:3000원</h5>
-			<hr>
-			<h5>옵션선택</h5>
-			<select id="sel1"style="width:350px; height:20px;">
-				<option value="op1">옵션1</option>
-				<option value="op2">옵션2</option>
-			</select>
-			
-			<hr>
-			<div class="selectOpt" style="width:100%; height:100px; background:black; margin-top:70px;">	
-			</div>
-			<div class="totalPrice">
-				<p style="float:left; margin-top:10px; font-size:20px;">총가격: </p>
-				<p style="float:right; margin-top:10px; font-size:20px;">10000원</p>
-			</div>
-			<div class="btns" style="margin-top:5px; width:100%; height:50px;">
-			<button class="pull-right all-btn" id="applyProject"
-				    >
-				참여신청하기
-			</button>
-			</div>
-      </div>
-      <!-- /.col-md-4 -->
-    </div>
-    <hr>
-    	<div class="row information">
-	<ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#menu0">기본정보</a></li>
-    <li><a data-toggle="tab" href="#menu1">배송/판매/교환/환불</a></li>
-    <li><a data-toggle="tab" href="#menu2">별점 및 응원글</a></li>
-    <li><a data-toggle="tab" href="#menu3">문의</a></li>
- 	 </ul>
-
-  <div class="tab-content">
-    <div id="menu0" class="tab-pane fade in active">
-      <h3>기본정보</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    </div>
-    <div id="menu1" class="tab-pane fade">
-      <h3>배송/판매/교환/환불</h3>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-    </div>
-    <div id="menu2" class="tab-pane fade">
-      <h3>별점 및 응원글</h3>
-      <div class="star"; style="background:beige;  padding:10px; width:100%; height:150px;">
-      	<textarea style="width:100%; height:80px;"></textarea>
-      	<select style="float:left; width:200px; height:40px;">
-      		<option>★★★★★ 아주좋아요</option>
-      		<option>★★★★☆ 마음에 들어요</option>
-      		<option>★★★☆☆ 보통이에요</option>
-      		<option>★★☆☆☆ 별로에요</option>
-      	</select>
-        <button style=" float:right; width:150px; height:40px; background:gray; color:white; border:1px solid gray;">리뷰등록하기</button>
-      </div>
-      
-    
-    </div>
-    
-    <div id="menu3" class="tab-pane fade">
-    
-    
-    			<form id="salesInsert" action="" method="post">
-   					 <div class="qnaArea">
-							<div class="qnaTitle">
-								<h2>문의하기</h2>
+					<!-- Contents area -->
+					<form id="salesInsert" action="<%= request.getContextPath() %>/insertEnroll2.fund" method="post">
+					<!-- 기본정보 -->
+						<div class="listBox">
+							<div class="listTitle">
+								<h2>펀딩 정보 확인</h2>
 							</div>
-							<div class="qnaContents">
-									<table class="searchBox" style="width:100%;" >
-										<tr class="qna">
-											<td><label >문의 제목:</label></td>
-											
-											<td><input type="text" style="width:100%;"></td>
-											
-										</tr>
-										<tr class="qna">
-											<td><label >작성자:</label></td>
-											<td><input type="text"
-												style="width: 100%;"></td>
-										</tr>
-										<tr class="qna">
-											<td><label>작성일:</label></td>
-											<td><input type="text"
-												style="width: 100%;"></td>
-										</tr>
-										<tr class="qna">
-											<td><label>내용:</label></td>
-											<td><textarea name="content" style="width:100%;"></textarea></td>
-										</tr>
-										<tr class="qna">
-											<td colspan="2"><input type="submit" value="작성하기" id="qnaBtn" style="float:right;"></td>
-										</tr>
-									</table>
-								
+							<div class="listContents">
+							
+							<div class="row" style="margin-bottom:0px;">
+							
+								<div class="col-sm-12">
+									<div class="row">
+										<table>
+											<tr>
+												<td colspan="3"> <!-- 작품명 -->
+													<label class="form-control"><%-- <%= fundInfoList.get(0).get("workName") %> --%></label>
+												</td>
+												<td colspan="2"> <!-- 작품 카테고리 -->
+													<label class="form-control"><%-- <%= fundInfoList.get(0).get("workName") %> --%></label>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2"> <!-- 작품 등록일 -->
+													<label class="form-control"><%-- <%= fundInfoList.get(0).get("workName") %> --%></label>
+												</td>
+												<td colspan="2"> <!-- 작품 가격 -->
+													<label class="form-control"><%-- <%= fundInfoList.get(0).get("workName") %> --%></label>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="5">
+													<label class="pull-left">내용</label>
+													<textarea id="contents" name="contents" readonly></textarea>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<label class="pull-left">펀딩 일수</label>
+													<input type="text" class="form-control" value="<%-- <%= fundInfoList.get(0).get("funDate") %> --%>" readonly>
+												</td>
+												<td colspan="2">
+													<label class="pull-left">시작일</label>
+													<input type="date" class="form-control" id="fcStart" name="fcStart"
+														   onchange="inputFcFinish();">
+												</td>
+												<td colspan="2">
+													<label class="pull-left">종료일</label>
+													<input type="text" class="form-control" id="fcFinish" name="fcFinish" 
+														   placeholder="연도-월-일" readonly>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2">
+													<label class="pull-left">배송시작일</label>
+													<input type="date" class="form-control" id="deliDate" name="deliDate">
+												</td>
+												<td colspan="2">
+													<label class="pull-left">배송비</label>
+													<input type="text" class="form-control" id="deliPrice" name="deliPrice" 
+														   value="<%-- <%= fundInfoList.get(0).get("deliPrice") %> --%>" readonly>
+												</td>
+											</tr>
+										</table>
+									</div>
 								</div>
 							</div>
-							
-						</form>
+						</div>
 					</div>
+				<!-- 기본정보 -->
+				<!-- 펀딩 현황 -->
+				<div class="row" style="border:1px solid lightgray; margin:20px 0px 20px 0px; padding:20px 0px 20px 0px;">
+					<div class="row" style="width:100%;">
+						<h2>펀딩 진행도</h2>
 					</div>
-					</div>
-					</section>
-					</div>
-					</div>
-					</div>
-					<%@ include file="authorMenuBar.jsp" %>
-					</div>
-					
-
+					<div class="row" style="width:100%;">
+						<div class="progress" style="width:100%; margin-left:10px;">
+					    	<div  class="progress-bar progress-bar-info" role="progressbar" 
+					    		  aria-valuenow="100000" aria-valuemin="0" aria-valuemax="250000" style="width:40%">
+					     	 	40% Complete (info)
+				     		 </div>
+				   		</div>
+				  	</div>
+				  	<div class="listContents" style="width:100%;">
+				  		<div class="row">
+							<table>
+								<tr>
+									<td>
+										<label class="pull-left">현재 모금액</label>
+										<input type="text" class="form-control" value="<%-- <%= fundInfoList.get(0).get("minVoo") %> --%>" readonly>
+									</td>
+									<td>
+										<label class="pull-left">목표 금액</label>
+										<input type="text" class="form-control" value="<%-- <%= fundInfoList.get(0).get("minVoo") %> --%>" readonly>
+									</td>
+									<td>
+										<label class="pull-left">최대 목표 금액</label>
+										<input type="text" class="form-control" value="<%-- <%= fundInfoList.get(0).get("maxVoo") %> --%>" readonly>
+									</td>
+								</tr>
+							</table>
+						</div>
+				  	</div>					
+				</div>
+			<!-- 펀딩 현황 -->
+			<!-- 작품 이미지 -->
+			<div class="listBox">
+				<div class="dropdown">
+				    <button style="width:100%;"class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+				    	작품 이미지
+				    <span class="caret"></span></button>
+				    <div class="dropdown-menu" style="background:red; width:100%; height:100px;">
+				      <!--작품 이미지 영역 -->
+				    </div>
+				  </div>
+			</div>
+			<!-- 작품 이미지 -->
+			<!-- 작품 상세 이미지 -->
+			<div class="listBox">
+				<div class="dropdown">
+				    <button style="width:100%;"class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+				    	작품 상세 이미지
+				    <span class="caret"></span></button>
+				    <div class="dropdown-menu" style="background:red; width:100%; height:100px;">
+				      <!--작품 이미지 영역 -->
+				    </div>
+				  </div>
+			</div>
+			<!-- 작품 상세 이미지 -->
+				
+				<div align="center">
+					<button class="all-btn"style="width: 150px;" type="submit" id="enrollFundingGoods2">목록 으로</button>
+					<button class="all-btn"style="width: 150px;" type="button" id="enrollFundingGoods2">삭제 신청 하기</button>
+				</div>
+				</form>
+			</section>
+		</div>
+	</div>
+	<%@ include file="authorMenuBar.jsp"%>
+</div>
 <script>
+	var accCheck = false;
 	$(function(){
-		$("#sel1").click(function(){
-			var value = $('option:selected',this).text();
-			
-		})		
+		$("#accountCheck").hide();
+		$("#enrollFundingGoods2").click(function(){
+			var arr = $("#fcStart").val().split("-");
+			var startDate = new Date(arr[0], arr[1] - 1, arr[2]);
+			var now = new Date();
+			var yyyy = now.getFullYear();
+			var dd = now.getDate();
+			var mm = now.getMonth();
+			var today = new Date(yyyy, mm, dd);
+			var deliDate = $("#deliDate").val();
+			var fcStart =  $("#fcStart").val();
+			var fcFinish = $("#fcFinish").val();
+			console.log(today); console.log(startDate);
+			if(startDate < today){
+				alert("현재 보다 이전 날짜를 시작일로 지정할 수 없습니다.");
+				return false;
+			}
+			if(fcStart == null || fcStart == "" || fcStart == "&nbsp;"){
+				alert("펀딩 시작일을 지정해 주세요.");
+				return false;
+			}
+			if(deliDate == null || deliDate == "" || deliDate == "&nbsp;") {
+				alert("발송 예정일을 지정해 주세요.");
+				return false;
+			}
+			if(accCheck == false){
+				alert("계좌 인증을 완료해 주세요.");
+				return false;
+			}
+		});
 	});
+
+	function inputFcFinish() { //펀딩 종료일 지정
+		console.log("시작일" + $("#fcStart").val());
+		var term = parseInt(<%-- <%= fundInfoList.get(0).get("funDate") %> --%> + "");
+		console.log(term);
+		
+		var arr = $("#fcStart").val().split("-");
+		var dt = new Date(arr[0], arr[1], arr[2]);
+		var dt_v = new Date(arr[0], arr[1], arr[2]);
+		
+		dt_v.setDate(dt.getDate() + term);
+		var fcFinish = dt_v.getFullYear() + "-" + dt_v.getMonth() + "-" + dt_v.getDate();
+		$("#fcFinish").val(fcFinish);
+	}
 	
-
-	$("#purchase").click(function(){
-		console.log("test");
-		location.href="../common/purchase.jsp";
-	});
-
+	function EnrollAddInfo() { //추가 정보 등록
+		
+	} //end func
 </script>
-
-
 </body>
 </html>

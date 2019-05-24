@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.semi.funding.model.vo.AuthorAccount;
 import com.kh.semi.funding.model.vo.Category;
 import com.kh.semi.funding.model.vo.Funding;
 import com.kh.semi.funding.model.vo.SortFunding;
@@ -470,6 +471,49 @@ PreparedStatement pstmt = null;
 			e.printStackTrace();
 		}
 		
+		return result;
+	}
+
+	public int updateFunding(Connection con, Funding funding) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("upDateFunding");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setDate(1, funding.getDeliDate());
+			pstmt.setString(2, funding.getCooperation());
+			pstmt.setDate(3, funding.getStartDate());
+			pstmt.setDate(4, funding.getFinishDate());
+			pstmt.setString(5, funding.getFundStatus());
+			pstmt.setInt(6, funding.getWorkId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertAuthorAcc(Connection con, AuthorAccount authorAcc) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertAuthorAcc");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, authorAcc.getBackName());
+			pstmt.setString(2, authorAcc.getAccountNumber());
+			pstmt.setString(3, authorAcc.getVerifyAccount());
+			pstmt.setString(4, authorAcc.getAuthorName());
+			pstmt.setString(5, authorAcc.getAuthorbirth());
+			pstmt.setString(6, authorAcc.getType());
+			pstmt.setInt(7, authorAcc.getMemberId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		return result;
 	}
 

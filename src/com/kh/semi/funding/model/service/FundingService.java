@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.semi.funding.model.dao.FundingDao;
+import com.kh.semi.funding.model.vo.AuthorAccount;
 import com.kh.semi.funding.model.vo.Category;
 import com.kh.semi.funding.model.vo.Funding;
 import com.kh.semi.funding.model.vo.SortFunding;
@@ -149,5 +150,19 @@ public class FundingService {
 			rollback(con);
 		}
 		return result;
+	}
+	public int updateFundingAndInsertAcc(Funding funding, AuthorAccount authorAcc) {
+		Connection con = getConnection();
+		int resultFunding = new FundingDao().updateFunding(con, funding);
+		int resultAuthorAcc = 0;
+		if(resultFunding > 0) {
+			resultAuthorAcc = new FundingDao().insertAuthorAcc(con, authorAcc);
+			if(resultAuthorAcc > 0) {
+				commit(con);
+			} else {
+				rollback(con);
+			} //end if
+		} //end if
+		return resultAuthorAcc;
 	}
 } //end class
