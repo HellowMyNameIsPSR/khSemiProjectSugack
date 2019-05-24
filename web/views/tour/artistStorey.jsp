@@ -78,22 +78,7 @@
 
 
 
-				<aside>
-
-					<ul>
-					<li>
-					<div class="col-sm-4">
-					<input class="Comment" type="hidden" value=<%=b.getBno()%>>
-					<a href=<%=request.getContextPath() %>/comMent.as?bno=<%=b.getBno()%>>응원하기</a>
-					</div></li>
-					
-					
-					
-					</ul>
-
-				</aside> 
-
-
+				
 				<div style="width: 200px height: 200;" align="center">
 					<div class="container">
 						<br>
@@ -166,6 +151,55 @@
 			</section>
 
 		</div>
+		<div id="sidebar">
+	<div class="inner">
+		<!-- Logo -->
+		<section class="alt">
+			<a href="index.jsp">LOGO</a>
+		</section>
+		<!-- Menu -->
+		<nav id="menu">
+			<header class="major">
+				<h2>Menu</h2>
+			</header>
+			<ul>
+				<li> <input class="Comment" type="hidden" value=<%=b.getBno()%>> 
+				<a href=<%=request.getContextPath() %>/comMent.as?bno=<%=b.getBno()%>> 응원하기</a>  
+				</li>
+				<li>
+					<span class="opener">좋아요리스트</span>
+					<ul>
+						<li><a href="views/member/likeAuthor.jsp">관심작가</a>
+						<li><a href="views/member/likeFundingPro.jsp">관심 펀딩 상품</a>
+						<li><a href="likePro.jsp">관심 판매상품</a>
+					</ul>
+				</li>
+				<li>
+					<span class="opener">게시글관리</span>
+					<ul>
+						<li><a href="views/member/boardReview.jsp">응원글 및 리뷰</a>
+						<li><a href="views/member/boardQna.jsp">문의</a>
+					</ul>
+				</li>
+				<li><a href="views/member/boardPoint.jsp">적립금 사용 내역</a></li>
+				<li>
+					<span class="opener">개인정보</span>
+					<ul>
+						<li><a href="views/member/modifyMe.jsp">개인정보 수정</a>
+						
+						<li><a href="views/member/withDrawal.jsp">회원 탈퇴</a>
+					</ul>
+				</li>
+				<li><a href="#">고객센터</a>
+			</ul>
+		</nav>
+		<!-- Footer -->
+		
+	</div>
+</div>
+		
+		
+		
 		
 	</div>
 	
@@ -182,6 +216,12 @@
 	
 	
 	</script>	
+	
+	<script src="views/assets/js/jquery.min.js"></script>
+<script src="views/assets/js/browser.min.js"></script>
+<script src="views/assets/js/breakpoints.min.js"></script>
+<script src="views/assets/js/util.js"></script>
+<script src="views/assets/js/main.js"></script>
 	
 </body>
 </html>

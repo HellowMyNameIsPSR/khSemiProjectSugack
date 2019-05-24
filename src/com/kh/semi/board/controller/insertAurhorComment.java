@@ -34,7 +34,7 @@ public class insertAurhorComment extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	 
 		int wrirerId = ((Member)(request.getSession().getAttribute("loginUser"))).getMemberId();
-		int  bno   =Integer.parseInt(request.getParameter("bno")); 
+		int  bno = Integer.parseInt(request.getParameter("bno"));
 		String Cntent = request.getParameter("content");
 		 
 		System.out.println(wrirerId);
@@ -47,10 +47,21 @@ public class insertAurhorComment extends HttpServlet {
 	    System.out.println(bno);
 	    System.out.println("insert 서블릿1" + ac);
 	    
-	    ArrayList<authorComent> acList = new AuthorPageSerview().insertauthorComent(ac);
+	    int result = new AuthorPageSerview().insertauthorComent(ac);
 	     
 	    
-		
+	    String page = "";
+	    
+	    if(result > 0) {
+	         System.out.println("댓글 작성 성공:"+result);
+	         response.sendRedirect("comMent.as");
+	         
+	    } else {
+	    	System.out.println("실패:"+result);
+	    	request.setAttribute("msg","작성실패");
+	    	request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+	    	
+	    }
 		
 		
 		

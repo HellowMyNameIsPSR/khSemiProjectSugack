@@ -16,13 +16,13 @@ import com.kh.semi.board.model.vo.authorComent;
  * Servlet implementation class comMentServlet
  */
 @WebServlet("/comMent.as")
-public class comMentServlet extends HttpServlet {
+public class SelectCommtntListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public comMentServlet() {
+    public SelectCommtntListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,12 +34,33 @@ public class comMentServlet extends HttpServlet {
 		
 		
 		
-		String bno = request.getParameter("bno");
+		int  bno = Integer.parseInt(request.getParameter("bno"));
+		int num = 0 ;
+		ArrayList<authorComent> list = new AuthorPageSerview().SelectAuthorComent(bno);
 		
-		String Page= "views/tour/comMent.jsp";
+		
+		System.out.println("작가댓글 서블릿:" +bno); 
+		
+		
+		System.out.println("댓글 서블릿 list" + list);
+		
+		
+		
+		/*String Page= "views/tour/comMent.jsp";
 		
 		 request.setAttribute("bno", bno);
-		 request.getRequestDispatcher(Page).forward(request, response);
+		 request.getRequestDispatcher(Page).forward(request, response);*/
+		
+		if(list != null) {
+			request.setAttribute("list",list );
+			
+			request.getRequestDispatcher("views/tour/comMent.jsp").forward(request, response);;	
+		}
+		
+		
+		 
+		 
+		 
 		
 		
 		

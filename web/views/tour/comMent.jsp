@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="com.kh.semi.board.model.vo.* ,com.kh.semi.member.model.vo.Member"%>
+	import="com.kh.semi.board.model.vo.* ,com.kh.semi.member.model.vo.Member,java.util.* "%>
+
 <%
-/* String member_Id = (String)request.getAttribute("memberId"); */
-	String bno =(String)request.getAttribute("bno");
+   
+	Member loginUser2 = (Member) request.getSession().getAttribute("loginUser");
+	ArrayList<authorComent> list = (ArrayList<authorComent>) request.getAttribute("list");
+	int bno = (int)list.get(0).getBno();
 %>
-<%
-	Member loginUser2 = (Member)request.getSession().getAttribute("loginUser");
-%> 
+
 
 <!DOCTYPE html>
 <html>
@@ -27,13 +28,34 @@
 .test2 {
 	background-color: red;
 }
+#sidebar{
+
+       
+
+}
+
+
+<%@ include file="../assets/css/main.html" %>
+<%@ include file="../assets/css/allCss.html"%>
 </style>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
 </head>
 <body>
 
@@ -48,7 +70,15 @@
 
 				<!-- Header -->
 
-				<header id="header"> </header>
+				
+				
+					
+				
+				<header id="header">  </header>
+
+ 				
+
+
 
 				<section id="contents">
 
@@ -61,18 +91,23 @@
 							<p>관심 가는 작가 들에게 응원에 메세지를 남겨 주세요</p>
 							<p>Tip: 관련작가들이 성실이 댓글에 성실히 답해드려요</p>
 							<p>
-								가져온 멤버 bno : <%=bno %>
-								</p>
+								<%--  가져온 멤버 bno :
+								<%=list.get(0).getBno() %>  --%>
+							</p>
 
 
 						</div>
-
-						<div>
-							<div class="row"
+						
+						
+						    <div class="row"
 								style="border: 1px solid black; width: 1100px; height: 200px;">
 
 								<div class="nick"
-									style="width: 100%; height: 50px; padding: 5px;"> <P></P></div> <!--작성자  -->
+									style="width: 100%; height: 50px; padding: 5px;">
+									<P><%=loginUser2.getMemberId() %></P> 
+									
+									
+								</div>
 								<div class="content"
 									style="border: 5px solid black; width: 900px; height: 100px; padding: 5px; margin-left: 20px;">
 									<textarea id="Content" style="margin-top: 10px; width: 880px;"
@@ -84,15 +119,49 @@
 								</div>
 
 							</div>
-						</div>
+						    
+
+						  
+						   <%if(list.size() >0){ 
+						      int num = 1;
+						      for(authorComent ac : list){ 
+						      %>
+						      
+						          
+						          
+						
+                              
+                              <div class="row"
+								style="border: 1px solid black; width: 1100px; height: 200px;">
+
+								<div class="nick"
+									style="width: 100%; height: 50px; padding: 5px;">
+									<P><%= ac.getEmail()%></P>
+								</div>
+								 
+								<div class="content"
+									style="border: 5px solid black; width: 900px; height: 100px; padding: 5px; margin-left: 20px;">
+									<p><%=ac.getCntent() %></p>
+								</div>
+								<!-- <div class="btn"
+									style="float: right; width: 120px; height: 100px; margin-left: 10px;">
+									<button id="addReply" style="width: 100px; height: 100px;">등록</button>
+								</div>
+
+ -->							</div> 
+							
+							<%   num++;
+							   }
+						      	
+							}%>
+                              						
+                                              
+							
+					
 
 
-						<br>
 
-
-                             
-
-						<div  class="row">
+						<div class="row">
 							<div class="col" style="margin: 0 auto;">
 
 								<ul class="pagination">
@@ -117,12 +186,61 @@
 					</div>
 					<!-- Contents area -->
 				</section>
-			</div>
+				
+			
+	
 		</div>
 
-		
-	</div> 
+
+	</div>
 	
+	
+	<div id="sidebar" >
+	<div class="inner">
+		<!-- Logo -->
+		<section class="alt">
+			<a href="index.jsp">LOGO</a>
+		</section>
+		<!-- Menu -->
+		<nav id="menu">
+			<header class="major">
+				<h2>Menu</h2>
+			</header>
+			<ul>
+				<li><a href="views/member/myPage.jsp">주문내역</a></li>
+				<li>
+					<span class="opener">좋아요리스트</span>
+					<ul>
+						<li><a href="views/member/likeAuthor.jsp">관심작가</a>
+						<li><a href="views/member/likeFundingPro.jsp">관심 펀딩 상품</a>
+						<li><a href="likePro.jsp">관심 판매상품</a>
+					</ul>
+				</li>
+				<li>
+					<span class="opener">게시글관리</span>
+					<ul>
+						<li><a href="views/member/boardReview.jsp">응원글 및 리뷰</a>
+						<li><a href="views/member/boardQna.jsp">문의</a>
+					</ul>
+				</li>
+				<li><a href="views/member/boardPoint.jsp">적립금 사용 내역</a></li>
+				<li>
+					<span class="opener">개인정보</span>
+					<ul>
+						<li><a href="views/member/modifyMe.jsp">개인정보 수정</a>
+						<%-- <li><a href="<%=request.getContextPath()%>/addressList.me?num=<%=loginUser.getMemberId()%>">내 주소 관리</a> --%>
+						<li><a href="views/member/withDrawal.jsp">회원 탈퇴</a>
+					</ul>
+				</li>
+				
+			</ul>
+		</nav>
+		<!-- Footer -->
+		
+	</div>
+</div>
+	</div>
+
 	<script>
 		$(function(){
 			$("#addReply").click(function(){
@@ -133,11 +251,11 @@
 				var content = $("#Content").val();
 				console.log(bno);
 				$.ajax({
-					url:"<%=request.getContextPath()%>/insertComment.as?num=<%=bno%>",
+					url:"<%= request.getContextPath()%>/insertComment.as?bno=" + bno,
 					data:{writer:writer, bno:bno, content:content}, 
 					type:"post", 
 					success:function(data){
-						
+						console.log(data);
 					}
 					
 				}) 
@@ -151,7 +269,12 @@
 	
 	
 	</script>
-	
+	 
+<script src="views/assets/js/jquery.min.js"></script>
+<script src="views/assets/js/browser.min.js"></script>
+<script src="views/assets/js/breakpoints.min.js"></script>
+<script src="views/assets/js/util.js"></script>
+<script src="views/assets/js/main.js"></script>
 
 
 

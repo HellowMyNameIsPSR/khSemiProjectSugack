@@ -129,10 +129,9 @@ public class AuthorPageSerview {
 
 	
 	//작가페이지 응원하기 댓글 생성 메소드 
-	public ArrayList<authorComent> insertauthorComent(authorComent ac) {
+	public int insertauthorComent(authorComent ac) {
 		
 		Connection con = getConnection();
-		ArrayList<authorComent> acList = null;
 		
 		int result = new AuthorPageDao().insertauthorComent(con,ac);
 		
@@ -144,7 +143,21 @@ public class AuthorPageSerview {
 		
 		close(con);
 		
-		return acList;
+		return result;
+	}
+
+	public ArrayList<authorComent> SelectAuthorComent(int bno) {
+	
+		Connection con = getConnection();
+		
+		ArrayList<authorComent> list = new AuthorPageDao().SelectComent(bno ,con);
+			
+		System.out.println("댓글서비스 list" +list);
+		
+		close(con);
+		
+		
+		return list;
 	}
 
 	
