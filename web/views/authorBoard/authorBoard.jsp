@@ -114,6 +114,7 @@
    			
    			<div class="mainImg" style="height:200px;">
    				<input type="hidden" value=<%=hmap.get("MemberID") %>>
+   				<input type="hidden" value=<%=hmap.get("BNO")%>>
    				<img src="uploadSalesImage/<%=hmap.get("ProChangename")%>" name="pic" style="width:100%; height:200px; align:center" class="thumbImg" >
    			</div>
    			
@@ -190,8 +191,9 @@
 	
 		
 		 var memberId = $(this).children().eq(0).val();
+		 var Bno =$(this).children().eq(1).val();
 		 console.log(memberId)
-		 location.href="<%=request.getContextPath()%>/selectAuthorStory.au?memberId="+ memberId;
+		 location.href="<%=request.getContextPath()%>/selectAuthorStory.au?memberId="+memberId+"&bno="+Bno;
 		
 	});
 	

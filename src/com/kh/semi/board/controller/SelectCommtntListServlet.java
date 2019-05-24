@@ -35,14 +35,14 @@ public class SelectCommtntListServlet extends HttpServlet {
 		
 		
 		int  bno = Integer.parseInt(request.getParameter("bno"));
-		int num = 0 ;
-		ArrayList<authorComent> list = new AuthorPageSerview().SelectAuthorComent(bno);
+		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		ArrayList<authorComent> list = new AuthorPageSerview().SelectAuthorComent(bno,memberId);
 		
 		
 		System.out.println("작가댓글 서블릿:" +bno); 
 		
 		
-		System.out.println("댓글 서블릿 list" + list);
+		System.out.println("댓글 서블릿 list" + list);   
 		
 		
 		
@@ -53,7 +53,8 @@ public class SelectCommtntListServlet extends HttpServlet {
 		
 		if(list != null) {
 			request.setAttribute("list",list );
-			
+			request.setAttribute("bno", bno);
+			request.setAttribute("memberId", memberId);
 			request.getRequestDispatcher("views/tour/comMent.jsp").forward(request, response);;	
 		}
 		

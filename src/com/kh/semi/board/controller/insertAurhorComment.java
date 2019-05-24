@@ -54,7 +54,7 @@ public class insertAurhorComment extends HttpServlet {
 	    
 	    if(result > 0) {
 	         System.out.println("댓글 작성 성공:"+result);
-	         response.sendRedirect("comMent.as");
+	         response.getWriter().print("ok");
 	         
 	    } else {
 	    	System.out.println("실패:"+result);
