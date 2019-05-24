@@ -36,6 +36,7 @@
 						<table class="postMenu">
 							<tr>
 								<td class="menuA" id="status1">상태 : 대기</td>
+								<td class="menuA" id="status5">상태 : 출시예정</td>
 								<td class="menuA" id="status2">상태 : 진행중</td>
 								<td class="menuA" id="status3">상태 : 종료</td>
 								<td class="menuA" id="status4">상태 : 승인</td>
@@ -114,6 +115,9 @@
 			$("#status4").click(function(){
 				sortTable(4);
 			});
+			$("#status5").click(function(){
+				sortTable(5);
+			});
 			
 			
 		}); 
@@ -125,6 +129,7 @@
 				case 2: status = "진행중"; break;
 				case 3: status = "종료"; break;
 				case 4: status = "승인"; break;
+				case 5: status = "출시예정"; break;
 			}
 			$.ajax({
 				url : "<%= request.getContextPath() %>/selectSortFund.fund",
@@ -161,8 +166,10 @@
 							if(status == "승인"){
 								//alert("2차 등록 화면으로 넘어감");		
 								location.href = "<%= request.getContextPath() %>/selectFundCon.fund?workId=" + workId;
+							} else{
+								location.href = "<%= request.getContextPath() %>/views/author/fundingProductDetail.jsp";
 							} //end if
-						}); 
+						});
 					}			
 				},
 				error : function(data) {

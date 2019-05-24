@@ -3,6 +3,7 @@ package test.com.kh.semi.funding.model.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -10,10 +11,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.kh.semi.funding.model.service.FundingService;
+import com.kh.semi.funding.model.vo.AuthorAccount;
 import com.kh.semi.funding.model.vo.Funding;
 import com.kh.semi.funding.model.vo.SortFunding;
 import com.kh.semi.funding.model.vo.Work;
 import com.kh.semi.funding.model.vo.WorkPic;
+import com.kh.semi.member.model.vo.Member;
 
 public class FundingServiceTest {
 	
@@ -22,6 +25,7 @@ public class FundingServiceTest {
 	private ArrayList<WorkPic> fileList;
 	private Funding fund;
 	private SortFunding sortFunding;
+	private AuthorAccount authorAcc;
 	
 	@Before
 	public void beforTest() {
@@ -30,11 +34,25 @@ public class FundingServiceTest {
 		sortFunding  = new SortFunding();
 		sortFunding.setFunStatus("대기");
 		
+		authorAcc = new AuthorAccount();
+		authorAcc.setBackName("test");
+		authorAcc.setAccountNumber("test");;
+		authorAcc.setVerifyAccount("Y");
+		authorAcc.setAuthorName("test");
+		authorAcc.setAuthorbirth("970922");
+		authorAcc.setType("개인");
+		authorAcc.setMemberId(10);
+		
 		fund = new Funding();
 		fund.setMaxVoo(100);
 		fund.setMinVoo(200);
 		fund.setFunDate(7);
 		fund.setFundStatus("대기");
+		fund.setWorkId(Integer.parseInt("17907"));
+		fund.setDeliDate(Date.valueOf("2019-07-05"));
+		fund.setStartDate(Date.valueOf("2019-06-10"));
+		fund.setFinishDate(Date.valueOf("2019-06-21"));
+		fund.setCooperation("N");
 		
 		fundWork = new Work();
 		fundWork.setWorkName("test funding name");
@@ -82,8 +100,14 @@ public class FundingServiceTest {
 	public void testSelectFundContents() {
 		assertNotNull(fundingService.selectFundContents(2, 47));
 	}
+	@Ignore
 	@Test
 	public void testSelectWorkPicFile() {
 		assertNotNull(fundingService.selectWorkPicFile(2, 47));
+	}
+	
+	@Test
+	public void testUpdateFundingAndAuthoAcc() {
+		assertEquals(fundingService.updateFundingAndInsertAcc(fund, authorAcc), 1);
 	}
 } //end class

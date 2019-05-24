@@ -37,7 +37,7 @@
 						<h2>판매 작품 2차 등록</h2>
 					</header>
 					<!-- Contents area -->
-					<form id="salesInsert" action="" method="post">
+					<form id="salesInsert" action="<%= request.getContextPath() %>/insertEnroll2.fund" method="post">
 					<!-- 기본정보 -->
 						<div class="listBox">
 							<div class="listTitle">
@@ -45,6 +45,8 @@
 							</div>
 							<div class="listContents">
 							<div class="row" style="margin-bottom:0px;">
+								<input type="text" value="<%= fundInfoList.get(0).get("workId") %>" id="workId" name="workId"
+									style="display:none;">
 								<div class="col-sm-4">
 									<img src="<%= request.getContextPath() %>/uploadFundingGoodsImg/<%= fileList.get(0).getChangeName() %>"
 													 style="height:80%; width:100%;" id="fundImg" name="fundImg">
@@ -85,7 +87,7 @@
 											</tr>
 											<tr>
 												<td colspan="2">
-													<label class="pull-left">배송예정일</label>
+													<label class="pull-left">배송시작일</label>
 													<input type="date" class="form-control" id="deliDate" name="deliDate">
 												</td>
 												<td colspan="2">
@@ -166,8 +168,7 @@
 										<td>예금주</td>
 										<td colspan="2">
 											<input type="text" class="form-control" name="accpnm" id="accpnm"
-												   placeholder="계좌의 예금주명과 일치해야 합니다." readonly
-												   value="<%= loginUser.getMemberName() %>">
+												   placeholder="계좌의 예금주명과 일치해야 합니다.">
 										</td>
 									</tr>
 									<tr>
@@ -184,7 +185,8 @@
 												   name="accnum" id="accnum">
 										</td>
 										<td>
-											<button class="all-btn btn btn-primary btn-xs" id="confirmacc" onclick="fnSearchAccessToken()">계좌 인증</button>
+											<button class="all-btn btn btn-primary btn-xs" id="confirmacc" type="button"
+											onclick="fnSearchAccessToken()">계좌 인증</button>
 										</td>
 									</tr>
 								</table>
@@ -282,7 +284,33 @@
 	$(function(){
 		$("#accountCheck").hide();
 		$("#enrollFundingGoods2").click(function(){
-			
+			var arr = $("#fcStart").val().split("-");
+			var startDate = new Date(arr[0], arr[1] - 1, arr[2]);
+			var now = new Date();
+			var yyyy = now.getFullYear();
+			var dd = now.getDate();
+			var mm = now.getMonth();
+			var today = new Date(yyyy, mm, dd);
+			var deliDate = $("#deliDate").val();
+			var fcStart =  $("#fcStart").val();
+			var fcFinish = $("#fcFinish").val();
+			console.log(today); console.log(startDate);
+			if(startDate < today){
+				alert("현재 보다 이전 날짜를 시작일로 지정할 수 없습니다.");
+				return false;
+			}
+			if(fcStart == null || fcStart == "" || fcStart == "&nbsp;"){
+				alert("펀딩 시작일을 지정해 주세요.");
+				return false;
+			}
+			if(deliDate == null || deliDate == "" || deliDate == "&nbsp;") {
+				alert("발송 예정일을 지정해 주세요.");
+				return false;
+			}
+			if(accCheck == false){
+				alert("계좌 인증을 완료해 주세요.");
+				return false;
+			}
 		});
 	});
 
@@ -348,6 +376,8 @@
 					alert('error!!!');
 				}
 			});
+			//return false;
+			
 		}
 		/* 계좌실명조회API */
 		function fnSearchRealName() {
@@ -422,6 +452,7 @@
 							alert('error!!!');
 						}
 					});
+			//return false;
 		}
 	</script>
 </body>
