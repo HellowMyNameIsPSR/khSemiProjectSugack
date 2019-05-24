@@ -29,8 +29,7 @@ public class RequestDenyServlret extends HttpServlet {
 		 String memberId22 = request.getParameter("memberId");
 		 int memberId = Integer.parseInt(memberId22);
 		 int result = 0;
-		 System.out.println("1차버튼 : " + apply1Stat);
-		 System.out.println("2차버튼 : " + apply2Stat);
+		 
 		 
 		
 

@@ -36,13 +36,7 @@ public class cCenterNoticeDetailServlet extends HttpServlet {
 			page = "views/customerCenter/customerCenterDetail.jsp";
 			request.setAttribute("b", b);
 			
-		/*else if(b != null && b.getDivision()==11) {
-			page = "views/customerCenter/customerCenterDetail.jsp";
-			request.setAttribute("b", b);
-			
-		}else if() {
-			
-		}else if() {*/
+		
 			
 		}else {
 			page = "views/common/errorPage.jsp";

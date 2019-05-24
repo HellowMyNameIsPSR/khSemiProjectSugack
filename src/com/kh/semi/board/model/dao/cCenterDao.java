@@ -30,21 +30,24 @@ public class cCenterDao {
 			e.printStackTrace();
 		}
 	}
-	public ArrayList<Board> noticeList(Connection con) {
+	public ArrayList<Board> noticeList(Connection con, int divison) {
 		ArrayList<Board> list = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		System.out.println("Dao들어옴");
+		System.out.println("Dao들s어옴");
 
 		
 		
 		String query = prop.getProperty("noticeList");
 		
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = con.prepareStatement(query);
 			
+			pstmt.setInt(1, divison);
+			
+			rset = pstmt.executeQuery();
+					
 			list = new ArrayList<>();
 			
 			
@@ -72,7 +75,7 @@ public class cCenterDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 		

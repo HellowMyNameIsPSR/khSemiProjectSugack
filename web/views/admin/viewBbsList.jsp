@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -110,27 +111,38 @@
 	<script>
 		$(function(){
 			$("#notice").click(function(){
-				location.href="<%= request.getContextPath()%>/ccNoticeBoard.bo"
+				var id = "10"
+				location.href="<%= request.getContextPath()%>/ccNoticeBoard.bo?id=" + id;
 			})
 			$("#sellFAQ").click(function(){
-				location.href="<%= request.getContextPath()%>/views/customerCenter/customerCenterFaqGoods.jsp"
+				var id = "11"
+
+				location.href="<%= request.getContextPath()%>/ccNoticeBoard.bo?id=" + id;
 
 			})
 			$("#Logistic").click(function(){
-				location.href="<%= request.getContextPath()%>/views/customerCenter/customerCenterNotice.jsp"
+				var id = "13"
+
+				location.href="<%= request.getContextPath()%>/ccNoticeBoard.bo?id=" + id;
 
 			})
 			$("#BuyFAQ").click(function(){
-				location.href="<%= request.getContextPath()%>/views/customerCenter/customerCenterFaqOrder.jsp"
+				var id = "12"
+
+				location.href="<%= request.getContextPath()%>/ccNoticeBoard.bo?id=" + id;
 
 			})
 			$("#refundFAQ").click(function(){
-				location.href="<%= request.getContextPath()%>/views/customerCenter/customerCenterFaqCancel.jsp"
+				var id = "15"
+
+				location.href="<%= request.getContextPath()%>/ccNoticeBoard.bo?id=" + id;
 
 			})			
 			$("#Event").click(function(){
-				location.href="<%= request.getContextPath()%>/views/customerCenter/customerCenterEvent.jsp"
+				var id = "14"
 
+				location.href="<%= request.getContextPath()%>/ccNoticeBoard.bo?id=" + id;
+				
 			})
 			
 			

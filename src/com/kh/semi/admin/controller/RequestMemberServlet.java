@@ -32,7 +32,7 @@ public class RequestMemberServlet extends HttpServlet {
 		//2. 신청수, 대기, 승인완료, 승인거부에 대한 건수 출력
 		
 
-		System.out.println("데이터 오류를 확인해야함 입점신청 서블릿");
+
 		ArrayList<HashMap<String, Object>> list = new adminService().reqMemList();
 		ArrayList<HashMap<String, Object>> total = new adminService().totalList();
 		
