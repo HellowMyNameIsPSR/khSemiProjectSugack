@@ -1,53 +1,93 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.semi.board.model.vo.*"%>
+	
+	<%
+		ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
+		int i = 1;
+	%>
+
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<style>
-	.accordion-heading{
-		border: 1px solid gray;
+	<title>고객센터 공지사항</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <%@ include file="../assets/css/allCss.html" %>
+    
+    <style>
+    		#noticeBoard th{
+    		background: skyblue;
 		
-	}
-</style>
+		text-align:center;
+ 	}
+ 	#noticeBoard tr {
+ 			text-align:center;
+ 	
+ 	}
+    
+    </style>
+    
 </head>
 
 
 <body>
-	<div class="container">
-	
-	<%@ include file = "cutomerCenterMenubar.jsp" %>
-
-		<div class="accordion" id="accordion2">
-			<div class="accordion-group">
-				<div class="accordion-heading">
-					<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">상품문의1</a>
-				</div>
-				<div id="collapseOne" class="accordion-body collapse in">
-					<div class="accordion-inner">헌법재판소에서 법률의 위헌결정, 탄핵의 결정, 정당해산의 결정 또는 헌법소원에 관한 인용결정을 할 때에는 재판관 6인 이상의 찬성이 있어야 한다. 통신·방송의 시설기준과 신문의 기능을 보장하기 위하여 필요한 사항은 법률로 정한다.
-
-군인 또는 군무원이 아닌 국민은 대한민국의 영역안에서는 중대한 군사상 기밀·초병·초소·유독음식물공급·포로·군용물에 관한 죄중 법률이 정한 경우와 비상계엄이 선포된 경우를 제외하고는 군사법원의 재판을 받지 아니한다.</div>
-				</div>
-			</div>
-			<div class="accordion-group">
-				<div class="accordion-heading">
-					<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">상품문의2</a>
-				</div>
-				<div id="collapseTwo" class="accordion-body collapse">
-					<div class="accordion-inner">헌법재판소에서 법률의 위헌결정, 탄핵의 결정, 정당해산의 결정 또는 헌법소원에 관한 인용결정을 할 때에는 재판관 6인 이상의 찬성이 있어야 한다. 통신·방송의 시설기준과 신문의 기능을 보장하기 위하여 필요한 사항은 법률로 정한다.
-
-군인 또는 군무원이 아닌 국민은 대한민국의 영역안에서는 중대한 군사상 기밀·초병·초소·유독음식물공급·포로·군용물에 관한 죄중 법률이 정한 경우와 비상계엄이 선포된 경우를 제외하고는 군사법원의 재판을 받지 아니한다.</div>
-				</div>
-			</div>
-		</div>
-
+<%@ include file = "cutomerCenterMenubar.jsp" %>
+	<div class="container">	
+		<h2>상품FAQ</h2>
+		<table id="noticeBoard" class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th>게시글번호</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>날짜</th>
+					<th>조회수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(Board b : list) { %>
+				<tr>
+					<td><%= b.getBno()%></td>
+					<td><%= b.getTitle() %></td>
+					<td>운영자</td>
+					<td><%= b.getWriteDate() %></td>
+					<td><%= b.getbCount() %></td>
+					
+				</tr>
+				<% } %>
+			
+			</tbody>
+		</table>
+		<hr />
+		<% if(loginUser != null && loginUser.getMemberType().equals("A")){ %>
+		<button id="write" class="btn primary" style="float:right">작성하기</button>
+		<% } %>
 	</div>
+	<script>
+	$(function(){
+		$("#noticeBoard tr td").mouseenter(function(){
+			$(this).parent().css({"background":"lightyellow", "cursor":"pointer"});
+		}).mouseout(function(){
+			$(this).parent().css({"background":"white"});
+		}).click(function(){
+			var num = $(this).parent().children().eq(0).text();
+			console.log(num);
+			location.href="<%=request.getContextPath()%>/cCenterNoticeDetail.bo?num=" + num;
+			
+		});
+		$("#write").click(function(){
+			location.href="<%= request.getContextPath()%>/views/customerCenter/customerCenterNoticeWrite.jsp";
+			
+		})
+	})
+	
+
+
+	
+	</script>
 	
 
 </body>

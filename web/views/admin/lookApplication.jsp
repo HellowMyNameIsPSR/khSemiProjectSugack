@@ -127,6 +127,8 @@
 				<button id="deny" style="width:60px; height:40px;" value="거부">거부</button>
 			</div>
 			<% if(rm.getApply1().equals("승인")) { %>
+			<% for(int j = 0; j < picPath2.size(); j++){ %>
+			<% System.out.println("picPath2 size : " + picPath2.size()); %>
 		<div class="row">
 				<table class="readTable" style="width:100%;">
 			      		<tr style="margin-left:30px;">
@@ -137,8 +139,8 @@
 			      		<tr>
 			      			<td colspan="2">
 			      				<label class="form-control" >사업자 등록증</label>
-			      				<div style="background:yellow; width:400px; height:400px; margin-left:17px; margin-bottom:40px;">
-			      											<!-- 사진 불러오기 -->
+			      				<div style="width:400px; height:400px; margin-left:17px; margin-bottom:40px;">
+			      					<img src="<%= request.getContextPath() %>/uploadApply2/<%= picPath2.get(1) %>" style="width:400px; height:400px">
 			      				</div>
 			      			</td>
 			      			
@@ -146,7 +148,7 @@
 			      			
 			      			<td colspan="2">
 			      				<label class="form-control">구매 안전 서비스 관리 이용 확인증</label>
-			      				<div style="background:yellow; width:400px; height:400px; margin-bottom:40px;">
+			      				<div style="width:400px; height:400px; margin-bottom:40px;">
 			      				<img src="<%= request.getContextPath() %>/uploadApply2/<%= picPath2.get(2) %>" style="width:400px; height:400px">
 			      				</div>
 			      			</td>
@@ -156,29 +158,22 @@
 			      		<tr>
 			      			<td colspan="2">
 			      				<label class="form-control">통신판매업 신고증</label>
-			      					<div style="background:yellow; width:400px; height:400px; margin-left:17px;">
-			      					<img src="<%= request.getContextPath() %>/uploadApply2/<%= picPath2.get(1) %>" style="width:400px; height:400px">
-			      				</div>
-			      			</td>
-			      			
-			      			<td></td>
-			      			
-			      			<td colspan="2">
-			      				<label class="form-control">통신판매업 신고증</label>
-			      					<div style="background:yellow; width:400px; height:400px;">
+			      					<div style="width:400px; height:400px; margin-left:17px;">
 			      					<img src="<%= request.getContextPath() %>/uploadApply2/<%= picPath2.get(0) %>" style="width:400px; height:400px">
+			      					<%= j = j + picPath2.size() %>
 			      				</div>
 			      			</td>
+
 			      		</tr>
 			      	</table>
 			      	
 		</div>
 		<div class="btns" style="align:center;text-align:center; margin-top:15px;">
-				<button id="accept2" style="width:60px; height:40px;"value="승인">승인</button>
-				<button id="deny2" style="width:60px; height:40px;" value="거부">거부</button>
+				<button id="accept2" class="btn" style="color: white; background: skyblue;" value="승인">승인</button>
+				<button id="deny2" class="btn"  style="color: white; background: skyblue;" value="거부">거부</button>
 			</div>
 						<% } %>
-		
+						<% } %>
 			      		<!-- 메뉴바 자리 -->
 		
 	</div>

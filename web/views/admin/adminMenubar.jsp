@@ -38,7 +38,6 @@
 					<ul>
 						<li><a href="viewMemList.jsp">회원관리</a>
 						<li><a href="viewWithdrawalMemList.jsp">탈퇴회원관리</a>
-						<li><a href="viewBlackMemList.jsp">블랙리스트 관리</a>
 						<li><a href="viewSellMemList.jsp">판매자관리</a>
 					</ul>
 				</li>
@@ -47,7 +46,7 @@
 					<ul>
 						<!-- <li><a href="<%=request.getContextPath()%>/reqMemList.ad">입점신청관리</a> -->
 						<li><a href="/sg/reqMemList.ad">입점신청관리</a> 
-						<li><a href="viewQuestList.jsp">1:1문의관리</a>
+						<li><a href="viewQuestList.jsp">환불관리</a>
 						<li><a href="viewMileList.jsp">적립금관리</a>
 						<li><a href="viewBbsList.jsp">고객센터관리</a>
 					</ul>

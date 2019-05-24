@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <% String event = "15"; %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -57,19 +58,40 @@
 			</div>
 			<div class="tab-pane" id="tab2">
 				<p>
-					<a href="customerCenterFaqDeliv.jsp">배송문의</a>
+					<a id="deliv">배송문의</a>
 					|
-					<a href="customerCenterFaqCancel.jsp">교환/환불</a>
+					<a href="<%= request.getContextPath() %>/cCenterFaqCancel.bo">교환/환불</a>
 					|
-					<a href="customerCenterFaqOrder.jsp">주문/결제</a>
-					|
-					<a href="customerCenterFaqGoods.jsp">상품문의</a>
+					<a href="<%= request.getContextPath() %>/cCenterFaqOrder.bo">주문/결제</a>
+					|					
+					<a href="<%= request.getContextPath() %>/cCenterFaqGoods.bo">상품문의</a>
 				</p>
 			</div>
 			<div class="tab-pane" id="tab3">
-				<p><a href="<%= request.getContextPath() %>/ccNoticeBoard.bo">공지사항</a>|<a href="customerCenterEvent.jsp">이벤트</a></p>
+				<p><a href="<%= request.getContextPath() %>/ccNoticeBoard.bo">공지사항</a>|
+				<a id="event">이벤트</a>
+				</p>
 			</div>
 		</div>
 	</div>
+	<script>
+	$(function(){
+		$("#deliv").mouseenter(function(){
+			$(this).parent().css({"background":"lightyellow", "cursor":"pointer"});
+		}).mouseout(function(){
+			$(this).parent().css({"background":"white"});
+		}).click(function(){
+			var num = 11;
+			location.href="<%= request.getContextPath() %>/cCenterFaqDeliv.bo?num=" + num;
+			
+			
+		});
+		$("#event").click(function(){
+			var num = 12;
+			location.href="<%= request.getContextPath() %>/cCenterEvent.bo?num=" + num;
+			
+		})
+	})
+	</script>
 </body>
 </html>
