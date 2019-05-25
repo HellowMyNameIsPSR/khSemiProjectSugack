@@ -24,7 +24,9 @@ public class SelectNoticeMainListServlet extends HttpServlet {
     public SelectNoticeMainListServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Board> list = new cCenterService().noticeList();
+		int divison = 10;
+		
+		ArrayList<Board> list = new cCenterService().noticeList(divison);
 		int limit;
 		
 		limit = 6;
