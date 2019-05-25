@@ -37,7 +37,7 @@
 <%@ include file = "cutomerCenterMenubar.jsp" %>
 	<div class="container">	
 		<h2>공지사항</h2>
-		<table id="noticeBoard" class="table table-striped table-hover">
+		<table id="noticeBoard" class="table table-striped">
 			<thead>
 				<tr>
 					<th>게시글번호</th>
