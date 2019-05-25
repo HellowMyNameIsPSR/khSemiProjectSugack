@@ -52,9 +52,7 @@
       margin-left:150px;
    }
    .qnaContents {
-      margin: 20px 15px 20px 15px;
-      padding-left:20px;
-      padding-right:20px;
+      
       border:2px solid lightgray;
       
    }
@@ -146,7 +144,7 @@ hr{
          <input type="hidden" class="input2" value="<%=hmap.get("fcFinish")%>">
          
 		 
-         <h7>발송예정일은 <%=hmap.get("deliDate") %> <br> 배송비:<label id="deliPrice"><%=hmap.get("deliPrice") %></label>원</h7>
+         <h7>발송예정일은 <%=hmap.get("deliDate") %>&nbsp;입니다. <br> 배송비:&nbsp;<label id="deliPrice"><%=hmap.get("deliPrice") %></label>원</h7>
         
          <form method="post" id="buy">
          	 <input type="hidden" id="workId" name="workId" value="<%=work.get("workId")%>">
@@ -183,8 +181,8 @@ hr{
     <div class="row information">
     <ul class="nav nav-tabs">
     <li class="active" style="margin-top:70px"><a data-toggle="tab" href="#menu0">기본정보</a></li>
-    <li><a data-toggle="tab" href="#menu1"style="margin-top:70px">배송/판매/교환/환불</a></li>
-    <li><a data-toggle="tab" href="#menu2"style="margin-top:70px">별점 및 응원글</a></li>
+    <li><a data-toggle="tab" href="#menu1"style="margin-top:70px">배송/판매/환불</a></li>
+    <li><a data-toggle="tab" href="#menu2"style="margin-top:70px">별점 및 리뷰</a></li>
     <li><a data-toggle="tab" href="#menu3"style="margin-top:70px">문의</a></li>
      </ul>
 
@@ -197,13 +195,13 @@ hr{
       </div>
     </div>
     <div id="menu1" class="tab-pane fade" >
-      <h3>배송/판매/교환/환불</h3>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <h3>배송/판매/환불</h3>
+      <img src="views/images/delinfo.PNG" style="width:100%;">
     </div>
      <%} %>
     
     <div id="menu2" class="tab-pane fade">
-      <h3>별점 및 응원글</h3>
+      <h3>별점 및 리뷰</h3>
        <div class="star" style="  padding:10px; width:100%; height:150px; border:2px solid lightgray">
       <div id="review">
          <textarea id="reviewCon"style="width:100%; height:80px;" name="content"></textarea>
@@ -464,11 +462,11 @@ hr{
           
           var $tr0 = $("<tr>");
         
-          var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"lightblue", "color": "gray"});
+          var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"yellowgreen", "color": "black"});
     
-      	  var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"lightblue", "color": "gray"});
-      	  var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
-      	  var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
+      	  var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"yellowgreen", "color": "black"});
+      	  var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"yellowgreen", "color": "black"});
+      	  var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"yellowgreen", "color": "black"});
       	
    		    $tr0.append($td0);
 			$tr0.append($td1);
@@ -557,9 +555,9 @@ hr{
   </div>
  
      </div>
-     <%@ include file="/views/main/footer.jsp" %>
+  
   </div>
-
+   <%@ include file="/views/main/footer.jsp" %>
 <script>
    $(function(){
       $("#sel1").click(function(){

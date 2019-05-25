@@ -32,21 +32,18 @@ public class InsertFundProQnaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int workId = Integer.parseInt(request.getParameter("workId"));
-		System.out.println("workId : "+workId);
+		
 		String category = request.getParameter("category");
-		
 		String content = request.getParameter("content");
-		
 		int writer = ((Member)(request.getSession().getAttribute("loginUser"))).getMemberId();
-		//int bno = Integer.parseInt(request.getParameter("bno"));
+	
 		
 		ProQna qna  = new ProQna();
 		qna.setcategory(category);
 		qna.setContent(content);
 		qna.setMid(writer);
 		qna.setWorkId(workId);
-		//qna.setBno(bno);
-		System.out.println("InsertProQnaServlet에서" + qna);
+
 		
 		int result = new FundProQnaService().insertProQna(qna);
 		

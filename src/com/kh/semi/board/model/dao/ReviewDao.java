@@ -38,9 +38,7 @@ public class ReviewDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, rv.getContent());
-			//pstmt.setInt(2, rv.getBno());
 			pstmt.setInt(2, rv.getWriterId());
-			//pstmt.setInt(4, rv.getWriteLevel());
 			pstmt.setString(3, rv.getStarPoint());
 			pstmt.setInt(4, rv.getWorkId());
 			
@@ -48,7 +46,7 @@ public class ReviewDao {
 	
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -58,44 +56,6 @@ public class ReviewDao {
 		return result;
 	}
 
-	//리뷰 조회용 메소드
-	/*public ArrayList<Review> selectList(Connection con, int memberId, int workId) {
-		
-		ArrayList<Review> list = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String query = prop.getProperty("selectReview");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, memberId);
-			
-			rset = pstmt.executeQuery();
-			
-			list = new ArrayList<Review>();
-			
-			while(rset.next()) {
-				Review review = new Review();
-				review.setWriteDate(rset.getDate("WRITE_DATE"));
-				review.setContent(rset.getString("CONTENT"));
-				review.setBno(rset.getInt("BNO"));
-				review.setWriterId(rset.getInt("WRITER_ID"));
-				review.setWriteLevel(rset.getInt("WRITE_LEVEL"));
-				review.setStarPoint(rset.getString("STAR_POINT"));
-				//review.setWriter(rset.getString("WRITER"));
-				list.add(review);
-				
-			}
-		} catch (SQLException e) {
-			// TODO dAuto-generated cdatch block
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}*/
 
 	
 	public ArrayList<Review> selectReviewList(Connection con, int workId) {
@@ -132,7 +92,7 @@ public class ReviewDao {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} finally {
 			close(rset);
@@ -145,7 +105,6 @@ public class ReviewDao {
 	public ArrayList<Review> selectMyReviewList(Connection con, int memberId) {
 	
 		ArrayList<Review> list = null;
-		//Statement stmt = null;
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 		
@@ -167,9 +126,7 @@ public class ReviewDao {
 				Review r = new Review();
 				r.setContent(rset.getString("CONTENT"));
 				r.setStarPoint(rset.getString("STAR_POINT"));
-				//r.setWriter(rset.getString("MEMBER_NAME"));
 				r.setWriteDate(rset.getDate("WRITE_DATE"));
-				//r.setWriterId(rset.getInt("WRITER_ID"));
 				r.setWorkId(rset.getInt("WORK_ID"));
 				r.setWorkName(rset.getString("WORK_NAME"));
 				r.setWorkKind(rset.getString("WORK_KIND"));
@@ -185,29 +142,7 @@ public class ReviewDao {
 			close(pstmt);
 		}
 		
-		/*try {
-			stmt=con.createStatement();
-			list = new ArrayList<Review>();
-			
-			while(rset.next()) {
-				Review r = new Review();
-				
-				r.setCid(rset.getInt("COMMENT_ID"));
-				r.setWriteDate(rset.getDate("WRITE_DATE"));
-				r.setContent(rset.getString("CONTENT"));
-				r.setBno(rset.getInt("BNO"));
-				r.setWriterId(rset.getInt("WRITER_ID"));
-				r.setWriteLevel(rset.getInt("WRITE_LEVEL"));
-				r.setStarPoint(rset.getString("STAR_POINT"));
-				r.setWorkId(rset.getInt("WORK_ID"));
-//작품명 가져오기
-				list.add(r);
-			}
-		} catch (SQLException e) {
-			
-		}finally {
-			close(stmt);
-		}*/
+		
 		return list;
 	}
 
@@ -227,7 +162,7 @@ public class ReviewDao {
 			result = pstmt.executeUpdate();
 			System.out.println("ReviewDao에서 result: "+result);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 		
@@ -265,7 +200,7 @@ public class ReviewDao {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block!
+			
 			e.printStackTrace();
 		}
 		return list;

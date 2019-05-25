@@ -243,7 +243,8 @@
 					
 				<div class="col-sm-12">
 					<label>이용약관</label>
-					<textarea readonly="readonly" style="overflow-y:scroll"></textarea>
+					<textarea readonly="readonly" style="overflow-y:scroll">제 1조 (목적)
+					이 약관은 회사가 운영하는 인터넷사이트에서 제공하는 인터넷 관련 서비스를 이용함에 있어 회원의 권리&의무 및 책임사항을 규정함을 목적으로 합니다.</textarea>
 					<div class="ok" style="float:right;" >
 						<input name="agree1" type="checkbox" value="동의" id="agree1"><label for="agree1">동의합니다.</label>
 					</div>
@@ -252,7 +253,8 @@
 					
 				
 					<label>이용약관</label>
-					<textarea readonly="readonly" style="overflow-y:scroll"></textarea>
+					<textarea readonly="readonly" style="overflow-y:scroll">제 2조(정의)
+					이용자는 회사에 개인정보를 제공하여 회원등록을 한 자로서, “몰”의 정보를 지속적으로 제공받으며, “몰”이 제공하는 서비스를 계속적으로 이용할 수 있는 자를 말합니다.</textarea>
 					<div class="ok" style="float:right;" >
 						<input name="agree2" type="checkbox" value="동의" id="agree2"><label for="agree2">동의합니다.</label>
 					</div>
@@ -261,7 +263,7 @@
 					
 				
 					<label>이용약관</label>
-					<textarea readonly="readonly" style="overflow-y:scroll"></textarea>					
+					<textarea readonly="readonly" style="overflow-y:scroll">“수작”과 이용자간에 발생한 전자상거래 분쟁에 관한 소송은 제소 당시의 이용자의 주소에 의하고, 주소가 없는 경우에는 거소를 관할하는 지방법원의 전속관할로 합니다. 다만, 제소 당시 이용자의 주소 또는 거소가 분명하지 않거나 외국 거주자의 경우에는 민사소송법상의 관할법원에 제기합니다. </textarea>					
 					<div class="ok" style="float:right;" >
 					<input name="agree3"type="checkbox" value="동의" id="agree3"><label for="agree3">동의합니다.</label>
 					</div> 
