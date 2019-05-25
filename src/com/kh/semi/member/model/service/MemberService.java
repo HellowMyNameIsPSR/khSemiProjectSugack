@@ -220,7 +220,7 @@ public class MemberService {
 		Connection con = getConnection();
 		
 		HashMap<String, Object> hmap = new HashMap<String, Object>();
-		ArrayList<String> bundleList = new MemberDao().selectBundleCode(con, memberId);
+		ArrayList<HashMap<String, Object>> bundleList = new MemberDao().selectBundleCode(con, memberId);
 		ArrayList<HashMap<String, Object>> orderList = new MemberDao().selectOrderList(con, memberId);
 		ArrayList<WorkOption> olist = new MemberDao().selectBuyOptionList(memberId, con);
 		int totalPoint = new MemberDao().selectTotalPoint(con, memberId);

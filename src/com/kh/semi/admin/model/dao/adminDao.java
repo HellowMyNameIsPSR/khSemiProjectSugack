@@ -1094,6 +1094,41 @@ public class adminDao {
 
 	}
 
+	public ArrayList<HashMap<String, Object>> selectAuthorSales(Date sDate, Date eDate, Connection con, int person) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectAuthorSales");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setDate(1, eDate);
+			pstmt.setDate(2, sDate);
+			pstmt.setInt(3, person);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				hmap.put("sales", rset.getInt("SALES"));
+				hmap.put("author", rset.getString("AUTHOR"));
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
 }
 
 

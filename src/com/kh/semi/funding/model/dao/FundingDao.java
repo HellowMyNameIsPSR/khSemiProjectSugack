@@ -527,7 +527,7 @@ PreparedStatement pstmt = null;
 	public int insertFUS(ArrayList<HashMap<String, Object>> fus, Connection con) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		//int
+
 		String query = prop.getProperty("insertFUS");
 		
 		try {
@@ -540,7 +540,7 @@ PreparedStatement pstmt = null;
 				pstmt.setInt(5, (int)fus.get(i).get("wid"));
 				
 				result += pstmt.executeUpdate();
-        
+
 			}
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -548,7 +548,8 @@ PreparedStatement pstmt = null;
 		}finally {
 			close(pstmt);
 		}
-      	return result;
+	  	return result;
+	  	
 	}
 
 	public int updateCount(Connection con, int workId) {

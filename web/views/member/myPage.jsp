@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="java.util.*, com.kh.semi.work.model.vo.*"%>
 <%
 	HashMap<String, Object> hmap = (HashMap<String, Object>)request.getAttribute("hmap");
-	ArrayList<String> blist = (ArrayList<String>)hmap.get("blist");
+	ArrayList<HashMap<String, Object>> blist = (ArrayList<HashMap<String, Object>>)hmap.get("blist");
 	ArrayList<HashMap<String, Object>> orderList = (ArrayList<HashMap<String, Object>>)hmap.get("orderList");
 	ArrayList<WorkOption> olist = (ArrayList<WorkOption>)hmap.get("olist");
 	System.out.println(orderList);
@@ -12,6 +12,17 @@
 			refundCount++;
 		}
 	}
+	int salesCount = 0;
+	int fundCount = 0;
+	for(int i = 0; i < orderList.size(); i++) {
+		if(orderList.get(i).get("workType").equals("SALES")){
+			salesCount++;
+		}else {
+			fundCount++;
+		}
+	}
+	
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -65,9 +76,9 @@
 							</tr>
 							<tr>
 								<td style="text-align:center;"><%=hmap.get("totalPoint") %>원</td>
-								<td style=" text-align:center;"><%=blist.size() %>건</td>
+								<td style=" text-align:center;"><%=salesCount %>건</td>
 								<td style="text-align:center;"><%=refundCount %>건</td>
-								<td style=" text-align:center;">_건</td>
+								<td style=" text-align:center;"><%=fundCount %>건</td>
 							</tr>
 						</table>
 					</div>
@@ -85,21 +96,28 @@
 			<table>
 				<tr style="height:50px; font-size:18px;">
 					<th>주문번호</th>
-					<th><%=blist.get(i)%></th>
+					<th><%=blist.get(i).get("bundleCode")%></th>
+					<th></th>
 					<th></th>
 					<th></th>
 					<th></th>
 					<th>주문일 :</th>
-					<th><%-- <%=orderList.get(i).get("payDate") %> --%></th>
+					<th><%=blist.get(i).get("payDate") %></th>
 				</tr>
 				<%for(int k = 0; k < orderList.size(); k++) {%>
 				<tr>
-					<%if(blist.get(i).equals((String)orderList.get(k).get("bundleCode"))){
+					<%if(blist.get(i).get("bundleCode").equals((String)orderList.get(k).get("bundleCode"))){
 						String ovalue = "";
 						int oprice = 0;
-				%>
+					if(orderList.get(k).get("workType").equals("SALES")) {	%>
 					<td><input type="hidden" value="<%=orderList.get(k).get("bid")%>">
 					<img src="uploadSalesImage/<%=orderList.get(k).get("changeName") %>" style="width:50px; height:50px;"></td>
+					<td>일반제품</td>
+					<%}else { %>
+					<td><input type="hidden" value="<%=orderList.get(k).get("bid")%>">
+					<img src="uploadFundingGoodsImg/<%=orderList.get(k).get("changeName") %>" style="width:50px; height:50px;"></td>	
+					<td>펀딩제품</td>
+					<%} %>
 					<% for(int j = 0; j < olist.size(); j++) {
 					%>
 						<%if((Integer)olist.get(j).getwId() == (Integer)orderList.get(k).get("bid")) { 
