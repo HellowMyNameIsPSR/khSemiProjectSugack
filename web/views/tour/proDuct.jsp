@@ -49,7 +49,7 @@
 
 				<!-- Header -->
 
-				<header id="header">
+				<header id="header"> 
 					<div class="name">출시 상품페이지</div>
 					<div class="navdiv"></div>
 					<div class="select"
