@@ -1,6 +1,7 @@
 package com.kh.semi.board.model.service;
 
 import java.util.ArrayList;
+
 import static com.kh.semi.common.JDBCTemplate.*;
 
 import java.sql.Connection;
@@ -27,6 +28,19 @@ public class cCenterService {
 		System.out.println("서비스 들d어옴");
 
 		Board b = new cCenterDao().selectOne(num, con);
+		
+		if(b != null) {
+			int result = new cCenterDao().updateCount(con, b.getBno());
+			
+			if(result > 0) {
+				commit(con);
+			}else {
+				rollback(con);
+				
+			}
+			
+		}
+		
 		
 		close(con);
 		
@@ -62,6 +76,31 @@ public class cCenterService {
 		
 		return list;
 		
+	}
+
+	public int deleteOne(int bno) {
+		Connection con = getConnection();
+		
+		int result = new cCenterDao().deleteOne(con, bno);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		
+		return result;
+	}
+
+	public int updateNotice(Board b) {
+		Connection con = getConnection();
+		
+		int result = new cCenterDao().updateNotice(con, b);
+		
+		return result;
 	}
 
 }

@@ -70,7 +70,7 @@
 				<tr>
 					<th>작성일</th>
 					<td>
-					<input type="date" name="date" value="<%= b.getWriteDate() %>">
+					<input type="date" name="date" value="<%= b.getWriteDate() %>"/>
 					</td>
 					<th>작성자</th>
 					<td>운영자</td>
@@ -95,19 +95,20 @@
 
 		<hr />
 		<% if(loginUser != null && loginUser.getMemberType().equals("A")){ %>
-		<div align="center">
-		
-		<button id="updateF" class="btn primary" style="float:right; background: skyblue;">수정완료</button>
-		<button id="cancel" class="btn primary" style="float:right; background: skyblue;"> 목록으로</button>
+		<div align="center">	
+			<button id="updateF" class="btn primary" style="float:right; background: skyblue;">수정완료</button>
+			<button id="cancel" class="btn primary" style="float:right; background: skyblue;"> 목록으로</button>
 		</div>
 		
 		<% } %>
 	<script>
+		$(function(){
+			$("#updateF").click(function(){
+				$("#updateNotice").attr("action", "<%= request.getContextPath()%>/cCenterNoticeUpdate.bo?bNo=" + <%= bno%>)
+			})
+		})
 		
-		function complete(){
-			$("#updateNotice").attr("action", "<%= request.getContextPath()%>/cCutomerCenterNoticeUpdate.bo?bNo=" + <%= bno%>);
 			
-			}
 
 	</script>
 	</form>
