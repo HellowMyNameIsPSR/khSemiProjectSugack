@@ -10,13 +10,13 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.kh.semi.funding.model.dao.FundingDao;
 import com.kh.semi.funding.model.service.FundingService;
 import com.kh.semi.funding.model.vo.AuthorAccount;
 import com.kh.semi.funding.model.vo.Funding;
 import com.kh.semi.funding.model.vo.SortFunding;
 import com.kh.semi.funding.model.vo.Work;
 import com.kh.semi.funding.model.vo.WorkPic;
-import com.kh.semi.member.model.vo.Member;
 
 public class FundingServiceTest {
 	
@@ -116,10 +116,11 @@ public class FundingServiceTest {
 	public void testSelectUserFundingProDetail() {
 		assertNotNull(fundingService.selectUserFundingProDetail(17907, 8502, "대기"));
 	}
-	
+	@Ignore
 	@Test
 	public void testGetListCount() {
 		assertEquals(fundingService.getListCount(8502, "진행중"), 2);
 	}
+	
 	
 } //end class

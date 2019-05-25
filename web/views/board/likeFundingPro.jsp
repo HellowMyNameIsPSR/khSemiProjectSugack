@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관심판매상품!</title>
+<title>관심펀딩상품</title>
 <link href="https://fonts.googleapis.com/css?family=Poor+Story&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
@@ -47,10 +47,13 @@
 							 	<%for(int i=0; i<list.size(); i++){
 							 			HashMap<String,Object> hmap = list.get(i);
 							 	%>
-							  <div class="col-sm-2 product" style="background-color:white; border:2px solid lightgray; height:400px; margin-bottom:30px;margin-left:50px;margin-right:20px;">
-							 	<div class="outer">
+							   <div class="col-sm-2 product" style="background-color:white; border:2px solid lightgray; height:400px; margin-bottom:30px;margin-left:50px;margin-right:20px;">
+							 	<div class="outer" onclick="location.href = '<%=request.getContextPath()%>/selectProDetail.pro?workId=<%= list.get(i).get("workId") %>'">
+
+							 		
+							 		<input type="hidden" id="wid" value="<%=hmap.get("workId") %>">
 							 		<div class="img" style="width:280px; margin-top:20px; margin-left:5px;">
-							 			<img src="uploadFundingGoodsImg/<%=hmap.get("changeName") %>" s style="width:250px; height:200px; border:2px solid lightgray">
+							 			<img src="uploadFundingGoodsImg/<%=hmap.get("changeName") %>" style="width:250px; height:200px; border:2px solid lightgray">
 							 		</div>
 							 
 							 		<div class="productName">
@@ -72,27 +75,7 @@
 							 </div>
 							 	<%} %>
 							 	
-							<!--  <div class="col-sm-4"></div>
-							 
-							  	<div class="col-sm-4 product" style="background-color:lavender; height:50%;">
-							 	<div class="outer">
-							 		<div class="img" style="width:230px;">
-							 			<img src="../images/tvxq.jpg" style="width:200px; height:200px;">
-							 		</div>
-							 		<div class="productName">
-							 			<label style="margin-left:80px;">상품명</label>
-							 		</div>
-							 		
-							 		<div class="heart">
-							 			<img src="../images/heart.png" style="width:50px; height:50px; float:left;">
-							 		</div>
-							 		<div>
-							 			<label style="margin-left:160px;">가격</label>
-							 		</div>
-							 	</div>
-							 	
-							 </div> -->
-					
+							
 					</div>
 					
 					
@@ -127,46 +110,6 @@
 						});
 					</script> 
 					
-					<!-- <div class="row">
-							 		 <div class="col-sm-4 product" style="background-color:lavender; height:50%;">
-							 	<div class="outer">
-							 		<div class="img" style="width:230px;">
-							 			<img src="../images/tvxq.jpg" style="width:200px; height:200px;">
-							 		</div>
-							 		<div class="productName">
-							 			<label style="margin-left:80px;">상품명</label>
-							 		</div>
-							 		
-							 		<div class="heart">
-							 			<img src="../images/heart.png" style="width:50px; height:50px; float:left;">
-							 		</div>
-							 		<div>
-							 			<label style="margin-left:160px;">가격</label>
-							 		</div>
-							 	</div>
-							 	
-							 </div>
-							 <div class="col-sm-4"></div>
-							  		 <div class="col-sm-4 product" style="background-color:lavender; height:50%;">
-							 	<div class="outer">
-							 		<div class="img" style="width:230px;">
-							 			<img src="../images/tvxq.jpg" style="width:200px; height:200px;">
-							 		</div>
-							 		<div class="productName">
-							 			<label style="margin-left:80px;">상품명</label>
-							 		</div>
-							 		
-							 		<div class="heart">
-							 			<img src="../images/heart.png" style="width:50px; height:50px; float:left;">
-							 		</div>
-							 		<div>
-							 			<label style="margin-left:160px;">가격</label>
-							 		</div>
-							 	</div>
-							 	
-							 </div>
-					
-					</div> -->
 					</div>
 					<!-- Contents area -->
 				</section>

@@ -386,10 +386,19 @@ public class MemberService {
 		return result;
 	}
 
+
 	public int updateMember(int mid) {
 		Connection con = getConnection();
 		
 		int result = new MemberDao().updateMember(con, mid);
+
+		System.out.println("서비스delete" + result);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
 		
 		close(con);
 		

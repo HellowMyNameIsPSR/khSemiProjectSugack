@@ -155,15 +155,16 @@ public class FundingDao {
 	//펀딩 작품 리스트 조회용 메소드
 	public ArrayList<HashMap<String, Object>> selectFunctionProList(Connection con) {
 		
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ArrayList<HashMap<String,Object>> list = null;
 		HashMap<String,Object> hmap = null;
 		ResultSet rset = null;
 		
 		String query = prop.getProperty("selectFundingProList");
 		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "진행중");
+			rset = pstmt.executeQuery();
 			list = new ArrayList<HashMap<String,Object>>();
 			
 			while(rset.next()) {
@@ -188,13 +189,13 @@ public class FundingDao {
 				hmap.put("memberName" , rset.getString("AUTHOR_NAME"));
 				list.add(hmap);
 				System.out.println("FundingDao: " + list);
-			
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			close(stmt);
+			close(pstmt);
 			close(rset);
 		}
 		

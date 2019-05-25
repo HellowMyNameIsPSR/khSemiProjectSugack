@@ -338,6 +338,7 @@ public class AuthorDao {
 		return result;
 	}
 
+
 	public ArrayList<HashMap<String, Object>> selectSalesForMain(Connection con, int mid) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -360,16 +361,16 @@ public class AuthorDao {
 				list.add(hmap);
 			}
 			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
+
 			close(rset);
 			close(pstmt);
 		}
-		
-		
-		
+				
 		return list;
 	}
 
@@ -402,10 +403,29 @@ public class AuthorDao {
 			close(rset);
 			close(pstmt);
 		}
-		
-		
-		
+
 		return list;
+  }
+
+	public int insertApplyList(Connection con, int alNum, int memberId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String quest = prop.getProperty("insertApplyList");
+		
+		try {
+			pstmt = con.prepareStatement(quest);
+			pstmt.setString(1, "대기");
+			pstmt.setInt(2, memberId);
+			System.out.println("memberID.... : " + memberId);
+			pstmt.setInt(3, alNum);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 } //end class
