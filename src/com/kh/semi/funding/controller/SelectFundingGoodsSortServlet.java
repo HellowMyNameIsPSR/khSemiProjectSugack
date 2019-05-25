@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.kh.semi.author.model.vo.PageInfo;
 import com.kh.semi.funding.model.service.FundingService;
 import com.kh.semi.funding.model.vo.SortFunding;
-import com.kh.semi.member.model.vo.Member;
 
 /**
  * Servlet implementation class SelectFundingGoodsSortServlet
@@ -37,13 +37,40 @@ public class SelectFundingGoodsSortServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//response.setContentType("text/html; charset=utf-8"); 
-		//int memberId = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
 		String status = request.getParameter("status");
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		
+		int currentPage;
+		int limit;
+		int maxPage;
+		int startPage;
+		int endPage;
+		
+		currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		limit = 10;
+		int listCount = new FundingService().getListCount(memberId, status);
+		System.out.println("funding listCount : " + listCount);
+		
+		maxPage = (int)((double) listCount / limit + 0.9);
+		startPage = (((int)((double) currentPage /limit + 0.9 )) -1 ) * 10 +1;
+		endPage = startPage + 10 -1;
+				
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
+		PageInfo pi = new PageInfo(currentPage, limit , maxPage , startPage, endPage);
+		System.out.println("==== funding servlet =====\n" + pi);
 		SortFunding sortFunding = new SortFunding();
 		sortFunding.setFunStatus(status);
+		sortFunding.setPageInfo(pi);
+		
 		ArrayList<SortFunding> list = new FundingService().selectSortFunding(memberId, sortFunding);
+		for(int i = 0; i < list.size(); i++) {
+			list.get(i).setPageInfo(pi);
+		}
 		JSONObject fundInfo = null;
 		JSONArray fundArray = new JSONArray();
 		
@@ -57,6 +84,11 @@ public class SelectFundingGoodsSortServlet extends HttpServlet {
 				fundInfo.put("fcStart", URLEncoder.encode(userFund.getFcStart(), "UTF-8"));
 				fundInfo.put("fcFinish", URLEncoder.encode(userFund.getFcFinish(), "UTF-8"));
 				fundInfo.put("funStatus", URLEncoder.encode(userFund.getFunStatus(), "UTF-8"));
+				fundInfo.put("currentPage", userFund.getPageInfo().getCurrentPage());
+				fundInfo.put("limit", userFund.getPageInfo().getLimit());
+				fundInfo.put("maxPage", userFund.getPageInfo().getMaxPage());
+				fundInfo.put("startPage", userFund.getPageInfo().getStartPage());
+				fundInfo.put("endPage", userFund.getPageInfo().getEndPage());
 				fundArray.add(fundInfo);
 				System.out.println("fundArray : " + fundArray.size());
 			}

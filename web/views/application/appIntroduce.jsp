@@ -131,7 +131,10 @@
 	          	- 사진에 텍스트 삽입은 금지합니다.
 	          </p>
 <!-- 입점신청양식 다운 버튼 -->
-	          <button class="all-btn btn-lg text-center" id="applyFormDownload">수작 - 1차 입점 신청 양식 다운</button>
+	          <button class="all-btn btn-lg text-center" id="applyFormDownload"
+	          	onclick="location.href='<%= request.getContextPath() %>/downApplyForm.at'">
+	          	수작 - 1차 입점 신청 양식 다운
+	          </button>
 	        </div>
 	      </div>      
 	    </div>     

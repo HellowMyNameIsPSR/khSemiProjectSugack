@@ -1,6 +1,6 @@
 package com.kh.semi.funding.model.vo;
 
-import java.sql.Date;
+import com.kh.semi.author.model.vo.PageInfo;
 
 public class SortFunding {
 	private int workId;
@@ -9,12 +9,14 @@ public class SortFunding {
 	private String fcStart;
 	private String fcFinish;
 	private String funStatus;
+	private PageInfo pageInfo;
 	
 	public SortFunding() {
 		
 	}
 
-	public SortFunding(int workId, String workName, String wrDate, String fcStart, String fcFinish, String funStatus) {
+	public SortFunding(int workId, String workName, String wrDate, String fcStart, String fcFinish, String funStatus,
+			PageInfo pageInfo) {
 		super();
 		this.workId = workId;
 		this.workName = workName;
@@ -22,6 +24,7 @@ public class SortFunding {
 		this.fcStart = fcStart;
 		this.fcFinish = fcFinish;
 		this.funStatus = funStatus;
+		this.pageInfo = pageInfo;
 	}
 
 	public int getWorkId() {
@@ -72,11 +75,18 @@ public class SortFunding {
 		this.funStatus = funStatus;
 	}
 
+	public PageInfo getPageInfo() {
+		return pageInfo;
+	}
+
+	public void setPageInfo(PageInfo pageInfo) {
+		this.pageInfo = pageInfo;
+	}
+
 	@Override
 	public String toString() {
 		return "SortFunding [workId=" + workId + ", workName=" + workName + ", wrDate=" + wrDate + ", fcStart="
-				+ fcStart + ", fcFinish=" + fcFinish + ", funStatus=" + funStatus + "]";
+				+ fcStart + ", fcFinish=" + fcFinish + ", funStatus=" + funStatus + ", pageInfo=" + pageInfo + "]";
 	}
-	
-	
+
 } //end class

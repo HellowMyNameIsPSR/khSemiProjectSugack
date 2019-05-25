@@ -13,6 +13,7 @@ import com.kh.semi.author.model.vo.ApplyHistory;
 import com.kh.semi.author.model.vo.Author;
 import com.kh.semi.author.model.vo.PicFile;
 import com.kh.semi.author.model.vo.ProType;
+import com.kh.semi.funding.model.vo.AuthorAccount;
 
 public class AuthorService {
 
@@ -111,7 +112,20 @@ public class AuthorService {
 		close(con);
 		
 		return month;
-	}	
+	}
+
+	//계좌 등록
+	public int insertAcc(AuthorAccount authorAcc) {
+		Connection con = getConnection();
+		int result = new AuthorDao().insertAcc(con, authorAcc);
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}//end method
 	
 } //end class
 
