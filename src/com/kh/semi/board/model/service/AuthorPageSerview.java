@@ -50,6 +50,8 @@ public class AuthorPageSerview {
 		return 0;
 	}
 
+	
+	//작가 목록 리스트
 	public ArrayList<HashMap<String, Object>> selectAuthorPage() {
 		Connection con = getConnection();
 		ArrayList<HashMap<String,Object>> list = new AuthorPageDao().selectAuthorPage(con);
@@ -161,14 +163,14 @@ public class AuthorPageSerview {
 	}
 
 	//작품 정보 리스트 
-	public HashMap<String, Object> selectAuthorPdList(int memberId) {
+	public ArrayList<HashMap<String, Object>> selectAuthorPdList(int memberId) {
 		
 	     Connection con = getConnection();	
-	     HashMap<String,Object> hmap = new AuthorPageDao().selectAuthorPdList(con, memberId);
+	     ArrayList<HashMap<String, Object>> list = new AuthorPageDao().selectAuthorPdList(con, memberId);
 		
 	     close(con);
 		
-		return hmap;
+		return list;
 	}
 
 	

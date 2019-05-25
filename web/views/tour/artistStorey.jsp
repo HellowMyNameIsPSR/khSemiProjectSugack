@@ -130,7 +130,7 @@
 						</div>
 
 						<div class="text"
-							style="border: 1px solid red; width: 100%; height: 500px;">
+							style="border: 1px solid black; width: 100%; height: 500px;">
 							<p>
 								<%=b.getContent()%>
 							</p>
