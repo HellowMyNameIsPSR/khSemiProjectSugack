@@ -386,6 +386,16 @@ public class MemberService {
 		return result;
 	}
 
+	public int updateMember(int mid) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().updateMember(con, mid);
+		
+		close(con);
+		
+		return result;
+	}
+
 
 }
 

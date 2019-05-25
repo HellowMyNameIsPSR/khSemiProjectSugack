@@ -5,7 +5,7 @@
 	ArrayList<HashMap<String, Object>> blist = (ArrayList<HashMap<String, Object>>)hmap.get("blist");
 	ArrayList<HashMap<String, Object>> orderList = (ArrayList<HashMap<String, Object>>)hmap.get("orderList");
 	ArrayList<WorkOption> olist = (ArrayList<WorkOption>)hmap.get("olist");
-	System.out.println(orderList);
+	System.out.println(olist);
 	int refundCount = 0;
 	for(int i = 0; i < orderList.size(); i++) {
 		if(orderList.get(i).get("refundStat") != null) {
@@ -101,8 +101,7 @@
 					<th></th>
 					<th></th>
 					<th></th>
-					<th>주문일 :</th>
-					<th><%=blist.get(i).get("payDate") %></th>
+					<th colspan="2"><%=blist.get(i).get("payDate") %></th>
 				</tr>
 				<%for(int k = 0; k < orderList.size(); k++) {%>
 				<tr>
@@ -120,7 +119,7 @@
 					<%} %>
 					<% for(int j = 0; j < olist.size(); j++) {
 					%>
-						<%if((Integer)olist.get(j).getwId() == (Integer)orderList.get(k).get("bid")) { 
+						<%if((int)olist.get(j).getwId() == (int)orderList.get(k).get("bid")) { 
 							 ovalue += (String)olist.get(j).getoName() + " : " + (String)olist.get(j).getoValue() + "/";
 							 oprice += (Integer)olist.get(j).getoPrice();
 						}else { 

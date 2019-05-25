@@ -146,7 +146,7 @@ hr{
          <input type="hidden" class="input2" value="<%=hmap.get("fcFinish")%>">
          
 		 
-         <h7>발송예정일은 <%=hmap.get("deliDate") %> <br> 배송비:<label id="deliPrice"><%=hmap.get("deliPrice") %></label>원</h7>
+         <h7>발송예정일은 <%=(Date)hmap.get("deliDate") %> <br> 배송비:<label id="deliPrice"><%=hmap.get("deliPrice") %></label>원</h7>
         
          <form method="post" id="buy">
          	 <input type="hidden" id="workId" name="workId" value="<%=work.get("workId")%>">
@@ -269,8 +269,8 @@ hr{
     	
     	var arr1 = d1.split('-');
     	var arr2 = d2.split('-');
-    	var dat1 = new Date(arr1[0], arr1[1], arr1[2]);
-    	var dat2 = new Date(arr2[0], arr2[1], arr2[2]);
+    	var dat1 = new Date('2019', arr1[1], arr1[2]);
+    	var dat2 = new Date('2019', arr2[1], arr2[2]);
 		
     	var diff = dat2 - dat1;
     	var currDay = 24 * 60 * 60 * 1000;   //시 * 분 * 초 * 밀리세컨
