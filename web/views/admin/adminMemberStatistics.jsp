@@ -74,14 +74,14 @@
 						legend: { position: "none" },
 						subtitle:'male on the left, female on the right'
 						}; */
-						var options = {
-								vAxis:{title:"명"},
-								hAxis:{title:"년월"},
-						          chart: {
-						            title: '월별 회원가입자',
-						            subtitle: 'male, female',
-						          }
-						        };
+				var options = {
+						vAxis:{title:"명"},
+						hAxis:{title:"년월"},
+				          chart: {
+				            title: '월별 회원가입자',
+				            subtitle: 'male, female',
+				          }
+				        };
 				var chartData;
 				$.ajax({
 					url:"<%=request.getContextPath()%>/selectMemberForMonth.ad",

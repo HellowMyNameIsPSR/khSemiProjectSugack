@@ -1702,13 +1702,12 @@ public class WorkDao {
 			close(pstmt);
 		}
 		
-		
 		return result;
 	}
 
 	public int deleteAdress(Connection con, Address add) {
 		PreparedStatement pstmt = null;
-		int result = 0;
+		int result = 1;
 		
 		String query = prop.getProperty("deleteAdress");
 		
@@ -1723,16 +1722,15 @@ public class WorkDao {
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
 
 	public Address selectWorkAddress(Connection con, String memberId) {
-		Address Address = null;
+		Address address = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = prop.getProperty("selectOne");
+		String query = prop.getProperty("selectWorkAddress");
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -1741,11 +1739,11 @@ public class WorkDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				Address = new Address();
-				Address.setAddress(rset.getString("ADDRESS"));
-				Address.setPhone1(rset.getString("PHONE1"));
-				Address.setPhone2(rset.getString("PHONE2"));
-				Address.setAddressName(rset.getString("ADDRESS_NAME"));
+				address = new Address();
+				address.setAddress(rset.getString("ADDRESS"));
+				address.setPhone1(rset.getString("PHONE1"));
+				address.setPhone2(rset.getString("PHONE2"));
+				address.setAddressName(rset.getString("ADDRESS_NAME"));
 			}
 			
 		} catch (SQLException e) {
@@ -1755,8 +1753,7 @@ public class WorkDao {
 			close(pstmt);
 		}
 		
-		
-		return Address;
+		return address;
 	}
 
 

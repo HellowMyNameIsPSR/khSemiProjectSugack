@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.kh.semi.author.model.vo.PageInfo;
 import com.kh.semi.funding.model.service.FundingService;
 import com.kh.semi.funding.model.vo.SortFunding;
-import com.kh.semi.member.model.vo.Member;
 
 /**
  * Servlet implementation class SelectFundingGoodsSortServlet
@@ -37,13 +37,15 @@ public class SelectFundingGoodsSortServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//response.setContentType("text/html; charset=utf-8"); 
-		//int memberId = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
 		String status = request.getParameter("status");
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		
 		SortFunding sortFunding = new SortFunding();
 		sortFunding.setFunStatus(status);
+		
+		
 		ArrayList<SortFunding> list = new FundingService().selectSortFunding(memberId, sortFunding);
+		
 		JSONObject fundInfo = null;
 		JSONArray fundArray = new JSONArray();
 		

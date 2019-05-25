@@ -528,7 +528,7 @@ PreparedStatement pstmt = null;
 	public int insertFUS(ArrayList<HashMap<String, Object>> fus, Connection con) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		//int
+
 		String query = prop.getProperty("insertFUS");
 		
 		try {
@@ -541,6 +541,7 @@ PreparedStatement pstmt = null;
 				pstmt.setInt(5, (int)fus.get(i).get("wid"));
 				
 				result += pstmt.executeUpdate();
+
 			}
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -548,7 +549,8 @@ PreparedStatement pstmt = null;
 		}finally {
 			close(pstmt);
 		}
-      	return result;
+	  	return result;
+	  	
 	}
 
 	public int updateCount(Connection con, int workId) {
@@ -777,7 +779,7 @@ PreparedStatement pstmt = null;
 	public ArrayList<HashMap<String, Object>> selectUserFundingProDetail(Connection con, int workId, int memberId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = prop.getProperty("selectUserFundingProDetail2");
+		String query = prop.getProperty("selectUserFundingProDetail");
 		ArrayList<HashMap<String, Object>> list = null;
 		try {
 			pstmt = con.prepareStatement(query);
@@ -849,6 +851,31 @@ PreparedStatement pstmt = null;
 		} //end try
 		return list;
 	} //end method
+
+	
+	public int getListCount(Connection con, int memberId, String status) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("selectFundSortListCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			pstmt.setString(2, status);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return listCount;
+	}
 
 
 } //end class

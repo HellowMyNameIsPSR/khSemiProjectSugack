@@ -25,14 +25,20 @@ public class InsertAddressServlet extends HttpServlet {
 		String detailAddress = request.getParameter("detailAddress");
 		String phone1 = request.getParameter("phone1");
 		String phone2 = request.getParameter("phone2");
-	
+		
+		System.out.println("phone1 : " + phone1);  
+		System.out.println("addressName : " + addressName);
+		System.out.println("address : " + address);
+		System.out.println("detailAddress : " + detailAddress);
+		System.out.println("phone1 : " + phone1);
+		System.out.println("phone2 : " + phone2);
+		
 		Member m = (Member)request.getSession().getAttribute("loginUser");
 		
 		if(detailAddress == null) {
 			detailAddress = "";
 		}
 	
-		System.out.println(address + detailAddress);
 	
 		Address add = new Address();
 		add.setAddressName(addressName);
@@ -42,6 +48,8 @@ public class InsertAddressServlet extends HttpServlet {
 		add.setMemberId(m.getMemberId());
 		
 		int result = new WorkService().insertAddress(add);
+		
+		System.out.println(result + "fsafdsafsda");
 		
 		if(result > 0) {
 			response.getWriter().print("ok");

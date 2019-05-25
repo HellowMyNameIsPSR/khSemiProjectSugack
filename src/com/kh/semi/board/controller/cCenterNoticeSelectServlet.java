@@ -40,8 +40,6 @@ public class cCenterNoticeSelectServlet extends HttpServlet {
 			page = "views/customerCenter/cutomerCenterNoticeUpdate.jsp";
 			request.setAttribute("b", b);
 			
-		
-			
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시판 상세 조회 실패!");

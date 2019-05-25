@@ -160,6 +160,17 @@ public class AuthorPageSerview {
 		return list;
 	}
 
+	//작품 정보 리스트 
+	public HashMap<String, Object> selectAuthorPdList(int memberId) {
+		
+	     Connection con = getConnection();	
+	     HashMap<String,Object> hmap = new AuthorPageDao().selectAuthorPdList(con, memberId);
+		
+	     close(con);
+		
+		return hmap;
+	}
+
 	
 
 	

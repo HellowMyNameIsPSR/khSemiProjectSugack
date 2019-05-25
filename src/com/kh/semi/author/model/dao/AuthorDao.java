@@ -16,6 +16,7 @@ import com.kh.semi.author.model.vo.ApplyHistory;
 import com.kh.semi.author.model.vo.Author;
 import com.kh.semi.author.model.vo.PicFile;
 import com.kh.semi.author.model.vo.ProType;
+import com.kh.semi.funding.model.vo.AuthorAccount;
 
 public class AuthorDao {
 	
@@ -312,6 +313,49 @@ public class AuthorDao {
 		}
 		
 		return list;
+	}
+
+	public int insertAcc(Connection con, AuthorAccount authorAcc) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertAuthorAcc");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, authorAcc.getBackName());
+			pstmt.setString(2, authorAcc.getAccountNumber());
+			pstmt.setString(3, authorAcc.getVerifyAccount());
+			pstmt.setString(4, authorAcc.getAuthorName());
+			pstmt.setString(5, authorAcc.getAuthorbirth());
+			pstmt.setString(6, authorAcc.getType());
+			pstmt.setInt(7, authorAcc.getMemberId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertApplyList(Connection con, int alNum, int memberId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String quest = prop.getProperty("insertApplyList");
+		
+		try {
+			pstmt = con.prepareStatement(quest);
+			pstmt.setString(1, "대기");
+			pstmt.setInt(2, memberId);
+			System.out.println("memberID.... : " + memberId);
+			pstmt.setInt(3, alNum);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 } //end class

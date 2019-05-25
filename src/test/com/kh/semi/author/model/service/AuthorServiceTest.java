@@ -2,11 +2,15 @@ package test.com.kh.semi.author.model.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static com.kh.semi.common.JDBCTemplate.*;
+
+import java.sql.Connection;
 
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.kh.semi.author.model.dao.AuthorDao;
 import com.kh.semi.author.model.service.AuthorService;
 import com.kh.semi.author.model.vo.Author;
 
@@ -16,11 +20,13 @@ public class AuthorServiceTest {
 	private String brandName;
 	private Author author;
 	private int memberId;
+	private AuthorDao authorDao;
 	
 	@Before
 	public void beforTest() { //test 실행 전에 실행됨
 		
 		authorService = new AuthorService();
+		authorDao = new AuthorDao();
 		/*
 		//testSelectBrandName()
 		brandName = "빛나리";
@@ -42,9 +48,16 @@ public class AuthorServiceTest {
 	public void testSelectBrandName2() { //작가 공예 유형 값이 존재 하는가?
 		assertNotNull(authorService.selectProTypeList());		
 	}
-	
+	@Ignore
+	@Test
 	public void testSelectOneAuthorApply() {
 		assertEquals(authorService.selectOneAuthorApply(memberId), 1);
+	}
+	
+	@Test
+	public void testInsertApplyList() {
+		Connection con = getConnection();
+		assertEquals(authorDao.insertApplyList(con, 2, 8504), 1);
 	}
 	
 } //end class

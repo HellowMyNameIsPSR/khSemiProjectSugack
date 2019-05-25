@@ -15,6 +15,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>    
     <%@ include file="../assets/css/allCss.html" %>
     <%@ include file="stylesheet/appIntroduce.html" %>
+    
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 	<!-- 메뉴 -->
@@ -131,7 +132,10 @@
 	          	- 사진에 텍스트 삽입은 금지합니다.
 	          </p>
 <!-- 입점신청양식 다운 버튼 -->
-	          <button class="all-btn btn-lg text-center" id="applyFormDownload">수작 - 1차 입점 신청 양식 다운</button>
+	          <button class="all-btn btn-lg text-center" id="applyFormDownload"
+	          	onclick="location.href='<%= request.getContextPath() %>/downApplyForm.at'">
+	          	수작 - 1차 입점 신청 양식 다운
+	          </button>
 	        </div>
 	      </div>      
 	    </div>     
@@ -203,13 +207,44 @@
 	    </form>
 	  </div>
 	</div><!-- end Container (Contact Section) -->
-	<%@ include file="../main/footer.jsp" %>
 	<!-- footer -->
-	<!-- <footer class="container-fluid text-center bg-grey">
-	  <a href="#myPage" title="To Top">
-	    <span class="glyphicon glyphicon-chevron-up"></span>
-	  </a>
-	</footer>	 -->
+	<footer class="container-fluid bg-grey">
+		<table class="footer">
+			<tr>
+				<td colspan="4"></td>
+			</tr>
+			<tr>
+				<td rowspan="4">
+					<img id="flogo"src="/sg/views/main/images/logo.png">
+				</td>
+				<td>(주)수작</td>
+				<td>고객센터</td><td>(주 6일,오전 10시 ~ 저녁 10시 까지)</td>
+			</tr>
+			<tr>
+				<td>대표이사 : 가그침</td>
+				<td>카카오톡</td><td>수작</td>
+			</tr>
+			<tr>
+				<td>서울 특별시 갱남 KH정보교육원</td>
+				<td>대표번호</td><td>010-0123-4567</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>이메일</td><td>sugack@sg.kr</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>수작은 통신판매중개자이며 통신판매의 당사자가 아닙니다.<br>
+					따라서 수작 상품 거래정보 및 거래에 대하여 책임을 지지 않습니다.</td>
+				<td colspan="2">수작 이용 중 궁금하신 점이 있으신가요?<br>
+								메일 또는 플러스친구 `수작`로 연락해주세요.<br>
+								최선을 다해 도와드리겠습니다.</td>
+			</tr>
+			<tr>
+				<td colspan="4"></td>
+			</tr>
+		</table>
+	</footer>	
 	
 	<!-- script -->
 	<script src="<%= request.getContextPath() %>/views/application/js/appIntroduce.js"></script>

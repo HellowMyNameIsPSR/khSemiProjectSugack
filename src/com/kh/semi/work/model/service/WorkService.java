@@ -534,15 +534,13 @@ public class WorkService {
 		
 		int result1 =new WorkDao().deleteAdress(con, add);
 		
-		if(result1 > 0) {
-			int result2 = new WorkDao().insertAddress(con, add);
-			if(result1 > 0 && result2 > 0 ) {
-				commit(con);
-				result = 1;
-			}else {
-				rollback(con);
-				result = 0;
-			}
+		int result2 = new WorkDao().insertAddress(con, add);
+		if(result2 > 0 ) {
+			commit(con);
+			result = 1;
+		}else {
+			rollback(con);
+			result = 0;
 		}
 		close(con);
 		
@@ -551,11 +549,11 @@ public class WorkService {
 	public Address selectWorkAddress(String memberId) {
 		Connection con = getConnection();
 		
-		Address Address = new WorkDao().selectWorkAddress(con, memberId);
+		Address address = new WorkDao().selectWorkAddress(con, memberId);
 		
 		close(con);
 		
-		return Address;
+		return address;
 	}
 	
 }

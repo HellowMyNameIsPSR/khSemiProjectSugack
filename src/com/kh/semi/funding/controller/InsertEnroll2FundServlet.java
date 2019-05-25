@@ -52,17 +52,8 @@ public class InsertEnroll2FundServlet extends HttpServlet {
 			funding.setFundStatus("진행중");
 		}
 		System.out.println(funding);
-		AuthorAccount authorAcc = new AuthorAccount();
-		authorAcc.setBackName(request.getParameter("bank_code_std"));
-		authorAcc.setAccountNumber(request.getParameter("accnum"));;
-		authorAcc.setVerifyAccount("Y");
-		authorAcc.setAuthorName(request.getParameter("accpnm"));
-		authorAcc.setAuthorbirth(request.getParameter("birthDay"));
-		authorAcc.setType("개인");
-		authorAcc.setMemberId(((Member) request.getSession().getAttribute("loginUser")).getMemberId());
-		System.out.println(authorAcc);
 		
-		int result = new FundingService().updateFundingAndInsertAcc(funding, authorAcc);
+		int result = new FundingService().updateFunding(funding);
 		if(result > 0) {
 			System.out.println("성공!");
 			response.sendRedirect("views/author/manageFundGoodsHistory.jsp");

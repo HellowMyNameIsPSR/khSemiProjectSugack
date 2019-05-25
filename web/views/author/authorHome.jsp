@@ -123,19 +123,13 @@
 							</td>
 						</tr>
 						<tr>
-							<td>
+							<td colspan="2">
 								<h3>판매 매출 통계</h3>
-								<div class="summaryDiv" id="chart_div" onClick = " location.href='saleStatistics.jsp'">
-								
-								
-								
-								
-								지현이형 여기닥 부탁부탁
-								
-								
-								
-								</div>
+								<div style="width:97%;" class="summaryDiv" id="chart_div" onClick = " location.href='saleStatistics.jsp'"></div>
 							</td>
+							
+						</tr>
+						<tr>
 							<td>
 								<h3>공지사항</h3>
 								<div class="summaryDiv" onclick="ccNoticeBoard()">
@@ -150,13 +144,7 @@
 									</table>
 								</div>
 							</td>
-						</tr>
-						<tr>
-							<td>
-								<h3>펀딩 매출 통계</h3>
-								<div class="summaryDiv" onClick=" location.href='fundingStatistics.jsp'"></div>
-							</td>
-							<td>
+							<td>  
 								<h3>최근 문의</h3>
 								<div class="summaryDiv" onclick="qnaList()">
 									<table class="postList"  style="margin:0px 0px 0px 0px">

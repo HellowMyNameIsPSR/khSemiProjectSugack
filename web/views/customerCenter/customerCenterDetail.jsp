@@ -17,6 +17,7 @@
 			dTitle = "교환환불FAQ";
 		}	
 		int bno = b.getBno();
+		int bd = b.getDivision();
     
     %>
 <!DOCTYPE html>
@@ -98,9 +99,9 @@
 			})
 			$("#delete").click(function(){
 				if(confirm("정말 삭제하시겠습니까 ?") == true){
-					
+					location.href="<%= request.getContextPath() %>/cCenterNoticeDelete.bo?bNo=" + <%= b.getBno() %>;
 					alert("글이 삭제 되었습니다.");
-					history.back();
+					history.forward();
 				}else{
 					return;
 				}
