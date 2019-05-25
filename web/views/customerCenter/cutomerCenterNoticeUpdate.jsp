@@ -17,7 +17,7 @@
 			dTitle = "교환환불FAQ";
 		}	
 		int bno = b.getBno();
-    
+    	int divison = b.getDivision();
     %>
 <!DOCTYPE html>
 <html>
@@ -61,7 +61,7 @@
 				<tr>
 					<th>제목</th>
 					<td colspan = "5">
-					
+					<input type="hidden" name="divison" value="<%= divison%>"/>
 					<input type="text" size="50" name="title" value="<%= b.getTitle() %>"/>
 					<input type="hidden" name="bNo" value="<%= b.getBno() %>"/>
 					
@@ -97,14 +97,18 @@
 		<% if(loginUser != null && loginUser.getMemberType().equals("A")){ %>
 		<div align="center">	
 			<button id="updateF" class="btn primary" style="float:right; background: skyblue;">수정완료</button>
-			<button id="cancel" class="btn primary" style="float:right; background: skyblue;"> 목록으로</button>
+			<input type="button" id="cancel" class="btn primary" style="float:right; background: skyblue;" value="돌아가기"/> 
 		</div>
 		
 		<% } %>
 	<script>
 		$(function(){
 			$("#updateF").click(function(){
-				$("#updateNotice").attr("action", "<%= request.getContextPath()%>/cCenterNoticeUpdate.bo?bNo=" + <%= bno%>)
+				$("#updateNotice").attr("action", "<%= request.getContextPath()%>/cCenterNoticeUpdate.bo?bNo=" + <%=bno%>)
+			})
+			$("#cancel").click(function(){
+				history.back();
+				
 			})
 		})
 		
@@ -113,6 +117,6 @@
 	</script>
 	</form>
 	</div>
-	
+	<%@ include file="/views/main/footer.jsp" %>
 </body>
 </html>

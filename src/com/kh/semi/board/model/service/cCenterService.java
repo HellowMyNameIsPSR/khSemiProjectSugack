@@ -100,6 +100,15 @@ public class cCenterService {
 		
 		int result = new cCenterDao().updateNotice(con, b);
 		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		
+		close(con);
+		
 		return result;
 	}
 
