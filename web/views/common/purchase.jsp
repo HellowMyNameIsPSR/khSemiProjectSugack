@@ -267,7 +267,7 @@
 					</div> 
 					<br><br>
 				<div class="buyArea" style="text-align:center;" align="center">					
-					<input type="submit" value="구매하기" style="width:200px; height:50px;" class="purchase">
+					<input type="submit" value="구매하기" style="width:200px; height:50px; background:gray; color:white;" class="purchase">
 					</div>
 				</div>	
 			</div>
@@ -343,12 +343,14 @@
 			console.log('function call')
 			if ($("input:checkbox[id='agree1']").is(":checked")&& $("input:checkbox[id='agree2']").is(":checked")
 					&& $("input:checkbox[id='agree3']").is(":checked")){
-				console.log("all checked");
+				
 				
 				$(".purchase").removeAttr("disabled");
+		
 				
 			}else{		
 				$(".purchase").attr("disabled","true");
+				
 			}
 		}
 		
@@ -373,7 +375,7 @@
 			        /* /* msg += '고유ID : ' + rsp.imp_uid;
 			        msg += '상점 거래ID : ' + rsp.merchant_uid;
 			        msg += '결제 금액 : ' + rsp.paid_amount;
-			        msg += '카드 승인번호 : ' + rsp.apply_num; */ */
+			        msg += '카드 승인번호 : ' + rsp.apply_num; */ 
 			        
 			    	
 			    	<%-- $.ajax({

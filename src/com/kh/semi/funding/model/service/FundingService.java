@@ -200,6 +200,7 @@ public class FundingService {
 		close(con);
 		
 		return list;
+
 	} //end method
 	
 	public ArrayList<HashMap<String, Object>> selectUserFundingProDetail(int workId, int memberId, String status) {

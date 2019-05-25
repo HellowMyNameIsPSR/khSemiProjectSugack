@@ -17,7 +17,7 @@
 
 <style>
 	.outer{
-		border:1px solid lightgray;
+		border:3px solid lightgray;
 		width:80%;
 		height:420px;
 		background:white;
@@ -54,8 +54,11 @@
 	
 	.btns{
 	
-		width:100px;
+		width:150px;
 		height:50px;
+		background:gray;
+	    color:white;
+	    font-size:18px;
 	}
 
 </style>
@@ -110,7 +113,7 @@
 								
 								
 								
-								<button class="delete btns all-btn">삭제하기</button>
+								<button class="delete btns">삭제하기</button>
 								
 						</div>
 						

@@ -397,4 +397,9 @@ public class AuthorPageDao {
 				
 		return list;
 	}
+
+	public HashMap<String, Object> selectAuthorPdList(Connection con, int memberId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

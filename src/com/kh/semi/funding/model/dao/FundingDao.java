@@ -244,6 +244,10 @@ public class FundingDao {
 				hmap.put("fcStart", rset.getDate("FC_START"));
 				hmap.put("funDate", rset.getInt("FUN_DATE"));
 				hmap.put("funStatus", rset.getString("FUN_STATUS"));
+				hmap.put("fusId", rset.getInt("FUS_ID"));
+				hmap.put("fusDate", rset.getDate("FUS_DATE"));
+				hmap.put("fundPrice", rset.getInt("FUND_PRICE"));
+				hmap.put("INVERSMENT", rset.getInt("INVERSMENT"));
 				list.add(hmap);
 			}
 		} catch (SQLException e) {
@@ -536,12 +540,12 @@ PreparedStatement pstmt = null;
 				pstmt.setInt(5, (int)fus.get(i).get("wid"));
 				
 				result += pstmt.executeUpdate();
-				
+        
 			}
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
+		}finally {
 			close(pstmt);
 		}
       	return result;

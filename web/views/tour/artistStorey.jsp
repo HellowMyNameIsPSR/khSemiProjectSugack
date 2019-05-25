@@ -170,7 +170,7 @@
 					<span class="opener"> 핀메상품</span>
 					<ul>
 						<li><a href="views/member/likeAuthor.jsp">펀딩상품</a>
-						<li><a href="views/member/likeFundingPro.jsp">판매상품</a>
+						<li><a href="<%=request.getContextPath()%>/selectAuthorPDLIst.au?memberId=<%=b.getMemberId()%>">판매상품</a>
 						<li><a href="likePro.jsp">판매예정상품</a>
 					</ul>
 				</li>

@@ -53,7 +53,7 @@
 				<li>
 					<span class="opener">개인정보</span>
 					<ul>
-						<li><a href="modifyMe.jsp">개인정보 수정</a></li>
+						
 						<li><a href="<%=request.getContextPath()%>/addressList.me?num=<%=loginUser.getMemberId()%>">내 주소 관리</a></li>
 						<li><a href="withDrawal.jsp">회원 탈퇴</a></li>
 					</ul>
