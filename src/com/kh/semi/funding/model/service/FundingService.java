@@ -205,7 +205,7 @@ public class FundingService {
 		
 		return list;
 	}
-	} //end method
+	 //end method
 	
 	public ArrayList<HashMap<String, Object>> selectUserFundingProDetail(int workId, int memberId, String status) {
 		Connection con = getConnection();

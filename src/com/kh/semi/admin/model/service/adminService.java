@@ -308,6 +308,18 @@ public class adminService {
 		
 	}
 
+
+
+	public ArrayList<HashMap<String, Object>> selectAuthorSales(Date sDate, Date eDate, int person) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new adminDao(1).selectAuthorSales(sDate, eDate, con, person);
+		
+		close(con);
+		
+		return list;
+	}
+
 		
 
 	

@@ -500,6 +500,7 @@ public class MemberDao {
 				hmap.put("bundleCode", rset.getString("BUNDLE_CODE"));
 				hmap.put("payDate", rset.getDate("PAY_DATE"));
 				hmap.put("odId", rset.getInt("OD_ID"));
+				hmap.put("workType", rset.getString("WORK_KIND"));
 				hmap.put("deliStatus", rset.getString("DELI_STATUS"));
 				hmap.put("refundStat", rset.getString("REFUND_STAT"));
 				list.add(hmap);
@@ -517,10 +518,11 @@ public class MemberDao {
 		return list;
 	}
 
-	public ArrayList<String> selectBundleCode(Connection con, int memberId) {
+	public ArrayList<HashMap<String, Object>> selectBundleCode(Connection con, int memberId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<String> bundleList = null;
+		ArrayList<HashMap<String, Object>> bundleList = null;
+		HashMap<String, Object> hmap = null;
 		
 		String query = prop.getProperty("selectBundleCode");
 		
@@ -530,14 +532,20 @@ public class MemberDao {
 			
 			rset = pstmt.executeQuery();
 			
-			bundleList = new ArrayList<String>();
+			bundleList = new ArrayList<HashMap<String, Object>>();
 			while(rset.next()) {
-				bundleList.add(rset.getString(1));
+				hmap = new HashMap<String, Object>();
+				hmap.put("bundleCode", rset.getString(1));
+				hmap.put("payDate", rset.getString(2));
+				bundleList.add(hmap);
 			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		return bundleList;
