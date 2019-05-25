@@ -386,9 +386,6 @@
 
 							</div>
 						</div>
-						<script>
-							
-						</script>
 
 
 
@@ -469,26 +466,26 @@
 						</div>
 						
 						<script>
-						$(function(){
-							$("#fileArea").hide();
+							$(function(){
+								$("#fileArea").hide();
+								
+								$("#titleImg").click(function(){
+									$("#workImg0").click();
+								});
+								$("#subImg1").click(function(){
+									$("#workImg1").click();
+								});
+								$("#subImg2").click(function(){
+									$("#workImg2").click();
+								});
+								$("#subImg3").click(function(){
+									$("#workImg3").click();
+								});
+								$("#subImg4").click(function(){
+									$("#workImg4").click();
+								});
+							});
 							
-							$("#titleImg").click(function(){
-								$("#workImg0").click();
-							});
-							$("#subImg1").click(function(){
-								$("#workImg1").click();
-							});
-							$("#subImg2").click(function(){
-								$("#workImg2").click();
-							});
-							$("#subImg3").click(function(){
-								$("#workImg3").click();
-							});
-							$("#subImg4").click(function(){
-								$("#workImg4").click();
-							});
-						});
-						
 							
 							function loadImg(value, num){
 								if(value.files && value.files[0]){
@@ -573,7 +570,7 @@
 													'<tbody class="optiontbody">' +
 														'<tr align="center">' +
 															'<td>' +
-																'<input type="text" value="fas" class="optionName0" name="optionName" placeholder="옵션명 입력">' +
+																'<input type="text" value="" class="optionName0" name="optionName" placeholder="옵션명 입력">' +
 															'</td>' +
 															'<td>' +
 																'<input type="text" class="option" name="optionVal" placeholder="옵션값 입력">' +

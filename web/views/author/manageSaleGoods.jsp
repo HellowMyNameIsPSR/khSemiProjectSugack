@@ -70,11 +70,12 @@
 							<table class="listTable">
 								<tr>
 									<th style="width:30px;"><strong>NO.</strong></th>
-									<th style="width:70px;"><strong>상품코드</strong></th>
-									<th><strong>상품명</strong></th>
-									<th><strong>판매가</strong></th>
-									<th style="width:150px;"><strong>등록일</strong></th>
-
+									<th style="width:150px;"><strong>상품코드</strong></th>
+									<th ><strong>상품명</strong></th>
+									<th style="width:120px;"><strong>판매가</strong></th>
+									<th style="width:120px;"><strong>배송비</strong></th>
+									<th style="width:120px;"><strong>등록일</strong></th>
+									<th style="width:120px;"><strong>수정</strong></th>
 								</tr>
 								<tbody id="tbody">
 									
@@ -88,13 +89,19 @@
 										<td><%= num %></td>
 										<td><%= hmap.get("workId") %></td>
 										<td><%= hmap.get("workName") %></td>
-										<td><%= hmap.get("price") %>원</td>
+										<td><%= hmap.get("price") %> 원</td>
+										<td><%= hmap.get("deliPirce") %> 원</td>
 										<td><%= hmap.get("wrDate") %></td>
+										<td><button onclick="updateSales<%= num %>()" id="updateBtn<%=num%>"type="button" class="all-btn" style="height:30px;width:80px;padding:0px 0px 0px 0px;;">수정하기</button></td>
 									</tr>
 								<% } %> 
 								</tbody>
 							</table>
 						</div>
+						
+						<script>
+							
+						</script>
 		
 						<%-- 페이지 처리 --%>
 						<div class="pagingArea" align="center">
@@ -151,21 +158,18 @@
 							
 						</div>
 					<script>
-						$(function(){
-							$(".listTable td").mouseenter(function(){
-								$(this)
-									.parent()
-									.css({"background":"black", "cursor":"pointer"});
-							}).mouseout(function(){
-								$(this)
-									.parent()
-									.css({"background-color":"black"});
-							}).click(function(){
-								var num = $(this).parent().children().eq(1).text();
-								console.log(num);
+						
+						<% 	
+						int cnt = 0;
+						for(int i = 0; i < list.size(); i++){ 
+						cnt++;
+						%>
+							function updateSales<%=cnt%>() {
+								var num = $("#updateBtn<%=cnt%>").parent().parent().children().eq(1).text();
+								console.log(<%=cnt%>);
 								location.href="<%=request.getContextPath()%>/selectListOne.wo?num=" + num;
-							});
-						})
+							}
+						<% } %> 
 						
 						function searhDate(currentPage){
 							var startDate = $("#startDate").val();
@@ -237,8 +241,10 @@
 												'<td> ' + num + "</td>" +
 												'<td> ' + data.list[key].workId + '</td>' + 
 												'<td> ' + data.list[key].workName + '</td>' + 
-												'<td> ' + data.list[key].price + '</td>' + 
+												'<td> ' + data.list[key].price + ' 원</td>' + 
+												'<td> ' + data.list[key].deliPirce + ' 원</td>' + 
 												'<td> ' + data.list[key].wrDate + ' </td>' + 
+												'<td><button onclick="updateSales' + num + '" id="updateBtn' + num + '"type="button" class="all-btn" style="height:30px;width:80px;padding:0px 0px 0px 0px;;">수정하기</button></td>' +
 											'</td>'
 										);
 									}
@@ -313,9 +319,11 @@
 												'<td> ' + num + "</td>" +
 												'<td> ' + data.list[key].workId + '</td>' + 
 												'<td> ' + data.list[key].workName + '</td>' + 
-												'<td> ' + data.list[key].price + '</td>' + 
+												'<td> ' + data.list[key].price + ' 원</td>' + 
+												'<td> ' + data.list[key].deliPirce + ' 원</td>' + 
 												'<td> ' + data.list[key].wrDate + ' </td>' + 
-											'</tr>'
+												'<td><button onclick="updateSales' + num + '" id="updateBtn' + num + '"type="button" class="all-btn" style="height:30px;width:80px;padding:0px 0px 0px 0px;;">수정하기</button></td>' +
+											'</td>'
 										);
 									}
 									

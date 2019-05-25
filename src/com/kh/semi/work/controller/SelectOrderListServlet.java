@@ -51,13 +51,6 @@ public class SelectOrderListServlet extends HttpServlet {
 		
 		ArrayList<HashMap<String, Object>> list = new WorkService().selectOrderList(pi, memberId);
 		
-		
-		/*System.out.println("currentPage : " + currentPage);
-		System.out.println("limit : " + limit);
-		System.out.println("maxPage : " + maxPage);
-		System.out.println("startPage : " + startPage);
-		System.out.println("endPage : " + endPage);*/
-		
 		String page = "";
 		if(list != null) {
 			page="views/author/manageSale.jsp";

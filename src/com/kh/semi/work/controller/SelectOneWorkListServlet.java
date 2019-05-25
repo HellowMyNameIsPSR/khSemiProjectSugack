@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.work.model.service.WorkService;
 import com.kh.semi.work.model.vo.Work;
+import com.kh.semi.work.model.vo.WorkOption;
 import com.kh.semi.work.model.vo.WorkPic;
 
 @WebServlet("/selectListOne.wo")
@@ -21,14 +22,19 @@ public class SelectOneWorkListServlet extends HttpServlet {
     public SelectOneWorkListServlet() {}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num = Integer.parseInt(request.getParameter("num"));
+		int workId = Integer.parseInt(request.getParameter("num"));
 		
 		ArrayList<WorkPic> fileList = new ArrayList<WorkPic>();
+		ArrayList<HashMap<String, Object>> workOpt = new ArrayList<HashMap<String, Object>>();
+		ArrayList<WorkOption> woList = null;
+				
 		
-		Work work = new WorkService().selectOne(num);
+		Work work = new WorkService().selectOne(workId);
 		
 		if(work != null) {
-			fileList = new WorkService().selectImg(num);
+			fileList = new WorkService().selectImg(workId);
+			workOpt = new WorkService().selectOption(workId);
+			woList = new WorkService().selectOptionName(workId);
 		}
 		
 		String page="";
@@ -36,6 +42,8 @@ public class SelectOneWorkListServlet extends HttpServlet {
 			page = "views/author/enrollSaleGoodsUpdate.jsp";
 			request.setAttribute("work", work);
 			request.setAttribute("fileList", fileList);
+			request.setAttribute("workOpt", workOpt);
+			request.setAttribute("woList", woList);
 		}else {
 			System.out.println("오류찾자");
 		}
