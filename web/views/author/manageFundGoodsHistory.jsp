@@ -167,8 +167,12 @@
 			$(".selectTr").click(function(){
 				console.log($(this).children(".hideTd").text());
 				var workId = $(this).children(".hideTd").text();
-				location.href = "<%= request.getContextPath() %>/selectManyInfo.fund?workId=" + workId 
-				+ "&&status=" + status;
+				if(status != "승인") {
+					location.href = "<%= request.getContextPath() %>/selectManyInfo.fund?workId=" + workId 
+					+ "&&status=" + status;
+				} else {
+					location.href = "<%= request.getContextPath() %>/selectFundCon.fund?workId=" + workId;
+				}
 			}); 
 		} //end func
 		
@@ -211,13 +215,14 @@
 						var size = data.length;
 						btn = size / 10;
 						console.log(btn);
-						if(btn > 0 && btn < 1){
+						if(btn > 0.0 && btn < 1.0){
 							btn = 1;
 						}
 						$ul = $("#btnArea");
-						for(var  i = 1; i <= btn; i++){
+						for(var  i = 0; i < btn; i++){
 							$li = $("<li>");
-							$a = $("<button onclick='listPrint("+ i + ");'>").text(i);
+							var btnNumber = i + 1;
+							$a = $("<button onclick='listPrint("+ btnNumber + ");'>").text(btnNumber);
 							$li.append($a);
 							$ul.append($li);
 						}

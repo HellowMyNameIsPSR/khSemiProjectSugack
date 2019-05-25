@@ -180,11 +180,11 @@
 										<table>
 											<tr>
 												<td>
-													<input type="number" placeholder="최소목표금액" id="targetMinAmount" name="targetMinAmount" style="width:100%">
+													<input type="number" maxlength="7" placeholder="제작가능금액" id="targetMinAmount" name="targetMinAmount" style="width:100%">
 												</td>
 												<td><label>원</label></td>
 												<td>
-													<input type="number" placeholder="최대목표금액" id="targetMaxAmount" name="targetMaxAmount" style="width:100%">
+													<input type="number" maxlength="7" placeholder="최대목표금액" id="targetMaxAmount" name="targetMaxAmount" style="width:100%">
 												</td>
 												<td><label>원</label></td>
 											</tr>
@@ -217,7 +217,7 @@
 									<h4>판매 가격</h4>
 									<p class="subtext">※ 제품 수량 1개당 판매가격을 측정해 주세요.</p>
 									<div class="row">
-										<input type="number" id="fundingPrice" name="fundingPrice" placeholder="작품가격">
+										<input type="number" maxlength="7" id="fundingPrice" name="fundingPrice" placeholder="작품가격">
 										<label>원</label>
 									</div>
 								</div>
@@ -226,7 +226,7 @@
 									<h4>배송비</h4>
 									<p class="subtext">※ 기본 배송료를 설정해 주세요.</p>
 									<div class="row">
-										<input type="number" id="deliPrice" name="deliPrice" placeholder="배송비">
+										<input type="number" maxlength="7"  id="deliPrice" name="deliPrice" placeholder="배송비">
 										<label>원</label>
 									</div>
 								</div>

@@ -61,7 +61,7 @@
 											</tr>
 											<tr>
 												<td colspan="2">
-													<label class="pull-left">목표 금액(원)</label>
+													<label class="pull-left">제작 시작 금액</label>
 													<input type="text" class="form-control" value="<%= fundInfoList.get(0).get("minVoo") %>" readonly>
 												</td>
 												<td colspan="2">
@@ -122,7 +122,61 @@
 						</div>
 					</div> -->
 				<!-- 협업여부 -->	
-				
+				<!-- 작품 이미지 -->
+			<div class="listBox">
+				<div class="listContents" style="width:100%; margin-bottom:0px;">
+				    <button id="workImgBtn" style="width:100%;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+				    	작품 이미지
+				    <span class="caret"></span></button>
+				    <div id="workImg" style="width:100%; padding:10px;">
+				    	<table id="workImgArea">
+				    		<% if(fileList != null) { 
+					    		for(int i = 0; i < fileList.size(); i++) {
+					    			if(!fileList.get(i).getPicType().equals("fundDetail")) {%>
+						    			<tr>
+						    				<td><img src="<%= request.getContextPath() %>/uploadFundingGoodsImg/<%= fileList.get(i).getChangeName() %>" 
+						    						 style="width:100%; height:80%;"></td>
+						    			</tr>
+					    			<% } %>
+					    		<% } %>				    		
+					    	<% } %>
+					    	<tr>
+					    		<td><button id="closeImg" class="pull-right" type="button"
+					    					style="background:white; color:lightgray; border:0px;">닫기</button></td>
+					    	</tr>
+				    	</table>
+				    </div>
+				 </div>
+			</div>
+			
+			<!-- 작품 이미지 -->
+			<!-- 작품 상세 이미지 -->
+			<div class="listBox">
+				<div class="listContents" style="width:100%;">
+				    <button id="workDetailBtn" style="width:100%;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+				    	작품 상세 이미지
+				    <span class="caret"></span></button>
+				    <div id="workDetailImg" style="width:100%;">
+				    	<table id="workDetailArea">
+				    		<% if(fileList != null) { 
+				    			for(int i = 0; i < fileList.size(); i++) { 
+				    				if(fileList.get(i).getPicType().equals("fundDetail")) {%>
+				    					<tr>
+						    				<td><img src="<%= request.getContextPath() %>/uploadFundingGoodsImg/<%= fileList.get(i).getChangeName() %>" 
+						    						 style="width:100%; height:80%;"></td>
+						    			</tr>
+				    				<% } %>
+				    			<% } %>
+				    		<% } %>
+				    		<tr>
+					    		<td><button id="closeDetail"class="pull-right" type="button"
+					    					style="background:white; color:lightgray; border:0px;">닫기</button></td>
+					    	</tr>
+				    	</table>
+				    </div>
+				 </div>
+			</div>
+			<!-- 작품 상세 이미지 -->
 				<div align="center">
 					<button class="all-btn"style="width: 150px;" type="submit" id="enrollFundingGoods2">추가정보 등록</button>
 				</div>
@@ -133,7 +187,11 @@
 	<%@ include file="authorMenuBar.jsp"%>
 </div>
 <script>
+	var clickCtn = 0;
+	var clickCtn2 = 0;
 	$(function(){
+		$("#workImgArea").hide();
+		$("#workDetailArea").hide();
 		$("#accountCheck").hide();
 		$("#enrollFundingGoods2").click(function(){
 			var arr = $("#fcStart").val().split("-");
@@ -160,6 +218,37 @@
 				return false;
 			}
 		});
+		$("#workImgBtn").click(function(){
+			location.href = "#workImgArea";
+			if(clickCtn == 0){
+				clickCtn++;
+				$("#workImgArea").show();
+			} else {
+				clickCtn = 0;
+				$("#workImgArea").hide();
+			}			
+		});
+		
+		$("#closeImg").click(function(){
+			$("#workImgArea").hide();
+			clickCtn = 0;
+		});
+		
+		$("#workDetailBtn").click(function(){
+			location.href = "#workDetailArea";
+			if(clickCtn2 == 0){
+				clickCtn2++;
+				$("#workDetailArea").show();
+			} else {
+				clickCtn2 = 0;
+				$("#workDetailArea").hide();
+			}			
+		});
+		$("#closeDetail").click(function(){
+			$("#workDetailArea").hide();
+			clickCtn2 = 0;
+		});
+			
 	});
 
 	function inputFcFinish() { //펀딩 종료일 지정

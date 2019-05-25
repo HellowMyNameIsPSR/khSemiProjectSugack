@@ -3,15 +3,15 @@
     
  <%
     ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String,Object>>) request.getAttribute("list");
- 	//ProQna qna = (ProQna)request.getAttribute("qna"); 
+    //ProQna qna = (ProQna)request.getAttribute("qna"); 
  
- 	HashMap<String, Object> work = (HashMap<String, Object>)list.get(0); 
- 	System.out.println("work: "+work);
- 	
- 	ArrayList<WorkPic> imglist = (ArrayList<WorkPic>) request.getAttribute("imglist");
- 	System.out.println("imglist: " + imglist);
-	
- 	 
+    HashMap<String, Object> work = (HashMap<String, Object>)list.get(0); 
+    System.out.println("work: "+work);
+    
+    ArrayList<WorkPic> imglist = (ArrayList<WorkPic>) request.getAttribute("imglist");
+    System.out.println("imglist: " + imglist);
+   
+     
     
  %>
 <!DOCTYPE html>
@@ -25,7 +25,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
 
-	
+   
    .proArea{
       background:yellow;
    }
@@ -52,9 +52,7 @@
       margin-left:150px;
    }
    .qnaContents {
-      margin: 20px 15px 20px 15px;
-      padding-left:20px;
-      padding-right:20px;
+      
       border:2px solid lightgray;
       
    }
@@ -78,9 +76,9 @@
    }
    
   .container{
-  	width:100%;
-  	
-  	min-height:100%;
+     width:100%;
+     
+     min-height:100%;
 
   }
 
@@ -145,32 +143,32 @@ hr{
          <input type="hidden" class="input" value="<%=hmap.get("fcStart")%>">
          <input type="hidden" class="input2" value="<%=hmap.get("fcFinish")%>">
          
-		 
-         <h7>발송예정일은 <%=hmap.get("deliDate") %> <br> 배송비:<label id="deliPrice"><%=hmap.get("deliPrice") %></label>원</h7>
+       
+         <h7>발송예정일은 <%=hmap.get("deliDate") %>&nbsp;입니다. <br> 배송비:&nbsp;<label id="deliPrice"><%=hmap.get("deliPrice") %></label>원</h7>
         
          <form method="post" id="buy">
-         	 <input type="hidden" id="workId" name="workId" value="<%=work.get("workId")%>">
-			<div id="countArea">	
-					<label>수량</label>
-					<button type="button" onclick="plus();">+</button>
-					<input type="number" style="width:50px;" id="ea" name="ea" value="1" readonly>
-					<button type="button" onclick="minus();">-</button>
-			</div>
+             <input type="hidden" id="workId" name="workId" value="<%=work.get("workId")%>">
+         <div id="countArea">   
+               <label>수량</label>
+               <button type="button" onclick="plus();">+</button>
+               <input type="number" style="width:50px;" id="ea" name="ea" value="1" readonly>
+               <button type="button" onclick="minus();">-</button>
+         </div>
         
-	         <hr>
-	         
-	         <div class="totalPrice" style="margin-top:20px;">
-	            <p style="float:left; margin-top:10px; font-size:20px;">총 펀딩금액 </p>
-	            <p style="float:right; margin-top:10px; font-size:20px;" id="sum"></p>
-	         </div>
-	         <div class="btns" style="margin-top:5px; width:100%; height:50px;">
-	        
-	        
-	         <button style="float:right; font-size:16px;width:100%; height:50px; color:white; font-size:20px; background:yellowgreen;"id="purchase">펀딩하기</button>
-	         <button type="button" id="goBasket" class="btn" style="width:30%; margin-top:10px; margin-left:155px;height:60px; color:black; background:white;border:2px solid lightgray;font-size:16px;">장바구니 담기</button>
-	          <button type="button"  class="btn" onclick="addLike()"style="color:black; margin-top:10px; float:right;width:30%; height:60px; background:white; border:2px solid lightgray; font-size:16px;">관심펀딩 담기</button>
-	         </div>
-     	</form>
+            <hr>
+            
+            <div class="totalPrice" style="margin-top:20px;">
+               <p style="float:left; margin-top:10px; font-size:20px;">총 펀딩금액 </p>
+               <p style="float:right; margin-top:10px; font-size:20px;" id="sum"></p>
+            </div>
+            <div class="btns" style="margin-top:5px; width:100%; height:50px;">
+           
+           
+            <button style="float:right; font-size:16px;width:100%; height:50px; color:white; font-size:20px; background:yellowgreen;"id="purchase">펀딩하기</button>
+            <button type="button" id="goBasket" class="btn" style="width:30%; margin-top:10px; margin-left:155px;height:60px; color:black; background:white;border:2px solid lightgray;font-size:16px;">장바구니 담기</button>
+             <button type="button"  class="btn" onclick="addLike()"style="color:black; margin-top:10px; float:right;width:30%; height:60px; background:white; border:2px solid lightgray; font-size:16px;">관심펀딩 담기</button>
+            </div>
+        </form>
      
     
     
@@ -183,8 +181,8 @@ hr{
     <div class="row information">
     <ul class="nav nav-tabs">
     <li class="active" style="margin-top:70px"><a data-toggle="tab" href="#menu0">기본정보</a></li>
-    <li><a data-toggle="tab" href="#menu1"style="margin-top:70px">배송/판매/교환/환불</a></li>
-    <li><a data-toggle="tab" href="#menu2"style="margin-top:70px">별점 및 응원글</a></li>
+    <li><a data-toggle="tab" href="#menu1"style="margin-top:70px">배송/판매/환불</a></li>
+    <li><a data-toggle="tab" href="#menu2"style="margin-top:70px">별점 및 리뷰</a></li>
     <li><a data-toggle="tab" href="#menu3"style="margin-top:70px">문의</a></li>
      </ul>
 
@@ -193,17 +191,17 @@ hr{
       <h3>기본정보</h3>
       <p><%=hmap.get("workContent") %></p>
       <div style=" width:300px; height:100%; margin:0 auto;" class="detailImgs">
-      		
+            
       </div>
     </div>
     <div id="menu1" class="tab-pane fade" >
-      <h3>배송/판매/교환/환불</h3>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <h3>배송/판매/환불</h3>
+      <img src="views/images/delinfo.PNG" style="width:100%;">
     </div>
      <%} %>
     
     <div id="menu2" class="tab-pane fade">
-      <h3>별점 및 응원글</h3>
+      <h3>별점 및 리뷰</h3>
        <div class="star" style="  padding:10px; width:100%; height:150px; border:2px solid lightgray">
       <div id="review">
          <textarea id="reviewCon"style="width:100%; height:80px;" name="content"></textarea>
@@ -221,7 +219,7 @@ hr{
     
     <div id="replySelectArea">
          <table id="replySelectTable" border="3"align="center" style="width:100%; text-align:center; border:2px solid lightgray; margin-top:30px;">
-         	
+            
          </table>
      </div>
      </div>
@@ -230,135 +228,135 @@ hr{
     
     
     function plus(){
-		document.getElementById("ea").value = (parseInt(document.getElementById("ea").value)+1);
-		var deliPrice = parseInt($("#deliPrice").text());
-		var price = parseInt($("#price").text());
-		var ea = parseInt($("#ea").val());
-		var sum = deliPrice + (price * ea);
-		
-		$("#sum").text(sum);
-		$("#sum").append("원");
-	}
-	function minus(){
-		document.getElementById("ea").value = (parseInt(document.getElementById("ea").value)-1);	
-		var deliPrice = parseInt($("#deliPrice").text());
-		var price = parseInt($("#price").text());
-		var ea = parseInt($("#ea").val());
-		var sum = deliPrice + (price * ea);
-		
-		$("#sum").text(sum);
-		$("#sum").append("원");
-	}
+      document.getElementById("ea").value = (parseInt(document.getElementById("ea").value)+1);
+      var deliPrice = parseInt($("#deliPrice").text());
+      var price = parseInt($("#price").text());
+      var ea = parseInt($("#ea").val());
+      var sum = deliPrice + (price * ea);
+      
+      $("#sum").text(sum);
+      $("#sum").append("원");
+   }
+   function minus(){
+      document.getElementById("ea").value = (parseInt(document.getElementById("ea").value)-1);   
+      var deliPrice = parseInt($("#deliPrice").text());
+      var price = parseInt($("#price").text());
+      var ea = parseInt($("#ea").val());
+      var sum = deliPrice + (price * ea);
+      
+      $("#sum").text(sum);
+      $("#sum").append("원");
+   }
     
     $(function(){
-    	
-    	//남은 일 수 구하기
-    	
+       
+       //남은 일 수 구하기
+       
  
-    	//년월일을 분리한 후,  Date 의 생성자 함수에 인수로 각각 넣게 되면 해당 날짜의 Date 객체가 만들어 집니다.
-    	
-    	var d1= $(".input").val();
-    	console.log(d1);
-    	
-    	
-    	var d2= $(".input2").val();
-    	console.log(d2);
+       //년월일을 분리한 후,  Date 의 생성자 함수에 인수로 각각 넣게 되면 해당 날짜의 Date 객체가 만들어 집니다.
+       
+       var d1= $(".input").val();
+       console.log(d1);
+       
+       
+       var d2= $(".input2").val();
+       console.log(d2);
 
-    	var d3 = d2-d1;
-    	console.log(d3);
-    	
-    	var arr1 = d1.split('-');
-    	var arr2 = d2.split('-');
-    	var dat1 = new Date(arr1[0], arr1[1], arr1[2]);
-    	var dat2 = new Date(arr2[0], arr2[1], arr2[2]);
-		
-    	var diff = dat2 - dat1;
-    	var currDay = 24 * 60 * 60 * 1000;   //시 * 분 * 초 * 밀리세컨
+       var d3 = d2-d1;
+       console.log(d3);
+       
+       var arr1 = d1.split('-');
+       var arr2 = d2.split('-');
+       var dat1 = new Date(arr1[0], arr1[1], arr1[2]);
+       var dat2 = new Date(arr2[0], arr2[1], arr2[2]);
+      
+       var diff = dat2 - dat1;
+       var currDay = 24 * 60 * 60 * 1000;   //시 * 분 * 초 * 밀리세컨
 
-		var result =  parseInt(diff/currDay);
-    	
-	    console.log(result);
-	    
-	    $(".twodays").text(result);
-	    $(".twodays").append("일 남음");
-	    
-    	
-    	<% if (("#deliPrice")!=null){ %>
-		var deliPrice = parseInt($("#deliPrice").text());
-		var price = parseInt($("#price").text());
-		var ea = parseInt($("#ea").val());
-		var sum = deliPrice + (price * ea);
-		
-		$("#sum").text(sum);
-		$("#sum").append("원");
-		
-		<% } %>
-    	
-    	$("#goBasket").click(function(){
-			var workId = $("#workId").val();
-			var ea = parseInt($("#ea").val());
-			var text = "ajax";
-			
-			$.ajaxSettings.traditional = true;
-			$.ajax({
-				url:"<%=request.getContextPath()%>/fundingPurchase.fund",
-				data:{workId:workId, ea:ea, text:text},
-				type:"post",
-				success:function(data){
-					if(data == "ok"){
-					alert("장바구니에 작품이 담겼습니다.");							
-					}
-				},
-				error:function(data){
-					alert("로그인후 이용하세요");
-				}
-			});
-		});
-	
-		
-		
-		
-		$("#purchase").click(function(){
-				$("#buy").attr("action", "<%=request.getContextPath()%>/fundingPurchase.fund");
-				
-		});
-    	
-    	
+      var result =  parseInt(diff/currDay);
+       
+       console.log(result);
+       
+       $(".twodays").text(result);
+       $(".twodays").append("일 남음");
+       
+       
+       <% if (("#deliPrice")!=null){ %>
+      var deliPrice = parseInt($("#deliPrice").text());
+      var price = parseInt($("#price").text());
+      var ea = parseInt($("#ea").val());
+      var sum = deliPrice + (price * ea);
+      
+      $("#sum").text(sum);
+      $("#sum").append("원");
+      
+      <% } %>
+       
+       $("#goBasket").click(function(){
+         var workId = $("#workId").val();
+         var ea = parseInt($("#ea").val());
+         var text = "ajax";
+         
+         $.ajaxSettings.traditional = true;
+         $.ajax({
+            url:"<%=request.getContextPath()%>/fundingPurchase.fund",
+            data:{workId:workId, ea:ea, text:text},
+            type:"post",
+            success:function(data){
+               if(data == "ok"){
+               alert("장바구니에 작품이 담겼습니다.");                     
+               }
+            },
+            error:function(data){
+               alert("로그인후 이용하세요");
+            }
+         });
+      });
+   
+      
+      
+      
+      $("#purchase").click(function(){
+            $("#buy").attr("action", "<%=request.getContextPath()%>/fundingPurchase.fund");
+            
+      });
+       
+       
 
-    	var workId = <%=work.get("workId")%>;
-    	
-		$.ajax({
-			url:"<%=request.getContextPath()%>/selectDetailServlet.fund",
-			data:{workId:workId},
-			type:"post",
-			success:function(data){
-				
-				$div = $(".detailImgs");
-				for(var key in data){
-					var imgList = data[key];
-					//var $h2 = $("<h2>").text("TEST");
-					var $h2 = $("<h2>").text(imgList.workId);
-					var $changeName = $("<h2>").text(imgList.changeName);
-					var $img = $("<img>").attr("src", '<%= request.getContextPath() %>/uploadFundingGoodsImg/' + imgList.changeName);
-					$div.append($img);
-				}	
-				
-				},error:function(){
-					alert("상세 사진 가져오기 실패");
-				}
-		
-		});
-			
+       var workId = <%=work.get("workId")%>;
+       
+      $.ajax({
+         url:"<%=request.getContextPath()%>/selectDetailServlet.fund",
+         data:{workId:workId},
+         type:"post",
+         success:function(data){
+            
+            $div = $(".detailImgs");
+            for(var key in data){
+               var imgList = data[key];
+               //var $h2 = $("<h2>").text("TEST");
+               var $h2 = $("<h2>").text(imgList.workId);
+               var $changeName = $("<h2>").text(imgList.changeName);
+               var $img = $("<img>").attr("src", '<%= request.getContextPath() %>/uploadFundingGoodsImg/' + imgList.changeName);
+               $div.append($img);
+            }   
+            
+            },error:function(){
+               alert("상세 사진 가져오기 실패");
+            }
+      
+      });
+         
         
-    	var workId = <%=work.get("workId")%>;
-		$.ajax({
-			url:"<%=request.getContextPath()%>/selectAllFundReview.bo",
-			data:{workId:workId},
-			type:"post",
-			success:function(data){
+       var workId = <%=work.get("workId")%>;
+      $.ajax({
+         url:"<%=request.getContextPath()%>/selectAllFundReview.bo",
+         data:{workId:workId},
+         type:"post",
+         success:function(data){
 
-              	
-              	 $('#replySelectTable').html(data).trigger("create");
+                 
+                  $('#replySelectTable').html(data).trigger("create");
                   console.log(data);
               
                   console.log("성공");
@@ -369,51 +367,51 @@ hr{
                  
                   var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"yellowgreen", "color": "black"});
               
-              	var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"yellowgreen", "color": "black"});
-              	var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"yellowgreen", "color": "black"});
-              	var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"yellowgreen", "color": "black"});
-              	
-           	 $tr0.append($td0);
-   				$tr0.append($td1);
-   				$tr0.append($td2);
-   				$tr0.append($td3);
-   				
-   				$replySelectTable.append($tr0);
-   				
-   				
-   				//ArrayList에 리뷰들이 등록되어있어서 each를 통해 반복문을 돌려서 값을 가져온다!
-   				//HashMap은 key를 통해서 값을 가져온다!
-   				  $.each(data, function(index, value){
-   		               var $tr = $("<tr>").css("height","50px");
-   		              
-   		               var $writer = $("<td>").text(decodeURIComponent(value.writer));
-   		               var $content = $("<td>").text(decodeURIComponent(value.content));
-   		               var $starPoint= $("<td>").text(decodeURIComponent(value.starPoint));
-   		             
-   		               var $writeDate = $("<td>").text(decodeURIComponent(value.writeDate));
-   		              //var $writeDate = $("<td>").text(date.format(value.writeDate));
-   		              // var $writeDate2 = (date.format(value.writeDate));
-   		               
-   		               $tr.append($writer);
-   		               $tr.append($content);
-   		               $tr.append($starPoint);
-   		               $tr.append($writeDate);
-   		               $replySelectTable.append($tr)
-   		               
-   		               //등록과 동시에 작성 내용 지우기
-   		               $('#reviewCon').val("");
-   		               
-   		            
-   		               console.log(localStorage);
-   				  })
-   		        
+                 var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"yellowgreen", "color": "black"});
+                 var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"yellowgreen", "color": "black"});
+                 var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"yellowgreen", "color": "black"});
+                 
+               $tr0.append($td0);
+               $tr0.append($td1);
+               $tr0.append($td2);
+               $tr0.append($td3);
+               
+               $replySelectTable.append($tr0);
+               
+               
+               //ArrayList에 리뷰들이 등록되어있어서 each를 통해 반복문을 돌려서 값을 가져온다!
+               //HashMap은 key를 통해서 값을 가져온다!
+                 $.each(data, function(index, value){
+                        var $tr = $("<tr>").css("height","50px");
+                       
+                        var $writer = $("<td>").text(decodeURIComponent(value.writer));
+                        var $content = $("<td>").text(decodeURIComponent(value.content));
+                        var $starPoint= $("<td>").text(decodeURIComponent(value.starPoint));
+                      
+                        var $writeDate = $("<td>").text(decodeURIComponent(value.writeDate));
+                       //var $writeDate = $("<td>").text(date.format(value.writeDate));
+                       // var $writeDate2 = (date.format(value.writeDate));
+                        
+                        $tr.append($writer);
+                        $tr.append($content);
+                        $tr.append($starPoint);
+                        $tr.append($writeDate);
+                        $replySelectTable.append($tr)
+                        
+                        //등록과 동시에 작성 내용 지우기
+                        $('#reviewCon').val("");
+                        
+                     
+                        console.log(localStorage);
+                 })
+                 
                   
-				
-				
-			},error:function(){
-				alert("실패");
-			}
-		})
+            
+            
+         },error:function(){
+            alert("실패");
+         }
+      })
       
      
     
@@ -421,27 +419,27 @@ hr{
     
     
     function addLike(){
-    	<%if(loginUser != null ){%>
-    	 var memberId = <%=loginUser.getMemberId()%>;
-    	 var workId = <%=work.get("workId")%>; 
-    	 
-    	 $.ajax({
-    		 url:"<%=request.getContextPath()%>/insertFundLike.fund",
-    		 data:{memberId:memberId, workId:workId},
-    		 type:"post",
-    		 success:function(data){
-    			 alert("관심펀딩 상품 추가!");
-    		 },error:function(){
-    			 alert("실패");
-    		 }
-    	 })<%}else{%>
- 	 		alert("로그인 후, 이용해 주세요!");
-   		 <%}%>
+       <%if(loginUser != null ){%>
+        var memberId = <%=loginUser.getMemberId()%>;
+        var workId = <%=work.get("workId")%>; 
+        
+        $.ajax({
+           url:"<%=request.getContextPath()%>/insertFundLike.fund",
+           data:{memberId:memberId, workId:workId},
+           type:"post",
+           success:function(data){
+              alert("관심펀딩 상품 추가!");
+           },error:function(){
+              alert("실패");
+           }
+        })<%}else{%>
+           alert("로그인 후, 이용해 주세요!");
+          <%}%>
     }
     
     function addReview() {
-  	  <%if(loginUser != null ){%>
-	  var writer = <%=loginUser.getMemberId()%>;
+       <%if(loginUser != null ){%>
+     var writer = <%=loginUser.getMemberId()%>;
     var workId = <%=work.get("workId") %>;
     var content = $("#reviewCon").val();
     var star = $(".star option:selected").text();
@@ -454,8 +452,8 @@ hr{
        data:{writer:writer, workId:workId, content:content, star:star},
        type:"post",
        success:function(data){
-      	
-      	 $('#replySelectTable').html(data).trigger("create");
+         
+          $('#replySelectTable').html(data).trigger("create");
           console.log(data);
       
           console.log("성공");
@@ -464,45 +462,45 @@ hr{
           
           var $tr0 = $("<tr>");
         
-          var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"lightblue", "color": "gray"});
+          var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"yellowgreen", "color": "black"});
     
-      	  var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"lightblue", "color": "gray"});
-      	  var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
-      	  var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
-      	
-   		    $tr0.append($td0);
-			$tr0.append($td1);
-			$tr0.append($td2);
-			$tr0.append($td3);
-			
-			$replySelectTable.append($tr0);
-			
-			
-			//ArrayList에 리뷰들이 등록되어있어서 each를 통해 반복문을 돌려서 값을 가져온다!
-			//HashMap은 key를 통해서 값을 가져온다!
-			  $.each(data, function(index, value){
-	               var $tr = $("<tr>").css("height","50px");
-	              
-	               var $writer = $("<td>").text(decodeURIComponent(value.writer));
-	               var $content = $("<td>").text(decodeURIComponent(value.content));
-	               var $starPoint= $("<td>").text(decodeURIComponent(value.starPoint));
-	             
-	               var $writeDate = $("<td>").text(decodeURIComponent(value.writeDate));
-	            
-	               
-	               $tr.append($writer);
-	               $tr.append($content);
-	               $tr.append($starPoint);
-	               $tr.append($writeDate);
-	               $replySelectTable.append($tr)
-	               
-	               //등록과 동시에 작성 내용 지우기
-	               $('#reviewCon').val("");
-	               
-	              
-	               console.log(localStorage);
-			  })
-	        
+           var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"yellowgreen", "color": "black"});
+           var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"yellowgreen", "color": "black"});
+           var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"yellowgreen", "color": "black"});
+         
+             $tr0.append($td0);
+         $tr0.append($td1);
+         $tr0.append($td2);
+         $tr0.append($td3);
+         
+         $replySelectTable.append($tr0);
+         
+         
+         //ArrayList에 리뷰들이 등록되어있어서 each를 통해 반복문을 돌려서 값을 가져온다!
+         //HashMap은 key를 통해서 값을 가져온다!
+           $.each(data, function(index, value){
+                  var $tr = $("<tr>").css("height","50px");
+                 
+                  var $writer = $("<td>").text(decodeURIComponent(value.writer));
+                  var $content = $("<td>").text(decodeURIComponent(value.content));
+                  var $starPoint= $("<td>").text(decodeURIComponent(value.starPoint));
+                
+                  var $writeDate = $("<td>").text(decodeURIComponent(value.writeDate));
+               
+                  
+                  $tr.append($writer);
+                  $tr.append($content);
+                  $tr.append($starPoint);
+                  $tr.append($writeDate);
+                  $replySelectTable.append($tr)
+                  
+                  //등록과 동시에 작성 내용 지우기
+                  $('#reviewCon').val("");
+                  
+                 
+                  console.log(localStorage);
+           })
+           
          
           
           
@@ -520,7 +518,7 @@ hr{
     <div id="menu3" class="tab-pane fade">
     
              <form id="qna" action="<%=request.getContextPath() %>/insertFundProQna.bo?workId=<%=work.get("workId")%>" method="post">
-     		<h3>문의하기</h3>
+           <h3>문의하기</h3>
                    <div class="qnaArea">
                     
                      <div class="qnaContents" style="height:280px;padding:25px">
@@ -557,9 +555,9 @@ hr{
   </div>
  
      </div>
-     <%@ include file="/views/main/footer.jsp" %>
+  
   </div>
-
+   <%@ include file="/views/main/footer.jsp" %>
 <script>
    $(function(){
       $("#sel1").click(function(){
@@ -576,7 +574,7 @@ hr{
 
 </script>
 
-	
+   
 
 
 </body>

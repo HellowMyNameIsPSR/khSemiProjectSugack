@@ -337,7 +337,7 @@ public class AuthorDao {
 		return result;
 	}
 
-	public int insertApplyList(Connection con, int alNum) {
+	public int insertApplyList(Connection con, int alNum, int memberId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String quest = prop.getProperty("insertApplyList");
@@ -345,11 +345,15 @@ public class AuthorDao {
 		try {
 			pstmt = con.prepareStatement(quest);
 			pstmt.setString(1, "대기");
-			pstmt.setInt(2, alNum);
+			pstmt.setInt(2, memberId);
+			System.out.println("memberID.... : " + memberId);
+			pstmt.setInt(3, alNum);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result;
 	}
