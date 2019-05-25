@@ -18,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Do+Hyeon" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    
     <%@ include file="../assets/css/allCss.html" %>
 	<style>
 		h2{
@@ -32,6 +33,9 @@
     		max-width:100%;
     		bakcground-color:transparent;
     	}
+    	
+    	
+    	
     </style>
 </head>
 <body>
@@ -139,8 +143,8 @@
 			      		<tr>
 			      			<td colspan="2">
 			      				<label class="form-control" >사업자 등록증</label>
-			      				<div style="width:400px; height:400px; margin-left:17px; margin-bottom:40px;">
-			      					<img src="<%= request.getContextPath() %>/uploadApply2/<%= picPath2.get(1) %>" style="width:400px; height:400px">
+			      				<div name="pic2" style="width:400px; height:400px; margin-left:17px; margin-bottom:40px;">
+			      					<img src="<%= request.getContextPath() %>/uploadApply2/<%= picPath2.get(1) %>" onclick="img_open('<%= request.getContextPath() %>/uploadApply2/<%= picPath2.get(1) %>', '700', '900')" style="width:400px; height:400px">
 			      				</div>
 			      			</td>
 			      			
@@ -148,7 +152,7 @@
 			      			
 			      			<td colspan="2">
 			      				<label class="form-control">구매 안전 서비스 관리 이용 확인증</label>
-			      				<div style="width:400px; height:400px; margin-bottom:40px;">
+			      				<div name="pic2" style="width:400px; height:400px; margin-bottom:40px;">
 			      				<img src="<%= request.getContextPath() %>/uploadApply2/<%= picPath2.get(2) %>" style="width:400px; height:400px">
 			      				</div>
 			      			</td>
@@ -158,7 +162,7 @@
 			      		<tr>
 			      			<td colspan="2">
 			      				<label class="form-control">통신판매업 신고증</label>
-			      					<div style="width:400px; height:400px; margin-left:17px;">
+			      					<div name="pic2" style="width:400px; height:400px; margin-left:17px;">
 			      					<img src="<%= request.getContextPath() %>/uploadApply2/<%= picPath2.get(0) %>" style="width:400px; height:400px">
 			      					<%= j = j + picPath2.size() %>
 			      				</div>
@@ -192,6 +196,7 @@
 
 	<script>
 	$(function(){
+		
 		$("#accept").click(function(){
 			var apply1Stat =$(this).val();
 			console.log(apply1Stat);

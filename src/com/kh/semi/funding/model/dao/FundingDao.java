@@ -244,6 +244,10 @@ public class FundingDao {
 				hmap.put("fcStart", rset.getDate("FC_START"));
 				hmap.put("funDate", rset.getInt("FUN_DATE"));
 				hmap.put("funStatus", rset.getString("FUN_STATUS"));
+				hmap.put("fusId", rset.getInt("FUS_ID"));
+				hmap.put("fusDate", rset.getDate("FUS_DATE"));
+				hmap.put("fundPrice", rset.getInt("FUND_PRICE"));
+				hmap.put("INVERSMENT", rset.getInt("INVERSMENT"));
 				list.add(hmap);
 			}
 		} catch (SQLException e) {
@@ -536,11 +540,12 @@ PreparedStatement pstmt = null;
 				pstmt.setInt(5, (int)fus.get(i).get("wid"));
 				
 				result += pstmt.executeUpdate();
+
 			}
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
+		}finally {
 			close(pstmt);
 		}
 	  	return result;
@@ -773,7 +778,7 @@ PreparedStatement pstmt = null;
 	public ArrayList<HashMap<String, Object>> selectUserFundingProDetail(Connection con, int workId, int memberId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = prop.getProperty("selectUserFundingProDetail2");
+		String query = prop.getProperty("selectUserFundingProDetail");
 		ArrayList<HashMap<String, Object>> list = null;
 		try {
 			pstmt = con.prepareStatement(query);
@@ -845,6 +850,31 @@ PreparedStatement pstmt = null;
 		} //end try
 		return list;
 	} //end method
+
+	
+	public int getListCount(Connection con, int memberId, String status) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("selectFundSortListCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			pstmt.setString(2, status);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		return listCount;
+	}
 
 
 } //end class
