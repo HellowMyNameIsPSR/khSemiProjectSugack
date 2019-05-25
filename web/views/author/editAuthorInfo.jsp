@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.semi.member.model.vo.*"%>
+<% Member member = (Member)request.getSession().getAttribute("loginUser"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,7 @@
 		margin: 20px 0px 20px 0px;
 		box-shadow:2px 2px lightgray;
 	}
-	.authorInfo tr{
+	.authorInfo tr{ 
 		/* border:none; */
 		padding:0 auto;
 	}
@@ -51,21 +52,63 @@
 					</header>
 					<!-- Contents area -->
 						
-					<div class="deleteDiv" style="margin-bottom:20px;">
+					<div class="deleteDiv" style="margin-bottom:20px; padding:0px 20px 0px 20px;">
 						<table class="deleteTable">
 							<tr>
-								<td colspan="3"><h2 style="margin: 0 auto; padding-left: 20px">배송 정보</h2></td>
-							</tr>
-							<tr>
-								<td rowspan="2"style="font-weight:bold;vertical-align:middle;font-size:20px;width:180px;text-align:center;">사업장 주소</td>
-								<td style="height:150px; border-bottom:1px solid white;">우편번호 &nbsp;:&nbsp;&nbsp;
-									<span id="addressNum">우편번호</span><br><br>주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;
-									<span id="address">주소</span><br><br>상세주소 &nbsp;:&nbsp;&nbsp;
-									<span id="addressDe">상세주소</span><br>
+								<td colspan="2"style="border-right:none;border-left:none;border-top:none;font-size:20px;font-weight:bold;">
+									판매자 정보
 								</td>
 							</tr>
 							<tr>
-								<td style="border-top:1px solid white;text-align:center">
+								<td style="border-right:none;border-left:none;width:200px">
+									이름
+								</td>
+								<td style="border-right:none;border-left:none;">
+									<%= member.getMemberName() %>
+								</td>
+							</tr>
+							<tr>
+								<td style="border-right:none;border-left:none;width:200px">
+									이메일
+								</td>
+								<td style="border-right:none;border-left:none;">
+									<%= member.getEmail() %>
+								</td>
+							</tr>
+							<tr>
+								<td style="border-right:none;border-left:none;">
+									사업장 이름
+								</td>
+								<td id="addName" style="border-right:none;border-left:none;">
+									
+								</td>
+							</tr>
+							<tr>
+								<td style="border-right:none;border-left:none;">
+									주소
+								</td>
+								<td id="addressN" style="border-right:none;border-left:none;">
+									
+								</td>
+							</tr>
+							<tr>
+								<td style="border-right:none;border-left:none;">
+									연락처 1
+								</td>
+								<td id="phone01" style="border-right:none;border-left:none;">
+									
+								</td>
+							</tr>
+							<tr>
+								<td style="border-right:none;border-left:none;">
+									연락처 2
+								</td>
+								<td id="phone02" style="border-right:none;border-left:none;">
+									
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" style="border-right:none;border-left:none;border-bottom:none;text-align:center">
 									<button type="button" style="width:150px;" class="all-btn" data-toggle="modal" data-target="#myModal" type="button" class="all-btn">새 주소입력</button>
 								</td>
 							</tr>
@@ -79,73 +122,70 @@
 						<div class="modal-dialog">
 							<!-- Modal content-->
 							<div class="modal-content">
-								<form id="salesFrom"action=""method="post">
-									<%-- <input type="hidden" name="refundId" value="<%=hmap.get("refundId")%>"> --%>
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h2 class="modal-title">주소 입력</h2>
-									</div>
-									<div class="modal-body">
-										<table class="addressTable">
-											<tr>
-												<td>
-													<label>사업장 명</label>
-												</td>
-												<td>
-													<input type="text" name="addressName" id="addressName">
-												</td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>
-													<label>우편번호</label>
-												</td>
-												<td>
-													<input type="text" id="postCode" name="postCode" placeholder="우편번호">
-												</td>
-												<td>
-													<input type="button" class="all-btn"onclick="searchAddress()" value="주소검색">
-												</td>
-											</tr>
-											<tr>
-												<td></td>
-												<td>
-													<input type="text" id="address" name="address" placeholder="주소">
-												</td>
-												<td></td>
-											</tr>
-											<tr>
-												<td></td>
-												<td>
-													<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
-												</td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>
-													<label>연락처</label>
-												</td>
-												<td>
-													<input type="tel" name="phone1" id="phone1" class="form-control">
-												</td>
-												<td></td>
-											</tr>
-											<tr>
-												<td>
-													<label>연락처2</label>
-												</td>
-												<td>
-													<input type="tel" name="phone2" id="phone2" class="form-control">
-												</td>
-												<td></td>
-											</tr>
-										</table>									
-									</div>
-									<div class="modal-footer" style="text-align:center;">
-										<button id="submit" class="all-btn" style="width:100px;">저장</button>
-										<button id="close" class="all-btn" style="width:100px;">닫기</button> 
-									</div>
-								</form>
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h2 class="modal-title">주소 입력</h2>
+								</div>
+								<div class="modal-body">
+									<table class="addressTable">
+										<tr>
+											<td>
+												<label>사업장 명</label>
+											</td>
+											<td>
+												<input type="text" name="addressName" id="addressName">
+											</td>
+											<td></td>
+										</tr>
+										<tr>
+											<td>
+												<label>우편번호</label>
+											</td>
+											<td>
+												<input type="text" id="postCode" name="postCode" placeholder="우편번호">
+											</td>
+											<td>
+												<input type="button" class="all-btn"onclick="searchAddress()" value="주소검색">
+											</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td>
+												<input type="text" id="address" name="address" placeholder="주소">
+											</td>
+											<td></td>
+										</tr>
+										<tr>
+											<td></td>
+											<td>
+												<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
+											</td>
+											<td></td>
+										</tr>
+										<tr>
+											<td>
+												<label>연락처</label>
+											</td>
+											<td>
+												<input type="tel" name="phone1" id="phone1" class="form-control">
+											</td>
+											<td></td>
+										</tr>
+										<tr>
+											<td>
+												<label>연락처2</label>
+											</td>
+											<td>
+												<input type="tel" name="phone2" id="phone2" class="form-control">
+											</td>
+											<td></td>
+										</tr>
+									</table>									
+								</div>
+								<div class="modal-footer" style="text-align:center;">
+									<button id="submit" class="all-btn" style="width:100px;">저장</button>
+									<button id="close" class="all-btn" style="width:100px;">닫기</button> 
+								</div>
 							</div>
 						</div>
 					</div>
@@ -214,6 +254,8 @@
 			            }
 			            
 			           $(function(){
+			        	   console.log($("#addressName").val());
+		            		console.log($("#addressName").val());
 			            	$("#submit").click(function(){
 			            		var addressName = $("#addressName").val();
 			            		var postCode = $("#postCode").val();
@@ -221,6 +263,7 @@
 			            		var detailAddress = $("#detailAddress").val();
 			            		var phone1 = $("#phone1").val();
 			            		var phone2 = $("#phone2").val();
+			            		
 			            		$.ajax({
 			            			url:"<%=request.getContextPath()%>/insertAddress.wo",
 			            			data:{addressName:addressName, postCode:postCode, address:address, detailAddress:detailAddress,
@@ -250,9 +293,11 @@
 								url:"<%=request.getContextPath()%>/selectWorkAddress.wo",
 								type:"get",
 								success:function(data){
-									$("#addressNum").append(data);
-									$("#address").append(data[1]);
-									$("#addressDe").append(data[2]);
+									console.log(data.phone1);
+									$("#addressN").append("( " + data.add1 + " ) " + data.add2 + " " + data.add3);
+									$("#addName").append(data.addressName);
+									$("#phone01").append(data.phone1);
+									$("#phone02").append(data.phone2);
 								}
 							});
 			           });

@@ -6,7 +6,7 @@
  %>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <meta charset="UTF-8">
 <title>수작 - 판매 작품 등록</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -20,7 +20,7 @@
 <style>
 	body{
 		background: radial-gradient(white, #F6FFFF) fixed;
-	}
+	} 
 	img{
 		background-image:url("/sg/views/images/noImage.png");
 		background-size:100%;
