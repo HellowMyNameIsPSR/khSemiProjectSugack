@@ -129,7 +129,8 @@ public class WorkDao {
 				hmap = new HashMap<String, Object>();
 				hmap.put("workId", rset.getInt("WORK_ID"));
 				hmap.put("workName", rset.getString("WORK_NAME"));
-				hmap.put("price", rset.getInt("WORK_ID"));
+				hmap.put("price", rset.getInt("PRICE"));
+				hmap.put("deliPirce", rset.getInt("DELI_PRICE"));
 				hmap.put("wrDate", rset.getDate("WR_DATE"));
 
 				list.add(hmap);
@@ -252,7 +253,7 @@ public class WorkDao {
 
 	
 
-	public Work selectOne(Connection con, int num) {
+	public Work selectOne(Connection con, int workId) {
 		Work work = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -261,7 +262,7 @@ public class WorkDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, workId);
 			
 			rset = pstmt.executeQuery();
 			
@@ -286,7 +287,7 @@ public class WorkDao {
 		return work;
 	}
 
-	public ArrayList<WorkPic> selectImg(Connection con, int num) {
+	public ArrayList<WorkPic> selectImg(Connection con, int workId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<WorkPic> fileList = null;
@@ -295,7 +296,7 @@ public class WorkDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, workId);
 			
 			rset = pstmt.executeQuery();
 			
@@ -320,6 +321,44 @@ public class WorkDao {
 		}
 		
 		return fileList;
+	}
+	public ArrayList<HashMap<String, Object>> selectOption(Connection con, int workId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> workOpt = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectOption");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, workId);
+			
+			rset = pstmt.executeQuery();
+			
+			workOpt = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()){
+				hmap = new HashMap<String, Object>();
+				
+				hmap.put("workId", rset.getInt("WORK_ID"));
+				hmap.put("opId", rset.getInt("OP_ID"));
+				hmap.put("oName", rset.getString("ONAME"));
+				hmap.put("oValue", rset.getString("OVALUE"));
+				hmap.put("oPirce", rset.getString("OPRICE"));
+				
+				workOpt.add(hmap);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return workOpt;
 	}
 
 	public int updateSale(Connection con, Work work) {
@@ -1057,6 +1096,7 @@ public class WorkDao {
 				hmap.put("workId", rset.getInt("WORK_ID"));
 				hmap.put("workName", rset.getString("WORK_NAME"));
 				hmap.put("price", rset.getInt("WORK_ID"));
+				hmap.put("deliPirce", rset.getInt("DELI_PRICE"));
 				hmap.put("wrDate", rset.getDate("WR_DATE"));
 
 				list.add(hmap);
@@ -1129,6 +1169,7 @@ public class WorkDao {
 				hmap.put("workId", rset.getInt("WORK_ID"));
 				hmap.put("workName", rset.getString("WORK_NAME"));
 				hmap.put("price", rset.getInt("WORK_ID"));
+				hmap.put("deliPirce", rset.getInt("DELI_PRICE"));
 				hmap.put("wrDate", rset.getDate("WR_DATE"));
 
 				list.add(hmap);
@@ -1755,6 +1796,94 @@ public class WorkDao {
 		
 		return address;
 	}
+
+	public ArrayList<WorkOption> selectOptionName(Connection con, int workId) {
+		PreparedStatement pstmt  = null;
+		ResultSet rset = null;
+		ArrayList<WorkOption> woList = null;
+		WorkOption wo = null;
+		
+		String query = prop.getProperty("selectOptionName");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, workId);
+			
+			rset = pstmt.executeQuery();
+			
+			woList = new ArrayList<WorkOption> ();
+			while(rset.next()) {
+				wo = new WorkOption();
+				wo.setoName(rset.getString(1));
+				woList.add(wo);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return woList;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectImageList2(Connection con) {
+		Statement stmt = null;
+		ArrayList<HashMap<String, Object>> list2 = null;
+		HashMap<String, Object> hmap = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectImageList2");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list2 = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				
+				
+				hmap.put("workId", rset.getInt("WORK_ID"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("WORK_CONTENT", rset.getString("WORK_CONTENT"));
+				hmap.put("delePice", rset.getInt("DELI_PRICE"));
+				hmap.put("wrDate", rset.getDate("WR_DATE"));
+				hmap.put("rsDate", rset.getDate("RS_DATE"));
+				hmap.put("mexCount", rset.getInt("MAX_COUNT"));
+				hmap.put("csDate", rset.getDate("CS_DATE"));
+				hmap.put("workKind", rset.getString("WORK_KIND"));
+				hmap.put("memberId", rset.getInt("MEMBER_ID"));
+				hmap.put("price", rset.getInt("MAX_COUNT"));
+				hmap.put("cid", rset.getInt("CID"));
+				hmap.put("typeId", rset.getInt("TYPE_ID"));
+				hmap.put("wCount", rset.getInt("WCOUNT"));
+				
+				hmap.put("originName", rset.getString("ORIGIN_NAME"));
+				hmap.put("changeName", rset.getString("CHANGE_NAME"));
+				hmap.put("filePath", rset.getString("FILE_PATH"));
+				
+				hmap.put("category", rset.getString("CATEGORY"));
+				list2.add(hmap);
+			}
+			
+		
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+			System.out.println("리스트 222 : " + list2);
+		return list2;
+	}
+
+	
 
 
 

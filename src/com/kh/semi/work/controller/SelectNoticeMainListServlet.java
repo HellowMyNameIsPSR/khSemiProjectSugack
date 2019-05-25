@@ -32,7 +32,6 @@ public class SelectNoticeMainListServlet extends HttpServlet {
 		limit = 6; 
 		
 		PageInfo pi = new PageInfo(limit, limit, limit, limit, limit);
-		System.out.println("공지사항 : " + list);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(list, response.getWriter());

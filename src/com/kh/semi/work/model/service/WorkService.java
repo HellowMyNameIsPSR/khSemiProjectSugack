@@ -117,10 +117,10 @@ public class WorkService {
 		close(con);
 		return result;
 	}
-	public Work selectOne(int num) {
+	public Work selectOne(int workId) {
 		Connection con = getConnection();
 		
-		Work work = new WorkDao().selectOne(con, num);
+		Work work = new WorkDao().selectOne(con, workId);
 		
 		//System.out.println("서비스 work : " + work);
 		
@@ -138,14 +138,23 @@ public class WorkService {
 		
 		return work;
 	}
-	public ArrayList<WorkPic> selectImg(int num) {
+	public ArrayList<WorkPic> selectImg(int workId) {
 		Connection con = getConnection();
 		
-		ArrayList<WorkPic> fileList = new WorkDao().selectImg(con, num);
+		ArrayList<WorkPic> fileList = new WorkDao().selectImg(con, workId);
 		
 		close(con);
 		
 		return fileList;
+	}
+	public ArrayList<HashMap<String, Object>> selectOption(int workId) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> workOpt = new WorkDao().selectOption(con, workId);
+		
+		close(con);
+		
+		return workOpt;
 	}
 	public int updateSales(Work work, ArrayList<WorkPic> workPic, ArrayList<String> wpId) {
 		Connection con = getConnection();
@@ -155,7 +164,7 @@ public class WorkService {
 		int result1 = new WorkDao().updateSale(con, work);
 		if(result1 > 0) {
 			int result2 = new WorkDao().updatePicFile(con, workPic, work, wpId);
-			if(result1 > 0 && result2 == workPic.size()) {
+			if(result1 > 0 && result2 > 0) {
 				commit(con);
 				result = 1;
 			}else {
@@ -555,6 +564,26 @@ public class WorkService {
 		
 		return address;
 	}
+	public ArrayList<WorkOption> selectOptionName(int workId) {
+		Connection con = getConnection();
+		
+		ArrayList<WorkOption> woList = new WorkDao().selectOptionName(con, workId);
+		
+		close(con);
+		
+		return woList;
+	}
+	public ArrayList<HashMap<String, Object>> selectImageList2() {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list2 = 
+				new WorkDao().selectImageList2(con);
+		close(con);
+		
+		
+		return list2;
+	}
+	
 	
 }
 

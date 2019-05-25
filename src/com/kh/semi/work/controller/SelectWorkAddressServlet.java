@@ -33,16 +33,16 @@ public class SelectWorkAddressServlet extends HttpServlet {
 		String add1 = add0.split("#")[0];
 		String add2 = add0.split("#")[1];
 		String add3 = add0.split("#")[2];
+		String add4 = add0.split("#")[3];
 		
 		add.put("add1", add1);
 		add.put("add2", add2);
 		add.put("add3", add3);
+		add.put("add4", add4);
 		add.put("phone1", address.getPhone1());
 		add.put("phone2", address.getPhone2());
 		add.put("addressName", address.getAddressName());
 		
-		//System.out.println(address.getPhone1());
-		//System.out.println(address.getPhone2());
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

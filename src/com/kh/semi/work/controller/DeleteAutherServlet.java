@@ -32,7 +32,6 @@ public class DeleteAutherServlet extends HttpServlet {
 		
 		Member loginUser = new WorkService().deleteAuthor(m);
 		
-		System.out.println("loginUser : " + loginUser);
 		if(loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
