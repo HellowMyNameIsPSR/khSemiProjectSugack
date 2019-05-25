@@ -84,7 +84,7 @@ public class FundingService {
 
 	}
 	
-	//등록된 펀딩 작품 내역의 상태가 '대기' 상태 인 것을 최신 순으로 정렬합니다.
+	//등록된 펀딩 작품 내역의 상태에 따라 최신 순으로 정렬합니다.
 	public ArrayList<SortFunding> selectSortFunding(int memberId, SortFunding sortFunding) {
 		Connection con = getConnection();
 		ArrayList<SortFunding> list = new FundingDao().selectSortFunding(con, memberId, sortFunding);
@@ -159,20 +159,16 @@ public class FundingService {
 		}
 		return result;
 	}
-	public int updateFundingAndInsertAcc(Funding funding, AuthorAccount authorAcc) {
+	public int updateFunding(Funding funding) {
 		Connection con = getConnection();
 		int resultFunding = new FundingDao().updateFunding(con, funding);
-		int resultAuthorAcc = 0;
 		if(resultFunding > 0) {
-			resultAuthorAcc = new FundingDao().insertAuthorAcc(con, authorAcc);
-			if(resultAuthorAcc > 0) {
-				commit(con);
-			} else {
-				rollback(con);
-			} //end if
-		} //end if
+			commit(con);
+		} else {
+			rollback(con);
+		}//end if
 		close(con);
-		return resultAuthorAcc;
+		return resultFunding;
 	}
 	public ArrayList<HashMap<String, Object>> selectProductListLow() {
 		Connection con = getConnection();
@@ -204,7 +200,7 @@ public class FundingService {
 		close(con);
 		
 		return list;
-	
+
 	} //end method
 	
 	public ArrayList<HashMap<String, Object>> selectUserFundingProDetail(int workId, int memberId, String status) {
@@ -224,5 +220,13 @@ public class FundingService {
 		close(con);
 		return list;
 	} //end method
+	
+	//펀딩 작품 갯수 가져오기
+	public int getListCount(int memberId, String status) {
+		Connection con = getConnection();
+		int listCount = new FundingDao().getListCount(con, memberId, status);
+		close(con);
+		return listCount;
+	}
 	
 } //end class

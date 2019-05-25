@@ -16,6 +16,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.kh.semi.author.model.service.AuthorService;
 import com.kh.semi.author.model.vo.PicFile;
 import com.kh.semi.common.MyFileRenamePolicy;
+import com.kh.semi.funding.model.vo.AuthorAccount;
 import com.kh.semi.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -67,8 +68,25 @@ public class InsertAuthorApply2 extends HttpServlet {
 			} //end for
 			
 			int result = new AuthorService().insertApply2(memberId, fileList);
+			AuthorAccount authorAcc = new AuthorAccount();
+			authorAcc.setBackName(multiRequest.getParameter("bank_code_std"));
+			authorAcc.setAccountNumber(multiRequest.getParameter("accnum"));;
+			authorAcc.setVerifyAccount("Y");
+			authorAcc.setAuthorName(multiRequest.getParameter("accpnm"));
+			authorAcc.setAuthorbirth(multiRequest.getParameter("birthDay"));
+			authorAcc.setType("개인");
+			authorAcc.setMemberId(((Member) request.getSession().getAttribute("loginUser")).getMemberId());
+			System.out.println(authorAcc);
+			
 			if(result > 0) {
-				response.sendRedirect(request.getContextPath() + "/checkApply.at");
+				int resultAcc = new AuthorService().insertAcc(authorAcc);
+				if(resultAcc > 0) {
+					System.out.println("계좌 등록 성공!");
+					response.sendRedirect(request.getContextPath() + "/checkApply.at");
+				} else {
+					request.setAttribute("msg", "계좌 등록에 실패 했습니다.");
+					request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+				}
 			} else {
 				System.out.println("2차 입점신청 실패!");
 				for(int i = 0; i < changeName.size(); i++) {

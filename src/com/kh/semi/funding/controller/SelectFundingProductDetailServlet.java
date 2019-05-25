@@ -41,6 +41,7 @@ public class SelectFundingProductDetailServlet extends HttpServlet {
 		ArrayList<WorkPic> workPic = null;
 		String page = "";
 		if(list != null) {
+			System.out.println("servlet : " + list.size());
 			workPic = new FundingService().selectWorkPicFile(memberId, workId);
 			if(workPic != null) {
 				request.setAttribute("status", status);

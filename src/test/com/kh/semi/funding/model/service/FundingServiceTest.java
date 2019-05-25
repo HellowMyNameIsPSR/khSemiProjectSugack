@@ -108,12 +108,18 @@ public class FundingServiceTest {
 	@Ignore
 	@Test
 	public void testUpdateFundingAndAuthoAcc() {
-		assertEquals(fundingService.updateFundingAndInsertAcc(fund, authorAcc), 1);
+		assertEquals(fundingService.updateFunding(fund), 1);
 	}
 	
+	@Ignore
 	@Test
 	public void testSelectUserFundingProDetail() {
 		assertNotNull(fundingService.selectUserFundingProDetail(17907, 8502, "대기"));
+	}
+	
+	@Test
+	public void testGetListCount() {
+		assertEquals(fundingService.getListCount(8502, "진행중"), 2);
 	}
 	
 } //end class
