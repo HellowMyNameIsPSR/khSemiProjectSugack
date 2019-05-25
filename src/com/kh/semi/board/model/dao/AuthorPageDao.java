@@ -13,8 +13,12 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.semi.board.model.vo.AuthorPageAttachmrnt;
+import com.kh.semi.board.model.vo.AuthorWorkList;
+import com.kh.semi.board.model.vo.AuthorWorkPic;
 import com.kh.semi.board.model.vo.Board;
 import com.kh.semi.board.model.vo.authorComent;
+
+import oracle.net.aso.b;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 
@@ -126,6 +130,8 @@ public class AuthorPageDao {
 		return result;
 	}
 
+	
+	//작가리스트 조회 
 	public ArrayList<HashMap<String, Object>> selectAuthorPage(Connection con) {
 
 		Statement stmt = null;
@@ -176,7 +182,7 @@ public class AuthorPageDao {
 
 		return list;
 	}
-
+   //작가스토리 상세페이지 리스트
 	public HashMap<String, Object> selectAuthorStory(Connection con, int memberId, int bno) {
 
 		PreparedStatement pstmt = null;
@@ -320,7 +326,7 @@ public class AuthorPageDao {
 	}
     
 	
-
+   //댓글 작성 dao
 	public int insertauthorComent(Connection con, authorComent ac) {
 		
 		PreparedStatement pstmt = null; 
@@ -348,7 +354,7 @@ public class AuthorPageDao {
 		System.out.println("authorComent:" +result);
 		return result;
 	}
-
+   //댓글 리스트  Dao
 	public ArrayList<authorComent> SelectComent(int bno, Connection con, int memberId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset =null;
@@ -398,8 +404,71 @@ public class AuthorPageDao {
 		return list;
 	}
 
-	public HashMap<String, Object> selectAuthorPdList(Connection con, int memberId) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	//작가 작품사진 리스트 Dao
+	public ArrayList<HashMap<String, Object>> selectAuthorPdList(Connection con, int memberId) {
+		
+		
+		PreparedStatement pstmt = null;
+		ArrayList<HashMap<String,Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		ResultSet  rset = null;
+		
+		String query = prop.getProperty("selectAuthorPdLIst");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<HashMap<String,Object>>();
+			while(rset.next()) {
+				
+				hmap =new HashMap<String,Object>();
+				hmap .put("WorkId",rset.getInt("WORK_ID"));
+				hmap .put("WorkName", rset.getString("WORK_NAME"));
+				hmap .put("WorkContent" ,rset.getString("WORK_CONTENT"));
+				hmap .put("DeliPrice", rset.getInt("DELI_PRICE"));
+				hmap .put("WrDate", rset.getDate("WR_DATE"));
+				hmap .put("RsDate", rset.getDate("RS_DATE"));
+				hmap .put("MaxCount",rset.getInt("MAX_COUNT"));
+				hmap .put("CsDate", rset.getDate("CS_DATE"));
+				hmap .put("Work_Kind",rset.getString("WORK_KIND"));
+				hmap .put("Price", rset.getInt("PRICE"));
+				hmap .put("Cid", rset.getInt("CID"));
+				hmap .put("TypeId" ,rset.getInt("TYPE_ID"));
+				hmap .put("Wcount", rset.getInt("WCOUNT"));
+				hmap .put("Wpid",rset.getInt("WP_ID") );
+				hmap .put("OriginName", rset.getString("ORIGIN_NAME"));
+				hmap .put("ChangeName", rset.getString("CHANGE_NAME"));
+				hmap .put("FilePath", rset.getString("FILE_PATH"));
+				hmap .put("PicType", rset.getString("PIC_TYPE"));
+				
+				list.add(hmap);
+				System.out.println("dao에 " + list);
+				
+				
+				
+				
+			}
+			
+			
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		
+		return list;
 	}
+
+
 }
