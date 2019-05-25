@@ -56,8 +56,8 @@
 						<li><a href="fundingGuide.jsp">펀딩 가이드</a>
 						<li><a href="<%= request.getContextPath() %>/selectCategory.fund">펀딩 작품 등록</a>
 						<li><a href="manageFundGoodsHistory.jsp">펀딩 작품 내역</a></li>
-						<li><a href="makingApplicationHistory.jsp">제작 신청 내역</a>
-						<li><a href="fundingStatistics.jsp">펀딩 통계</a>
+						<!-- <li><a href="makingApplicationHistory.jsp">제작 신청 내역</a>
+						<li><a href="fundingStatistics.jsp">펀딩 통계</a> -->
 					</ul>
 				</li>
 				<li><a href="authorStory.jsp">작가이야기</a></li>

@@ -65,7 +65,7 @@ public class AuthorService {
 		}
 		if(resultFile > 0) { //Pic_file 테이블에 정보를 저장 했는가?
 			int alNum = 1; //차수
-			resultApplyList = new AuthorDao().insertApplyList(con, alNum);
+			resultApplyList = new AuthorDao().insertApplyList(con, alNum, author.getMemberId());
 		} else {
 			System.out.println("1차 입점 서류 저장 실패!");
 			
@@ -96,7 +96,7 @@ public class AuthorService {
 			resultUpdate = new AuthorDao().updateAuthorApplyStat2(con, memberId);
 			if(resultUpdate > 0) {
 				int alNum = 2;
-				resultApplyList = new AuthorDao().insertApplyList(con, alNum);
+				resultApplyList = new AuthorDao().insertApplyList(con, alNum, memberId);
 			} else {
 				System.out.println("2차 입점 상태 업데이트 실패!");
 			}
