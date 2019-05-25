@@ -19,6 +19,7 @@ import com.kh.semi.admin.model.vo.SearchFunding;
 import com.kh.semi.admin.model.vo.SearchMember;
 import com.kh.semi.admin.model.vo.SearchProduct;
 import com.kh.semi.author.model.vo.Author;
+import com.kh.semi.work.model.vo.PageInfo;
 
 public class adminDao {
 	 private Properties prop = new Properties();
@@ -1127,6 +1128,230 @@ public class adminDao {
 		}
 		
 		return list;
+	}
+
+	public String fileName(Connection con, String aName) {
+		Properties prop = new Properties();
+		String fileName =  adminDao.class
+				.getResource("/sql/admin/admin-normalquery.properties")
+				.getPath();
+		
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("1applyFileName");
+		String firstapply = "1차입점서류";
+		String changeName = "";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, firstapply);
+			pstmt.setString(2, aName);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				changeName = rset.getString("CHANGE_NAME");
+				System.out.println("while에서의 값" + changeName);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		System.out.println("dao에서 받아올 파일 이름 : " + fileName);
+		
+		return changeName;
+	}
+
+	public String originName(Connection con, String aName) {
+		Properties prop = new Properties();
+		String fileName =  adminDao.class
+				.getResource("/sql/admin/admin-normalquery.properties")
+				.getPath();
+		
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("1applyFileName");
+		String firstapply = "1차입점서류";
+		String originName = "";
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, firstapply);
+			pstmt.setString(2, aName);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				originName = rset.getString("ORIGIN_NAME");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		System.out.println("dao에서 받아올 파일 이름 : " + originName);
+		
+		return originName;
+	}
+
+	public int exchangeListCount(Connection con, String memberId) {
+		Properties prop = new Properties();
+		String fileName =  adminDao.class
+				.getResource("/sql/admin/admin-normalquery.properties")
+				.getPath();
+		
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		Statement stmt = null;
+		int listCount = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("exchangeListCount");
+		
+		try {
+			stmt = con.createStatement();
+	
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectExchangeList(Connection con, PageInfo pi, String memberId) {
+		Properties prop = new Properties();
+		String fileName =  adminDao.class
+				.getResource("/sql/admin/admin-normalquery.properties")
+				.getPath();
+		
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectExchangeList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getLimit() + 1;
+		int endRow = startRow + pi.getLimit() - 1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, "환불 승인 요청");
+			pstmt.setString(2, "환불 거절");
+			pstmt.setString(3, "환불 완료");
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			
+			while(rset.next()){
+				hmap = new HashMap<String, Object>();
+				hmap.put("refundId", rset.getInt("REFUND_ID"));
+				hmap.put("workName", rset.getString("WORK_NAME"));
+				hmap.put("count", rset.getInt("COUNT"));
+				hmap.put("refundPrice", rset.getInt("REFUND_PRICE"));
+				hmap.put("refundDate", rset.getDate("REFUND_DATE"));
+				hmap.put("memberName", rset.getString("MEMBER_NAME"));
+				hmap.put("refundStat", rset.getString("REFUND_STAT"));
+				hmap.put("refundReason", rset.getString("REFUND_REASON"));
+				hmap.put("odId", rset.getInt("OD_ID"));
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("검색하는 memberId : " + memberId);
+		System.out.println("adminDAo에서 쿼리 : " + query);
+		System.out.println("adminDao에서 담는값 : " + list);
+		return list;
+	}
+
+	public int updateExchage(Connection con, String refundStat, String refundId) {
+		Properties prop = new Properties();
+		String fileName =  adminDao.class
+				.getResource("/sql/admin/admin-normalquery.properties")
+				.getPath();
+		
+		try {
+			prop.load(new FileReader(fileName));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateExchage");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, refundStat);
+			pstmt.setString(2, refundId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }
