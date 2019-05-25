@@ -337,6 +337,23 @@ public class AuthorDao {
 		return result;
 	}
 
+	public int insertApplyList(Connection con, int alNum) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String quest = prop.getProperty("insertApplyList");
+		
+		try {
+			pstmt = con.prepareStatement(quest);
+			pstmt.setString(1, "대기");
+			pstmt.setInt(2, alNum);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 } //end class
 
 

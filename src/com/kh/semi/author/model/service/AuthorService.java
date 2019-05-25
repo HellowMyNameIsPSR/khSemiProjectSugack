@@ -40,6 +40,7 @@ public class AuthorService {
 		int resultAuthorApply = 0; //입점 내역 저장
 		int resultFile = 0; //1차 입점 신청 파일 저장
 		int resultAuthorType = 0; //작가 공예 유형 저장
+		int resultApplyList = 0;
 		
 		if(resultAuthor > 0) { //Author 테이블에 정보를 저장 했는 가?
 			resultAuthorApply = new AuthorDao().insertAuthorApply(con, author.getMemberId());
@@ -63,13 +64,20 @@ public class AuthorService {
 			return 0;
 		}
 		if(resultFile > 0) { //Pic_file 테이블에 정보를 저장 했는가?
-			commit(con);
+			int alNum = 1; //차수
+			resultApplyList = new AuthorDao().insertApplyList(con, alNum);
 		} else {
 			System.out.println("1차 입점 서류 저장 실패!");
+			
+		}
+		if(resultApplyList > 0) {
+			commit(con);
+		} else {
 			rollback(con);
 		}
+		
 		close(con);
-		return resultFile;
+		return resultApplyList;
 	} //end method
 
 	public ArrayList<ApplyHistory> selectOneAuthorApply(int memberId) {
@@ -82,13 +90,25 @@ public class AuthorService {
 	public int insertApply2(int memberId, ArrayList<PicFile> fileList) {
 		Connection con = getConnection();
 		int result = new AuthorDao().insertApply2(con, memberId, fileList);
+		int resultUpdate = 0;
+		int resultApplyList = 0;
 		if(result > 0) {
-			int resultUpdate = new AuthorDao().updateAuthorApplyStat2(con, memberId);
+			resultUpdate = new AuthorDao().updateAuthorApplyStat2(con, memberId);
 			if(resultUpdate > 0) {
-				commit(con);
+				int alNum = 2;
+				resultApplyList = new AuthorDao().insertApplyList(con, alNum);
 			} else {
-				rollback(con);
+				System.out.println("2차 입점 상태 업데이트 실패!");
 			}
+		} else {
+			System.out.println("2차 입점신청 서류 저장 실패!");
+		} //end if
+		
+		if(resultApplyList > 0) {
+			commit(con);
+		} else {
+			System.out.println("2차 입점 정보 입점 내역에 저장 실패!");
+			rollback(con);
 		}
 		close(con);
 		return result;
