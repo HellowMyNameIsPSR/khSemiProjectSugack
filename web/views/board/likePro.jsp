@@ -8,13 +8,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://fonts.googleapis.com/css?family=Poor+Story&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Sunflower:300&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
-<title>관심판매상품!</title>
+<title>관심판매상품</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <%@ include file="../assets/css/allCss.html" %>
 <style>
+	body{
+		font-family: 'Sunflower', sans-serif;
+	}
 	.name{
 		width:100%;
 		font-size:30px;
@@ -55,11 +58,11 @@
 							 		
 							 		
 							 		<div class="img" style="width:280px; margin-top:20px; margin-left:5px;">
-							 			<img src="uploadSalesImage/<%=hmap.get("changeName") %>" style="width:250px; height:200px; border:2px solid lightgray">
+							 			<img src="uploadSalesImage/<%=hmap.get("changeName") %>" style="width:250px; height:200px; border:2px solid lightgray; ">
 							 		</div>
 							 		
 							 		<div class="productName"> 
-							 			<label style="margin-left:20%; margin-top:10px; font-family: 'Poor Story', cursive; font-size:25px"><%=hmap.get("workName") %></label>
+							 			<label style="margin-left:20%; margin-top:10px; font-family: 'Sunflower', sans-serif; font-size:25px"><%=hmap.get("workName") %></label>
 							 		</div>
 							 		
 							 		<div class="heart">
@@ -67,7 +70,7 @@
 							 			<img src="views/images/heart.png" class="delLike" style="width:30px; height:30px; float:left;">
 							 		</div>
 							 		<div>
-									<label id="price" style="margin-left:65%; font-size:15px"><%=hmap.get("price") %>원</label>
+									<label id="price" style="margin-left:55%; font-size:15px">가격: <%=hmap.get("price") %>원</label>
 							 		</div>
 							 		
 							 		<br><br><br>
@@ -77,27 +80,7 @@
 							 </div>
 							 	<%} %>
 							 	
-							<!--  <div class="col-sm-4"></div>
-							 
-							  	<div class="col-sm-4 product" style="background-color:lavender; height:50%;">
-							 	<div class="outer">
-							 		<div class="img" style="width:230px;">
-							 			<img src="../images/tvxq.jpg" style="width:200px; height:200px;">
-							 		</div>
-							 		<div class="productName">
-							 			<label style="margin-left:80px;">상품명</label>
-							 		</div>
-							 		
-							 		<div class="heart">
-							 			<img src="../images/heart.png" style="width:50px; height:50px; float:left;">
-							 		</div>
-							 		<div>
-							 			<label style="margin-left:160px;">가격</label>
-							 		</div>
-							 	</div>
-							 	
-							 </div> -->
-					
+							
 					</div>
 					
 					
@@ -132,46 +115,7 @@
 						});
 					</script> 
 					
-					<!-- <div class="row">
-							 		 <div class="col-sm-4 product" style="background-color:lavender; height:50%;">
-							 	<div class="outer">
-							 		<div class="img" style="width:230px;">
-							 			<img src="../images/tvxq.jpg" style="width:200px; height:200px;">
-							 		</div>
-							 		<div class="productName">
-							 			<label style="margin-left:80px;">상품명</label>
-							 		</div>
-							 		
-							 		<div class="heart">
-							 			<img src="../images/heart.png" style="width:50px; height:50px; float:left;">
-							 		</div>
-							 		<div>
-							 			<label style="margin-left:160px;">가격</label>
-							 		</div>
-							 	</div>
-							 	
-							 </div>
-							 <div class="col-sm-4"></div>
-							  		 <div class="col-sm-4 product" style="background-color:lavender; height:50%;">
-							 	<div class="outer">
-							 		<div class="img" style="width:230px;">
-							 			<img src="../images/tvxq.jpg" style="width:200px; height:200px;">
-							 		</div>
-							 		<div class="productName">
-							 			<label style="margin-left:80px;">상품명</label>
-							 		</div>
-							 		
-							 		<div class="heart">
-							 			<img src="../images/heart.png" style="width:50px; height:50px; float:left;">
-							 		</div>
-							 		<div>
-							 			<label style="margin-left:160px;">가격</label>
-							 		</div>
-							 	</div>
-							 	
-							 </div>
 					
-					</div> -->
 					</div>
 					<!-- Contents area -->
 				</section>
@@ -179,6 +123,17 @@
 		</div>
 		<!-- 여기 메뉴바 -->	<%@ include file="../common/userMenubarServlet.jsp" %>
 	</div>
+		<script>
 		
+		$(".mainImg").click(function(){
+			//해당 상세 페이지로 가기!
+
+			
+			
+			 var workId = $(this).children().eq(0).val();
+			 location.href="<%=request.getContextPath()%>/selectProDetail.pro?workId="+ workId;
+			
+		});
+		</script>
 </body>
 </html>

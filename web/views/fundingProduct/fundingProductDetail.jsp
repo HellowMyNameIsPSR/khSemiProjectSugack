@@ -24,14 +24,16 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
+
+	
    .proArea{
       background:yellow;
    }
    
    .productDiv{
-      background:#D4ECFF;
+     
       padding:15px;
-    
+      
       
    }
    .img{
@@ -43,28 +45,18 @@
    img{
       width:400px;
    }
-   .qnaArea {
-      border-left:2px solid lightgray;
-      border-right:2px solid lightgray;
-      border-bottom:2px solid lightgray;
-      width:100%;
-      height:100%;
-      /* background:#F6F476; */
-      background:beige;
-      margin-right:10px;
-      margin-bottom:10px;
-    
-   }
-   .qnaTitle {
+   
+  .qnaTitle {
       border-bottom:1px solid lightgray;
       margin: 20px 0px 20px 0px;
-      padding-left:20px;
+      margin-left:150px;
    }
    .qnaContents {
       margin: 20px 15px 20px 15px;
       padding-left:20px;
       padding-right:20px;
-      border:1px solid lightgray;
+      border:2px solid lightgray;
+      
    }
    .qnaContents div{
       margin: 20px 0px 20px 0px;
@@ -85,16 +77,13 @@
       
    }
    
-  
-/* .shortInfo{
-   margin-left:40px;
-   width:400px;
-   height:550px;
-   padding:25px;
-   margin-right:100px;
-   background:white;
-   margin-top:23px;
-} */
+  .container{
+  	width:100%;
+  	
+  	min-height:100%;
+
+  }
+
 
 hr{
    border:1px solid gray;
@@ -106,7 +95,7 @@ hr{
    float:right; */
    width:100%;
    height:50px;
-   border:1px solid black;
+   border:1px solid lightgray;
    margin-top:15px;
    margin-bottom:15px;
    /* background:orange; */
@@ -120,14 +109,7 @@ hr{
    padding:30px;
 }
 
-#purchase{
-   background:white;
-   
-}
 
-#purchase:hover{
-   background:#80A8E8;
-}
 </style>
 </head>
 <body>
@@ -142,25 +124,30 @@ hr{
       %>
      <div class="align-items-center my-5">
      
-      <div class="col-sm-6" >
-        <img class="img-fluid rounded mb-4 mb-lg-0" src="uploadFundingGoodsImg/<%=hmap.get("changeName") %>" style="width:100%; height:480px; margin-top:30px">
+      <div class="col-sm-6" style="height:540px; margin-top:30px" >
+        <img class="img-fluid rounded mb-4 mb-lg-0" src="uploadFundingGoodsImg/<%=hmap.get("changeName") %>" style="width:100%; height:540px; margin-top:30px">
       </div>
    
       <!-- /.col-lg-8 -->
       <div class="col-sm-6 productDiv" style="height:480px; margin-top:30px">
-     
+      <h2 class="twodays" style="color:green"></h2><hr style="background-color:yellowgreen; height:5px">
         <!-- <h1 class="font-weight-light">Business Name or Tagline!</h1>
         <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
         <a class="btn btn-primary" href="#">Call to Action!</a> -->
-        <h5><%=hmap.get("workName") %></h5>
-         <h5>기본가격: <label id="price"><%=hmap.get("price") %></label>원</h5>
-         <hr>
+         <h4><%=hmap.get("workName") %></h4>
+         
+         
+         <h4>판매가격: <label id="price"><%=hmap.get("price") %></label>원</h4>
+         
          <h4>~<%=hmap.get("fcFinish") %>까지 </h4>
          <hr>
-         <h4>모금액(원)</h4>
-
-         <h4>발송예정일은 <%=hmap.get("deliDate") %> <br> 배송비:<label id="deliPrice"><%=hmap.get("deliPrice") %></label>원</h4>
-         <hr>
+         <h3 style="font-weight:bold"><%=hmap.get("fundPrice") %>원<label style="font-size:15px">&nbsp;펀딩 ~ing</label></h3>
+         <input type="hidden" class="input" value="<%=hmap.get("fcStart")%>">
+         <input type="hidden" class="input2" value="<%=hmap.get("fcFinish")%>">
+         
+		 
+         <h7>발송예정일은 <%=hmap.get("deliDate") %> <br> 배송비:<label id="deliPrice"><%=hmap.get("deliPrice") %></label>원</h7>
+        
          <form method="post" id="buy">
          	 <input type="hidden" id="workId" name="workId" value="<%=work.get("workId")%>">
 			<div id="countArea">	
@@ -173,42 +160,43 @@ hr{
 	         <hr>
 	         
 	         <div class="totalPrice" style="margin-top:20px;">
-	            <p style="float:left; margin-top:10px; font-size:20px;">총가격: </p>
+	            <p style="float:left; margin-top:10px; font-size:20px;">총 펀딩금액 </p>
 	            <p style="float:right; margin-top:10px; font-size:20px;" id="sum"></p>
 	         </div>
 	         <div class="btns" style="margin-top:5px; width:100%; height:50px;">
-	         <button type="button" onclick="addLike()"style="color:white; margin-left:55%; float:left;width:20%; height:50px; border:2px solid lightblue; background:lightblue; border-radius:7px; font-size:16px;">관심상품</button>
-	         <!-- <input type="image" src="../images/heart.png" style="width:80px; height:50px; border:2px solid pink; background:pink; border-radius:7px;"> -->
-	         <button style="float:right; font-size:16px;width:20%; height:50px; color:white;border:2px solid gray; background:gray; border-radius:7px;"id="purchase">구매하기</button>
-	         <button type="button" id="goBasket" class="btn" style="width:30%; margin-left:15px;height:60px; color:black;background:white;border:2px solid lightgray;font-size:16px;text-align:center">장바구니 담기</button>
+	        
+	        
+	         <button style="float:right; font-size:16px;width:100%; height:50px; color:white; font-size:20px; background:yellowgreen;"id="purchase">펀딩하기</button>
+	         <button type="button" id="goBasket" class="btn" style="width:30%; margin-top:10px; margin-left:155px;height:60px; color:black; background:white;border:2px solid lightgray;font-size:16px;">장바구니 담기</button>
+	          <button type="button"  class="btn" onclick="addLike()"style="color:black; margin-top:10px; float:right;width:30%; height:60px; background:white; border:2px solid lightgray; font-size:16px;">관심펀딩 담기</button>
 	         </div>
      	</form>
      
     
-      <!-- /.col-md-4 -->
+    
     </div>
     
      </div>
       
      </div>
-    <hr>
-       <div class="row information">
-   <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#menu0">기본정보</a></li>
-    <li><a data-toggle="tab" href="#menu1">배송/판매/교환/환불</a></li>
-    <li><a data-toggle="tab" href="#menu2">별점 및 응원글</a></li>
-    <li><a data-toggle="tab" href="#menu3">문의</a></li>
+    
+    <div class="row information">
+    <ul class="nav nav-tabs">
+    <li class="active" style="margin-top:70px"><a data-toggle="tab" href="#menu0">기본정보</a></li>
+    <li><a data-toggle="tab" href="#menu1"style="margin-top:70px">배송/판매/교환/환불</a></li>
+    <li><a data-toggle="tab" href="#menu2"style="margin-top:70px">별점 및 응원글</a></li>
+    <li><a data-toggle="tab" href="#menu3"style="margin-top:70px">문의</a></li>
      </ul>
 
   <div class="tab-content">
     <div id="menu0" class="tab-pane fade in active">
       <h3>기본정보</h3>
       <p><%=hmap.get("workContent") %></p>
-      <div style=" width:300px; height:300px; margin:0 auto;" class="detailImgs">
+      <div style=" width:300px; height:100%; margin:0 auto;" class="detailImgs">
       		
       </div>
     </div>
-    <div id="menu1" class="tab-pane fade">
+    <div id="menu1" class="tab-pane fade" >
       <h3>배송/판매/교환/환불</h3>
       <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
     </div>
@@ -216,8 +204,8 @@ hr{
     
     <div id="menu2" class="tab-pane fade">
       <h3>별점 및 응원글</h3>
-       <div class="star" style="background:beige;  padding:10px; width:100%; height:150px;">
-      <div id="review" <%-- action="<%=request.getContextPath() %>/insertReview.bo?workId=<%=work.get("workId")%>" method="post" --%>>
+       <div class="star" style="  padding:10px; width:100%; height:150px; border:2px solid lightgray">
+      <div id="review">
          <textarea id="reviewCon"style="width:100%; height:80px;" name="content"></textarea>
          <select style="float:left; width:200px; height:40px;">
             <option>★★★★★ 아주좋아요</option>
@@ -232,13 +220,13 @@ hr{
     </div>
     
     <div id="replySelectArea">
-         <table id="replySelectTable" border="3"align="center" style="width:100%; text-align:center; border:3px dashed gray; margin-top:30px;">
+         <table id="replySelectTable" border="3"align="center" style="width:100%; text-align:center; border:2px solid lightgray; margin-top:30px;">
          	
          </table>
      </div>
      </div>
     <script>
-    
+   
     
     
     function plus(){
@@ -263,7 +251,38 @@ hr{
 	}
     
     $(function(){
+    	
+    	//남은 일 수 구하기
+    	
+ 
+    	//년월일을 분리한 후,  Date 의 생성자 함수에 인수로 각각 넣게 되면 해당 날짜의 Date 객체가 만들어 집니다.
+    	
+    	var d1= $(".input").val();
+    	console.log(d1);
+    	
+    	
+    	var d2= $(".input2").val();
+    	console.log(d2);
 
+    	var d3 = d2-d1;
+    	console.log(d3);
+    	
+    	var arr1 = d1.split('-');
+    	var arr2 = d2.split('-');
+    	var dat1 = new Date(arr1[0], arr1[1], arr1[2]);
+    	var dat2 = new Date(arr2[0], arr2[1], arr2[2]);
+		
+    	var diff = dat2 - dat1;
+    	var currDay = 24 * 60 * 60 * 1000;   //시 * 분 * 초 * 밀리세컨
+
+		var result =  parseInt(diff/currDay);
+    	
+	    console.log(result);
+	    
+	    $(".twodays").text(result);
+	    $(".twodays").append("일 남음");
+	    
+    	
     	<% if (("#deliPrice")!=null){ %>
 		var deliPrice = parseInt($("#deliPrice").text());
 		var price = parseInt($("#price").text());
@@ -301,22 +320,10 @@ hr{
 		
 		$("#purchase").click(function(){
 				$("#buy").attr("action", "<%=request.getContextPath()%>/fundingPurchase.fund");
-				<%-- location.href="<%=request.getContextPath()%>/purchase.pro?ea=" + ea + "&workId=<%=work.get("workId")%>"; --%>
+				
 		});
     	
-    	<%-- <%
-		Member loginUser2 = (Member)request.getSession().getAttribute("loginUser");
-	 	%>	
-    	var memberId = <%=loginUser2.getMemberId()%>;
-    	var workId = <%=work.get("workId")%>;
-    	$.ajax({
-    		url:"<%=request.getContextPath()%>/selectFundCon.fund",
-    		data:{workId:workId,memberId:memberId},
-    		type:"post",
-    		success:function(data){
-    			console.log("data"+data);
-    		}
-    	}) --%>
+    	
 
     	var workId = <%=work.get("workId")%>;
     	
@@ -334,23 +341,12 @@ hr{
 					var $changeName = $("<h2>").text(imgList.changeName);
 					var $img = $("<img>").attr("src", '<%= request.getContextPath() %>/uploadFundingGoodsImg/' + imgList.changeName);
 					$div.append($img);
-					/* $div.append($h2);
-					$div.append($changeName); */
+				}	
+				
+				},error:function(){
+					alert("상세 사진 가져오기 실패");
 				}
-					<%-- //$img = $("<img>").attr("src", imgList.workId);
-					<img src='<%=request.getContextPath()%>/uploadFundingGoodsImg/<%=hmap.get("changeName")%>'>")
-				/* 
-				$.each(data, function(index, value){
-					
-					var $workId = $(".detailImgs").text(value.workId);
-					console.log("시도해보자: "+ $workId);
-					
-				}) */ --%>
-				
-				
-			},error:function(){
-				alert("상세 사진 가져오기 실패");
-			}
+		
 		});
 			
         
@@ -370,12 +366,12 @@ hr{
                   $replySelectTable.html('');
                   
                  var $tr0 = $("<tr>");
-                 // $tr0.css('width','300px');
-                  var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"lightblue", "color": "gray"});
-              	//var $td1 = $("<td>").text("후기내용").css("height", "50px");
-              	var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"lightblue", "color": "gray"});
-              	var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
-              	var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
+                 
+                  var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"yellowgreen", "color": "black"});
+              
+              	var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"yellowgreen", "color": "black"});
+              	var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"yellowgreen", "color": "black"});
+              	var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"yellowgreen", "color": "black"});
               	
            	 $tr0.append($td0);
    				$tr0.append($td1);
@@ -466,13 +462,13 @@ hr{
           var $replySelectTable = $("#replySelectTable");
           $replySelectTable.html('');
           
-         var $tr0 = $("<tr>");
-         // $tr0.css('width','300px');
+          var $tr0 = $("<tr>");
+        
           var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"lightblue", "color": "gray"});
-      	//var $td1 = $("<td>").text("후기내용").css("height", "50px");
-      	var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"lightblue", "color": "gray"});
-      	var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
-      	var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
+    
+      	  var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"lightblue", "color": "gray"});
+      	  var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
+      	  var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
       	
    		    $tr0.append($td0);
 			$tr0.append($td1);
@@ -492,8 +488,7 @@ hr{
 	               var $starPoint= $("<td>").text(decodeURIComponent(value.starPoint));
 	             
 	               var $writeDate = $("<td>").text(decodeURIComponent(value.writeDate));
-	              //var $writeDate = $("<td>").text(date.format(value.writeDate));
-	              // var $writeDate2 = (date.format(value.writeDate));
+	            
 	               
 	               $tr.append($writer);
 	               $tr.append($content);
@@ -504,42 +499,11 @@ hr{
 	               //등록과 동시에 작성 내용 지우기
 	               $('#reviewCon').val("");
 	               
-	              /*  localStorage.setItem('writer', $writer);
-	               localStorage.getItem('writer'); */
+	              
 	               console.log(localStorage);
 			  })
 	        
-          /* for(var key in data){
-          	
-          	
-          	var $tr = $("<tr>").css("width", "300px");
-          	var $writerTd = $("<td>")
-              .text(data[key].writer)
-              .css("width", "100px");
-          	
-          	
-				var $contentTd = $("<td>")
-              .text(data[key].content)
-              .css("width", "400px");
-				
-				
-				var $starTd = $("<td>")
-              .text(data[key].starPoint)
-              .css("width", "200px");
-				
-				var $datdTd = $("<td>").text(data[key].writeDate).css("width", "200px");
-				//$tr0.append($tr);
-				
-				
-			
-				$tr.append($writerTd);
-				$tr.append($contentTd);
-				$tr.append($starTd);
-				$tr.append($dateTd);
-				
-				$replySelectTable.append($tr);
-			    
-          } */
+         
           
           
        },
@@ -558,22 +522,15 @@ hr{
              <form id="qna" action="<%=request.getContextPath() %>/insertFundProQna.bo?workId=<%=work.get("workId")%>" method="post">
      		<h3>문의하기</h3>
                    <div class="qnaArea">
-                     <div class="qnaTitle">
-                       
-                     </div>
-                     <div class="qnaContents">
+                    
+                     <div class="qnaContents" style="height:280px;padding:25px">
                            <table class="searchBox" style="width:100%;" >
                               <tr class="qna">
-                                 <td><label>문의 종류:</label></td>
+                                 <td><label style="font-size:14px;">문의 종류:</label></td>
                                  
-                                 <!-- <td><input type="text" name="title" style="width:100%;"></td> -->
-                                 <td>
+                               
+                                 <td >
                                     <select name="category" style="width:100%;">
-                                       <!-- <option value="10" id="product">상품문의</option>
-                                       <option value="20" id="delivery">배송문의</option>
-                                       <option value="30" id="change">교환/환불문의</option>
-                                       <option value="40" id="etc">기타문의</option> -->
-                                       
                                        <option value="상품문의" id="product">상품문의</option>
                                        <option value="배송문의" id="delivery">배송문의</option>
                                        <option value="교환/환불문의" id="change">교환/환불문의</option>
@@ -584,11 +541,11 @@ hr{
                               </tr>
                              
                               <tr class="qna">
-                                 <td><label>내용:</label></td>
+                                 <td><label style="font-size:16px;">내용:</label></td>
                                  <td><textarea name="content" style="width:100%;" rows="7"></textarea></td>
                               </tr>
                               <tr class="qna">
-                                 <td colspan="2"><input type="submit" class="writeBtn"value="작성하기" id="qnaBtn" style="float:right;"></td>
+                                 <td colspan="2"> <input type="submit" class="writeBtn"value="작성하기" id="qnaBtn" style="width:100%; font-size:17px;margin-top:15px"></td>
                               </tr>
                            </table>
                         
@@ -598,48 +555,9 @@ hr{
                   </form>
    
   </div>
-  <!--   <div id="menu31f" class="tab-pane fade">
-      <h3>문의</h3>
-         <form id="question" method="post">
-      <div class="quest" style="border:1px solid black;background:beige;padding:20px; width:60%; height:200px";>
-            <table align="center">
-               <tr>
-                  <td>제목 </td>
-                  <td colspan="3">
-                    <input type="text" size="50" name="title">
-                  </td>
-               </tr>
-           
-               <tr>
-                  <td>작성자 </td>
-                  <td>
-                    <input type="text" size="50" name="writer" >
-                  </td>
-               </tr>
-               <tr>
-                  <td>작성일</td>
-                  <td>
-                     <input type="date" name="date"  style="width:395px;">
-                   </td>
-               </tr>
-               <tr>
-                  <td>내용 </td>
-                  <td>
-                    <textarea name="content" style="width:395px;"></textarea>
-                    
-                  </td>
-               </tr>
-               
-            </table>
-            <br>
-            <div align="center">
-               <button onclick="complet();">작성완료</button>
-               <button onclick="deleteNotice();">삭제하기</button>
-            </div>
-         </form>
-      </div>
-     -->
+ 
      </div>
+     <%@ include file="/views/main/footer.jsp" %>
   </div>
 
 <script>
@@ -657,6 +575,8 @@ hr{
    });
 
 </script>
+
+	
 
 
 </body>

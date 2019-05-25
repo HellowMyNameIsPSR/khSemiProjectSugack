@@ -27,20 +27,16 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
 <style>
-   /* .navdiv{
-      height:200px;
-      background:black;
-   }
-    */
+ 
    .proArea{
       background:yellow;
    }
    
    .productDiv{
-      /* background:#D4ECFF; */
+     
       padding:15px;
       background:white;
-    /*   border:5px solid #D4ECFF; */
+    
       
    }
    .img{
@@ -52,18 +48,7 @@
    img{
       width:400px;
    }
-   /* /* .qnaArea {
-      border-left:2px solid lightgray;
-      border-right:2px solid lightgray;
-      border-bottom:2px solid lightgray;
-      width:100%;
-      height:100%;
-      /* background:#F6F476; */
-    /*   background:#BEE1EA;
-      margin-right:10px;
-      margin-bottom:10px;
-    
-   } */
+  
    .qnaTitle {
       border-bottom:1px solid lightgray;
       margin: 20px 0px 20px 0px;
@@ -96,30 +81,20 @@
    }
    
   
-/* .shortInfo{
-   margin-left:40px;
-   width:400px;
-   height:550px;
-   padding:25px;
-   margin-right:100px;
-   background:white;
-   margin-top:23px;
-} */
+
 
 hr{
    border:1px solid gray;
 }
 
 .totalPrice{
-   /* margin-top:10px;
-   
-   float:right; */
+  
    width:100%;
    height:50px;
    border:1px solid black;
-   margin-top:15px;
+   margin-top:40px;
    margin-bottom:15px;
-   /* background:orange; */
+  
    }
 .totalPrice>h4{
    
@@ -145,9 +120,9 @@ hr{
 </style>
 </head>
 <body>
-<!-- <div class="navdiv">
 
-</div>  -->
+
+
   <!-- Page Content -->
  <%@ include file="../main/mainMenubar.jsp" %>
  <%@ include file="../assets/css/allCss.html" %>
@@ -200,9 +175,7 @@ hr{
       </div>
       <!-- /.col-lg-8 !-->
       <div class="col-sm-6 productDiv" style="height:450px; margin-top:30px">
-        <!-- <h1 class="font-weight-light">Business Name or Tagline</h1>
-        <p>This is a template that is great for small businesses. It doesn't have too much fancy flare to it, but it makes a great use of the standard Bootstrap core components. Feel free to use this template for any project you want!</p>
-        <a class="btn btn-primary" href="#">Call to Action!</a> -->
+       
       
         <h2><%=work.get("workName") %></h2>
 			
@@ -333,8 +306,7 @@ hr{
 		   		               var $starPoint= $("<td>").text(decodeURIComponent(value.starPoint));
 		   		             
 		   		               var $writeDate = $("<td>").text(decodeURIComponent(value.writeDate));
-		   		              //var $writeDate = $("<td>").text(date.format(value.writeDate));
-		   		              // var $writeDate2 = (date.format(value.writeDate));
+		   		            
 		   		               
 		   		               $tr.append($writer);
 		   		               $tr.append($content);
@@ -423,18 +395,17 @@ hr{
 			<% } %>
 			$("#purchase").click(function(){
 					$("#buy").attr("action", "<%=request.getContextPath()%>/purchase.pro");
-					<%-- location.href="<%=request.getContextPath()%>/purchase.pro?ea=" + ea + "&workId=<%=work.get("workId")%>"; --%>
+					
 			});
         function likeBtn(){
         	<%if(loginUser != null ){%>
         	 var memberId = <%=loginUser.getMemberId()%>;
         	 var workId = <%=work.get("workId")%>;
-        	 <%--  var price = <%=work.get("price")%>;
-        	 var deliPrice =<%=work.get("deliPrice")%>; --%>
+        	
         	 
         	 $.ajax({
         		 url:"<%=request.getContextPath()%>/insertLike.me?<%=work.get("workId")%>",
-        		 data:{memberId:memberId, workId:workId/* , price:price, deliPrice:deliPrice */},
+        		 data:{memberId:memberId, workId:workId},
         		 type:"post",
         		 success:function(data){
         			 alert("관심상품 추가!");
@@ -464,9 +435,9 @@ hr{
                   $replySelectTable.html('');
                   
                  var $tr0 = $("<tr>");
-                 // $tr0.css('width','300px');
+                 
                   var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"lightblue", "color": "gray"});
-              	//var $td1 = $("<td>").text("후기내용").css("height", "50px");
+         
               	var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"lightblue", "color": "gray"});
               	var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
               	var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
@@ -489,8 +460,7 @@ hr{
    		               var $starPoint= $("<td>").text(value.starPoint);
    		             
    		               var $writeDate = $("<td>").text(value.writeDate);
-   		              //var $writeDate = $("<td>").text(date.format(value.writeDate));
-   		              // var $writeDate2 = (date.format(value.writeDate));
+   		            
    		               
    		               $tr.append($writer);
    		               $tr.append($content);
@@ -541,9 +511,9 @@ hr{
                 $replySelectTable.html('');
                 
                var $tr0 = $("<tr>");
-               // $tr0.css('width','300px');
+             
                 var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"lightblue", "color": "gray"});
-            	//var $td1 = $("<td>").text("후기내용").css("height", "50px");
+            	
             	var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"lightblue", "color": "gray"});
             	var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
             	var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
@@ -591,7 +561,7 @@ hr{
          <%}%>
           }
 		</script>
-	  <!--</div>-->
+	 
 	 <hr>
 	<div class="row information" >
 	<ul class="nav nav-tabs" >
@@ -615,7 +585,7 @@ hr{
       <h3>별점 및 응원글</h3>
       
        <div class="star" style="  padding:10px; width:100%; height:150px; border:2px solid lightgray">
-      <div id="review" <%-- action="<%=request.getContextPath() %>/insertReview.bo?workId=<%=work.get("workId")%>" method="post" --%>>
+      <div id="review">
          <textarea id="reviewCon"style="width:100%; height:80px;" name="content"></textarea>
          <select name="star" style="float:left; width:200px; height:40px;">
             <option value="★★★★★">★★★★★ 아주좋아요</option>
@@ -630,21 +600,11 @@ hr{
       </div>
 <br>
 	<div id="replySelectArea">
-         <table id="replySelectTable" border="3"align="center" style="width:100%; text-align:center; border:3px dashed gray;">
+         <table id="replySelectTable" border="3"align="center" style="width:100%; text-align:center; border:3px solid lightgray;">
          	
          </table>
      </div>
-      <!-- <div class="row">
-         <div class="outer" style="border:1px solid black;">
-         <div class="nick">
-           <label>닉네임</label>
-         </div>
-         <div class="date">
-            <label>2019년 4월 5일</label>
-         </div>
-         <div>내용</div>
-         </div>
-      </div> -->
+
     </div>
     
     <div id="menu3" class="tab-pane fade">
@@ -652,9 +612,7 @@ hr{
              <form id="qna" action="<%=request.getContextPath() %>/insertProQna.bo?workId=<%=work.get("workId")%>" method="post">
      		<h3>문의하기</h3>
                    <div class="qnaArea">
-                     <div class="qnaTitle">
-                       
-                     </div>
+                    
                      <div class="qnaContents" style="height:280px;padding:25px">
                            <table class="searchBox" style="width:100%;" >
                               <tr class="qna">
@@ -677,7 +635,7 @@ hr{
                                  <td><textarea name="content" style="width:100%;" rows="7"></textarea></td>
                               </tr>
                               <tr class="qna">
-                                 <td colspan="2"> <input type="submit" class="writeBtn"value="작성하기" id="qnaBtn" style="width:100%; margin-top:15px"></td>
+                                 <td colspan="2"> <input type="submit" class="writeBtn"value="작성하기" id="qnaBtn" style="width:100%; font-size:17px;margin-top:15px"></td>
                               </tr>
                            </table>
                         
@@ -692,10 +650,10 @@ hr{
   </div>
     
       <!-- /.col-md-4 -->
-    
+ 
 </div>
 	    
-
+   <%@ include file="/views/main/footer.jsp" %>
 
 </body>
 </html>
