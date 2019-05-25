@@ -813,6 +813,29 @@ public class MemberDao {
 	}
 
 	
+	public int updateMember(Connection con, int mid) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mid);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {		
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		System.out.println("dao delete" + result);
+		
+		return result;
+	}
+
+	
 }
 
 

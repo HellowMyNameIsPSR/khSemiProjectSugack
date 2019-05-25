@@ -35,7 +35,7 @@
 				<li>
 					<span class="opener">좋아요리스트</span>
 					<ul>
-						<li><a href="likeAuthor.jsp">관심작가</a></li>
+						<!-- <li><a href="likeAuthor.jsp">관심작가</a></li> -->
 						<li><a href="<%=request.getContextPath()%>/selectFundLike.fund?mid=<%=loginUser.getMemberId()%>">관심 펀딩 상품</a></li>
 						<li><a href="<%=request.getContextPath()%>/selectLikeList.me?mid=<%=loginUser.getMemberId()%>">관심 판매상품</a></li>
 					</ul>
@@ -55,10 +55,10 @@
 					<ul>
 						
 						<li><a href="<%=request.getContextPath()%>/addressList.me?num=<%=loginUser.getMemberId()%>">내 주소 관리</a></li>
-						<li><a href="withDrawal.jsp">회원 탈퇴</a></li>
+						<li><a href="views/board/withDrawal.jsp">회원 탈퇴</a>
 					</ul>
 				</li>
-				<li><a href="#">고객센터</a></li>
+			
 			</ul>
 		</nav>
 		<!-- Footer -->

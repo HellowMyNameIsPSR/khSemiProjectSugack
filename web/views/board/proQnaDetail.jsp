@@ -78,7 +78,7 @@
 		<%}else if(loginUser.getMemberType().equals("W")) {%>
 			<img src="views/images/left-arrow.png" style="width:50px; height:50px;" onClick = "location.href='<%=request.getContextPath()%>/selectQnaList.wo'">
 		<%} %>
-		<%-- 	<button style="background:#bcd5e8;  border-radius:15px;height:50px; color:white" onclick="location.href='<%=request.getContextPath()%>/selectProQna.bo'">메뉴로 돌아가기</button> --%>
+		
 		</div>
 		<table style="width:800px;">
 			<tr style="border:1px solid gray">

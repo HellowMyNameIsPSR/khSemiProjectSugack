@@ -55,9 +55,7 @@
       margin-left:150px;
    }
    .qnaContents {
-      margin: 20px 15px 20px 15px;
-      padding-left:20px;
-      padding-right:20px;
+      
       border:2px solid lightgray;
       
    }
@@ -177,7 +175,7 @@ hr{
       <div class="col-sm-6 productDiv" style="height:450px; margin-top:30px">
        
       
-        <h2><%=work.get("workName") %></h2>
+        <h2><%=work.get("workName") %></h2><hr style="background-color:black; height:5px">
 			
 			<hr>
 			<h4>판매가격&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="price"><%=work.get("price") %>원</label></h4>
@@ -512,11 +510,11 @@ hr{
                 
                var $tr0 = $("<tr>");
              
-                var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"lightblue", "color": "gray"});
+                var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"black", "color": "white"});
             	
-            	var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"lightblue", "color": "gray"});
-            	var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
-            	var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"lightblue", "color": "gray"});
+            	var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"black", "color": "white"});
+            	var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"black", "color": "white"});
+            	var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"black", "color": "white"});
             	
           $tr0.append($td0);
  				$tr0.append($td1);
@@ -567,22 +565,22 @@ hr{
 	<ul class="nav nav-tabs" >
 
     <li class="active" style="margin-top:50px"><a data-toggle="tab" href="#menu0">기본정보</a></li>
-    <li><a data-toggle="tab" href="#menu1" style="margin-top:50px">배송/판매/교환/환불</a></li>
+    <li><a data-toggle="tab" href="#menu1" style="margin-top:50px">배송/판매/환불</a></li>
     <li><a data-toggle="tab" href="#menu2" style="margin-top:50px">별점 및 리뷰</a></li>
     <li><a data-toggle="tab" href="#menu3" style="margin-top:50px">문의</a></li>
      </ul>
 
   <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-      <h3>기본정보</h3>
+    <div id="menu0" class="tab-pane fade in active">
+      <h3 style=" margin-top:50px">기본정보</h3>
       <p><%=work.get("workContent") %></p>
     </div>
     <div id="menu1" class="tab-pane fade">
-      <h3 style=" margin-top:50px">배송/판매/교환/환불</h3>
+      <h3 style=" margin-top:50px">배송/판매/환불</h3>
      <img src="views/images/delinfo.PNG" style="width:100%;">
     </div>
     <div id="menu2" class="tab-pane fade">
-      <h3>별점 및 응원글</h3>
+      <h3 style=" margin-top:50px">별점 및 리뷰</h3>
       
        <div class="star" style="  padding:10px; width:100%; height:150px; border:2px solid lightgray">
       <div id="review">
@@ -610,7 +608,7 @@ hr{
     <div id="menu3" class="tab-pane fade">
     
              <form id="qna" action="<%=request.getContextPath() %>/insertProQna.bo?workId=<%=work.get("workId")%>" method="post">
-     		<h3>문의하기</h3>
+     		<h3 style=" margin-top:50px">문의하기</h3>
                    <div class="qnaArea">
                     
                      <div class="qnaContents" style="height:280px;padding:25px">

@@ -66,19 +66,20 @@
 					<div class="table">
 						<table id="table">
 							<tr>
-							<th colspan="4" style="font-size:20px; text-align:center; background:#9DCAFF; color:white;">MY정보</th>
+							<th colspan="4" style="font-size:20px; text-align:center; background:skyblue; color:white;">MY정보</th>
 							</tr>
 							<tr>
-								<th style="height:50px; font-size:15px; text-align:center;">적립금</th>
-								<th style="height:50px;  font-size:15px; text-align:center;" >주문내역</th>
-								<th style="height:50px;  font-size:15px; text-align:center;">환불내역</th>
-								<th style="height:50px;  font-size:15px; text-align:center;">펀딩투자내역</th>
+								<th style="height:80px;  font-size:15px; text-align:center;">적립금</th>
+								<th style="height:80px;  font-size:15px; text-align:center;" >주문내역</th>
+								<th style="height:80px;  font-size:15px; text-align:center;">환불내역</th>
+								<th style="height:80px;  font-size:15px; text-align:center;">펀딩투자내역</th>
 							</tr>
 							<tr>
-								<td style="text-align:center;"><%=hmap.get("totalPoint") %>원</td>
-								<td style=" text-align:center;"><%=salesCount %>건</td>
-								<td style="text-align:center;"><%=refundCount %>건</td>
-								<td style=" text-align:center;"><%=fundCount %>건</td>
+
+								<td style="text-align:center;height:80px;font-size:15px;"><%=hmap.get("totalPoint") %>원</td>
+								<td style=" text-align:center;height:80px;font-size:15px;"><%=blist.size() %>건</td>
+								<td style="text-align:center;height:80px;font-size:15px;"><%=refundCount %>건</td>
+								<td style=" text-align:center;height:80px;font-size:15px;">_건</td>
 							</tr>
 						</table>
 					</div>

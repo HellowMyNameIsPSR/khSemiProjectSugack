@@ -77,7 +77,7 @@
 				
 				<header id="header">
 				
-					<div class="name">내 리뷰</div>
+					<div class="name">리뷰</div>
 					
 					
 				</header>

@@ -142,8 +142,7 @@ hr{
          <h3 style="font-weight:bold"><%=hmap.get("fundPrice") %>원<label style="font-size:15px">&nbsp;펀딩 ~ing</label></h3>
          <input type="hidden" class="input" value="<%=hmap.get("fcStart")%>">
          <input type="hidden" class="input2" value="<%=hmap.get("fcFinish")%>">
-         
-       
+
          <h7>발송예정일은 <%=hmap.get("deliDate") %>&nbsp;입니다. <br> 배송비:&nbsp;<label id="deliPrice"><%=hmap.get("deliPrice") %></label>원</h7>
         
          <form method="post" id="buy">
@@ -464,43 +463,44 @@ hr{
         
           var $td0 = $("<td>").text("작성자").css({"height":"50px", "width":"100px", "background":"yellowgreen", "color": "black"});
     
-           var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"yellowgreen", "color": "black"});
-           var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"yellowgreen", "color": "black"});
-           var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"yellowgreen", "color": "black"});
-         
-             $tr0.append($td0);
-         $tr0.append($td1);
-         $tr0.append($td2);
-         $tr0.append($td3);
-         
-         $replySelectTable.append($tr0);
-         
-         
-         //ArrayList에 리뷰들이 등록되어있어서 each를 통해 반복문을 돌려서 값을 가져온다!
-         //HashMap은 key를 통해서 값을 가져온다!
-           $.each(data, function(index, value){
-                  var $tr = $("<tr>").css("height","50px");
-                 
-                  var $writer = $("<td>").text(decodeURIComponent(value.writer));
-                  var $content = $("<td>").text(decodeURIComponent(value.content));
-                  var $starPoint= $("<td>").text(decodeURIComponent(value.starPoint));
-                
-                  var $writeDate = $("<td>").text(decodeURIComponent(value.writeDate));
-               
-                  
-                  $tr.append($writer);
-                  $tr.append($content);
-                  $tr.append($starPoint);
-                  $tr.append($writeDate);
-                  $replySelectTable.append($tr)
-                  
-                  //등록과 동시에 작성 내용 지우기
-                  $('#reviewCon').val("");
-                  
-                 
-                  console.log(localStorage);
-           })
-           
+
+      	  var $td1 = $("<td>").text("후기내용").css({"height":"50px", "width":"300px" , "background":"yellowgreen", "color": "black"});
+      	  var $td2 = $("<td>").text("별점").css({"height":"50px", "width":"200px", "background":"yellowgreen", "color": "black"});
+      	  var $td3 = $("<td>").text("작성날짜").css({"height":"50px", "width":"200px", "background":"yellowgreen", "color": "black"});
+      	
+   		    $tr0.append($td0);
+			$tr0.append($td1);
+			$tr0.append($td2);
+			$tr0.append($td3);
+			
+			$replySelectTable.append($tr0);
+			
+			
+			//ArrayList에 리뷰들이 등록되어있어서 each를 통해 반복문을 돌려서 값을 가져온다!
+			//HashMap은 key를 통해서 값을 가져온다!
+			  $.each(data, function(index, value){
+	               var $tr = $("<tr>").css("height","50px");
+	              
+	               var $writer = $("<td>").text(decodeURIComponent(value.writer));
+	               var $content = $("<td>").text(decodeURIComponent(value.content));
+	               var $starPoint= $("<td>").text(decodeURIComponent(value.starPoint));
+	             
+	               var $writeDate = $("<td>").text(decodeURIComponent(value.writeDate));
+	            
+	               
+	               $tr.append($writer);
+	               $tr.append($content);
+	               $tr.append($starPoint);
+	               $tr.append($writeDate);
+	               $replySelectTable.append($tr)
+	               
+	               //등록과 동시에 작성 내용 지우기
+	               $('#reviewCon').val("");
+	               
+	              
+	               console.log(localStorage);
+			  })
+	
          
           
           

@@ -53,12 +53,12 @@
 							 			HashMap<String,Object> hmap = list.get(i);
 							 	%>
 							 <div class="col-sm-2 product" style="background-color:white; border:2px solid lightgray; height:400px; margin-bottom:30px;margin-left:50px;margin-right:20px;">
-							 	<div class="outer">
+							 	<div class="outer" onclick="location.href = '<%=request.getContextPath()%>/selectProDetail.pro?workId=<%= list.get(i).get("workId") %>'">
 
 							 		
-							 		
+							 		<input type="hidden" id="wid" value="<%=hmap.get("workId") %>">
 							 		<div class="img" style="width:280px; margin-top:20px; margin-left:5px;">
-							 			<img src="uploadSalesImage/<%=hmap.get("changeName") %>" style="width:250px; height:200px; border:2px solid lightgray; ">
+							 			<img src="uploadSalesImage/<%=hmap.get("changeName") %>" class="mainImg"style="width:250px; height:200px; border:2px solid lightgray; ">
 							 		</div>
 							 		
 							 		<div class="productName"> 
@@ -66,7 +66,7 @@
 							 		</div>
 							 		
 							 		<div class="heart">
-							 			<input type="hidden" value="<%=hmap.get("workId") %>">
+							 			
 							 			<img src="views/images/heart.png" class="delLike" style="width:30px; height:30px; float:left;">
 							 		</div>
 							 		<div>
@@ -89,8 +89,16 @@
 						Member loginUser2 = (Member)request.getSession().getAttribute("loginUser");
 					 %>
 					 <script>
+					 var path = "";
+					 function goDetail(workId){
+						 alert(workId + ", " + typeof(workId));
+						 location.href="<%=request.getContextPath()%>/selectProDetail.pro?workId="+workId;
+					 }
+					 function go(){
+					 }
 					 
 					 $(function(){
+						 
 							$(".delLike").click(function(){
 							
 							var memberId = <%=loginUser2.getMemberId()%>;
@@ -113,6 +121,8 @@
 							console.log(workId);
 							});
 						});
+					 
+					
 					</script> 
 					
 					
@@ -123,17 +133,6 @@
 		</div>
 		<!-- 여기 메뉴바 -->	<%@ include file="../common/userMenubarServlet.jsp" %>
 	</div>
-		<script>
 		
-		$(".mainImg").click(function(){
-			//해당 상세 페이지로 가기!
-
-			
-			
-			 var workId = $(this).children().eq(0).val();
-			 location.href="<%=request.getContextPath()%>/selectProDetail.pro?workId="+ workId;
-			
-		});
-		</script>
 </body>
 </html>
