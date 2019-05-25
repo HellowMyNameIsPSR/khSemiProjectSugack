@@ -144,7 +144,7 @@
 									</table>
 								</div>
 							</td>
-							<td>
+							<td>  
 								<h3>최근 문의</h3>
 								<div class="summaryDiv" onclick="qnaList()">
 									<table class="postList"  style="margin:0px 0px 0px 0px">

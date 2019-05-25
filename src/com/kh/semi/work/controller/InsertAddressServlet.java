@@ -26,7 +26,7 @@ public class InsertAddressServlet extends HttpServlet {
 		String phone1 = request.getParameter("phone1");
 		String phone2 = request.getParameter("phone2");
 		
-		System.out.println("phone1 : " + phone1);
+		System.out.println("phone1 : " + phone1);  
 		System.out.println("addressName : " + addressName);
 		System.out.println("address : " + address);
 		System.out.println("detailAddress : " + detailAddress);

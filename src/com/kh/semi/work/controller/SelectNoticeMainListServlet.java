@@ -29,7 +29,7 @@ public class SelectNoticeMainListServlet extends HttpServlet {
 		ArrayList<Board> list = new cCenterService().noticeList(divison);
 		int limit;
 		
-		limit = 6;
+		limit = 6; 
 		
 		PageInfo pi = new PageInfo(limit, limit, limit, limit, limit);
 		System.out.println("공지사항 : " + list);

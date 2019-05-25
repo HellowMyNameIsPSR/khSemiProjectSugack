@@ -17,7 +17,7 @@
 		margin: 20px 0px 20px 0px;
 		box-shadow:2px 2px lightgray;
 	}
-	.authorInfo tr{
+	.authorInfo tr{ 
 		/* border:none; */
 		padding:0 auto;
 	}
