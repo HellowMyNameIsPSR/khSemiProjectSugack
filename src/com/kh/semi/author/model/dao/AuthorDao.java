@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.semi.author.model.vo.ApplyHistory;
@@ -336,6 +337,75 @@ public class AuthorDao {
 		}
 		return result;
 	}
+
+
+	public ArrayList<HashMap<String, Object>> selectSalesForMain(Connection con, int mid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectSalesForMain");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mid);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				hmap.put("sales", rset.getInt("SALES"));
+				hmap.put("day", rset.getString("DAY"));
+				list.add(hmap);
+			}
+			
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+
+			close(rset);
+			close(pstmt);
+		}
+				
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectSalesForMainFund(Connection con, int mid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hmap = null;
+		
+		String query = prop.getProperty("selectSalesForMainFund");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, mid);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				hmap = new HashMap<String, Object>();
+				hmap.put("sales", rset.getInt("SALES"));
+				hmap.put("day", rset.getString("DAY"));
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return list;
+  }
 
 	public int insertApplyList(Connection con, int alNum, int memberId) {
 		int result = 0;
