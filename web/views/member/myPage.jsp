@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.semi.work.model.vo.*"%>
 <%
@@ -5,7 +6,7 @@
 	ArrayList<HashMap<String, Object>> blist = (ArrayList<HashMap<String, Object>>)hmap.get("blist");
 	ArrayList<HashMap<String, Object>> orderList = (ArrayList<HashMap<String, Object>>)hmap.get("orderList");
 	ArrayList<WorkOption> olist = (ArrayList<WorkOption>)hmap.get("olist");
-	System.out.println(orderList);
+	System.out.println(olist);
 	int refundCount = 0;
 	for(int i = 0; i < orderList.size(); i++) {
 		if(orderList.get(i).get("refundStat") != null) {
@@ -66,20 +67,19 @@
 					<div class="table">
 						<table id="table">
 							<tr>
-							<th colspan="4" style="font-size:20px; text-align:center; background:skyblue; color:white;">MY정보</th>
+							<th colspan="4" style="font-size:20px; text-align:center; background:#9DCAFF; color:white;">MY정보</th>
 							</tr>
 							<tr>
-								<th style="height:80px;  font-size:15px; text-align:center;">적립금</th>
-								<th style="height:80px;  font-size:15px; text-align:center;" >주문내역</th>
-								<th style="height:80px;  font-size:15px; text-align:center;">환불내역</th>
-								<th style="height:80px;  font-size:15px; text-align:center;">펀딩투자내역</th>
+								<th style="height:50px; font-size:15px; text-align:center;">적립금</th>
+								<th style="height:50px;  font-size:15px; text-align:center;" >주문내역</th>
+								<th style="height:50px;  font-size:15px; text-align:center;">환불내역</th>
+								<th style="height:50px;  font-size:15px; text-align:center;">펀딩투자내역</th>
 							</tr>
 							<tr>
-
-								<td style="text-align:center;height:80px;font-size:15px;"><%=hmap.get("totalPoint") %>원</td>
-								<td style=" text-align:center;height:80px;font-size:15px;"><%=blist.size() %>건</td>
-								<td style="text-align:center;height:80px;font-size:15px;"><%=refundCount %>건</td>
-								<td style=" text-align:center;height:80px;font-size:15px;">_건</td>
+								<td style="text-align:center;"><%=hmap.get("totalPoint") %>원</td>
+								<td style=" text-align:center;"><%=salesCount %>건</td>
+								<td style="text-align:center;"><%=refundCount %>건</td>
+								<td style=" text-align:center;"><%=fundCount %>건</td>
 							</tr>
 						</table>
 					</div>
@@ -102,8 +102,7 @@
 					<th></th>
 					<th></th>
 					<th></th>
-					<th>주문일 :</th>
-					<th><%=blist.get(i).get("payDate") %></th>
+					<th colspan="2"><%=blist.get(i).get("payDate") %></th>
 				</tr>
 				<%for(int k = 0; k < orderList.size(); k++) {%>
 				<tr>
@@ -121,7 +120,7 @@
 					<%} %>
 					<% for(int j = 0; j < olist.size(); j++) {
 					%>
-						<%if((Integer)olist.get(j).getwId() == (Integer)orderList.get(k).get("bid")) { 
+						<%if((int)olist.get(j).getwId() == (int)orderList.get(k).get("bid")) { 
 							 ovalue += (String)olist.get(j).getoName() + " : " + (String)olist.get(j).getoValue() + "/";
 							 oprice += (Integer)olist.get(j).getoPrice();
 						}else { 
@@ -254,4 +253,5 @@
 
  	
 </body>
+
 </html>

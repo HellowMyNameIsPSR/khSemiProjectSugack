@@ -45,7 +45,7 @@
 					<span class="opener">운영</span>
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/reqMemList.ad">입점신청관리</a>
-						<li><a href="/sg/views/admin/viewQuestList.jsp">환불관리</a>
+						<li><a href="<%=request.getContextPath()%>/adminRefund.ad"">환불관리</a>
 						<li><a href="/sg/views/admin/viewMileList.jsp">적립금관리</a>
 						<li><a href="/sg/views/admin/viewBbsList.jsp">고객센터관리</a>
 					</ul>

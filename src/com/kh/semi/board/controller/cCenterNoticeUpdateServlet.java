@@ -27,14 +27,16 @@ public class cCenterNoticeUpdateServlet extends HttpServlet {
 		int bno = Integer.parseInt(request.getParameter("bNo"));
 		String content = request.getParameter("content");
 		String title = request.getParameter("title");
-		System.out.println("받아와버렷지뭐야" + bno + "tt : " + title + "cont" + content);
+		int divison = Integer.parseInt(request.getParameter("divison"));
+				
+		System.out.println("받아온 divison값" + divison);
+		System.out.println("받아와버렷지뭐야" + bno + " tt : " + title + " cont : " + content);
 		
 		Board b = new Board();
 		b.setBno(bno);
 		b.setContent(content);
 		b.setTitle(title);
 		
-		int divison = 10;
 		
 		
 		int result = new cCenterService().updateNotice(b);
@@ -42,13 +44,13 @@ public class cCenterNoticeUpdateServlet extends HttpServlet {
 		
 		if(result > 0) {
 			response.sendRedirect(request.getContextPath() + "/ccNoticeBoard.bo?id=" + divison);
-			
+			//page = "request.getContextPath()" + "/ccNoticeBoard.bo?id=" + divison;
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "공지사항 수정 실패 !");
 			request.getRequestDispatcher(page).forward(request, response);
 		}
-		
+			
 		
 		
 		

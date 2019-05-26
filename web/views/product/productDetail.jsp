@@ -3,8 +3,9 @@
 <%	
     ArrayList<HashMap<String, Object>> list = (ArrayList<HashMap<String, Object>>) request.getAttribute("list");
 	ArrayList<WorkOption> olist = (ArrayList<WorkOption>)request.getAttribute("olist");
+	ArrayList<HashMap<String, Object>> wpList = (ArrayList<HashMap<String, Object>>)request.getAttribute("wpList");
 	System.out.println("product detail에서 olist" + olist);
-    System.out.println("product detail에서" + list);
+    System.out.println("product detail에서" + wpList);
     ProQna qna = (ProQna)request.getAttribute("qna"); 
     
     HashMap<String, Object> work = (HashMap<String, Object>)list.get(0); 
@@ -131,7 +132,7 @@ hr{
 		  <div id="myCarousel" class="carousel slide" data-ride="carousel">
 		    <!-- Indicators -->
 		    <ol class="carousel-indicators">
-		    <% for(int i = 0; i < list.size(); i++) { 
+		    <% for(int i = 0; i < wpList.size(); i++) { 
 		    	if(i == 0) {%>
 			      <li data-target="#myCarousel" data-slide-to="<%=i%>" class="active"></li>
 		    	<% } else { %>
@@ -142,9 +143,11 @@ hr{
 		
 		    <!-- Wrapper for slides -->
 		    <div class="carousel-inner" style="margin-top:30px">
-		    <% for(int i=0; i<list.size(); i++){
-   				HashMap<String,Object> hmap = list.get(i);
-   				if(i == 0) {
+
+		    <% for(int i=0; i < wpList.size(); i++){
+   				HashMap<String,Object> hmap = wpList.get(i);
+   				String picType = (String)wpList.get(i).get("picType");
+   				if(picType.equals("saleRep")) {
 	   		%>
 	        <div class="item active">
 		        <img src="uploadSalesImage/<%=hmap.get("changeName")%>" style="width:100%; height:450px;">
@@ -192,7 +195,7 @@ hr{
 					<select style="width:50%" class="option" name="option">
 						<option value="0"><%=olist.get(i).getoName() %></option>
 						<% for(int j = 0; j < list.size(); j++) { 
-							if(olist.get(i).getoName().equals(list.get(j).get("oname")) && list.get(j).get("picType").equals("0")) {
+							if(olist.get(i).getoName().equals(list.get(j).get("oname")) && list.get(j).get("picType").equals("saleRep")) {
 								System.out.println(list.get(j).get("opId"));
 						%>		
 							<option value="<%=list.get(j).get("opId")%>"><%=list.get(j).get("ovalue")%>(+<%=list.get(j).get("oprice") %>원)</option>
@@ -205,7 +208,7 @@ hr{
 				
 				<div style= "float:right;" id="countArea"  >
 				
-				<label style=" margin-left:-130px;">수량</label>
+				<label style=" margin-left:-110px;">수량</label>
 				<button type="button" onclick="plus();">+</button>
 				<input type="number" style="width:50px;" id="ea" name="ea" value="1" readonly>
 				<button type="button" onclick="minus();">-</button>
@@ -334,7 +337,7 @@ hr{
 				var option = new Array();
 				$(".option").each(function(){
 					<%for(int i = 0; i < list.size(); i++) {%>
-						if($(this).val() == <%=list.get(i).get("opId")%> && <%=list.get(i).get("picType").equals("0")%>) {
+						if($(this).val() == <%=list.get(i).get("opId")%> && <%=list.get(i).get("picType").equals("saleRep")%>) {
 							option.push($(this).val());
 						}
 					<%}%>

@@ -38,8 +38,9 @@ public class SelectProductDetailServlet extends HttpServlet {
 		
 		ArrayList<HashMap<String,Object>> list = new ProService().selectProductDetailList(workId);
 		ArrayList<WorkOption> olist = new ProService().selectOption(workId);
+		ArrayList<HashMap<String, Object>> wpList = new ProService().selectPic(workId);
 		
-		System.out.println("DetailSelectServlet에선 list : "+ list);
+		System.out.println("DetailSelectServlet에선 wpList : "+ wpList);
 		
 		String page ="";
 		
@@ -47,6 +48,7 @@ public class SelectProductDetailServlet extends HttpServlet {
 			page = "views/product/productDetail.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("olist", olist);
+			request.setAttribute("wpList", wpList);
 		}else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "상품 자세히보기 실패!");

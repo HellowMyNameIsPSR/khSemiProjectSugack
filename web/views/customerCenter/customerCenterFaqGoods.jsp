@@ -89,6 +89,6 @@
 	
 	</script>
 	
-
+	<%@ include file="/views/main/footer.jsp" %>
 </body>
 </html>

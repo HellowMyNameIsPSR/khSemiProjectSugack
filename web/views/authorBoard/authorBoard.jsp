@@ -82,10 +82,12 @@
  
  
  <%@ include file="../main/mainMenubar.jsp"%>
+
+
 </div> 
 <div class="container">
 
-  <div class="select" style="width:100%; height:50px; background:beige;">
+  <!-- <div class="select" style="width:100%; height:50px; background:beige;">
     
    
     <select style="width:100%; height:30px; margin-top:10px;">
@@ -95,12 +97,17 @@
 		<option value="low">도자기</option>
 		<option value="high">귀금속</option>
 	</select>
- 	</div>
+ 	</div> -->
   <div class="row">
+  
+               
 
-     <%if(loginUser != null && loginUser.getMemberType().equals("W")){ %>
-     <div><ul><a href="views/tour/authorpageProEdit.jsp">프로필 작성하기</a></ul></div>
-     <div><ul><a href="views/tour/authorPageDetail.jsp">스토리 작성하기</a></ul></div>
+     <%if(loginUser != null && loginUser.getMemberType().equals("W")){ %> 
+     
+     <div><a href="views/tour/authorpageProEdit.jsp">프로필 작성하기</a></div>
+     <div><a href="views/tour/authorPageDetail.jsp">스토리 작성하기</a></div>
+     
+     
      <%} %>
   
   	<!-- <div class="col-sm-1"></div> -->
@@ -108,6 +115,18 @@
    				HashMap<String,Object> hmap = list.get(i);
    				System.out.println("hmap: "+hmap);
    				%>
+    
+    <div style="text-align:center; border: 1px solid black;">
+  
+    <h1>작가 스토리</h1>
+    <p>수작에 작가들을  만나보세요</p>
+    
+    </div>
+    
+    
+    
+    <br> 
+    <br> 
     <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
    		<div class="content" style="background-color:#FFFFFF; height:300px; width:100%">
    			
@@ -121,9 +140,6 @@
    			<div class="proName" style="height:40px;">
    				<p name="titleName"style="text-align:center; font-size:15px; margin-top:5px;"><%=hmap.get("ProTitle")%></p>
    			</div>
-   			<div class="heart" style="padding:7px; height:50px; width:40px; float:left;" >
-   				<img src="views/images/fullheart.png" name="heart" style="width:30px; height:30px;" onclick="heartyn();">
-   			</div>
    			<div class="heartprice" style="height:60px; margin-right:10px; margin-top:5px;">
    			<p name="Content" style="float:right; font-size:15px;"><%=hmap.get("ProContent") %></p>
    			</div>
@@ -133,54 +149,9 @@
     	
     </div>
     <%} %>
+    </div>
     
     
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
-    </div>
-    <!-- <div class="col-sm-1"></div> -->
-  </div>
-  <div class="row">
-    <!-- <div class="col-sm-1"></div> -->
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
-    </div>
-    <!-- <div class="col-sm-1"></div> -->
-  </div>
-  <div class="row">
-   <!--  <div class="col-sm-4" style="background-color:lavender;width:420px; height:380px;">.col-sm-4</div>
-    <div class="col-sm-4" style="background-color:lavenderblush;width:420px; height:380px;">.col-sm-4</div>
-    <div class="col-sm-4" style="background-color:lavender;width:420px; height:380px;">.col-sm-4</div>  -->
-    <!--  <div class="col-sm-1"></div> -->
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavender; height:50%;">
-    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
-    </div>
-    <div class="col-sm-3 product" style="background-color:lavenderblush; height:50%;">
-    	<div class="content" style="background-color:#FFFFFF; height:300px; width:100%"></div>
-    </div>
-    <!-- <div class="co1sl-sm-1"></div> --> 
-  </div>	
 
 </div>
 
@@ -199,26 +170,7 @@
 	
 	
 	
-	function heartyn(){
-		
-		var ctn = 2;
-		
-			if(ctn%2==0){
-				
-				heart.src="../images/emptyheart.png";
-				alert("관심상품 취소");
-			
-			}else{
-				
-				heart.src="../images/fullheart.png";
-				
-				
-			}
-			
-			ctn++;
-			
-		
-	} 
+	
 </script>
 
 </body>

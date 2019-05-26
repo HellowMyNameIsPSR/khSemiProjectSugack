@@ -378,44 +378,122 @@
 									<li>
 										<table class="category" style="width:800px;">
 											<tr>
-												<td><a href="#">케이스</a></td>
-												<td><a href="#">인테이어 소품</a></td>
-												<td><a href="#">의류</a></td>
-												<td><a href="#">육아, 아동</a></td>
+												<td>
+													<input type="hidden" value="1">
+													<a class="categoryOne" href="#">케이스</a>
+												</td>
+												<td>
+													<input type="hidden" value="2">
+													<a class="categoryOne" href="#">인테이어 소품</a>
+												</td>
+												<td>
+													<input type="hidden" value="3">
+													<a class="categoryOne" href="#">의류</a>
+												</td>
+												<td>
+													<input type="hidden" value="4">
+													<a class="categoryOne" href="#">육아, 아동</a>
+												</td>
 											</tr>
 											<tr>
-												<td><a href="#">가구</a></td>
-												<td><a href="#">여성 수제화</a></td>
-												<td><a href="#">속옷, 양말류</a></td>
-												<td><a href="#">주방, 생활</a></td>
+												<td>
+													<input type="hidden" value="5">
+													<a class="categoryOne" href="#">가구</a>
+												</td>
+												<td>
+													<input type="hidden" value="6">
+													<a class="categoryOne" href="#">여성 수제화</a>
+												</td>
+												<td>
+													<input type="hidden" value="7">
+													<a class="categoryOne" href="#">속옷, 양말류</a>
+												</td>
+												<td>
+													<input type="hidden" value="8">
+													<a class="categoryOne" href="#">주방, 생활</a>
+												</td>
 											</tr>
 											<tr>
-												<td><a href="#">귀걸이</a></td>
-												<td><a href="#">남성 수제화</a></td>
-												<td><a href="#">기타 섬유, 퀄트</a></td>
-												<td><a href="#">반려동물 용품</a></td>
+												<td>
+													<input type="hidden" value="9">
+													<a class="categoryOne" href="#">귀걸이</a>
+												</td>
+												<td>
+													<input type="hidden" value="10">
+													<a class="categoryOne" href="#">남성 수제화</a>
+												</td>
+												<td>
+													<input type="hidden" value="11">
+													<a class="categoryOne" href="#">기타 섬유, 퀄트</a>
+												</td>
+												<td>
+													<input type="hidden" value="12">
+													<a class="categoryOne" href="#">반려동물 용품</a>
+												</td>
 											</tr>
 											<tr>
-												<td><a href="#">반지</a></td>
-												<td><a href="#">도자기</a></td>
-												<td><a href="#">가방, 파우치</a></td>
-												<td><a href="#">문구, 팬시</a></td>
+												<td>
+													<input type="hidden" value="13">
+													<a class="categoryOne" href="#">반지</a>
+												</td>
+												<td>
+													<input type="hidden" value="14">
+													<a class="categoryOne" href="#">도자기</a>
+												</td>
+												<td>
+													<input type="hidden" value="15">
+													<a class="categoryOne" href="#">가방, 파우치</a>
+												</td>
+												<td>
+													<input type="hidden" value="16">
+													<a class="categoryOne" href="#">문구, 팬시</a>
+												</td>
 											</tr>
 											<tr>
-												<td><a href="#">목걸이</a></td>
-												<td><a href="#">전자기기 관련</a></td>
-												<td><a href="#">패션 잡화</a></td>
-												<td><a href="#">시계</a></td>
+												<td>
+													<input type="hidden" value="17">
+													<a class="categoryOne" href="#">목걸이</a>
+												</td>
+												<td>
+													<input type="hidden" value="18">
+													<a class="categoryOne" href="#">전자기기 관련</a>
+												</td>
+												<td>
+													<input type="hidden" value="19">
+													<a class="categoryOne" href="#">패션 잡화</a>
+												</td>
+												<td>
+													<input type="hidden" value="20">
+													<a class="categoryOne" href="#">시계</a>
+												</td>
 											</tr>
 											<tr>
-												<td><a href="#">팔찌</a></td>
-												<td><a href="#">지갑</a></td>
-												<td><a href="#">그외 악세서리</a>></td>
-												<td><a href="#">인형, 장난감</a></td>
+												<td>
+													<input type="hidden" value="21">
+													<a class="categoryOne" href="#">팔찌</a>
+												</td>
+												<td>
+													<input type="hidden" value="22">
+													<a class="categoryOne" href="#">지갑</a>
+												</td>
+												<td>
+													<input type="hidden" value="23">
+													<a class="categoryOne" href="#">그외 악세서리</a>
+												</td>
+												<td>
+													<input type="hidden" value="24">
+													<a class="categoryOne" href="#">인형, 장난감</a>
+												</td>
 											</tr>
 											<tr>
-												<td><a href="#">공예</a></td>
-												<td><a href="#">기타</a></td>
+												<td>
+													<input type="hidden" value="25">
+													<a class="categoryOne" href="#">공예</a>
+												</td>
+												<td>
+													<input type="hidden" value="26">
+													<a class="categoryOne" href="#">기타</a>
+												</td>
 												<td></td>
 												<td></td>
 											</tr>
@@ -465,8 +543,35 @@
 			
 		})
 		
+		$(function(){
+			$(".categoryOne").click(function(){
+				cid = $(this).parent().children().eq(0).val();
+				console.log(cid);
+				
+				$(this).attr("href", "<%=request.getContextPath()%>/selectCategoryList.pro?cid=" + cid);
+				
+			});
+		});
 		
 		
-		</script>
+	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

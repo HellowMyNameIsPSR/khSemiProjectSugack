@@ -23,7 +23,6 @@ public class SelectExchangerCountServlet extends HttpServlet {
 		String memberId = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberId());
 		
 		ArrayList<Integer> list = new WorkService().exchangeCount(memberId);
-		System.out.println("list : " + list);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(list, response.getWriter());

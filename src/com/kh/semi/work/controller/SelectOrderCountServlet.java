@@ -24,7 +24,6 @@ public class SelectOrderCountServlet extends HttpServlet {
 		String memberId = String.valueOf(((Member)(request.getSession().getAttribute("loginUser"))).getMemberId());
 		
 		ArrayList<Integer> list = new WorkService().orderCount(memberId);
-		System.out.println("list : " + list);
 		
 		
 		response.setContentType("application/json");

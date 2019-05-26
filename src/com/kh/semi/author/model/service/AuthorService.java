@@ -7,6 +7,7 @@ import static com.kh.semi.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.semi.author.model.dao.AuthorDao;
 import com.kh.semi.author.model.vo.ApplyHistory;
@@ -147,6 +148,7 @@ public class AuthorService {
 		return result;
 	}//end method
 
+
 	//1차 재신청 저장
 	public int insertReApplyFile(int memberId, ArrayList<PicFile> fileList) {
 		Connection con = getConnection();
@@ -168,6 +170,26 @@ public class AuthorService {
 		close(con);
 		return resultFile;
 	} //end method
+
+	public ArrayList<HashMap<String, Object>> selectSalesForMain(int mid) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new AuthorDao().selectSalesForMain(con, mid);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectSalesForMainFund(int mid) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new AuthorDao().selectSalesForMainFund(con, mid);
+		
+		close(con);
+		
+		return list;
+	}
 	
 } //end class
 

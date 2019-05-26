@@ -143,7 +143,9 @@ hr{
          <input type="hidden" class="input" value="<%=hmap.get("fcStart")%>">
          <input type="hidden" class="input2" value="<%=hmap.get("fcFinish")%>">
 
+
          <h7>발송예정일은 <%=hmap.get("deliDate") %>&nbsp;입니다. <br> 배송비:&nbsp;<label id="deliPrice"><%=hmap.get("deliPrice") %></label>원</h7>
+
         
          <form method="post" id="buy">
              <input type="hidden" id="workId" name="workId" value="<%=work.get("workId")%>">
@@ -259,6 +261,7 @@ hr{
        
        var d2= $(".input2").val();
        console.log(d2);
+
 
        var d3 = d2-d1;
        console.log(d3);

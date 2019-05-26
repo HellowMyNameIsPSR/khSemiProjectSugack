@@ -13,25 +13,22 @@
 <style>
 	.row {
 		width: 100%;
-		border: 2px solid red;
-	}
-	#writeTable {
-		width: 80%;
-		
 	}
 	#writeTable th {
 		text-align:center;
+		width: 20%;
+		background: skyblue;
 	}
 </style>
 </head>
 
 
 <body>
-	<div class="container">
 	<%@ include file = "cutomerCenterMenubar.jsp" %>
+	<div class="container">
 		<div class="row">
 		<form action="<%= request.getContextPath()%>/cCenterNoticeWrite.bo">
-			<table class="table-bordered table-hover" id="writeTable" style="margin:0 auto">
+			<table class="table-bordered table-hover" id="writeTable" style="margin: 0 auto; width: 100%;">
 				<tr>
 				<th>작성 게시판 유형</th>
 					<td>
@@ -73,6 +70,6 @@
 	<script>
  		 document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
 	</script>
-
+	<%@ include file="/views/main/footer.jsp" %>
 </body>
 </html>

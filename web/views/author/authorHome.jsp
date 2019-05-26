@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" %>
+    pageEncoding="UTF-8" import="com.kh.semi.member.model.vo.*"%>
+<%
+	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,13 +126,6 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2">
-								<h3>판매 매출 통계</h3>
-								<div style="width:97%;" class="summaryDiv" id="chart_div" onClick = " location.href='saleStatistics.jsp'"></div>
-							</td>
-							
-						</tr>
-						<tr>
 							<td>
 								<h3>공지사항</h3>
 								<div class="summaryDiv" onclick="ccNoticeBoard()">
@@ -160,6 +156,21 @@
 								</div>
 							</td>
 						</tr>
+						<tr>
+							<td colspan="2">
+								<h3>판매 매출 통계</h3>
+								<div style="width:97%;" class="summaryDiv" id="chart_div"></div>
+							</td>
+							
+						</tr>
+						<tr>
+							<td colspan="2">
+								<h3>펀딩 매출 통계</h3>
+								<div style="width:97%;" class="summaryDiv" id="chart_div2"></div>
+							</td>
+							
+						</tr>					
+						
 					</table>
 					
 				</section>
@@ -239,15 +250,18 @@
 		google.charts.load('current', {'packages':['corechart']});
 		google.charts.setOnLoadCallback(chart);
 		function chart(){
+			var mid = <%=loginUser.getMemberId()%>;
+			
 			var option = {
-					title:'월별 매출',
+					title:'최근매출',
 					vAxis:{title:"원"},
-					hAxis:{title:"년월"},
+					hAxis:{title:"일"},
 					legend: { position: "none" }
 					};
 			var chartData;
 			$.ajax({
-				url:"<%=request.getContextPath()%>/selectSalesForMonth.at",
+				url:"<%=request.getContextPath()%>/selectSalesForMain.at",
+				data:{mid:mid},
 				async : false,
 				type:"get",
 				success:function(data){
@@ -256,6 +270,31 @@
 				}
 			});
 			var chart = new google.visualization.ColumnChart(document.querySelector('#chart_div'));
+			chart.draw(chartData, option);
+		}
+		
+		google.charts.setOnLoadCallback(chart2);
+		function chart2(){
+			var mid = <%=loginUser.getMemberId()%>;
+			
+			var option = {
+					title:'최근매출',
+					vAxis:{title:"원"},
+					hAxis:{title:"일"},
+					legend: { position: "none" }
+					};
+			var chartData;
+			$.ajax({
+				url:"<%=request.getContextPath()%>/selectSalesForMainFund.at",
+				data:{mid:mid},
+				async : false,
+				type:"get",
+				success:function(data){
+					console.log(data);
+					chartData = new google.visualization.DataTable(data);	
+				}
+			});
+			var chart = new google.visualization.ColumnChart(document.querySelector('#chart_div2'));
 			chart.draw(chartData, option);
 		}
 	</script>		

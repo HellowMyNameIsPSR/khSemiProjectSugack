@@ -101,6 +101,9 @@
 					<textarea class="form-control" id="comments" name="comments" rows="5" readonly><%= rm.getApplyContent() %></textarea>
 				</td>
 			</tr> 
+			<tr>			
+				<td colspan="4"><a href="<%=request.getContextPath()%>/fileDown.ad?name=<%= rm.getBrandName()%>"><%= rm.getBrandName() %>님의 입점신청 서류 다운로드</a></td>
+			</tr>
 			</table>
 			</div>
 			
@@ -191,6 +194,7 @@
 				</div>
 			</div>
 		<%@ include file= "/views/admin/adminMenubarServlet.jsp" %>
+		
 	</div>
 
 
@@ -234,8 +238,6 @@
 					type:"get",
 					success:function(data){
 						alert("거부처리 되었습니다");
-						//location.reload("views/admin/viewReqMemList.jsp");
-						//location.href= "views/admin/adminHome.jsp";
 						location.href= "views/admin/adminHome.jsp";
 
 						
@@ -258,9 +260,6 @@
 						success:function(data){
 							alert("승인 되었습니다");
 							location.reload();
-							//location.href= "views/admin/adminHome.jsp";
-
-
 						}
 					})
 				       

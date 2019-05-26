@@ -284,6 +284,67 @@ public class ProService {
 	}
 
 
+	public ArrayList<HashMap<String, Object>> selectCategoryList(int cid) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String,Object>> list = new ProDao().selectCategoryList(con, cid);
+		
+		close(con);
+		
+		return list;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> selectProductListPop(String cid) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new ProDao().selectProductListPop(con, cid);
+		
+		close(con);
+		
+		System.out.println("인기순 정렬 Service : " + list);
+		return list;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> selectProductListNew(String cid) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new ProDao().selectProductListNew(con, cid);
+		close(con);
+
+		return list;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> selectProductListLow(String cid) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new ProDao().selectProductListLow(con, cid);
+		close(con);
+
+		return list;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> selectProductListHigh(String cid) {
+		Connection con = getConnection();
+		ArrayList<HashMap<String,Object>> list = new ProDao().selectProductListHigh(con, cid);
+		close(con);
+		
+		return list;
+	}
+
+
+	public ArrayList<HashMap<String, Object>> selectPic(int workId) {
+		Connection con = getConnection();
+		 
+		ArrayList<HashMap<String, Object>> wpList = new ProDao().selectPic(con, workId);
+		
+		close(con);
+		
+		
+		return wpList;
+	}
+
+
 	
 
 }

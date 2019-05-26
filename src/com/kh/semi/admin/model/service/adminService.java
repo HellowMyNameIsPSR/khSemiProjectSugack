@@ -12,6 +12,8 @@ import com.kh.semi.admin.model.vo.SearchFunding;
 import com.kh.semi.admin.model.vo.SearchMember;
 import com.kh.semi.admin.model.vo.SearchProduct;
 import com.kh.semi.author.model.vo.Author;
+import com.kh.semi.work.model.dao.WorkDao;
+import com.kh.semi.work.model.vo.PageInfo;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 
@@ -199,15 +201,15 @@ public class adminService {
 	public int reqDeny(String apply1Stat, int memberId) {
 		Connection con = getConnection();
 		
-		int result1 = new adminDao().reqDeny(con, apply1Stat, memberId);
-		int result2 = 0;
+		int step1 = new adminDao().reqDeny(con, apply1Stat, memberId);
+		int step2 = 0;
 		int result = 0;
 		
-		if(result1 > 0) {
-			result2 = new adminDao().reqDate(con, memberId);
-			if(result2 > 0) {
+		if(step1 > 0) {
+			step2 = new adminDao().reqStatus(con, apply1Stat, memberId);					
+			if(step2 > 0) {
 				apply1Stat = "1차" + apply1Stat;
-				result = new adminDao().reqStatus(con, apply1Stat, memberId);
+				result = new adminDao().reqDate(con, memberId);
 			}
 			commit(con);
 		}else {
@@ -318,6 +320,71 @@ public class adminService {
 		close(con);
 		
 		return list;
+	}
+
+
+
+	public String fileName(String aName) {
+		Connection con = getConnection();
+		
+		String fileName = new adminDao().fileName(con, aName);
+		
+		close(con);
+				
+		return fileName;
+	}
+
+
+
+	public String originName(String aName) {
+		Connection con = getConnection();
+		
+		String originName = new adminDao().originName(con, aName);
+		
+		close(con);
+		
+		return originName;
+	}
+
+
+
+	public int exchangeListCount(String memberId) {
+		Connection con = getConnection();
+		
+		int listCount = new adminDao().exchangeListCount(con, memberId);
+		
+		close(con);
+		
+		return listCount;
+	}
+
+
+
+	public ArrayList<HashMap<String, Object>> selectExchangeList(PageInfo pi, String memberId) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list  = new adminDao().selectExchangeList(con, pi, memberId);
+		
+		close(con);
+		
+		return list;
+	}
+
+
+
+	public int updateExchage(String refundStat, String refundId) {
+		Connection con = getConnection();
+		
+		int result = new adminDao().updateExchage(con, refundStat, refundId);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		close(con);
+		
+		return result;
 	}
 
 		

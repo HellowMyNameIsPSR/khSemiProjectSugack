@@ -31,13 +31,25 @@ public class SelectProListLowServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<HashMap<String,Object>> list = new ProService().selectProductListLow();
+		String cid = request.getParameter("cid");
+		ArrayList<HashMap<String,Object>> list = null;
+		
+		if(cid == null) {
+			list = new ProService().selectProductListLow();
+		}else {
+			list = new ProService().selectProductListLow(cid);
+		}
+		
 		
 		System.out.println("listServlet : "+ list);
 		
 		if(list != null) {
 			request.setAttribute("list", list);
 			request.getRequestDispatcher("views/product/products.jsp").forward(request, response);
+		}else if (list != null && cid != null){
+			request.setAttribute("list", list);
+			request.setAttribute("cid", Integer.parseInt(cid));
+			request.getRequestDispatcher("views/product/categoryProduct.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg", "알수없는 오류");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

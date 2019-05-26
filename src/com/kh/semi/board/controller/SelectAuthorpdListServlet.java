@@ -1,6 +1,7 @@
 package com.kh.semi.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.board.model.service.AuthorPageSerview;
+import com.kh.semi.board.model.vo.AuthorPageAttachmrnt;
+import com.kh.semi.board.model.vo.AuthorWorkList;
+import com.kh.semi.board.model.vo.AuthorWorkPic;
 
 /**
  * Servlet implementation class SelectAuthorpdListServlet
@@ -35,14 +39,32 @@ public class SelectAuthorpdListServlet extends HttpServlet {
 		int memberId  =Integer.parseInt(request.getParameter("memberId")); 
 		
 		
-		HashMap<String,Object> hmap = new AuthorPageSerview().selectAuthorPdList(memberId); 
+		ArrayList<HashMap<String, Object>>list = new AuthorPageSerview().selectAuthorPdList(memberId);
+		
+		/*AuthorWorkList w = (AuthorWorkList) hmap.get("AuthorWorkList");
+		
+		ArrayList<AuthorWorkPic> fileList = (ArrayList<AuthorWorkPic>) hmap.get("AuthorWorkPic");
+	*/	
+	/*	System.out.println("작품리스트 사진" +fileList );
+		
+		System.out.println("작품리스트 리스트" + w);
+	*/	
 		
 		
 		
+		String view =""; 
 		
+		if(list != null) {
+			view = "views/tour/proDuct.jsp";
+			request.setAttribute("list", list);
 		
+		}else {
+			
+		}
 		
+		request.getRequestDispatcher(view).forward(request, response);
 		
+		System.out.println("view값:" +view);
 		
 		
 	}
