@@ -91,15 +91,20 @@
 					<table class="readTable" style="border:1px solid #b3b3cc; text-align:center; width:100%;">
 						<tr>
 							<th><label class="form-control" style="text-align:center;">차수</label></th>
-							<th><label class="form-control" style="text-align:center;">상태</label></th>
+							<th colspan="2"><label class="form-control" style="text-align:center;">상태</label></th>
 						</tr>
 						<tr>
 							<td>1차</td>
-							<td><%= applyHistory.get(index).getApplyStat1() %></td>
+							<td id="applystate1"><%= applyHistory.get(index).getApplyStat1() %></td>
+							<% if(applyHistory.get(index).getApplyStat1().equals("거부")) { %>
+								<td><button id="reApply1" type="button" class="all-btn pull-right " 
+											style="background:red; color:white;"
+											data-toggle="modal" data-target="#myModal">재신청</button></td>
+							<% } %>
 						</tr>
 						<tr>
 							<td>2차</td>
-							<td><%= applyHistory.get(index).getApplyStat2() %></td>
+							<td colspan="2"><%= applyHistory.get(index).getApplyStat2() %></td>
 						</tr>
 					</table>
 				</td>
@@ -274,9 +279,35 @@
 	<input type="file" name="declaration" id="declaration" onchange="loadFile(this, 3);" style="overflow:hidden;opacity:0;">
 </div>
 <%@ include file="../main/footer.jsp" %>
-</form>	
+</form>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          <h4 class="modal-title">재 신청 파일 전송</h4>
+        </div>
+        <div class="modal-body">
+        <form action="<%= request.getContextPath() %>/insertReApply.at" method="post" encType="multipart/form-data">
+	       	  <input type="text" value="1차 입점 서류 첨부" class="form-control" id="applyFileArea" readonly>
+	       	  <input type="file" name="attachApplyFile" onchange="uploadApplyFile(this);"
+	       	  	 	 id="attachApplyFile" style="overflow:hidden;opacity: 0;">
+	        </div>
+	        <div class="modal-footer">
+	       	  <button type="submit" class="all-btn">전송하기</button>
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+       	 </form>
+      </div>
+    </div>
+  </div>	
 	<script>
 		$(function(){
+			$("#applyFileArea").click(function(){ //1차 입점 서류 버튼 클릭
+	   	  		console.log("1차 입점 서류 버튼 클릭");
+	   	  		$("#attachApplyFile").click();
+	   	  	});
 			$("#file").hide();
 			$("#businessLisenceArea").click(function(){
 				$("#businessLicense").click();
@@ -287,7 +318,20 @@
 			$("#declarationArea").click(function(){
 				$("#declaration").click();
 			});
+			$("#reApply1").click(function(){
+				
+			});
 		});
+		function uploadApplyFile(value){
+	  		if(value.files && value.files[0]){
+	  			var reader = new FileReader();
+	  			reader.onload = function(e) {
+	  				$("#applyFileArea").val($("#attachApplyFile").val());
+	  				$("#applyFileArea").attr("src", e.target.result);
+	  			}
+	  			reader.readAsDataURL(value.files[0]);
+	  		} //end if
+	  	}//end method
 		function loadFile(value, num) {
 			if(value.files && value.files[0]){
 				var reader = new FileReader();

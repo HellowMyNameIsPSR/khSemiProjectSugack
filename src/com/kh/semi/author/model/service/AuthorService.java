@@ -146,6 +146,28 @@ public class AuthorService {
 		close(con);
 		return result;
 	}//end method
+
+	//1차 재신청 저장
+	public int insertReApplyFile(int memberId, ArrayList<PicFile> fileList) {
+		Connection con = getConnection();
+		int resultFile = new AuthorDao().insertReApply1File(con, memberId, fileList);
+		int resultModyApply = 0;
+		if(resultFile > 0) {
+			System.out.println("1차 입점 서류 재 저장 성공!");
+			resultModyApply = new AuthorDao().upDateAuthorApplyState1(con, memberId);
+		} else{
+			System.out.println("1차 입점 서류 재 저장 실패!");
+		}
+		if(resultModyApply > 0) {
+			System.out.println("1차 신청 상태 변경 완료! ");
+			commit(con);
+		} else {
+			System.out.println("1차 신청 상태 변경 실패! ");
+			rollback(con);
+		}
+		close(con);
+		return resultFile;
+	} //end method
 	
 } //end class
 

@@ -357,6 +357,48 @@ public class AuthorDao {
 		}
 		return result;
 	}
+	
+	//1차 신청 정보 업데이트- 재신청
+	public int upDateAuthorApplyState1(Connection con, int memberId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateAuthorApplyState1");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "재신청");
+			pstmt.setInt(2, memberId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	} //end method
+	
+	public int insertReApply1File(Connection con, int memberId, ArrayList<PicFile> fileList) {
+		PreparedStatement pstmt = null;
+		int resultFile = 0;
+		String query = prop.getProperty("insertApply1File");
+		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				pstmt = con.prepareStatement(query);
+				pstmt.setString(1, fileList.get(i).getOriginName());
+				pstmt.setString(2, fileList.get(i).getChangeName());
+				pstmt.setString(3, fileList.get(i).getFilePath());			
+				pstmt.setString(4, "재-1차신청서류");
+				pstmt.setInt(5, memberId);
+				resultFile += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return resultFile;
+	}
+
 
 } //end class
 

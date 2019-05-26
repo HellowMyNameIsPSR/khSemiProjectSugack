@@ -42,6 +42,8 @@ public class InsertEnroll2FundServlet extends HttpServlet {
 		funding.setFinishDate(Date.valueOf(request.getParameter("fcFinish")));
 		funding.setCooperation("N");
 		
+		int memberId = ((Member) request.getSession().getAttribute("loginUser")).getMemberId();
+		
 		//현재 날짜 구하기
 		Calendar cal = new GregorianCalendar();
 		Date nowDate = new Date(cal.getTimeInMillis());
@@ -55,8 +57,15 @@ public class InsertEnroll2FundServlet extends HttpServlet {
 		
 		int result = new FundingService().updateFunding(funding);
 		if(result > 0) {
-			System.out.println("성공!");
-			response.sendRedirect("views/author/manageFundGoodsHistory.jsp");
+			System.out.println("2차 파일 성공!");
+			int resultFus = new FundingService().insertFusStep1(funding, memberId);
+			if(resultFus > 0) {
+				System.out.println("FUS 기본값 저장 성공!");
+				response.sendRedirect("views/author/manageFundGoodsHistory.jsp");
+			} else {
+				System.out.println("FUS 기본값 저장 실패!");
+			}
+			
 		} else {
 			System.out.println("실패!");
 			request.setAttribute("msg", "펀딩 작품 추가정보 등록에 실패했습니다.");

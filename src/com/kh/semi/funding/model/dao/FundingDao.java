@@ -877,6 +877,26 @@ PreparedStatement pstmt = null;
 		return listCount;
 	}
 
+	public int insertFusStep1(Connection con, Funding funding, int memberId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertFusStep1");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberId);
+			pstmt.setInt(2, funding.getWorkId());
+			pstmt.setInt(3, funding.getWorkId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	} //end method
+
 
 } //end class
 
