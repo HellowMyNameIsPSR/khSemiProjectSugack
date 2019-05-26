@@ -48,7 +48,7 @@ public class FundingServiceTest {
 		fund.setMinVoo(200);
 		fund.setFunDate(7);
 		fund.setFundStatus("대기");
-		fund.setWorkId(Integer.parseInt("17907"));
+		fund.setWorkId(Integer.parseInt("17002"));
 		fund.setDeliDate(Date.valueOf("2019-07-05"));
 		fund.setStartDate(Date.valueOf("2019-06-10"));
 		fund.setFinishDate(Date.valueOf("2019-06-21"));
@@ -120,6 +120,11 @@ public class FundingServiceTest {
 	@Test
 	public void testGetListCount() {
 		assertEquals(fundingService.getListCount(8502, "진행중"), 2);
+	}
+	
+	@Test
+	public void testInsertFusStep1() {
+		assertEquals(fundingService.insertFusStep1(fund, 8502), 1);
 	}
 	
 	

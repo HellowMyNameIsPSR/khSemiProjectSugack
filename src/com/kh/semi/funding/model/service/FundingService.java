@@ -230,5 +230,16 @@ public class FundingService {
 		close(con);
 		return listCount;
 	}
+	public int insertFusStep1(Funding funding, int memberId) {
+		Connection con = getConnection();
+		int result = new FundingDao().insertFusStep1(con, funding, memberId);
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		close(con);
+		return result;
+	}
 	
 } //end class

@@ -116,7 +116,7 @@ hr{
   <div class="container">
    
     <!-- Heading Row -->
-    <% for(int i=0; i<list.size(); i++){
+    <% for(int i=0; i<1; i++){
                HashMap<String,Object> hmap = list.get(i);
                
       %>
@@ -259,21 +259,22 @@ hr{
        var d1= $(".input").val();
        console.log(d1);
        
-       
        var d2= $(".input2").val();
        console.log(d2);
 
 
-    	var d3 = d2-d1;
-    	console.log(d3);
-    	
-    	var arr1 = d1.split('-');
-    	var arr2 = d2.split('-');
-    	var dat1 = new Date('2019', arr1[1], arr1[2]);
-    	var dat2 = new Date('2019', arr2[1], arr2[2]);
-		
-    	var diff = dat2 - dat1;
-    	var currDay = 24 * 60 * 60 * 1000;   //시 * 분 * 초 * 밀리세컨
+       var d3 = d2-d1;
+       console.log(d3);
+       
+       var arr1 = d1.split('-');
+       var arr2 = d2.split('-');
+       console.log(arr2[0].substring(2,4))
+       var dat1 = new Date(arr1[0], arr1[1], arr1[2]);
+       var dat2 = new Date(arr2[0].substring(2,4), arr2[1], arr2[2]);
+      // var dat2 = new Date(arr2[0], arr2[1], arr2[2]);
+      
+       var diff = dat2 - dat1;
+       var currDay = 24 * 60 * 60 * 1000;   //시 * 분 * 초 * 밀리세컨
 
       var result =  parseInt(diff/currDay);
        
